@@ -30,7 +30,7 @@ El sitio es completamente estatico (HTML + CSS) y responsivo, adaptandose a disp
   - Eventos — Proximas actividades con fecha.
   - Contacto — Informacion de contacto y formulario.
   - Footer — Enlaces rapidos y redes sociales.
-- **Paleta de colores** — Azul institucional (#1a3a5c) con detalles en dorado (#c9a84c).
+- **Paleta de colores** — Verde institucional (#2d6a4f) con detalles en dorado (#c9a84c).
 
 ## Tecnologias
 
