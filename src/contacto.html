@@ -39,21 +39,21 @@
             <div class="container">
                 <div class="contact-wrapper">
                     <div class="contact-info">
-                        <div class="contact-item">
+                        <div class="contact-item" data-animate="fade-in-left">
                             <span class="contact-icon">📍</span>
                             <div>
                                 <h4>Dirección</h4>
                                 <p>Calle Principal #123, Ciudad</p>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item" data-animate="fade-in-left">
                             <span class="contact-icon">📞</span>
                             <div>
                                 <h4>Teléfono</h4>
                                 <p>(+1) 555-1234</p>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item" data-animate="fade-in-left">
                             <span class="contact-icon">✉️</span>
                             <div>
                                 <h4>Email</h4>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form">
+                    <form class="contact-form" data-animate="fade-in-right">
                         <input type="text" placeholder="Tu Nombre" required>
                         <input type="email" placeholder="Tu Email" required>
                         <input type="text" placeholder="Asunto">
@@ -109,6 +109,7 @@
             document.querySelector('.nav-links').classList.toggle('active');
         });
     </script>
+    <script src="js/animations.js"></script>
 </body>
 
 </html>

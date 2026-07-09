@@ -637,6 +637,164 @@ body {
     opacity: 0.5;
 }
 
+/* ========== ANIMACIONES ========== */
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* Clases de animación base */
+.animate {
+    opacity: 0;
+}
+
+.animate.fade-in-up {
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+.animate.fade-in-down {
+    animation: fadeInDown 0.7s ease forwards;
+}
+
+.animate.fade-in-left {
+    animation: fadeInLeft 0.7s ease forwards;
+}
+
+.animate.fade-in-right {
+    animation: fadeInRight 0.7s ease forwards;
+}
+
+.animate.scale-in {
+    animation: scaleIn 0.6s ease forwards;
+}
+
+/* Retrasos escalonados */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* Hero entrance */
+.hero-content.animate-hero h1 {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-content.animate-hero p {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.hero-content.animate-hero .hero-buttons {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+/* Page header entrance */
+.page-header.animate-header h1 {
+    opacity: 0;
+    animation: fadeInDown 0.7s ease forwards;
+}
+
+.page-header.animate-header p {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease 0.2s forwards;
+}
+
+/* Hover pulse en cards */
+.schedule-card:hover,
+.pastor-card:hover,
+.value-item:hover {
+    animation: pulse 0.6s ease;
+}
+
+/* Social icons hover mejorado */
+.social-icon:hover {
+    animation: pulse 0.6s ease;
+}
+
+/* Botón submit con shimmer */
+.btn-primary[type="submit"] {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 25%, var(--accent) 50%, var(--accent-hover) 75%, var(--accent) 100%);
+    background-size: 200% 100%;
+    transition: all var(--transition);
+}
+
+.btn-primary[type="submit"]:hover {
+    animation: shimmer 1.5s linear infinite;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .menu-toggle {
