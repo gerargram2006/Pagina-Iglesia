@@ -5,30 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horarios - Asamblea de Dios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header class="page-header">
-        <div class="container">
-            <nav class="navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
                 <a href="index.html" class="logo">
                     <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="logo-img">
                     <span class="logo-text">Asamblea de Dios</span>
                 </a>
-                <button class="menu-toggle" aria-label="Menú">☰</button>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="horarios.html">Horarios</a></li>
-                    <li><a href="quienes-somos.html">Quiénes Somos</a></li>
-                    <li><a href="pastores.html">Pastores</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto nav-links">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="horarios.html">Horarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="quienes-somos.html">Quiénes Somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pastores.html">Pastores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container page-header-title">
             <h1>Horarios de Culto</h1>
             <p>Te esperamos en nuestras reuniones semanales</p>
         </div>
@@ -37,21 +42,27 @@
     <main>
         <section class="section">
             <div class="container">
-                <div class="schedule-grid">
-                    <div class="schedule-card" data-animate="fade-in-up">
-                        <div class="schedule-day">Domingo</div>
-                        <div class="schedule-time">10:00 AM - 12:00 PM</div>
-                        <div class="schedule-name">Culto de Alabanza y Adoración</div>
+                <div class="row g-4">
+                    <div class="col-12 col-md-4">
+                        <div class="schedule-card" data-animate="fade-in-up">
+                            <div class="schedule-day">Domingo</div>
+                            <div class="schedule-time">10:00 AM - 12:00 PM</div>
+                            <div class="schedule-name">Culto de Alabanza y Adoración</div>
+                        </div>
                     </div>
-                    <div class="schedule-card" data-animate="fade-in-up">
-                        <div class="schedule-day">Miércoles</div>
-                        <div class="schedule-time">7:00 PM - 8:30 PM</div>
-                        <div class="schedule-name">Estudio Bíblico y Oración</div>
+                    <div class="col-12 col-md-4">
+                        <div class="schedule-card" data-animate="fade-in-up">
+                            <div class="schedule-day">Miércoles</div>
+                            <div class="schedule-time">7:00 PM - 8:30 PM</div>
+                            <div class="schedule-name">Estudio Bíblico y Oración</div>
+                        </div>
                     </div>
-                    <div class="schedule-card" data-animate="fade-in-up">
-                        <div class="schedule-day">Sábado</div>
-                        <div class="schedule-time">6:00 PM - 8:00 PM</div>
-                        <div class="schedule-name">Grupos de Jóvenes</div>
+                    <div class="col-12 col-md-4">
+                        <div class="schedule-card" data-animate="fade-in-up">
+                            <div class="schedule-day">Sábado</div>
+                            <div class="schedule-time">6:00 PM - 8:00 PM</div>
+                            <div class="schedule-name">Grupos de Jóvenes</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,26 +71,32 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="footer-logo">
-                    <p>Asamblea de Dios — Una iglesia con propósito y visión.</p>
+            <div class="row g-4 footer-content">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-brand">
+                        <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="footer-logo">
+                        <p>Asamblea de Dios — Una iglesia con propósito y visión.</p>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <h4>Enlaces</h4>
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="horarios.html">Horarios</a></li>
-                        <li><a href="quienes-somos.html">Quiénes Somos</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                    </ul>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-links">
+                        <h4>Enlaces</h4>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="horarios.html">Horarios</a></li>
+                            <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                            <li><a href="contacto.html">Contacto</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="footer-social">
-                    <h4>Síguenos</h4>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon">📘</a>
-                        <a href="#" class="social-icon">📸</a>
-                        <a href="#" class="social-icon">▶️</a>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-social">
+                        <h4>Síguenos</h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">📘</a>
+                            <a href="#" class="social-icon">📸</a>
+                            <a href="#" class="social-icon">▶️</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,11 +106,7 @@
         </div>
     </footer>
 
-    <script>
-        document.querySelector('.menu-toggle')?.addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/animations.js"></script>
 </body>
 
