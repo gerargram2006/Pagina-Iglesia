@@ -208,11 +208,6 @@ body {
     pointer-events: none;
 }
 
-.page-header .container {
-    position: relative;
-    z-index: 1;
-}
-
 .page-header h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3rem);
@@ -505,11 +500,6 @@ body {
    .pastor-role     - Cargo del pastor (dorado)
    .pastor-desc     - Breve descripcion (gris)
    ========================================================================== */
-
-.pastors-grid {
-    max-width: 700px;
-    margin: 0 auto;
-}
 
 .pastor-card {
     background: var(--white);
@@ -1009,15 +999,6 @@ body {
     animation: fadeInUp 0.7s ease 0.2s forwards;
 }
 
-/* --- Hover pulse en cards ---
-   Efecto sutil de escala al pasar el mouse sobre tarjetas. */
-
-.schedule-card:hover,
-.pastor-card:hover,
-.value-item:hover {
-    animation: pulse 0.6s ease;
-}
-
 /* --- Boton submit con shimmer ---
    Gradiente animado que se mueve de izq a derecha al hacer hover.
    Solo aplica al boton tipo submit del formulario de contacto. */
@@ -1025,13 +1006,10 @@ body {
 .btn-primary[type="submit"] {
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 25%, var(--accent) 50%, var(--accent-hover) 75%, var(--accent) 100%);
     background-size: 200% 100%;
-    transition: all var(--transition);
 }
 
 .btn-primary[type="submit"]:hover {
     animation: shimmer 1.5s linear infinite;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
 }
 
 /* ==========================================================================

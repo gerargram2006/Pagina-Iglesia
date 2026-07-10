@@ -202,6 +202,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const btn = form.querySelector('button[type="submit"]');
             const feedback = form.querySelector('.form-feedback');
 
+            if (!btn) return;
+
             // Estado: enviando
             btn.disabled = true;
             btn.textContent = 'Enviando...';
