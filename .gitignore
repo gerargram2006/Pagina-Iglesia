@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+dist/
+.env
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Archivos de Sistema
+Thumbs.db
+.DS_Store
+*.log

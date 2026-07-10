@@ -1,6 +1,6 @@
 # Iglesia Asamblea de Dios — Sitio Web
 
-Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informativa disenada para conectar a la comunidad con las actividades, horarios de culto, eventos y ensenanzas de la iglesia. Incluye animaciones por scroll, navbar con efecto glassmorphism y formulario con feedback visual.
+Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informativa disenada para conectar a la comunidad con las actividades, horarios de culto, eventos y ensenanzas de la iglesia. Incluye animaciones por scroll, navbar con efecto glassmorphism, formulario con feedback visual, optimizacion SEO y iconografia con Bootstrap Icons.
 
 ## Estructura del proyecto
 
@@ -26,10 +26,10 @@ Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informati
 | Pagina | Archivo | Descripcion |
 |--------|---------|-------------|
 | Inicio | `index.html` | Hero a pantalla completa con resumen de horarios, quienes somos, pastores, eventos y contacto |
-| Horarios | `horarios.html` | Tarjetas con los dias y horarios de las reuniones semanales |
+| Horarios de Culto | `horarios.html` | Tarjetas con los dias y horarios de las reuniones semanales |
 | Quienes Somos | `quienes-somos.html` | Texto institucional + tarjetas de valores (Fe, Amor, Servicio) |
-| Pastores | `pastores.html` | Presentacion del liderazgo pastoral |
-| Eventos | `eventos.html` | Lista de proximas actividades con fecha destacada |
+| Nuestros Pastores | `pastores.html` | Presentacion del liderazgo pastoral |
+| Proximos Eventos | `eventos.html` | Lista de proximas actividades con fecha destacada |
 | Contacto | `contacto.html` | Datos de contacto + formulario de envio de mensajes |
 
 ## Caracteristicas
@@ -38,6 +38,18 @@ Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informati
 - **Responsivo** — Se adapta a escritorio, tablet y movil via Bootstrap 5 y media queries
 - **Paleta institucional** — Verde bosque (#2d6a4f) con acentos dorados (#c9a84c)
 - **Tipografia** — Playfair Display para titulos, Inter para cuerpo de texto
+- **Bootstrap Icons** — Iconografia vectorial para valores, pastores, contacto y redes sociales
+
+### SEO y Redes Sociales
+- **Meta description** — Descripcion unica por pagina para motores de busqueda
+- **Meta robots** — Indice y sigue en todas las paginas
+- **Open Graph** — Tags `og:title`, `og:description`, `og:image`, `og:url` para compartir en Facebook, LinkedIn, WhatsApp
+- **Twitter Cards** — Tags `twitter:card`, `twitter:title`, `twitter:description` para compartir en Twitter/X
+
+### Accesibilidad
+- **aria-label** — Iconos de redes sociales con descripcion para lectores de pantalla
+- **alt text** — Descripcion en todas las imagenes del logo
+- **estructura semantica** — Uso correcto de `header`, `main`, `section`, `footer`, `nav`
 
 ### Animaciones (IntersectionObserver)
 - **Scroll animations** — Elementos aparecen con fade-in-up, fade-in-down, fade-in-left, fade-in-right o scale-in al entrar en viewport
@@ -55,8 +67,8 @@ Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informati
 ### Componentes UI
 - **Cards** — Tarjetas de horarios, pastores, valores con hover y sombra
 - **Event items** — Lista de eventos con bloque de fecha destacado
-- **Contact info** — Datos de contacto con iconos
-- **Footer** — Marca, enlaces rapidos e iconos de redes sociales
+- **Contact info** — Datos de contacto con iconos Bootstrap Icons
+- **Footer** — Marca, enlaces rapidos e iconos de redes sociales (Facebook, Instagram, YouTube)
 
 ## Tecnologias
 
@@ -65,8 +77,51 @@ Sitio web institucional de la Iglesia **Asamblea de Dios**. Plataforma informati
 | HTML5 | - | Estructura semantica de las 6 paginas |
 | CSS3 | - | Estilos con variables, Flexbox, Grid, animaciones keyframes, transiciones |
 | Bootstrap | 5.3.3 | Grid responsive, collapse del navbar, utilidades |
+| Bootstrap Icons | 1.11.3 | Iconografia vectorial (valores, pastores, contacto, redes) |
 | JavaScript | ES6+ | IntersectionObserver, manejo de formularios, manipulacion del DOM |
 | Google Fonts | - | Playfair Display (titulos) + Inter (cuerpo) |
+
+## Iconografia (Bootstrap Icons)
+
+Los emojis fueron reemplazados por iconos SVG de Bootstrap Icons para mejor consistencia visual:
+
+| Seccion | Icono | Clase CSS |
+|---------|-------|-----------|
+| Fe | Cruz | `<svg>` personalizado (bi-cross) |
+| Amor | Corazon | `bi-heart-fill` |
+| Servicio | Handshake | `bi-handshake-fill` |
+| Pastor | Biblia | `bi-book-half` |
+| Pastora | Persona | `bi-person-heart` |
+| Direccion | Ubicacion | `bi-geo-alt-fill` |
+| Telefono | Telefono | `bi-telephone-fill` |
+| Email | Sobre | `bi-envelope-fill` |
+| Facebook | Facebook | `bi-facebook` |
+| Instagram | Instagram | `bi-instagram` |
+| YouTube | YouTube | `bi-youtube` |
+
+## SEO — Metatags por Pagina
+
+Cada pagina incluye metatags personalizados:
+
+```html
+<!-- SEO Basico -->
+<meta name="description" content="Descripcion unica de la pagina...">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (redes sociales) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Titulo - Iglesia Asamblea de Dios">
+<meta property="og:description" content="Descripcion para compartir...">
+<meta property="og:image" content="img/LogoAD.PNG">
+<meta property="og:url" content="pagina.html">
+<meta property="og:site_name" content="Asamblea de Dios">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Titulo - Iglesia Asamblea de Dios">
+<meta name="twitter:description" content="Descripcion para Twitter...">
+<meta name="twitter:image" content="img/LogoAD.PNG">
+```
 
 ## Sistema de animaciones
 
