@@ -11,6 +11,11 @@
 </head>
 
 <body>
+
+    <!-- ==================================================================
+         HEADER / PAGE HEADER
+         Banner verde con navbar + titulo "Contacto".
+         ================================================================== -->
     <header class="page-header">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -40,9 +45,21 @@
     </header>
 
     <main>
+
+        <!-- ==================================================================
+             SECCION: CONTACTO
+             Dos columnas:
+               - Izquierda: datos de contacto (direccion, telefono, email)
+               - Derecha: formulario de envio de mensajes
+
+             El form tiene id="contactForm" para ser controlado por animations.js.
+             Cada input tiene atributo 'name' para que los datos se puedan enviar.
+             El div .form-feedback muestra el mensaje de exito tras enviar.
+             ================================================================== -->
         <section class="section">
             <div class="container">
                 <div class="row g-5 contact-wrapper">
+                    <!-- Columna izquierda: datos de contacto -->
                     <div class="col-12 col-md-5">
                         <div class="contact-info">
                             <div class="contact-item" data-animate="fade-in-left">
@@ -68,20 +85,29 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Columna derecha: formulario de contacto -->
                     <div class="col-12 col-md-7">
-                        <form class="contact-form" data-animate="fade-in-right">
-                            <input type="text" placeholder="Tu Nombre" required>
-                            <input type="email" placeholder="Tu Email" required>
-                            <input type="text" placeholder="Asunto">
-                            <textarea placeholder="Tu Mensaje" rows="5" required></textarea>
+                        <form class="contact-form" data-animate="fade-in-right" id="contactForm">
+                            <input type="text" name="nombre" placeholder="Tu Nombre" required>
+                            <input type="email" name="email" placeholder="Tu Email" required>
+                            <input type="text" name="asunto" placeholder="Asunto">
+                            <textarea name="mensaje" placeholder="Tu Mensaje" rows="5" required></textarea>
                             <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            <div class="form-feedback" hidden>
+                                <p>Mensaje enviado correctamente. ¡Gracias!</p>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
+    <!-- ==================================================================
+         FOOTER
+         Pie de pagina compartido en todas las subpaginas.
+         ================================================================== -->
     <footer class="footer">
         <div class="container">
             <div class="row g-4 footer-content">

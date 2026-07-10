@@ -5,19 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asamblea de Dios - Iglesia</title>
+    <!-- Bootstrap 5.3.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados del sitio -->
     <link rel="stylesheet" href="styles/styles.css">
+    <!-- Fuentes: Playfair Display (titulos) + Inter (cuerpo) -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+    <!-- ==================================================================
+         HEADER / HERO
+         Banner a pantalla completa con fondo gradiente verde-oscuro.
+         Contiene el navbar y la seccion hero con mensaje de bienvenida.
+         ================================================================== -->
     <header class="hero">
+        <!-- Navbar: se vuelve semi-transparente con blur al hacer scroll (via JS) -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="logo-img">
                     <span class="logo-text">Asamblea de Dios</span>
                 </a>
+                <!-- Boton hamburger: visible solo en mobile, controla #navbarNav -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -34,6 +45,7 @@
             </div>
         </nav>
 
+        <!-- Contenido principal del hero: se anima con .animate-hero (via JS) -->
         <section id="inicio" class="hero-content">
             <div class="container">
                 <h1>Bienvenidos a la Iglesia<br>Asamblea de Dios</h1>
@@ -47,6 +59,12 @@
     </header>
 
     <main>
+
+        <!-- ==================================================================
+             SECCION: HORARIOS DE CULTO
+             Tarjetas con los horarios de las reuniones semanales.
+             Cada tarjeta se anima con fade-in-up al hacer scroll.
+             ================================================================== -->
         <section id="horarios" class="section">
             <div class="container">
                 <h2 class="section-title" data-animate="fade-in-down">Horarios de Culto</h2>
@@ -77,6 +95,11 @@
             </div>
         </section>
 
+        <!-- ==================================================================
+             SECCION: QUIENES SOMOS
+             Texto informativo + tarjetas de valores (Fe, Amor, Servicio).
+             Fondo alternado (section-alt = gris verdoso).
+             ================================================================== -->
         <section id="quienes-somos" class="section section-alt">
             <div class="container">
                 <h2 class="section-title" data-animate="fade-in-down">Quiénes Somos</h2>
@@ -115,6 +138,10 @@
             </div>
         </section>
 
+        <!-- ==================================================================
+             SECCION: PASTORES
+             Tarjetas de los pastores con imagen placeholder, nombre y rol.
+             ================================================================== -->
         <section id="pastores" class="section">
             <div class="container">
                 <h2 class="section-title" data-animate="fade-in-down">Nuestros Pastores</h2>
@@ -144,6 +171,11 @@
             </div>
         </section>
 
+        <!-- ==================================================================
+             SECCION: EVENTOS
+             Lista de eventos proximos con fecha destacada.
+             Cada item se anima con fade-in-left al hacer scroll.
+             ================================================================== -->
         <section id="eventos" class="section section-alt">
             <div class="container">
                 <h2 class="section-title" data-animate="fade-in-down">Próximos Eventos</h2>
@@ -183,6 +215,13 @@
             </div>
         </section>
 
+        <!-- ==================================================================
+             SECCION: CONTACTO
+             Info de contacto (direccion, telefono, email) + formulario.
+             El form tiene id="contactForm" para ser controlado por animations.js.
+             Los campos requieren atributo 'name' para poder enviarse.
+             El div .form-feedback muestra el mensaje de exito tras enviar.
+             ================================================================== -->
         <section id="contacto" class="section">
             <div class="container">
                 <h2 class="section-title" data-animate="fade-in-down">Contacto</h2>
@@ -214,19 +253,28 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-7">
-                        <form class="contact-form">
-                            <input type="text" placeholder="Tu Nombre" required>
-                            <input type="email" placeholder="Tu Email" required>
-                            <input type="text" placeholder="Asunto">
-                            <textarea placeholder="Tu Mensaje" rows="5" required></textarea>
+                        <form class="contact-form" id="contactForm">
+                            <input type="text" name="nombre" placeholder="Tu Nombre" required>
+                            <input type="email" name="email" placeholder="Tu Email" required>
+                            <input type="text" name="asunto" placeholder="Asunto">
+                            <textarea name="mensaje" placeholder="Tu Mensaje" rows="5" required></textarea>
                             <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            <div class="form-feedback" hidden>
+                                <p>Mensaje enviado correctamente. ¡Gracias!</p>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
+    <!-- ==================================================================
+         FOOTER
+         Pie de pagina con: marca, enlaces rapidos, redes sociales.
+         Todos los HTMLs comparten el mismo footer.
+         ================================================================== -->
     <footer class="footer">
         <div class="container">
             <div class="row g-4 footer-content">
@@ -264,7 +312,9 @@
         </div>
     </footer>
 
+    <!-- Bootstrap 5.3.3 JS Bundle (incluye Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Animaciones e interactividad (IntersectionObserver, navbar scroll, form) -->
     <script src="js/animations.js"></script>
 </body>
 

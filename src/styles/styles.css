@@ -1,3 +1,25 @@
+/* ==========================================================================
+   ASAMBLEA DE DIOS - ESTILOS GLOBALES
+   ==========================================================================
+   Paleta de colores:
+     --primary:      #2d6a4f  (verde bosque)
+     --primary-light: #40916c (verde claro)
+     --accent:       #c9a84c  (dorado)
+     --bg-dark:      #0a1f12  (verde muy oscuro)
+     --bg-light:     #f4f7f3  (gris verdoso claro)
+
+   Fuentes:
+     Playfair Display  - Titulos (serif)
+     Inter             - Cuerpo (sans-serif)
+
+   Dependencias:
+     Bootstrap 5.3.3 (grid, collapse, navbar)
+   ========================================================================== */
+
+/* ==========================================================================
+   RESET Y VARIABLES
+   ========================================================================== */
+
 *,
 *::before,
 *::after {
@@ -34,13 +56,134 @@ body {
     line-height: 1.6;
 }
 
+/* ==========================================================================
+   NAVBAR
+   ==========================================================================
+   Barra de navegacion fija en la parte superior.
+   En desktop se muestra como lista horizontal.
+   En mobile (Bootstrap collapse) se oculta detras del hamburger.
+
+   Elementos:
+     .navbar          - Contenedor flex principal
+     .logo            - Link del logo (imagen + texto)
+     .nav-links       - Lista de enlaces
+     .navbar-scrolled - Clase dinamica que se agrega al hacer scroll (via JS)
+     .nav-link.active - Enlace de la pagina actual (via JS)
+   ========================================================================== */
+
+/* Z-index para que el navbar quede sobre los pseudo-elementos del header */
 .page-header .container,
 .hero .container {
     position: relative;
     z-index: 1;
 }
 
-/* Page Header for subpages */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    position: relative;
+    transition: background var(--transition), padding var(--transition),
+                box-shadow var(--transition);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: auto;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+/* --- Enlaces de navegacion --- */
+
+.nav-links {
+    list-style: none;
+    column-gap: 28px;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition);
+    position: relative;
+}
+
+/* Underline animado que aparece en hover y en el link activo */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--white);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Link activo: subrayado dorado permanente (detectado via JS) */
+.nav-links a.active {
+    color: var(--white);
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* --- Navbar toggler (mobile hamburger) --- */
+
+.navbar-toggler {
+    border: none;
+    padding: 4px 0;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+}
+
+/* --- Navbar scrolled (efecto al hacer scroll, activado via JS) ---
+   Agrega fondo oscuro semi-transparente con blur y sombra.
+   Se activa cuando window.scrollY > 50. */
+.navbar-scrolled {
+    background: rgba(10, 31, 18, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    padding: 10px 0;
+}
+
+/* ==========================================================================
+   PAGE HEADER (Subpaginas)
+   ==========================================================================
+   Banner verde de fondo en las subpaginas (horarios, quienes-somos, etc).
+   Contiene el navbar + titulo de pagina.
+
+   Elementos:
+     .page-header       - Contenedor del banner
+     .page-header-title - Wrapper del titulo y subtitulo
+   ========================================================================== */
+
 .page-header {
     background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
     text-align: center;
@@ -52,6 +195,7 @@ body {
     padding: 100px 0 80px;
 }
 
+/* Decoracion radial de fondo (brillo dorado sutil) */
 .page-header::before {
     content: '';
     position: absolute;
@@ -84,80 +228,17 @@ body {
     font-weight: 300;
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
-    position: relative;
-}
+/* ==========================================================================
+   HERO (Pagina principal - index.html)
+   ==========================================================================
+   Banner a pantalla completa con el mensaje de bienvenida.
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-}
+   Elementos:
+     .hero           - Contenedor del hero
+     .hero-content   - Centra el contenido (h1, parrafo, botones)
+     .hero-buttons   - Contenedor flex de los botones CTA
+   ========================================================================== */
 
-.logo-img {
-    width: 48px;
-    height: auto;
-}
-
-.logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
-}
-
-.nav-links {
-    list-style: none;
-    column-gap: 28px;
-}
-
-.nav-links a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color var(--transition);
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width var(--transition);
-}
-
-.nav-links a:hover {
-    color: var(--white);
-}
-
-/* Navbar toggler (mobile) */
-.navbar-toggler {
-    border: none;
-    padding: 4px 0;
-}
-
-.navbar-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-
-
-/* Hero */
 .hero {
     background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
     min-height: 100vh;
@@ -217,6 +298,18 @@ body {
     flex-wrap: wrap;
 }
 
+/* ==========================================================================
+   BOTONES
+   ==========================================================================
+   Estilos base para todos los botones del sitio.
+
+   .btn-primary   - Boton dorado (relleno)
+   .btn-secondary - Boton transparente con borde blanco
+
+   Nota: .btn-primary[type="submit"] tiene un efecto shimmer especial
+   que se aplica en la seccion de Animaciones al final del archivo.
+   ========================================================================== */
+
 .btn {
     display: inline-block;
     padding: 14px 32px;
@@ -240,6 +333,16 @@ body {
     box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
 }
 
+/* Estado deshabilitado: feedback visual durante envio del formulario */
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
 .btn-secondary {
     background: transparent;
     color: var(--white);
@@ -251,7 +354,17 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Sections */
+/* ==========================================================================
+   SECCIONES
+   ==========================================================================
+   Contenedores de contenido con padding generoso.
+
+   .section        - Seccion con fondo blanco
+   .section-alt    - Seccion con fondo gris verdoso
+   .section-title  - Titulo de seccion (Playfair Display, verde)
+   .section-subtitle - Subtitulo centrado (gris)
+   ========================================================================== */
+
 .section {
     padding: 100px 0;
 }
@@ -275,7 +388,17 @@ body {
     margin-bottom: 60px;
 }
 
-/* Schedule */
+/* ==========================================================================
+   TARJETAS DE HORARIO (Schedule)
+   ==========================================================================
+   Tarjetas que muestran dia, hora y nombre del culto.
+
+   .schedule-card  - Tarjeta blanca con borde dorado arriba
+   .schedule-day   - Nombre del dia (Playfair, verde)
+   .schedule-time  - Rango de horas (dorado)
+   .schedule-name  - Nombre del servicio (gris)
+   ========================================================================== */
+
 .schedule-card {
     background: var(--white);
     border-radius: var(--radius);
@@ -311,7 +434,18 @@ body {
     font-size: 0.95rem;
 }
 
-/* About */
+/* ==========================================================================
+   QUIENES SOMOS (About)
+   ==========================================================================
+   Seccion de texto informativo + tarjetas de valores.
+
+   .about-content  - Contenedor centrado (max 800px)
+   .about-text     - Parrafos descriptivos
+   .about-values   - Grid de tarjetas de valores
+   .value-item     - Tarjeta individual (icono, titulo, descripcion)
+   .value-icon     - Emoji/icono grande
+   ========================================================================== */
+
 .about-content {
     max-width: 800px;
     margin: 0 auto;
@@ -359,7 +493,19 @@ body {
     color: var(--text-light);
 }
 
-/* Pastors */
+/* ==========================================================================
+   PASTORES (Pastors)
+   ==========================================================================
+   Tarjetas de los pastores de la iglesia.
+
+   .pastors-grid    - Grid centrado (max 700px)
+   .pastor-card     - Tarjeta individual
+   .pastor-img      - Contenedor circular de la imagen/icono
+   .pastor-placeholder - Fallback con gradiente verde
+   .pastor-role     - Cargo del pastor (dorado)
+   .pastor-desc     - Breve descripcion (gris)
+   ========================================================================== */
+
 .pastors-grid {
     max-width: 700px;
     margin: 0 auto;
@@ -413,7 +559,19 @@ body {
     font-size: 0.9rem;
 }
 
-/* Events */
+/* ==========================================================================
+   EVENTOS (Events)
+   ==========================================================================
+   Lista de eventos proximos con fecha destacada.
+
+   .events-list - Contenedor flex vertical (max 700px)
+   .event-item  - Fila de evento (fecha + info)
+   .event-date  - Bloque de fecha con fondo verde
+   .event-day   - Dia grande (Playfair)
+   .event-month - Mes abreviado
+   .event-info  - Titulo y descripcion del evento
+   ========================================================================== */
+
 .events-list {
     display: flex;
     flex-direction: column;
@@ -477,7 +635,21 @@ body {
     font-size: 0.9rem;
 }
 
-/* Contact */
+/* ==========================================================================
+   CONTACTO (Contact)
+   ==========================================================================
+   Seccion de contacto con info + formulario.
+
+   .contact-wrapper - Grid centrado (max 900px)
+   .contact-info    - Columna de datos de contacto
+   .contact-item    - Fila individual (icono + texto)
+   .contact-form    - Formulario de envio
+   .form-feedback   - Mensaje de exito tras enviar (oculto por defecto)
+
+   El form tiene id="contactForm" para ser controlado por animations.js.
+   Los campos deben tener atributo 'name' para poder enviarse.
+   ========================================================================== */
+
 .contact-wrapper {
     max-width: 900px;
     margin: 0 auto;
@@ -513,6 +685,8 @@ body {
     font-size: 0.95rem;
 }
 
+/* --- Formulario --- */
+
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -542,7 +716,46 @@ body {
     resize: vertical;
 }
 
-/* Footer */
+/* Mensaje de feedback tras enviar el formulario (controlado via JS).
+   Oculto con 'hidden', se muestra agregando clase 'show'. */
+.form-feedback {
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form-feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-feedback p {
+    margin: 0;
+    color: var(--primary);
+    background: rgba(45, 106, 79, 0.1);
+    border: 1px solid rgba(45, 106, 79, 0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ==========================================================================
+   Pie de pagina con fondo oscuro.
+
+   .footer          - Contenedor principal
+   .footer-content  - Grid de columnas (marca, enlaces, redes)
+   .footer-brand    - Logo + descripcion
+   .footer-links    - Lista de enlaces rapidos
+   .footer-social   - Iconos de redes sociales
+   .footer-bottom   - Copyright centrado
+   ========================================================================== */
+
 .footer {
     background: var(--bg-dark);
     color: rgba(255, 255, 255, 0.8);
@@ -610,9 +823,11 @@ body {
     transition: background var(--transition), transform var(--transition);
 }
 
+/* Hover unificado: fondo dorado + scale (fusionado para evitar conflicto
+   entre 'animation: pulse' y 'transform: translateY') */
 .social-icon:hover {
     background: var(--accent);
-    transform: translateY(-3px);
+    transform: scale(1.15);
 }
 
 .footer-bottom {
@@ -622,9 +837,34 @@ body {
     opacity: 0.5;
 }
 
-/* ========== ANIMACIONES ========== */
+/* ==========================================================================
+   ANIMACIONES
+   ==========================================================================
+   Sistema de animaciones basado en IntersectionObserver (ver animations.js).
 
-/* Keyframes */
+   Como funciona:
+     1. Los elementos con data-animate="tipo" se observan con IntersectionObserver.
+     2. Cuando entran en viewport (threshold 15%), se agrega la clase 'animate'.
+     3. La clase 'animate' + el tipo activan la keyframe correspondiente.
+     4. El observer se desconecta del elemento (unobserve) para no repetir.
+
+   Tipos disponibles (data-animate):
+     fade-in-up    - Desliza hacia arriba + fade
+     fade-in-down  - Desliza hacia abajo + fade
+     fade-in-left  - Desliza desde la izquierda + fade
+     fade-in-right - Desliza desde la derecha + fade
+     scale-in      - Escala de 0.85 a 1 + fade
+
+   Retrasos (.delay-1 a .delay-6):
+     Se pueden agregar a elementos hermanos para animacion escalonada.
+
+   Animaciones de entrada especiales:
+     .animate-hero     - Entrada escalonada del hero (index.html)
+     .animate-header   - Entrada del titulo de subpagina
+   ========================================================================== */
+
+/* --- Keyframes --- */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -698,7 +938,10 @@ body {
     }
 }
 
-/* Clases de animación base */
+/* --- Clases de animacion base ---
+   .animate inicia con opacity:0. Cuando se agrega la clase del tipo,
+   la keyframe corre con 'forwards' para mantener el estado final. */
+
 .animate {
     opacity: 0;
 }
@@ -723,7 +966,10 @@ body {
     animation: scaleIn 0.6s ease forwards;
 }
 
-/* Retrasos escalonados */
+/* --- Retrasos escalonados ---
+   Agregar clase .delay-N al elemento para retrasar la animacion N*0.1s.
+   Util para animar varios elementos hermanos en secuencia. */
+
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
@@ -731,7 +977,10 @@ body {
 .delay-5 { animation-delay: 0.5s; }
 .delay-6 { animation-delay: 0.6s; }
 
-/* Hero entrance */
+/* --- Hero entrance (index.html) ---
+   Animacion escalonada: h1 -> p -> botones.
+   Se activa agregando .animate-hero a .hero-content via JS. */
+
 .hero-content.animate-hero h1 {
     animation: fadeInUp 0.8s ease forwards;
 }
@@ -746,7 +995,10 @@ body {
     animation: fadeInUp 0.8s ease 0.4s forwards;
 }
 
-/* Page header entrance */
+/* --- Page header entrance (subpaginas) ---
+   Titulo desliza desde arriba, subtitulo desde abajo.
+   Se activa agregando .animate-header a .page-header via JS. */
+
 .page-header.animate-header h1 {
     opacity: 0;
     animation: fadeInDown 0.7s ease forwards;
@@ -757,19 +1009,19 @@ body {
     animation: fadeInUp 0.7s ease 0.2s forwards;
 }
 
-/* Hover pulse en cards */
+/* --- Hover pulse en cards ---
+   Efecto sutil de escala al pasar el mouse sobre tarjetas. */
+
 .schedule-card:hover,
 .pastor-card:hover,
 .value-item:hover {
     animation: pulse 0.6s ease;
 }
 
-/* Social icons hover mejorado */
-.social-icon:hover {
-    animation: pulse 0.6s ease;
-}
+/* --- Boton submit con shimmer ---
+   Gradiente animado que se mueve de izq a derecha al hacer hover.
+   Solo aplica al boton tipo submit del formulario de contacto. */
 
-/* Botón submit con shimmer */
 .btn-primary[type="submit"] {
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 25%, var(--accent) 50%, var(--accent-hover) 75%, var(--accent) 100%);
     background-size: 200% 100%;
@@ -778,9 +1030,18 @@ body {
 
 .btn-primary[type="submit"]:hover {
     animation: shimmer 1.5s linear infinite;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
 }
 
-/* Responsive (Bootstrap handles most breakpoints) */
+/* ==========================================================================
+   RESPONSIVE
+   ==========================================================================
+   Ajustes para pantallas pequenas (mobile).
+   Bootstrap maneja la mayoria de breakpoints, pero algunos ajustes
+   personalizados se necesitan para el layout completo.
+   ========================================================================== */
+
 @media (max-width: 767.98px) {
     .event-item {
         flex-direction: column;
