@@ -209,6 +209,7 @@ a {
   -webkit-backdrop-filter: blur(20px) saturate(1.8);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   padding: 12px 0;
+  will-change: background, padding;
 }
 
 /* ==========================================================================
@@ -227,6 +228,7 @@ a {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  contain: layout style;
 }
 
 /* Patrón decorativo */
@@ -927,8 +929,9 @@ a {
 [data-animate] {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 [data-animate="fade-in-down"] {
@@ -960,7 +963,7 @@ a {
 
 /* Hero entrance animation */
 .hero-content {
-  animation: heroEntrance 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: heroEntrance 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes heroEntrance {
@@ -976,7 +979,7 @@ a {
 
 /* Page header entrance */
 .page-header-title {
-  animation: headerEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: headerEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes headerEntrance {
