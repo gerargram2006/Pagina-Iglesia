@@ -1,1041 +1,1066 @@
 /* ==========================================================================
-   ASAMBLEA DE DIOS - ESTILOS GLOBALES
+   ASAMBLEA DE DIOS - ESTILOS GLOBALES (PREMIUM)
    ==========================================================================
-   Paleta de colores:
-     --primary:      #2d6a4f  (verde bosque)
-     --primary-light: #40916c (verde claro)
-     --accent:       #c9a84c  (dorado)
-     --bg-dark:      #0a1f12  (verde muy oscuro)
-     --bg-light:     #f4f7f3  (gris verdoso claro)
+   Paleta:
+     Verde bosque      → #1b4332, #2d6a4f, #40916c, #52b788
+     Dorado eclesiástico → #c9a84c, #dbb958, #b8942e
+     Neutros           → #0a1f12 (oscuro), #f8faf7 (claro)
 
-   Fuentes:
-     Playfair Display  - Titulos (serif)
-     Inter             - Cuerpo (sans-serif)
-
-   Dependencias:
-     Bootstrap 5.3.3 (grid, collapse, navbar)
+   Tipografía:
+     Playfair Display – Títulos (serif elegante)
+     Inter            – Cuerpo (sans-serif legible)
    ========================================================================== */
 
-/* ==========================================================================
-   RESET Y VARIABLES
-   ========================================================================== */
+/* === RESET & VARIABLES === */
 
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --primary: #2d6a4f;
-    --primary-light: #40916c;
-    --accent: #c9a84c;
-    --accent-hover: #b8942e;
-    --bg-light: #f4f7f3;
-    --bg-dark: #0a1f12;
-    --text: #2d2d2d;
-    --text-light: #6b7280;
-    --white: #ffffff;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
-    --radius: 12px;
-    --transition: 0.3s ease;
+  /* Colores principales */
+  --primary-900: #0a1f12;
+  --primary-800: #1b4332;
+  --primary-700: #2d6a4f;
+  --primary-600: #40916c;
+  --primary-500: #52b788;
+  --primary-400: #74c69d;
+
+  /* Dorado */
+  --gold-600: #b8942e;
+  --gold-500: #c9a84c;
+  --gold-400: #dbb958;
+  --gold-300: #e8cf7a;
+
+  /* Neutros */
+  --white: #ffffff;
+  --gray-50: #f8faf7;
+  --gray-100: #f0f2ef;
+  --gray-200: #e2e5e0;
+  --gray-400: #9ca3a0;
+  --gray-600: #5a635e;
+  --gray-700: #3d4540;
+  --gray-800: #2d2d2d;
+
+  /* Semánticos */
+  --text: #2d3530;
+  --text-light: #5a635e;
+  --text-muted: #9ca3a0;
+  --bg: var(--white);
+  --bg-alt: var(--gray-50);
+
+  /* Efectos */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.1);
+  --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.25);
+
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
-    scroll-behavior: smooth;
-    font-size: 16px;
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    color: var(--text);
-    background: var(--white);
-    line-height: 1.6;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+  border: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* ==========================================================================
    NAVBAR
-   ==========================================================================
-   Barra de navegacion fija en la parte superior.
-   En desktop se muestra como lista horizontal.
-   En mobile (Bootstrap collapse) se oculta detras del hamburger.
-
-   Elementos:
-     .navbar          - Contenedor flex principal
-     .logo            - Link del logo (imagen + texto)
-     .nav-links       - Lista de enlaces
-     .navbar-scrolled - Clase dinamica que se agrega al hacer scroll (via JS)
-     .nav-link.active - Enlace de la pagina actual (via JS)
    ========================================================================== */
 
-/* Z-index para que el navbar quede sobre los pseudo-elementos del header */
-.page-header .container,
-.hero .container {
-    position: relative;
-    z-index: 1;
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  position: relative;
+  transition: background var(--transition), padding var(--transition),
+              box-shadow var(--transition), backdrop-filter var(--transition);
 }
 
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
-    position: relative;
-    transition: background var(--transition), padding var(--transition),
-                box-shadow var(--transition);
+.page-header .container,
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
 }
 
 .logo-img {
-    width: 48px;
-    height: auto;
+  width: 52px;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
 }
 
-/* --- Enlaces de navegacion --- */
-
+/* Enlaces */
 .nav-links {
-    list-style: none;
-    column-gap: 28px;
+  list-style: none;
+  column-gap: 6px;
 }
 
 .nav-links a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: color var(--transition);
-    position: relative;
-}
-
-/* Underline animado que aparece en hover y en el link activo */
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width var(--transition);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+  position: relative;
+  padding: 8px 16px;
+  border-radius: 50px;
+  letter-spacing: 0.2px;
 }
 
 .nav-links a:hover {
-    color: var(--white);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* Link activo: subrayado dorado permanente (detectado via JS) */
 .nav-links a.active {
-    color: var(--white);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .nav-links a.active::after {
-    width: 100%;
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--gold-500);
+  border-radius: 2px;
 }
 
-/* --- Navbar toggler (mobile hamburger) --- */
-
+/* Toggler */
 .navbar-toggler {
-    border: none;
-    padding: 4px 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
 }
 
-/* --- Navbar scrolled (efecto al hacer scroll, activado via JS) ---
-   Agrega fondo oscuro semi-transparente con blur y sombra.
-   Se activa cuando window.scrollY > 50. */
+.navbar-toggler:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Navbar scroll */
 .navbar-scrolled {
-    background: rgba(10, 31, 18, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    padding: 10px 0;
+  background: rgba(10, 31, 18, 0.92);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  padding: 12px 0;
 }
 
 /* ==========================================================================
-   PAGE HEADER (Subpaginas)
-   ==========================================================================
-   Banner verde de fondo en las subpaginas (horarios, quienes-somos, etc).
-   Contiene el navbar + titulo de pagina.
-
-   Elementos:
-     .page-header       - Contenedor del banner
-     .page-header-title - Wrapper del titulo y subtitulo
-   ========================================================================== */
-
-.page-header {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.page-header-title {
-    padding: 100px 0 80px;
-}
-
-/* Decoracion radial de fondo (brillo dorado sutil) */
-.page-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--white);
-    margin-bottom: 12px;
-}
-
-.page-header p {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 500px;
-    margin: 0 auto;
-    font-weight: 300;
-}
-
-/* ==========================================================================
-   HERO (Pagina principal - index.html)
-   ==========================================================================
-   Banner a pantalla completa con el mensaje de bienvenida.
-
-   Elementos:
-     .hero           - Contenedor del hero
-     .hero-content   - Centra el contenido (h1, parrafo, botones)
-     .hero-buttons   - Contenedor flex de los botones CTA
+   HERO
    ========================================================================== */
 
 .hero {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+  background: linear-gradient(160deg,
+    var(--primary-900) 0%,
+    var(--primary-800) 30%,
+    var(--primary-700) 60%,
+    var(--primary-600) 100%
+  );
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Patrón decorativo */
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 90%, rgba(201, 168, 76, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 85% 15%, rgba(82, 183, 136, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.hero nav.navbar {
-    flex-shrink: 0;
+/* Línea dorada decorativa */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--gold-500) 20%,
+    var(--gold-400) 50%,
+    var(--gold-500) 80%,
+    transparent 100%
+  );
+  opacity: 0.6;
 }
+
+.hero nav.navbar { flex-shrink: 0; }
 
 .hero-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 20px;
-    position: relative;
-    z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    color: var(--white);
-    margin-bottom: 20px;
-    line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: var(--white);
+  margin-bottom: 24px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
 }
 
 .hero-content p {
-    font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 600px;
-    margin: 0 auto 36px;
-    font-weight: 300;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
 .hero-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* ==========================================================================
    BOTONES
-   ==========================================================================
-   Estilos base para todos los botones del sitio.
-
-   .btn-primary   - Boton dorado (relleno)
-   .btn-secondary - Boton transparente con borde blanco
-
-   Nota: .btn-primary[type="submit"] tiene un efecto shimmer especial
-   que se aplica en la seccion de Animaciones al final del archivo.
    ========================================================================== */
 
 .btn {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all var(--transition);
-    cursor: pointer;
-    border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
-    background: var(--accent);
-    color: var(--primary);
+  background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-400) 100%);
+  color: var(--primary-900);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+  color: var(--primary-900);
+  background: linear-gradient(135deg, var(--gold-400) 0%, var(--gold-300) 100%);
 }
 
-/* Estado deshabilitado: feedback visual durante envio del formulario */
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
 .btn:disabled,
 .btn.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
-    transform: none;
-    box-shadow: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-secondary {
-    background: transparent;
-    color: var(--white);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
 }
 
 .btn-secondary:hover {
-    border-color: var(--white);
-    background: rgba(255, 255, 255, 0.1);
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   PAGE HEADER (Subpáginas)
+   ========================================================================== */
+
+.page-header {
+  background: linear-gradient(160deg,
+    var(--primary-900) 0%,
+    var(--primary-800) 40%,
+    var(--primary-700) 100%
+  );
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 25% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 300px at 80% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+  opacity: 0.5;
+}
+
+.page-header-title {
+  padding: 110px 0 90px;
+}
+
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--white);
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 500px;
+  margin: 0 auto;
+  font-weight: 300;
 }
 
 /* ==========================================================================
    SECCIONES
-   ==========================================================================
-   Contenedores de contenido con padding generoso.
-
-   .section        - Seccion con fondo blanco
-   .section-alt    - Seccion con fondo gris verdoso
-   .section-title  - Titulo de seccion (Playfair Display, verde)
-   .section-subtitle - Subtitulo centrado (gris)
    ========================================================================== */
 
 .section {
-    padding: 100px 0;
+  padding: 110px 0;
 }
 
 .section-alt {
-    background: var(--bg-light);
+  background: var(--bg-alt);
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    color: var(--primary);
-    text-align: center;
-    margin-bottom: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+  color: var(--primary-700);
+  text-align: center;
+  margin-bottom: 14px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .section-subtitle {
-    text-align: center;
-    color: var(--text-light);
-    font-size: 1.05rem;
-    margin-bottom: 60px;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1.05rem;
+  margin-bottom: 64px;
+  font-weight: 400;
 }
 
 /* ==========================================================================
-   TARJETAS DE HORARIO (Schedule)
-   ==========================================================================
-   Tarjetas que muestran dia, hora y nombre del culto.
-
-   .schedule-card  - Tarjeta blanca con borde dorado arriba
-   .schedule-day   - Nombre del dia (Playfair, verde)
-   .schedule-time  - Rango de horas (dorado)
-   .schedule-name  - Nombre del servicio (gris)
+   TARJETAS DE HORARIO
    ========================================================================== */
 
 .schedule-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
-    border-top: 4px solid var(--accent);
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 44px 32px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  border: 1px solid var(--gray-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-400), var(--gold-500));
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .schedule-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
 }
 
 .schedule-day {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-700);
+  margin-bottom: 10px;
 }
 
 .schedule-time {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-600);
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
 }
 
 .schedule-name {
-    color: var(--text-light);
-    font-size: 0.95rem;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 /* ==========================================================================
-   QUIENES SOMOS (About)
-   ==========================================================================
-   Seccion de texto informativo + tarjetas de valores.
-
-   .about-content  - Contenedor centrado (max 800px)
-   .about-text     - Parrafos descriptivos
-   .about-values   - Grid de tarjetas de valores
-   .value-item     - Tarjeta individual (icono, titulo, descripcion)
-   .value-icon     - Emoji/icono grande
+   QUIÉNES SOMOS
    ========================================================================== */
 
 .about-content {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 820px;
+  margin: 0 auto;
 }
 
 .about-text p {
-    margin-bottom: 20px;
-    font-size: 1.05rem;
-    color: var(--text);
-    line-height: 1.8;
+  margin-bottom: 22px;
+  font-size: 1.05rem;
+  color: var(--text);
+  line-height: 1.85;
 }
 
 .about-values {
-    margin-top: 50px;
+  margin-top: 56px;
 }
 
 .value-item {
-    text-align: center;
-    padding: 30px 20px;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: transform var(--transition);
+  text-align: center;
+  padding: 36px 24px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
 }
 
 .value-item:hover {
-    transform: translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: transparent;
 }
 
 .value-icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 16px;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  color: var(--white);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 16px rgba(45, 106, 79, 0.25);
 }
 
 .value-item h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-700);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
 }
 
 .value-item p {
-    font-size: 0.9rem;
-    color: var(--text-light);
+  font-size: 0.92rem;
+  color: var(--text-light);
+  line-height: 1.6;
 }
 
 /* ==========================================================================
-   PASTORES (Pastors)
-   ==========================================================================
-   Tarjetas de los pastores de la iglesia.
-
-   .pastors-grid    - Grid centrado (max 700px)
-   .pastor-card     - Tarjeta individual
-   .pastor-img      - Contenedor circular de la imagen/icono
-   .pastor-placeholder - Fallback con gradiente verde
-   .pastor-role     - Cargo del pastor (dorado)
-   .pastor-desc     - Breve descripcion (gris)
+   PASTORES
    ========================================================================== */
 
 .pastor-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 48px 32px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition);
 }
 
 .pastor-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
 }
 
 .pastor-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 .pastor-placeholder {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  background: linear-gradient(135deg, var(--primary-800), var(--primary-600));
 }
 
 .pastor-card h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--primary);
-    margin-bottom: 6px;
-    font-size: 1.3rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-700);
+  margin-bottom: 8px;
+  font-size: 1.35rem;
 }
 
 .pastor-role {
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+  color: var(--gold-600);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .pastor-desc {
-    color: var(--text-light);
-    font-size: 0.9rem;
+  color: var(--text-light);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
-   EVENTOS (Events)
-   ==========================================================================
-   Lista de eventos proximos con fecha destacada.
-
-   .events-list - Contenedor flex vertical (max 700px)
-   .event-item  - Fila de evento (fecha + info)
-   .event-date  - Bloque de fecha con fondo verde
-   .event-day   - Dia grande (Playfair)
-   .event-month - Mes abreviado
-   .event-info  - Titulo y descripcion del evento
+   EVENTOS
    ========================================================================== */
 
 .events-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 700px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .event-item {
-    display: flex;
-    gap: 24px;
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
-    align-items: center;
+  display: flex;
+  gap: 24px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition);
+  align-items: center;
 }
 
 .event-item:hover {
-    transform: translateX(6px);
-    box-shadow: var(--shadow-lg);
+  transform: translateX(8px);
+  box-shadow: var(--shadow);
+  border-color: transparent;
 }
 
 .event-date {
-    text-align: center;
-    min-width: 80px;
-    padding: 12px 16px;
-    background: var(--primary);
-    border-radius: var(--radius);
-    color: var(--white);
-    flex-shrink: 0;
+  text-align: center;
+  min-width: 80px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  border-radius: var(--radius);
+  color: var(--white);
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(45, 106, 79, 0.25);
 }
 
 .event-day {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-    line-height: 1;
+  display: block;
+  font-size: 1.9rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
 }
 
 .event-month {
-    display: block;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-top: 4px;
-    opacity: 0.9;
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 4px;
+  opacity: 0.85;
+  letter-spacing: 1px;
 }
 
 .event-info h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--primary);
-    margin-bottom: 6px;
-    font-size: 1.15rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-700);
+  margin-bottom: 8px;
+  font-size: 1.15rem;
 }
 
 .event-info p {
-    color: var(--text-light);
-    font-size: 0.9rem;
+  color: var(--text-light);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
-   CONTACTO (Contact)
-   ==========================================================================
-   Seccion de contacto con info + formulario.
-
-   .contact-wrapper - Grid centrado (max 900px)
-   .contact-info    - Columna de datos de contacto
-   .contact-item    - Fila individual (icono + texto)
-   .contact-form    - Formulario de envio
-   .form-feedback   - Mensaje de exito tras enviar (oculto por defecto)
-
-   El form tiene id="contactForm" para ser controlado por animations.js.
-   Los campos deben tener atributo 'name' para poder enviarse.
+   CONTACTO
    ========================================================================== */
 
 .contact-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
+  max-width: 920px;
+  margin: 0 auto;
 }
 
 .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .contact-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
 }
 
 .contact-icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  color: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
 }
 
 .contact-item h4 {
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: 4px;
-    font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  margin-bottom: 4px;
+  font-size: 1rem;
 }
 
 .contact-item p {
-    color: var(--text-light);
-    font-size: 0.95rem;
+  color: var(--text-light);
+  font-size: 0.95rem;
 }
 
-/* --- Formulario --- */
-
+/* Formulario */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--white);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
 }
 
 .contact-form input,
 .contact-form textarea {
-    width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    background: var(--white);
+  width: 100%;
+  padding: 15px 20px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  background: var(--gray-50);
+  color: var(--text);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+  outline: none;
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
+  background: var(--white);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .contact-form textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
-/* Mensaje de feedback tras enviar el formulario (controlado via JS).
-   Oculto con 'hidden', se muestra agregando clase 'show'. */
+.contact-form .btn-primary {
+  align-self: flex-start;
+  padding: 16px 40px;
+}
+
+/* Feedback */
 .form-feedback {
-    text-align: center;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .form-feedback.show {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .form-feedback p {
-    margin: 0;
-    color: var(--primary);
-    background: rgba(45, 106, 79, 0.1);
-    border: 1px solid rgba(45, 106, 79, 0.2);
-    border-radius: 8px;
-    padding: 12px 16px;
+  margin: 0;
+  color: var(--primary-700);
+  background: rgba(45, 106, 79, 0.08);
+  border: 1px solid rgba(45, 106, 79, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
 }
 
 /* ==========================================================================
    FOOTER
-   ==========================================================================
-   Pie de pagina con fondo oscuro.
-
-   .footer          - Contenedor principal
-   .footer-content  - Grid de columnas (marca, enlaces, redes)
-   .footer-brand    - Logo + descripcion
-   .footer-links    - Lista de enlaces rapidos
-   .footer-social   - Iconos de redes sociales
-   .footer-bottom   - Copyright centrado
    ========================================================================== */
 
 .footer {
-    background: var(--bg-dark);
-    color: rgba(255, 255, 255, 0.8);
-    padding: 60px 0 0;
+  background: linear-gradient(180deg, var(--primary-900) 0%, #06130b 100%);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 72px 0 0;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+  opacity: 0.4;
 }
 
 .footer-content {
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .footer-logo {
-    width: 56px;
-    height: auto;
-    margin-bottom: 16px;
+  width: 56px;
+  height: auto;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 .footer-brand p {
-    font-size: 0.9rem;
-    opacity: 0.7;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  line-height: 1.6;
 }
 
 .footer-links h4,
 .footer-social h4 {
-    font-family: 'Playfair Display', serif;
-    color: var(--white);
-    margin-bottom: 20px;
-    font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--white);
+  margin-bottom: 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .footer-links ul {
-    list-style: none;
+  list-style: none;
 }
 
 .footer-links li {
-    margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color var(--transition);
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  padding: 2px 0;
 }
 
 .footer-links a:hover {
-    color: var(--accent);
+  color: var(--gold-400);
+  padding-left: 4px;
 }
 
 .social-icons {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: background var(--transition), transform var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all var(--transition);
 }
 
-/* Hover unificado: fondo dorado + scale (fusionado para evitar conflicto
-   entre 'animation: pulse' y 'transform: translateY') */
 .social-icon:hover {
-    background: var(--accent);
-    transform: scale(1.15);
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+  color: var(--primary-900);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.3);
 }
 
 .footer-bottom {
-    text-align: center;
-    padding: 24px 0;
-    font-size: 0.85rem;
-    opacity: 0.5;
+  text-align: center;
+  padding: 28px 0;
+  font-size: 0.82rem;
+  opacity: 0.4;
 }
 
 /* ==========================================================================
-   ANIMACIONES
-   ==========================================================================
-   Sistema de animaciones basado en IntersectionObserver (ver animations.js).
-
-   Como funciona:
-     1. Los elementos con data-animate="tipo" se observan con IntersectionObserver.
-     2. Cuando entran en viewport (threshold 15%), se agrega la clase 'animate'.
-     3. La clase 'animate' + el tipo activan la keyframe correspondiente.
-     4. El observer se desconecta del elemento (unobserve) para no repetir.
-
-   Tipos disponibles (data-animate):
-     fade-in-up    - Desliza hacia arriba + fade
-     fade-in-down  - Desliza hacia abajo + fade
-     fade-in-left  - Desliza desde la izquierda + fade
-     fade-in-right - Desliza desde la derecha + fade
-     scale-in      - Escala de 0.85 a 1 + fade
-
-   Retrasos (.delay-1 a .delay-6):
-     Se pueden agregar a elementos hermanos para animacion escalonada.
-
-   Animaciones de entrada especiales:
-     .animate-hero     - Entrada escalonada del hero (index.html)
-     .animate-header   - Entrada del titulo de subpagina
+   SCROLL ANIMATIONS
    ========================================================================== */
 
-/* --- Keyframes --- */
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+[data-animate="fade-in-down"] {
+  transform: translateY(-30px);
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+[data-animate="fade-in-left"] {
+  transform: translateX(-30px);
 }
 
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+[data-animate="fade-in-right"] {
+  transform: translateX(30px);
 }
 
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.85);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+[data-animate="scale-in"] {
+  transform: scale(0.9);
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
+[data-animate].animated {
+  opacity: 1;
+  transform: translate(0) scale(1);
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% center;
-    }
-    100% {
-        background-position: 200% center;
-    }
+/* Stagger delays */
+[data-animate].delay-1 { transition-delay: 0.1s; }
+[data-animate].delay-2 { transition-delay: 0.2s; }
+[data-animate].delay-3 { transition-delay: 0.3s; }
+[data-animate].delay-4 { transition-delay: 0.4s; }
+
+/* Hero entrance animation */
+.hero-content {
+  animation: heroEntrance 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* --- Clases de animacion base ---
-   .animate inicia con opacity:0. Cuando se agrega la clase del tipo,
-   la keyframe corre con 'forwards' para mantener el estado final. */
-
-.animate {
+@keyframes heroEntrance {
+  0% {
     opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate.fade-in-up {
-    animation: fadeInUp 0.7s ease forwards;
+/* Page header entrance */
+.page-header-title {
+  animation: headerEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.animate.fade-in-down {
-    animation: fadeInDown 0.7s ease forwards;
-}
-
-.animate.fade-in-left {
-    animation: fadeInLeft 0.7s ease forwards;
-}
-
-.animate.fade-in-right {
-    animation: fadeInRight 0.7s ease forwards;
-}
-
-.animate.scale-in {
-    animation: scaleIn 0.6s ease forwards;
-}
-
-/* --- Retrasos escalonados ---
-   Agregar clase .delay-N al elemento para retrasar la animacion N*0.1s.
-   Util para animar varios elementos hermanos en secuencia. */
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
-
-/* --- Hero entrance (index.html) ---
-   Animacion escalonada: h1 -> p -> botones.
-   Se activa agregando .animate-hero a .hero-content via JS. */
-
-.hero-content.animate-hero h1 {
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.hero-content.animate-hero p {
+@keyframes headerEntrance {
+  0% {
     opacity: 0;
-    animation: fadeInUp 0.8s ease 0.2s forwards;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero-content.animate-hero .hero-buttons {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease 0.4s forwards;
-}
-
-/* --- Page header entrance (subpaginas) ---
-   Titulo desliza desde arriba, subtitulo desde abajo.
-   Se activa agregando .animate-header a .page-header via JS. */
-
-.page-header.animate-header h1 {
-    opacity: 0;
-    animation: fadeInDown 0.7s ease forwards;
-}
-
-.page-header.animate-header p {
-    opacity: 0;
-    animation: fadeInUp 0.7s ease 0.2s forwards;
-}
-
-/* --- Boton submit con shimmer ---
-   Gradiente animado que se mueve de izq a derecha al hacer hover.
-   Solo aplica al boton tipo submit del formulario de contacto. */
-
+/* Shimmer button */
 .btn-primary[type="submit"] {
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 25%, var(--accent) 50%, var(--accent-hover) 75%, var(--accent) 100%);
-    background-size: 200% 100%;
+  background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-400) 50%, var(--gold-500) 100%);
+  background-size: 200% 100%;
 }
 
 .btn-primary[type="submit"]:hover {
-    animation: shimmer 1.5s linear infinite;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 /* ==========================================================================
    RESPONSIVE
-   ==========================================================================
-   Ajustes para pantallas pequenas (mobile).
-   Bootstrap maneja la mayoria de breakpoints, pero algunos ajustes
-   personalizados se necesitan para el layout completo.
    ========================================================================== */
 
 @media (max-width: 767.98px) {
-    .event-item {
-        flex-direction: column;
-        text-align: center;
-    }
+  .event-item {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .hero-content h1 {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-    }
+  .event-date {
+    align-self: center;
+  }
 
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
 
-    .section {
-        padding: 60px 0;
-    }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section {
+    padding: 72px 0;
+  }
+
+  .page-header-title {
+    padding: 80px 0 60px;
+  }
+
+  .contact-form {
+    padding: 28px 20px;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .contact-form .btn-primary {
+    align-self: stretch;
+  }
+
+  .footer {
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .logo-text {
+    font-size: 1.15rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
 }
