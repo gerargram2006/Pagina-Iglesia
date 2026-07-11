@@ -1,0 +1,1041 @@
+/* ==========================================================================
+   ASAMBLEA DE DIOS - ESTILOS GLOBALES
+   ==========================================================================
+   Paleta de colores:
+     --primary:      #2d6a4f  (verde bosque)
+     --primary-light: #40916c (verde claro)
+     --accent:       #c9a84c  (dorado)
+     --bg-dark:      #0a1f12  (verde muy oscuro)
+     --bg-light:     #f4f7f3  (gris verdoso claro)
+
+   Fuentes:
+     Playfair Display  - Titulos (serif)
+     Inter             - Cuerpo (sans-serif)
+
+   Dependencias:
+     Bootstrap 5.3.3 (grid, collapse, navbar)
+   ========================================================================== */
+
+/* ==========================================================================
+   RESET Y VARIABLES
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2d6a4f;
+    --primary-light: #40916c;
+    --accent: #c9a84c;
+    --accent-hover: #b8942e;
+    --bg-light: #f4f7f3;
+    --bg-dark: #0a1f12;
+    --text: #2d2d2d;
+    --text-light: #6b7280;
+    --white: #ffffff;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+    --radius: 12px;
+    --transition: 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   NAVBAR
+   ==========================================================================
+   Barra de navegacion fija en la parte superior.
+   En desktop se muestra como lista horizontal.
+   En mobile (Bootstrap collapse) se oculta detras del hamburger.
+
+   Elementos:
+     .navbar          - Contenedor flex principal
+     .logo            - Link del logo (imagen + texto)
+     .nav-links       - Lista de enlaces
+     .navbar-scrolled - Clase dinamica que se agrega al hacer scroll (via JS)
+     .nav-link.active - Enlace de la pagina actual (via JS)
+   ========================================================================== */
+
+/* Z-index para que el navbar quede sobre los pseudo-elementos del header */
+.page-header .container,
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    position: relative;
+    transition: background var(--transition), padding var(--transition),
+                box-shadow var(--transition);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: auto;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+/* --- Enlaces de navegacion --- */
+
+.nav-links {
+    list-style: none;
+    column-gap: 28px;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition);
+    position: relative;
+}
+
+/* Underline animado que aparece en hover y en el link activo */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--white);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Link activo: subrayado dorado permanente (detectado via JS) */
+.nav-links a.active {
+    color: var(--white);
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* --- Navbar toggler (mobile hamburger) --- */
+
+.navbar-toggler {
+    border: none;
+    padding: 4px 0;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+}
+
+/* --- Navbar scrolled (efecto al hacer scroll, activado via JS) ---
+   Agrega fondo oscuro semi-transparente con blur y sombra.
+   Se activa cuando window.scrollY > 50. */
+.navbar-scrolled {
+    background: rgba(10, 31, 18, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    padding: 10px 0;
+}
+
+/* ==========================================================================
+   PAGE HEADER (Subpaginas)
+   ==========================================================================
+   Banner verde de fondo en las subpaginas (horarios, quienes-somos, etc).
+   Contiene el navbar + titulo de pagina.
+
+   Elementos:
+     .page-header       - Contenedor del banner
+     .page-header-title - Wrapper del titulo y subtitulo
+   ========================================================================== */
+
+.page-header {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header-title {
+    padding: 100px 0 80px;
+}
+
+/* Decoracion radial de fondo (brillo dorado sutil) */
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* ==========================================================================
+   HERO (Pagina principal - index.html)
+   ==========================================================================
+   Banner a pantalla completa con el mensaje de bienvenida.
+
+   Elementos:
+     .hero           - Contenedor del hero
+     .hero-content   - Centra el contenido (h1, parrafo, botones)
+     .hero-buttons   - Contenedor flex de los botones CTA
+   ========================================================================== */
+
+.hero {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero nav.navbar {
+    flex-shrink: 0;
+}
+
+.hero-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto 36px;
+    font-weight: 300;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   BOTONES
+   ==========================================================================
+   Estilos base para todos los botones del sitio.
+
+   .btn-primary   - Boton dorado (relleno)
+   .btn-secondary - Boton transparente con borde blanco
+
+   Nota: .btn-primary[type="submit"] tiene un efecto shimmer especial
+   que se aplica en la seccion de Animaciones al final del archivo.
+   ========================================================================== */
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+}
+
+/* Estado deshabilitado: feedback visual durante envio del formulario */
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    border-color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   SECCIONES
+   ==========================================================================
+   Contenedores de contenido con padding generoso.
+
+   .section        - Seccion con fondo blanco
+   .section-alt    - Seccion con fondo gris verdoso
+   .section-title  - Titulo de seccion (Playfair Display, verde)
+   .section-subtitle - Subtitulo centrado (gris)
+   ========================================================================== */
+
+.section {
+    padding: 100px 0;
+}
+
+.section-alt {
+    background: var(--bg-light);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.05rem;
+    margin-bottom: 60px;
+}
+
+/* ==========================================================================
+   TARJETAS DE HORARIO (Schedule)
+   ==========================================================================
+   Tarjetas que muestran dia, hora y nombre del culto.
+
+   .schedule-card  - Tarjeta blanca con borde dorado arriba
+   .schedule-day   - Nombre del dia (Playfair, verde)
+   .schedule-time  - Rango de horas (dorado)
+   .schedule-name  - Nombre del servicio (gris)
+   ========================================================================== */
+
+.schedule-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+    border-top: 4px solid var(--accent);
+}
+
+.schedule-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.schedule-day {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.schedule-time {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.schedule-name {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   QUIENES SOMOS (About)
+   ==========================================================================
+   Seccion de texto informativo + tarjetas de valores.
+
+   .about-content  - Contenedor centrado (max 800px)
+   .about-text     - Parrafos descriptivos
+   .about-values   - Grid de tarjetas de valores
+   .value-item     - Tarjeta individual (icono, titulo, descripcion)
+   .value-icon     - Emoji/icono grande
+   ========================================================================== */
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.8;
+}
+
+.about-values {
+    margin-top: 50px;
+}
+
+.value-item {
+    text-align: center;
+    padding: 30px 20px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform var(--transition);
+}
+
+.value-item:hover {
+    transform: translateY(-4px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.value-item h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+.value-item p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* ==========================================================================
+   PASTORES (Pastors)
+   ==========================================================================
+   Tarjetas de los pastores de la iglesia.
+
+   .pastors-grid    - Grid centrado (max 700px)
+   .pastor-card     - Tarjeta individual
+   .pastor-img      - Contenedor circular de la imagen/icono
+   .pastor-placeholder - Fallback con gradiente verde
+   .pastor-role     - Cargo del pastor (dorado)
+   .pastor-desc     - Breve descripcion (gris)
+   ========================================================================== */
+
+.pastor-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.pastor-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.pastor-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.pastor-placeholder {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+}
+
+.pastor-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-size: 1.3rem;
+}
+
+.pastor-role {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.pastor-desc {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   EVENTOS (Events)
+   ==========================================================================
+   Lista de eventos proximos con fecha destacada.
+
+   .events-list - Contenedor flex vertical (max 700px)
+   .event-item  - Fila de evento (fecha + info)
+   .event-date  - Bloque de fecha con fondo verde
+   .event-day   - Dia grande (Playfair)
+   .event-month - Mes abreviado
+   .event-info  - Titulo y descripcion del evento
+   ========================================================================== */
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.event-item {
+    display: flex;
+    gap: 24px;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+    align-items: center;
+}
+
+.event-item:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.event-date {
+    text-align: center;
+    min-width: 80px;
+    padding: 12px 16px;
+    background: var(--primary);
+    border-radius: var(--radius);
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.event-day {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+}
+
+.event-month {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 4px;
+    opacity: 0.9;
+}
+
+.event-info h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-size: 1.15rem;
+}
+
+.event-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   CONTACTO (Contact)
+   ==========================================================================
+   Seccion de contacto con info + formulario.
+
+   .contact-wrapper - Grid centrado (max 900px)
+   .contact-info    - Columna de datos de contacto
+   .contact-item    - Fila individual (icono + texto)
+   .contact-form    - Formulario de envio
+   .form-feedback   - Mensaje de exito tras enviar (oculto por defecto)
+
+   El form tiene id="contactForm" para ser controlado por animations.js.
+   Los campos deben tener atributo 'name' para poder enviarse.
+   ========================================================================== */
+
+.contact-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.contact-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.contact-item h4 {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+    font-size: 1rem;
+}
+
+.contact-item p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* --- Formulario --- */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    background: var(--white);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+/* Mensaje de feedback tras enviar el formulario (controlado via JS).
+   Oculto con 'hidden', se muestra agregando clase 'show'. */
+.form-feedback {
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form-feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-feedback p {
+    margin: 0;
+    color: var(--primary);
+    background: rgba(45, 106, 79, 0.1);
+    border: 1px solid rgba(45, 106, 79, 0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ==========================================================================
+   Pie de pagina con fondo oscuro.
+
+   .footer          - Contenedor principal
+   .footer-content  - Grid de columnas (marca, enlaces, redes)
+   .footer-brand    - Logo + descripcion
+   .footer-links    - Lista de enlaces rapidos
+   .footer-social   - Iconos de redes sociales
+   .footer-bottom   - Copyright centrado
+   ========================================================================== */
+
+.footer {
+    background: var(--bg-dark);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 60px 0 0;
+}
+
+.footer-content {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-logo {
+    width: 56px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.footer-links h4,
+.footer-social h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background var(--transition), transform var(--transition);
+}
+
+/* Hover unificado: fondo dorado + scale (fusionado para evitar conflicto
+   entre 'animation: pulse' y 'transform: translateY') */
+.social-icon:hover {
+    background: var(--accent);
+    transform: scale(1.15);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 24px 0;
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   ANIMACIONES
+   ==========================================================================
+   Sistema de animaciones basado en IntersectionObserver (ver animations.js).
+
+   Como funciona:
+     1. Los elementos con data-animate="tipo" se observan con IntersectionObserver.
+     2. Cuando entran en viewport (threshold 15%), se agrega la clase 'animate'.
+     3. La clase 'animate' + el tipo activan la keyframe correspondiente.
+     4. El observer se desconecta del elemento (unobserve) para no repetir.
+
+   Tipos disponibles (data-animate):
+     fade-in-up    - Desliza hacia arriba + fade
+     fade-in-down  - Desliza hacia abajo + fade
+     fade-in-left  - Desliza desde la izquierda + fade
+     fade-in-right - Desliza desde la derecha + fade
+     scale-in      - Escala de 0.85 a 1 + fade
+
+   Retrasos (.delay-1 a .delay-6):
+     Se pueden agregar a elementos hermanos para animacion escalonada.
+
+   Animaciones de entrada especiales:
+     .animate-hero     - Entrada escalonada del hero (index.html)
+     .animate-header   - Entrada del titulo de subpagina
+   ========================================================================== */
+
+/* --- Keyframes --- */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* --- Clases de animacion base ---
+   .animate inicia con opacity:0. Cuando se agrega la clase del tipo,
+   la keyframe corre con 'forwards' para mantener el estado final. */
+
+.animate {
+    opacity: 0;
+}
+
+.animate.fade-in-up {
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+.animate.fade-in-down {
+    animation: fadeInDown 0.7s ease forwards;
+}
+
+.animate.fade-in-left {
+    animation: fadeInLeft 0.7s ease forwards;
+}
+
+.animate.fade-in-right {
+    animation: fadeInRight 0.7s ease forwards;
+}
+
+.animate.scale-in {
+    animation: scaleIn 0.6s ease forwards;
+}
+
+/* --- Retrasos escalonados ---
+   Agregar clase .delay-N al elemento para retrasar la animacion N*0.1s.
+   Util para animar varios elementos hermanos en secuencia. */
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* --- Hero entrance (index.html) ---
+   Animacion escalonada: h1 -> p -> botones.
+   Se activa agregando .animate-hero a .hero-content via JS. */
+
+.hero-content.animate-hero h1 {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-content.animate-hero p {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.hero-content.animate-hero .hero-buttons {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+/* --- Page header entrance (subpaginas) ---
+   Titulo desliza desde arriba, subtitulo desde abajo.
+   Se activa agregando .animate-header a .page-header via JS. */
+
+.page-header.animate-header h1 {
+    opacity: 0;
+    animation: fadeInDown 0.7s ease forwards;
+}
+
+.page-header.animate-header p {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease 0.2s forwards;
+}
+
+/* --- Boton submit con shimmer ---
+   Gradiente animado que se mueve de izq a derecha al hacer hover.
+   Solo aplica al boton tipo submit del formulario de contacto. */
+
+.btn-primary[type="submit"] {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 25%, var(--accent) 50%, var(--accent-hover) 75%, var(--accent) 100%);
+    background-size: 200% 100%;
+}
+
+.btn-primary[type="submit"]:hover {
+    animation: shimmer 1.5s linear infinite;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ==========================================================================
+   Ajustes para pantallas pequenas (mobile).
+   Bootstrap maneja la mayoria de breakpoints, pero algunos ajustes
+   personalizados se necesitan para el layout completo.
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .event-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+}
