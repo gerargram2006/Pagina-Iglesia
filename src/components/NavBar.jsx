@@ -13,10 +13,12 @@
  *       En las demás páginas, se renderiza DENTRO de PageHeader.
  */
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function NavBar() {
     const location = useLocation();
     const path = location.pathname;
+    const { user } = useAuth();
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -55,6 +57,15 @@ export default function NavBar() {
                         </li>
                         <li className="nav-item">
                             <Link className={`nav-link ${path === '/contacto' ? 'active' : ''}`} to="/contacto">Contacto</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link
+                                className={`nav-link nav-admin-link ${path === '/admin' || path === '/login' ? 'active' : ''}`}
+                                to={user ? '/admin' : '/login'}
+                            >
+                                <i className="bi bi-person-circle"></i>
+                                {user ? 'Admin' : 'Iniciar Sesion'}
+                            </Link>
                         </li>
                     </ul>
                 </div>
