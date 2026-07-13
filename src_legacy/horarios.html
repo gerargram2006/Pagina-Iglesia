@@ -1,38 +1,61 @@
+<!-- Declara el documento como HTML5 -->
 <!DOCTYPE html>
+<!-- Elemento raíz del documento con idioma español -->
 <html lang="es">
 
+<!-- Sección de encabezado del documento -->
 <head>
+    <!-- Define la codificación de caracteres como UTF-8 -->
     <meta charset="UTF-8">
+    <!-- Configura la vista responsive para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título que aparece en la pestaña del navegador -->
     <title>Horarios de Culto - Asamblea de Dios</title>
     <!-- SEO Básico -->
+    <!-- Meta descripción para motores de búsqueda -->
     <meta name="description" content="Conoce los horarios de nuestras reuniones semanales en la Iglesia Asamblea de Dios. Te invitamos a nuestros cultos de adoración, estudios bíblicos y actividades juveniles.">
+    <!-- Indica a los motores de búsqueda que indexen y sigan los enlaces -->
     <meta name="robots" content="index, follow">
     
     <!-- Metatags Open Graph (Compartir en redes sociales) -->
+    <!-- Define el tipo de contenido para Open Graph -->
     <meta property="og:type" content="website">
+    <!-- Título que se muestra al compartir en redes sociales -->
     <meta property="og:title" content="Horarios de Culto - Iglesia Asamblea de Dios">
+    <!-- Descripción que se muestra al compartir en redes sociales -->
     <meta property="og:description" content="Acompáñanos los domingos, miércoles y sábados. Encuentra aquí las horas de nuestras reuniones.">
+    <!-- Imagen que se muestra al compartir en redes sociales -->
     <meta property="og:image" content="img/LogoAD.PNG">
+    <!-- URL de la página para Open Graph -->
     <meta property="og:url" content="horarios.html">
+    <!-- Nombre del sitio para Open Graph -->
     <meta property="og:site_name" content="Asamblea de Dios">
 
     <!-- Metatags Twitter -->
+    <!-- Tipo de tarjeta de Twitter (imagen grande) -->
     <meta name="twitter:card" content="summary_large_image">
+    <!-- Título de la tarjeta de Twitter -->
     <meta name="twitter:title" content="Horarios de Culto - Iglesia Asamblea de Dios">
+    <!-- Descripción de la tarjeta de Twitter -->
     <meta name="twitter:description" content="Acompáñanos los domingos, miércoles y sábados. Encuentra aquí las horas de nuestras reuniones.">
+    <!-- Imagen de la tarjeta de Twitter -->
     <meta name="twitter:image" content="img/LogoAD.PNG">
 
     <!-- Bootstrap 5.3.3 CSS -->
+    <!-- Enlaza la hoja de estilos de Bootstrap para diseño responsive -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons CSS -->
+    <!-- Enlaza la hoja de estilos de Bootstrap Icons para iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Estilos personalizados del sitio -->
+    <!-- Enlaza los estilos CSS personalizados del proyecto -->
     <link rel="stylesheet" href="styles/styles.css">
     <!-- Fuentes: Playfair Display (titulos) + Inter (cuerpo) -->
+    <!-- Carga las fuentes de Google Fonts para el diseño tipográfico -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
+<!-- Cuerpo del documento HTML -->
 <body>
 
     <!-- ==================================================================
@@ -40,34 +63,54 @@
          Banner verde con navbar + titulo "Horarios de Culto".
          Se anima con .animate-header (via JS): titulo desde arriba, subtitulo desde abajo.
          ================================================================== -->
+    <!-- Encabezado principal de la página con fondo verde -->
     <header class="page-header">
+        <!-- Barra de navegación principal -->
         <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Contenedor centrado para el contenido del navbar -->
             <div class="container">
+                <!-- Enlace al logo que redirige al inicio -->
                 <a href="index.html" class="logo">
+                    <!-- Imagen del logo de la iglesia -->
                     <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="logo-img">
+                    <!-- Nombre de la iglesia junto al logo -->
                     <span class="logo-text">Asamblea de Dios</span>
                 </a>
+                <!-- Botón hamburguesa para menú en móvil -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
+                    <!-- Icono visual del botón hamburguesa -->
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Contenedor del menú de navegación que se colapsa en móvil -->
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Lista de enlaces de navegación alineados a la derecha -->
                     <ul class="navbar-nav ms-auto nav-links">
+                        <!-- Elemento de lista con enlace a la página de inicio -->
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <!-- Elemento de lista con enlace a la página de horarios -->
                         <li class="nav-item"><a class="nav-link" href="horarios.html">Horarios</a></li>
+                        <!-- Elemento de lista con enlace a la página quiénes somos -->
                         <li class="nav-item"><a class="nav-link" href="quienes-somos.html">Quiénes Somos</a></li>
+                        <!-- Elemento de lista con enlace a la página de pastores -->
                         <li class="nav-item"><a class="nav-link" href="pastores.html">Pastores</a></li>
+                        <!-- Elemento de lista con enlace a la página de eventos -->
                         <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
+                        <!-- Elemento de lista con enlace a la página de contacto -->
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- Contenedor del título principal del encabezado -->
         <div class="container page-header-title">
+            <!-- Título principal de la página -->
             <h1>Horarios de Culto</h1>
+            <!-- Subtítulo que invita a asistir a las reuniones -->
             <p>Te esperamos en nuestras reuniones semanales</p>
         </div>
     </header>
 
+    <!-- Contenido principal de la página -->
     <main>
 
         <!-- ==================================================================
@@ -75,27 +118,45 @@
              Tarjetas con los horarios de las reuniones semanales.
              Cada tarjeta se anima con fade-in-up al hacer scroll.
              ================================================================== -->
+        <!-- Sección que muestra los horarios de los cultos -->
         <section class="section">
+            <!-- Contenedor centrado para las tarjetas de horarios -->
             <div class="container">
+                <!-- Fila con espacio entre columnas para las tarjetas -->
                 <div class="row g-4">
+                    <!-- Columna para la tarjeta del domingo -->
                     <div class="col-12 col-md-4">
+                        <!-- Tarjeta de horario con animación al hacer scroll -->
                         <div class="schedule-card" data-animate="fade-in-up">
+                            <!-- Día de la semana: Domingo -->
                             <div class="schedule-day">Domingo</div>
+                            <!-- Horario del culto de domingo -->
                             <div class="schedule-time">10:00 AM - 12:00 PM</div>
+                            <!-- Nombre del servicio: culto principal -->
                             <div class="schedule-name">Culto de Alabanza y Adoración</div>
                         </div>
                     </div>
+                    <!-- Columna para la tarjeta del miércoles -->
                     <div class="col-12 col-md-4">
+                        <!-- Tarjeta de horario con animación al hacer scroll -->
                         <div class="schedule-card" data-animate="fade-in-up">
+                            <!-- Día de la semana: Miércoles -->
                             <div class="schedule-day">Miércoles</div>
+                            <!-- Horario del estudio bíblico -->
                             <div class="schedule-time">7:00 PM - 8:30 PM</div>
+                            <!-- Nombre del servicio: estudio y oración -->
                             <div class="schedule-name">Estudio Bíblico y Oración</div>
                         </div>
                     </div>
+                    <!-- Columna para la tarjeta del sábado -->
                     <div class="col-12 col-md-4">
+                        <!-- Tarjeta de horario con animación al hacer scroll -->
                         <div class="schedule-card" data-animate="fade-in-up">
+                            <!-- Día de la semana: Sábado -->
                             <div class="schedule-day">Sábado</div>
+                            <!-- Horario de la reunión de jóvenes -->
                             <div class="schedule-time">6:00 PM - 8:00 PM</div>
+                            <!-- Nombre del servicio: grupos juveniles -->
                             <div class="schedule-name">Grupos de Jóvenes</div>
                         </div>
                     </div>
@@ -109,44 +170,70 @@
          FOOTER
          Pie de pagina compartido en todas las subpaginas.
          ================================================================== -->
+    <!-- Pie de página con información de la iglesia -->
     <footer class="footer">
+        <!-- Contenedor centrado para el contenido del footer -->
         <div class="container">
+            <!-- Fila con columnas para la información del footer -->
             <div class="row g-4 footer-content">
+                <!-- Columna para la marca y descripción de la iglesia -->
                 <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Contenedor del logo y descripción en el footer -->
                     <div class="footer-brand">
+                        <!-- Logo de la iglesia en el pie de página -->
                         <img src="img/LogoAD.PNG" alt="Asamblea de Dios" class="footer-logo">
+                        <!-- Descripción breve de la iglesia -->
                         <p>Asamblea de Dios — Una iglesia con propósito y visión.</p>
                     </div>
                 </div>
+                <!-- Columna para los enlaces de navegación del footer -->
                 <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Contenedor de los enlaces rápidos -->
                     <div class="footer-links">
+                        <!-- Título de la sección de enlaces -->
                         <h4>Enlaces</h4>
+                        <!-- Lista de enlaces de navegación -->
                         <ul>
+                            <!-- Enlace a la página de inicio -->
                             <li><a href="index.html">Inicio</a></li>
+                            <!-- Enlace a la página de horarios -->
                             <li><a href="horarios.html">Horarios</a></li>
+                            <!-- Enlace a la página quiénes somos -->
                             <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                            <!-- Enlace a la página de contacto -->
                             <li><a href="contacto.html">Contacto</a></li>
                         </ul>
                     </div>
                 </div>
+                <!-- Columna para las redes sociales del footer -->
                 <div class="col-12 col-md-6 col-lg-4">
+                    <!-- Contenedor de los enlaces a redes sociales -->
                     <div class="footer-social">
+                        <!-- Título de la sección de redes sociales -->
                         <h4>Síguenos</h4>
+                        <!-- Contenedor de los iconos de redes sociales -->
                         <div class="social-icons">
+                            <!-- Enlace al perfil de Facebook -->
                             <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <!-- Enlace al perfil de Instagram -->
                             <a href="#" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <!-- Enlace al canal de YouTube -->
                             <a href="#" class="social-icon" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Contenedor del copyright en la parte inferior -->
             <div class="footer-bottom">
+                <!-- Texto de copyright con el año actual -->
                 <p>&copy; 2026 Asamblea de Dios. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Incluye el bundle de JavaScript de Bootstrap para interactividad -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Incluye el archivo de animaciones personalizadas -->
     <script src="js/animations.js"></script>
 </body>
 

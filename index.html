@@ -1,20 +1,37 @@
+<!-- Declara el tipo de documento como HTML5 -->
 <!doctype html>
+<!-- Elemento raíz del documento, idioma configurado en español -->
 <html lang="es">
+  <!-- Contiene metadatos y enlaces a recursos del sitio -->
   <head>
+    <!-- Define la codificación de caracteres como UTF-8 para soporte de tildes y ñ -->
     <meta charset="UTF-8" />
+    <!-- Define el ícono que se muestra en la pestaña del navegador (favicon) -->
     <link rel="icon" type="image/png" href="/img/LogoAD.PNG" />
+    <!-- Configura la vista para dispositivos móviles, ajustando el ancho y la escala inicial -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título que aparece en la pestaña del navegador -->
     <title>Asamblea de Dios - Iglesia</title>
+    <!-- Descripción del sitio para motores de búsqueda (SEO) -->
     <meta name="description" content="Sitio web de la Iglesia Asamblea de Dios. Una comunidad de fe, esperanza y servicio dedicada a predicar el evangelio." />
+    <!-- Título para compartir en redes sociales (Open Graph) -->
     <meta property="og:title" content="Iglesia Asamblea de Dios" />
+    <!-- Descripción para compartir en redes sociales (Open Graph) -->
     <meta property="og:description" content="Conéctate con nuestra comunidad. Horarios de culto, reuniones semanales, eventos especiales y más." />
+    <!-- Imagen que se muestra al compartir el sitio en redes sociales (Open Graph) -->
     <meta property="og:image" content="/img/LogoAD.PNG" />
+    <!-- Preconecta al servidor de fuentes de Google para cargarlas más rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Preconecta al servidor de archivos de fuentes de Google (dominio de contenido estático) -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Importa las fuentes tipográficas Playfair Display e Inter con diferentes grosores -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
+  <!-- Contiene el contenido visible de la página web -->
   <body>
+    <!-- Contenedor raíz donde React renderiza toda la aplicación -->
     <div id="root"></div>
+    <!-- Carga el archivo principal de la aplicación React como módulo ES -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
