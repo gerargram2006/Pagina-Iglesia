@@ -27,10 +27,10 @@ export default function Layout() { // Exporta el componente Layout como exportac
     /* Activar animaciones de scroll en cada navegación */
     useScrollAnimations(); // Lanza el hook que observa elementos con [data-animate] y los anima al hacer scroll
 
-    return ( // Retorna el JSX que compone la estructura del layout
-        <> {/* Fragmento React vacío para agrupar hijos sin añadir nodos extra al DOM */}
-            <Outlet /> {/* Renderiza el componente hijo correspondiente a la ruta actual */}
-            <Footer /> {/* Renderiza el pie de página en todas las rutas */}
-        </> {/* Cierra el fragmento React */}
-    ); // Fin del return
+    return (
+        <>
+            <Outlet />
+            <Footer />
+        </>
+    );
 } // Fin del componente Layout

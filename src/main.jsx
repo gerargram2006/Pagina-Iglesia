@@ -20,9 +20,7 @@ import App from './App.jsx'
 
 // Crea el punto de montaje en el elemento con id 'root' y renderiza la aplicación
 createRoot(document.getElementById('root')).render(
-    {/* Envuelve la aplicación en StrictMode para detectar problemas en desarrollo */}
     <StrictMode>
-        {/* Componente principal que contiene toda la aplicación */}
         <App />
-    </StrictMode>, // Cierra el componente StrictMode con coma para el método render
-) // Fin de la llamada al método render
+    </StrictMode>,
+)

@@ -20,7 +20,6 @@ export default function Admin() {
 
     // Retorna el JSX que renderiza la página de administración
     return (
-        {/* Contenedor principal de la página de administración */}
         <div className="admin-page">
             {/* Contenedor interno que centra y organiza el contenido */}
             <div className="admin-container">

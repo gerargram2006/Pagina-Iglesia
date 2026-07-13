@@ -38,51 +38,31 @@ import Admin from './pages/Admin';
 
 // Componente de ruta protegida que solo permite acceso a usuarios autenticados
 function ProtectedRoute({ children }) {
-    // Obtenemos el usuario actual y el estado de carga del contexto de autenticación
     const { user, loading } = useAuth();
-    // Si aún se está cargando la información de autenticación, no renderizamos nada
     if (loading) return null;
-    // Si no hay usuario autenticado, redirigimos a la página de inicio de sesión
     if (!user) return <Navigate to="/login" replace />;
-    // Si el usuario está autenticado, renderizamos los hijos protegidos
     return children;
 }
 
 // Componente principal de la aplicación que define todas las rutas
 function App() {
     return (
-        {/* Envolvemos toda la aplicación en el enrutador del navegador */}
         <BrowserRouter>
-            {/* Proveedor de autenticación para gestionar sesiones de usuario */}
             <AuthProvider>
-                {/* Contenedor principal de todas las rutas definidas */}
                 <Routes>
-                    {/* Ruta raíz que usa el layout compartido con footer y scroll */}
                     <Route path="/" element={<Layout />}>
-                        {/* Ruta del índice: página principal con hero y secciones */}
                         <Route index element={<Home />} />
-                        {/* Ruta de horarios de culto */}
                         <Route path="horarios" element={<Horarios />} />
-                        {/* Ruta de historia y misión de la iglesia */}
                         <Route path="quienes-somos" element={<QuienesSomos />} />
-                        {/* Ruta del equipo pastoral */}
                         <Route path="pastores" element={<Pastores />} />
-                        {/* Ruta de eventos y actividades */}
                         <Route path="eventos" element={<Eventos />} />
-                        {/* Ruta de formulario y datos de contacto */}
                         <Route path="contacto" element={<Contacto />} />
                     </Route>
-                    {/* Ruta de inicio de sesión (fuera del layout principal) */}
                     <Route path="/login" element={<Login />} />
-                    {/* Ruta de administración protegida por autenticación */}
                     <Route
-                        {/* Ruta URL para el panel de administración */}
                         path="/admin"
-                        {/* Elemento renderizado: componente Admin dentro de ProtectedRoute */}
                         element={
-                            {/* Envolvemos Admin en la ruta protegida para verificar autenticación */}
                             <ProtectedRoute>
-                                {/* Componente de administración solo accesible para usuarios autenticados */}
                                 <Admin />
                             </ProtectedRoute>
                         }
