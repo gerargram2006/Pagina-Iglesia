@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext(null);
 
 // Define la URL del endpoint de login del backend
-const API_URL = 'http://localhost:3000/api/auth/login';
+const API_URL = '/api/auth/login';
 
 // Componente proveedor que envuelve la app y comparte el estado de autenticación a través del contexto
 export function AuthProvider({ children }) {
@@ -16,22 +16,26 @@ export function AuthProvider({ children }) {
     // Estado que indica si se está verificando la sesión al cargar la app (true inicialmente)
     const [loading, setLoading] = useState(true);
 
-    // Efecto que se ejecuta una sola vez al montar el componente para restaurar la sesión
     useEffect(() => {
-        // Obtiene el usuario guardado en localStorage durante el login anterior
-        const storedUser = localStorage.getItem('admin_user');
-        // Obtiene el token guardado en localStorage durante el login anterior
-        const storedToken = localStorage.getItem('admin_token');
-        // Verifica que ambos valores existan en localStorage
-        if (storedUser && storedToken) {
-            // Convierte el JSON del usuario de texto a objeto y lo restaura en el estado
-            setUser(JSON.parse(storedUser));
-            // Restaura el token en el estado
-            setToken(storedToken);
+        try {
+            const storedUser = localStorage.getItem('admin_user');
+            const storedToken = localStorage.getItem('admin_token');
+            if (storedUser && storedToken) {
+                const parsed = JSON.parse(storedUser);
+                if (parsed && parsed.email) {
+                    setUser(parsed);
+                    setToken(storedToken);
+                } else {
+                    localStorage.removeItem('admin_user');
+                    localStorage.removeItem('admin_token');
+                }
+            }
+        } catch {
+            localStorage.removeItem('admin_user');
+            localStorage.removeItem('admin_token');
         }
-        // Marca que la verificación inicial de sesión ha terminado
         setLoading(false);
-    }, []); // Array de dependencias vacío: solo se ejecuta al montar
+    }, []);
 
     // Función asíncrona que realiza el login con email y contraseña
     const login = async (email, password) => {

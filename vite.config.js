@@ -7,6 +7,13 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 // Exporta la configuración por defecto usando defineConfig (que ofrece autocompletado y validación)
 export default defineConfig({
-  // Arreglo de plugins que Vite usará; aquí solo se incluye el plugin de React
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
+  },
 })
