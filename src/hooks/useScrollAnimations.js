@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react'; // Importa el hook useEffect de React para efectos secundarios
+import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la ruta actual del navegador
 
 /**
  * Hook personalizado que activa animaciones de scroll en elementos del DOM.
@@ -20,27 +20,27 @@ import { useLocation } from 'react-router-dom';
  *
  * @returns {void}
  */
-export default function useScrollAnimations() {
-    const { pathname } = useLocation();
+export default function useScrollAnimations() { // Exporta el hook como valor por defecto para uso en componentes
+    const { pathname } = useLocation(); // Extrae la ruta actual del objeto de ubicación de React Router
 
-    useEffect(() => {
-        const elements = document.querySelectorAll('[data-animate]');
-        if (!elements.length) return;
+    useEffect(() => { // Inicia un efecto que se ejecuta cada vez que cambia pathname
+        const elements = document.querySelectorAll('[data-animate]'); // Selecciona todos los elementos del DOM con el atributo data-animate
+        if (!elements.length) return; // Si no hay elementos con data-animate, termina el efecto sin hacer nada
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
-        );
+        const observer = new IntersectionObserver( // Crea una instancia de IntersectionObserver para monitorear visibilidad
+            (entries) => { // Callback que se ejecuta cuando cambia la intersección de algún elemento observado
+                entries.forEach((entry) => { // Itera sobre cada entrada (elemento) que cambió su estado de intersección
+                    if (entry.isIntersecting) { // Verifica si el elemento es visible en el viewport (al menos 10%)
+                        entry.target.classList.add('animated'); // Agrega la clase 'animated' al elemento para activar la animación CSS
+                        observer.unobserve(entry.target); // Deja de observar el elemento ya que no necesita reanimarse
+                    } // Fin del condicional de intersección
+                }); // Fin del forEach sobre las entries
+            }, // Fin del callback del observer
+            { threshold: 0.1, rootMargin: '0px 0px -30px 0px' } // Configura umbral al 10% y margen inferior negativo de 30px para activar antes
+        ); // Fin de la creación del IntersectionObserver
 
-        elements.forEach((el) => observer.observe(el));
+        elements.forEach((el) => observer.observe(el)); // Observa cada elemento con data-animate para detectar su visibilidad
 
-        return () => observer.disconnect();
-    }, [pathname]);
-}
+        return () => observer.disconnect(); // Función de limpieza: desconecta el observer al desmontar o cambiar ruta
+    }, [pathname]); // Dependencia del efecto: se re-ejecuta cuando cambia la ruta de navegación
+} // Fin del hook useScrollAnimations

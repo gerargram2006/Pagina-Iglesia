@@ -17,16 +17,16 @@
  *   │                              │
  *   └──────────────────────────────┘
  */
-import NavBar from './NavBar';
+import NavBar from './NavBar'; // Importa el componente de navegación para mostrarlo en el encabezado
 
-export default function PageHeader({ title, subtitle }) {
-    return (
-        <header className="page-header">
-            <NavBar />
-            <div className="container page-header-title">
-                <h1>{title}</h1>
-                <p>{subtitle}</p>
-            </div>
-        </header>
-    );
-}
+export default function PageHeader({ title, subtitle }) { // Exporta PageHeader recibiendo las props title y subtitle
+    return ( // Retorna el JSX del encabezado de página
+        <header className="page-header"> {/* Elemento semántico header con clase personalizada para el estilo degradado */}
+            <NavBar /> {/* Renderiza la barra de navegación dentro del encabezado */}
+            <div className="container page-header-title"> {/* Contenedor centrado para el título y subtítulo */}
+                <h1>{title}</h1> {/* Título principal de la página, rendered desde la prop */}
+                <p>{subtitle}</p> {/* Subtítulo descriptivo debajo del título, rendered desde la prop */}
+            </div> {/* Cierra el contenedor del título */}
+        </header> // Fin del elemento header
+    ); // Fin del return
+} // Fin del componente PageHeader
