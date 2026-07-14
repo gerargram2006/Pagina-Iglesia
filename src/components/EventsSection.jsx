@@ -1,7 +1,7 @@
 /**
- * Componente EventsSection - Sección de próximos eventos.
+ * Componente EventsSection - Sección de próximos eventos con imágenes.
  *
- * Muestra una lista cronológica de eventos próximos de la iglesia.
+ * Muestra una lista de eventos próximos de la iglesia con thumbnails.
  * Se usa en Home (sección) y en /eventos (página completa).
  *
  * Props:
@@ -10,58 +10,78 @@
  *   @param {string} id       - ID HTML para enlaces internos
  *
  * Cada evento incluye:
+ *   - Imagen thumbnail placeholder.
  *   - Fecha destacada (día + mes) con fondo degradado verde.
  *   - Nombre del evento.
  *   - Descripción breve de la actividad.
  *
- * Los eventos usan data-animate="fade-in-left" para animarse
- * desde la izquierda al hacer scroll.
- *
- * Nota: Los datos son estáticos. Para una app en producción,
- *       se recomienda obtener los eventos de una API o base de datos.
+ * Para agregar imágenes reales:
+ *   1. Coloca las fotos en /public/img/eventos/
+ *   2. Cambia hasImage a true y imageSrc a la ruta correcta
  */
-export default function EventsSection({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }) { // Exporta EventsSection con valores por defecto para cada prop
-    return ( // Retorna el JSX de la sección de eventos
-        <section id={id} className="section section-alt"> {/* Sección semántica con ID dinámico y estilo alternado */}
-            <div className="container"> {/* Contenedor Bootstrap para centrar y limitar el ancho */}
-                {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>} {/* Título condicional con animación fade-in-down */}
-                {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>} {/* Subtítulo condicional con animación fade-in-up */}
-                <div className="events-list"> {/* Contenedor para la lista de eventos */}
-                    {/* Evento 1: Campaña de Oración */}
-                    <div className="event-item" data-animate="fade-in-left"> {/* Tarjeta del evento 1 con animación desde la izquierda */}
-                        <div className="event-date"> {/* Bloque de fecha con fondo degradado verde */}
-                            <span className="event-day">15</span> {/* Día del evento: 15 */}
-                            <span className="event-month">Jul</span> {/* Mes del evento: Julio (abbreviado) */}
-                        </div> {/* Cierra el bloque de fecha */}
-                        <div className="event-info"> {/* Bloque de información del evento */}
-                            <h3>Campaña de Oración</h3> {/* Nombre del evento 1 */}
-                            <p>Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.</p> {/* Descripción del evento 1 */}
-                        </div> {/* Cierra el bloque de información */}
-                    </div> {/* Cierra la tarjeta del evento 1 */}
-                    {/* Evento 2: Conferencia Familiar */}
-                    <div className="event-item" data-animate="fade-in-left"> {/* Tarjeta del evento 2 con animación desde la izquierda */}
-                        <div className="event-date"> {/* Bloque de fecha del evento 2 */}
-                            <span className="event-day">22</span> {/* Día del evento: 22 */}
-                            <span className="event-month">Jul</span> {/* Mes del evento: Julio */}
-                        </div> {/* Cierra el bloque de fecha */}
-                        <div className="event-info"> {/* Bloque de información del evento 2 */}
-                            <h3>Conferencia Familiar</h3> {/* Nombre del evento 2 */}
-                            <p>Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.</p> {/* Descripción del evento 2 */}
-                        </div> {/* Cierra el bloque de información */}
-                    </div> {/* Cierra la tarjeta del evento 2 */}
-                    {/* Evento 3: Bautismo Masivo */}
-                    <div className="event-item" data-animate="fade-in-left"> {/* Tarjeta del evento 3 con animación desde la izquierda */}
-                        <div className="event-date"> {/* Bloque de fecha del evento 3 */}
-                            <span className="event-day">05</span> {/* Día del evento: 05 */}
-                            <span className="event-month">Ago</span> {/* Mes del evento: Agosto (abbreviado) */}
-                        </div> {/* Cierra el bloque de fecha */}
-                        <div className="event-info"> {/* Bloque de información del evento 3 */}
-                            <h3>Bautismo Masivo</h3> {/* Nombre del evento 3 */}
-                            <p>Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.</p> {/* Descripción del evento 3 */}
-                        </div> {/* Cierra el bloque de información */}
-                    </div> {/* Cierra la tarjeta del evento 3 */}
-                </div> {/* Cierra el contenedor de la lista de eventos */}
-            </div> {/* Cierra el contenedor principal */}
-        </section> // Fin del elemento section
-    ); // Fin del return
-} // Fin del componente EventsSection
+export default function EventsSection({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }) {
+    const events = [
+        {
+            day: "15",
+            month: "Jul",
+            name: "Campaña de Oración",
+            description: "Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.",
+            hasImage: false,
+            imageSrc: "/img/eventos/campana-oracion.jpg",
+        },
+        {
+            day: "22",
+            month: "Jul",
+            name: "Conferencia Familiar",
+            description: "Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.",
+            hasImage: false,
+            imageSrc: "/img/eventos/conferencia-familiar.jpg",
+        },
+        {
+            day: "05",
+            month: "Ago",
+            name: "Bautismo Masivo",
+            description: "Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.",
+            hasImage: false,
+            imageSrc: "/img/eventos/bautismo.jpg",
+        },
+    ];
+
+    return (
+        <section id={id} className="section section-alt">
+            <div className="container">
+                {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
+                {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
+                <div className="events-list">
+                    {events.map((event, index) => (
+                        <div key={index} className="event-item" data-animate="fade-in-left">
+                            {/* Thumbnail del evento */}
+                            <div className="event-thumb">
+                                {event.hasImage ? (
+                                    <img src={event.imageSrc} alt={event.name} />
+                                ) : (
+                                    <div className="event-thumb-placeholder">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                        </svg>
+                                    </div>
+                                )}
+                            </div>
+                            {/* Fecha del evento */}
+                            <div className="event-date">
+                                <span className="event-day">{event.day}</span>
+                                <span className="event-month">{event.month}</span>
+                            </div>
+                            {/* Info del evento */}
+                            <div className="event-info">
+                                <h3>{event.name}</h3>
+                                <p>{event.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
