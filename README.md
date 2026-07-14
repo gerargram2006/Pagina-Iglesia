@@ -24,11 +24,13 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 ## Características
 
 ### Páginas públicas
-- **Inicio**: Página principal con hero a pantalla completa y secciones destacadas.
-- **Horarios**: Información sobre los horarios de culto (domingo, miércoles, sábado).
-- **Quiénes Somos**: Descripción de la historia, misión y valores (Fe, Amor, Servicio).
-- **Pastores**: Perfiles del equipo pastoral con imágenes placeholder.
-- **Eventos**: Lista cronológica de próximos eventos y actividades.
+- **Inicio**: Página principal con hero interactivo, formas flotantes y efecto de scroll animado.
+- **Horarios**: Información sobre los horarios de culto con tarjetas dinámicas e iconos.
+- **Quiénes Somos**: Layout de 2 columnas con imagen, historia, valores y métricas de la iglesia.
+- **Galería**: Nueva sección tipo bento grid con 6 espacios para fotos de la congregación.
+- **Pastores**: Perfiles del equipo pastoral con soporte para fotos reales y anillos decorativos.
+- **Eventos**: Lista cronológica de próximos eventos y actividades con thumbnails de imágenes.
+- **Llamado a la acción (CTA)**: Banner visual motivacional a pantalla completa con partículas decorativas.
 - **Contacto**: Formulario de contacto y datos de la congregación.
 
 ### Panel de administración
@@ -40,13 +42,21 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 ### Generales
 - **Diseño responsive**: Compatible con dispositivos móviles, tablets y escritorio.
 - **Navegación SPA**: Enrutamiento fluido sin recargas de página con React Router.
-- **Animaciones de scroll**: Elementos animados al hacer scroll con IntersectionObserver.
-- **Footer persistente**: Pie de página visible en todas las rutas públicas.
+- **Diseño Premium**: Glassmorphism en el NavBar, barra de navegación móvil custom y efectos modernos de hover/shimmer.
+- **Animaciones de scroll**: Elementos animados en cascada al hacer scroll con IntersectionObserver.
+- **Footer persistente**: Pie de página visible en rutas públicas con versículo destacado y redes sociales.
 - **Paleta de colores**: Verde bosque + dorado eclesiástico con variables CSS.
 
 ---
 
 ## Tecnologías
+
+### Estadísticas de Lenguajes
+| Lenguaje | Porcentaje |
+|---|---|
+| JavaScript / React (JS/JSX) | ~ 40.7% |
+| HTML | ~ 34.9% |
+| CSS | ~ 24.4% |
 
 ### Frontend
 
@@ -142,13 +152,15 @@ Pagina-Iglesia/
 │   │   └── hero.png
 │   ├── components/             # Componentes reutilizables
 │   │   ├── Layout.jsx          # Layout principal con Outlet y Footer
-│   │   ├── NavBar.jsx          # Barra de navegación responsiva
-│   │   ├── Footer.jsx          # Pie de página con enlaces y redes sociales
+│   │   ├── NavBar.jsx          # Barra de navegación responsiva con Glassmorphism
+│   │   ├── Footer.jsx          # Pie de página con enlaces, versículo y redes sociales
 │   │   ├── PageHeader.jsx      # Encabezado de páginas internas
-│   │   ├── ScheduleSection.jsx # Tarjetas de horarios de culto
-│   │   ├── AboutSection.jsx    # Sección "Quiénes Somos" con valores
-│   │   ├── PastorsSection.jsx  # Tarjetas de pastores/líderes
-│   │   ├── EventsSection.jsx   # Lista de próximos eventos
+│   │   ├── ScheduleSection.jsx # Tarjetas de horarios de culto con iconos
+│   │   ├── AboutSection.jsx    # Sección "Quiénes Somos" (Layout 2 columnas y métricas)
+│   │   ├── GallerySection.jsx  # Galería de fotos (Bento grid de 6 espacios)
+│   │   ├── PastorsSection.jsx  # Tarjetas de pastores/líderes (soporte para foto real)
+│   │   ├── EventsSection.jsx   # Lista de próximos eventos (con thumbnails)
+│   │   ├── CTASection.jsx      # Sección "Llamado a la acción" con partículas
 │   │   └── ContactSection.jsx  # Info de contacto + formulario
 │   ├── context/
 │   │   └── AuthContext.jsx     # Proveedor de autenticación (login/logout/JWT)
