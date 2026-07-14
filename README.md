@@ -251,13 +251,20 @@ Copia el hash generado y actualízalo en la tabla `usuarios` de la base de datos
 
 ### 7. Iniciar servidores
 
+Abre **tres terminales** en la raíz del proyecto:
+
 ```bash
-# Terminal 1 - Backend (puerto 3000)
+# Terminal 1 — Base de datos (Docker)
+docker-compose up -d
+
+# Terminal 2 — Backend (puerto 3000)
 cd backend && npm start
 
-# Terminal 2 - Frontend (puerto 5173)
+# Terminal 3 — Frontend (puerto 5173)
 npm run dev
 ```
+
+> Si Docker ya está corriendo, solo necesitas las terminales del backend y del frontend.
 
 ### 8. Abrir en el navegador
 
