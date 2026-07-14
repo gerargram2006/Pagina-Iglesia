@@ -1150,6 +1150,116 @@ a {
 }
 
 /* ==========================================================================
+   LOGIN - TOGGLE DE CONTRASEÑA
+   ========================================================================== */
+
+/* Contenedor del input con botón de toggle al lado derecho */
+.login-input-with-toggle {
+  position: relative;
+}
+
+/* Botón de mostrar/ocultar contraseña - posicionado a la derecha del input */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  color: var(--gray-400);
+  font-size: 1.05rem;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* Hover del botón de toggle - cambia el color a verde */
+.password-toggle:hover {
+  color: var(--primary-600);
+}
+
+/* Focus visible del botón de toggle para accesibilidad */
+.password-toggle:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   LOGIN - CHECKBOX "RECORDAR SESIÓN"
+   ========================================================================== */
+
+/* Fila de opciones debajo de los campos (checkbox de recordar) */
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+/* Etiqueta del checkbox personalizado */
+.login-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  user-select: none;
+  transition: color var(--transition-fast);
+}
+
+/* Hover de la etiqueta del checkbox */
+.login-checkbox:hover {
+  color: var(--text);
+}
+
+/* Checkbox nativo ocultado visualmente (pero accesible para lectores de pantalla) */
+.login-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Cuadro visual personalizado del checkbox (reemplaza el checkbox nativo) */
+.login-checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gray-300, #ccc);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+/* Cuando el checkbox está marcado, cambia a color dorado con check */
+.login-checkbox input:checked + .login-checkbox-custom {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+}
+
+/* Icono de check dentro del checkbox personalizado */
+.login-checkbox input:checked + .login-checkbox-custom::after {
+  content: '\F272';
+  font-family: 'bootstrap-icons';
+  font-size: 0.7rem;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* Focus ring del checkbox nativo para accesibilidad */
+.login-checkbox input:focus-visible + .login-checkbox-custom {
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+}
+
+/* ==========================================================================
    ADMIN PAGE
    ========================================================================== */
 
@@ -1326,6 +1436,218 @@ a {
 }
 
 /* ==========================================================================
+   ADMIN - HEADER MEJORADO
+   ========================================================================== */
+
+/* Icono de hora junto al saludo dinámico */
+.admin-time-icon {
+  font-size: 1.1rem;
+  color: var(--gold-500);
+  margin-right: 6px;
+}
+
+/* Badge del rol del usuario (admin, superadmin, etc.) */
+.admin-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 3px 10px;
+  background: rgba(45, 106, 79, 0.08);
+  color: var(--primary-700);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(45, 106, 79, 0.12);
+}
+
+.admin-role-badge i {
+  font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   ADMIN - RELOJ EN TIEMPO REAL
+   ========================================================================== */
+
+/* Contenedor del reloj en el header del admin */
+.admin-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 18px;
+  background: var(--gray-50);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-200);
+  min-width: 140px;
+}
+
+/* Icono del reloj */
+.admin-clock i {
+  font-size: 1rem;
+  color: var(--primary-600);
+  margin-bottom: 2px;
+}
+
+/* Hora formateada (ej: "2:30 PM") */
+.admin-clock-time {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+
+/* Fecha formateada (ej: "lunes, 13 de julio de 2026") */
+.admin-clock-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   ADMIN - SECCIÓN HEADER CON TÍTULO Y BADGE
+   ========================================================================== */
+
+/* Fila del título de la sección con badge de estado */
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* Badge de estado "Activo" con punto verde */
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(45, 106, 79, 0.06);
+  border: 1px solid rgba(45, 106, 79, 0.12);
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--primary-700);
+}
+
+/* Punto verde animado del badge de estado */
+.admin-status-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--primary-500);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Animación de pulso para el punto verde */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ==========================================================================
+   ADMIN - BADGES DE TARJETAS "PRÓXIMAMENTE"
+   ========================================================================== */
+
+/* Badge "Próximamente" dentro de cada tarjeta del panel */
+.admin-card-badge {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 3px 10px;
+  background: rgba(184, 148, 46, 0.1);
+  color: var(--gold-600);
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(184, 148, 46, 0.15);
+}
+
+/* Animación de entrada escalonada para las tarjetas del admin */
+.admin-card {
+  animation: cardEntrance 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   ADMIN - SECCIÓN DE ESTADÍSTICAS
+   ========================================================================== */
+
+/* Contenedor de las estadísticas rápidas debajo de las tarjetas */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Cada ítem de estadística */
+.admin-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition);
+}
+
+.admin-stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: transparent;
+}
+
+/* Icono de la estadística */
+.admin-stat-item > i {
+  font-size: 1.6rem;
+  color: var(--primary-600);
+  opacity: 0.8;
+}
+
+/* Contenedor del número y la etiqueta */
+.admin-stat-item > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Número de la estadística (por ahora "--") */
+.admin-stat-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Etiqueta de la estadística ("Miembros", "Eventos", etc.) */
+.admin-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
    SCROLL ANIMATIONS
    ========================================================================== */
 
@@ -1476,6 +1798,35 @@ a {
 
   .admin-cards {
     grid-template-columns: 1fr;
+  }
+
+  .admin-clock {
+    min-width: 120px;
+    padding: 8px 14px;
+  }
+
+  .admin-clock-time {
+    font-size: 1rem;
+  }
+
+  .admin-clock-date {
+    font-size: 0.68rem;
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
   }
 }
 
