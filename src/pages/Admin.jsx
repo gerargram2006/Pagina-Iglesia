@@ -23,6 +23,13 @@ import { useAuth } from '../context/AuthContext';
 // Importa useState y useEffect de React para estado local y efectos secundarios
 import { useState, useEffect } from 'react';
 
+// Importa los sub-componentes de administración
+import AdminEventos from './admin/AdminEventos';
+import AdminPastores from './admin/AdminPastores';
+import AdminMensajes from './admin/AdminMensajes';
+
+import { api } from '../api';
+
 /**
  * Función auxiliar que retorna un saludo según la hora actual del sistema.
  * @returns {string} "Buenos días", "Buenas tardes" o "Buenas noches"
@@ -129,6 +136,35 @@ export default function Admin() {
     const [currentTime, setCurrentTime] = useState(new Date());
     // Estado para controlar la visibilidad del sidebar en móvil
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    // Estado para la pestaña activa
+    const [activeTab, setActiveTab] = useState('Dashboard');
+    
+    // Estado para las estadísticas del dashboard
+    const [stats, setStats] = useState({ miembros: '--', eventos: '--', mensajes: '--', visitas: '124' });
+
+    // Efecto para cargar estadísticas reales al entrar al Dashboard
+    useEffect(() => {
+        if (activeTab === 'Dashboard') {
+            const fetchStats = async () => {
+                try {
+                    const [pastoresRes, eventosRes, mensajesRes] = await Promise.all([
+                        api.pastores.getAll(),
+                        api.eventos.getAll(),
+                        api.mensajes.getAll()
+                    ]);
+                    setStats({
+                        miembros: pastoresRes.length,
+                        eventos: eventosRes.length,
+                        mensajes: mensajesRes.length,
+                        visitas: '124' // Mock
+                    });
+                } catch (e) {
+                    console.error("Error al cargar estadísticas", e);
+                }
+            };
+            fetchStats();
+        }
+    }, [activeTab]);
 
     // Efecto que actualiza la hora cada 60 segundos para el reloj en tiempo real
     useEffect(() => {
@@ -194,7 +230,8 @@ export default function Admin() {
                     {sidebarItems.map((item) => (
                         <button
                             key={item.label}
-                            className={`admin-sidebar-item ${item.active ? 'admin-sidebar-item--active' : ''}`}
+                            onClick={() => { setActiveTab(item.label); setSidebarOpen(false); }}
+                            className={`admin-sidebar-item ${activeTab === item.label ? 'admin-sidebar-item--active' : ''}`}
                             title={item.label}
                         >
                             <i className={`bi ${item.icon}`}></i>
@@ -261,136 +298,162 @@ export default function Admin() {
                     </div>
                 </header>
 
-                {/* Contenido del dashboard */}
+                {/* Contenido del dashboard dinámico según la pestaña activa */}
                 <div className="admin-content">
-                    {/* Sección de estadísticas */}
-                    <section className="admin-stats">
-                        {dashboardStats.map((stat, index) => (
-                            <div
-                                key={stat.label}
-                                className="admin-stat-card"
-                                style={{ animationDelay: `${index * 0.08}s` }}
-                            >
-                                <div className="admin-stat-icon" style={{ color: stat.color }}>
-                                    <i className={`bi ${stat.icon}`}></i>
+                    {activeTab === 'Dashboard' && (
+                        <>
+                            {/* Banner de Bienvenida Premium */}
+                            <div className="admin-welcome-banner">
+                                <div className="admin-welcome-content">
+                                    <h2>Bendiciones, {user?.name || 'Administrador'}</h2>
+                                    <p>Aquí tienes el panel general de la iglesia. Que Dios guíe cada paso que tomes en la administración de este ministerio hoy.</p>
                                 </div>
-                                <div className="admin-stat-info">
-                                    <span className="admin-stat-number">{stat.value}</span>
-                                    <span className="admin-stat-label">{stat.label}</span>
+                                <div className="admin-welcome-icon">
+                                    <i className="bi bi-stars"></i>
                                 </div>
-                                {stat.trend === 'up' && (
-                                    <div className="admin-stat-trend admin-stat-trend--up">
-                                        <i className="bi bi-arrow-up-short"></i>
-                                    </div>
-                                )}
                             </div>
-                        ))}
-                    </section>
 
-                    {/* Grid de dos columnas: tarjetas + actividad */}
-                    <div className="admin-dashboard-grid">
-                        {/* Columna izquierda: Panel de control */}
-                        <section className="admin-section">
-                            <div className="admin-section-header">
-                                <h2>
-                                    <i className="bi bi-grid"></i>
-                                    Panel de Control
-                                </h2>
-                                <span className="admin-status-badge">
-                                    <span className="admin-status-dot"></span>
-                                    Activo
-                                </span>
-                            </div>
-                            <p className="admin-section-desc">
-                                Gestiona el contenido de la iglesia desde aqui.
-                            </p>
-
-                            {/* Grid de tarjetas */}
-                            <div className="admin-cards">
-                                {adminCards.map((card, index) => (
+                            {/* Sección de estadísticas dinámicas */}
+                            <section className="admin-stats">
+                                {[
+                                    { label: 'Miembros', icon: 'bi-people-fill', value: stats.miembros, trend: 'up', color: 'var(--primary-600)' },
+                                    { label: 'Eventos', icon: 'bi-calendar-check', value: stats.eventos, trend: 'up', color: 'var(--gold-500)' },
+                                    { label: 'Mensajes', icon: 'bi-envelope-fill', value: stats.mensajes, trend: 'neutral', color: 'var(--primary-500)' },
+                                    { label: 'Visitas', icon: 'bi-eye-fill', value: stats.visitas, trend: 'up', color: 'var(--gold-600)' }
+                                ].map((stat, index) => (
                                     <div
-                                        key={card.title}
-                                        className="admin-card"
-                                        style={{ animationDelay: `${index * 0.1}s` }}
+                                        key={stat.label}
+                                        className="admin-stat-card"
+                                        style={{ animationDelay: `${index * 0.08}s` }}
                                     >
-                                        <div
-                                            className="admin-card-icon"
-                                            style={{ background: card.gradient }}
-                                        >
-                                            <i className={`bi ${card.icon}`}></i>
+                                        <div className="admin-stat-icon" style={{ color: stat.color }}>
+                                            <i className={`bi ${stat.icon}`}></i>
                                         </div>
-                                        <div className="admin-card-body">
-                                            <h3>{card.title}</h3>
-                                            <p>{card.description}</p>
+                                        <div className="admin-stat-info">
+                                            <span className="admin-stat-number">{stat.value}</span>
+                                            <span className="admin-stat-label">{stat.label}</span>
                                         </div>
-                                        <span className="admin-card-badge">Proximamente</span>
-                                        {/* Efecto decorativo hover */}
-                                        <div className="admin-card-shine"></div>
+                                        {stat.trend === 'up' && (
+                                            <div className="admin-stat-trend admin-stat-trend--up">
+                                                <i className="bi bi-arrow-up-short"></i>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
-                            </div>
-                        </section>
+                            </section>
 
-                        {/* Columna derecha: Actividad reciente + Quick actions */}
-                        <aside className="admin-sidebar-right">
-                            {/* Quick Actions */}
-                            <div className="admin-quick-actions">
-                                <h3>
-                                    <i className="bi bi-lightning-fill"></i>
-                                    Acciones rapidas
-                                </h3>
-                                <div className="admin-quick-btns">
-                                    <button className="admin-quick-btn" disabled>
-                                        <i className="bi bi-plus-circle"></i>
-                                        Nuevo evento
-                                    </button>
-                                    <button className="admin-quick-btn" disabled>
-                                        <i className="bi bi-pencil-square"></i>
-                                        Crear anuncio
-                                    </button>
-                                    <button className="admin-quick-btn" disabled>
-                                        <i className="bi bi-person-plus"></i>
-                                        Agregar miembro
-                                    </button>
-                                </div>
-                            </div>
+                            {/* Grid de dos columnas: tarjetas + actividad */}
+                            <div className="admin-dashboard-grid">
+                                {/* Columna izquierda: Panel de control */}
+                                <section className="admin-section">
+                                    <div className="admin-section-header">
+                                        <h2>
+                                            <i className="bi bi-grid"></i>
+                                            Panel de Control
+                                        </h2>
+                                        <span className="admin-status-badge">
+                                            <span className="admin-status-dot"></span>
+                                            Activo
+                                        </span>
+                                    </div>
+                                    <p className="admin-section-desc">
+                                        Gestiona el contenido de la iglesia desde aqui. Selecciona una opción en el menú lateral para comenzar.
+                                    </p>
 
-                            {/* Actividad reciente */}
-                            <div className="admin-activity">
-                                <h3>
-                                    <i className="bi bi-activity"></i>
-                                    Actividad reciente
-                                </h3>
-                                <div className="admin-activity-list">
-                                    {recentActivity.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className={`admin-activity-item admin-activity-item--${item.type}`}
-                                        >
-                                            <div className="admin-activity-icon">
-                                                <i className={`bi ${item.icon}`}></i>
+                                    {/* Grid de tarjetas interactivo */}
+                                    <div className="admin-cards">
+                                        {adminCards.map((card, index) => (
+                                            <div
+                                                key={card.title}
+                                                className="admin-card"
+                                                onClick={() => setActiveTab(card.title === 'Miembros' ? 'Pastores' : card.title)}
+                                                style={{ animationDelay: `${index * 0.1}s`, cursor: 'pointer' }}
+                                            >
+                                                <div
+                                                    className="admin-card-icon"
+                                                    style={{ background: card.gradient }}
+                                                >
+                                                    <i className={`bi ${card.icon}`}></i>
+                                                </div>
+                                                <div className="admin-card-body">
+                                                    <h3>{card.title}</h3>
+                                                    <p>{card.description}</p>
+                                                </div>
+                                                <div className="admin-card-shine"></div>
                                             </div>
-                                            <div className="admin-activity-info">
-                                                <span className="admin-activity-text">{item.text}</span>
-                                                <span className="admin-activity-time">{item.time}</span>
-                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                {/* Columna derecha: Actividad reciente + Quick actions */}
+                                <aside className="admin-sidebar-right">
+                                    {/* Quick Actions */}
+                                    <div className="admin-quick-actions">
+                                        <h3>
+                                            <i className="bi bi-lightning-fill"></i>
+                                            Acciones rapidas
+                                        </h3>
+                                        <div className="admin-quick-btns">
+                                            <button className="admin-quick-btn" onClick={() => setActiveTab('Eventos')}>
+                                                <i className="bi bi-plus-circle"></i>
+                                                Nuevo evento
+                                            </button>
+                                            <button className="admin-quick-btn" onClick={() => setActiveTab('Mensajes')}>
+                                                <i className="bi bi-chat-dots"></i>
+                                                Ver Mensajes
+                                            </button>
+                                            <button className="admin-quick-btn" onClick={() => setActiveTab('Miembros')}>
+                                                <i className="bi bi-person-plus"></i>
+                                                Agregar pastor
+                                            </button>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
+                                    </div>
 
-                            {/* Info del usuario */}
-                            <div className="admin-user-card">
-                                <div className="admin-user-card-avatar">
-                                    <i className="bi bi-person-fill"></i>
-                                </div>
-                                <div className="admin-user-card-info">
-                                    <span className="admin-user-card-name">{user?.name || 'Administrador'}</span>
-                                    <span className="admin-user-card-email">{user?.email}</span>
-                                </div>
+                                    {/* Actividad reciente */}
+                                    <div className="admin-activity">
+                                        <h3>
+                                            <i className="bi bi-activity"></i>
+                                            Actividad reciente
+                                        </h3>
+                                        <div className="admin-activity-list">
+                                            {recentActivity.map((item, index) => (
+                                                <div
+                                                    key={index}
+                                                    className={`admin-activity-item admin-activity-item--${item.type}`}
+                                                >
+                                                    <div className="admin-activity-icon">
+                                                        <i className={`bi ${item.icon}`}></i>
+                                                    </div>
+                                                    <div className="admin-activity-info">
+                                                        <span className="admin-activity-text">{item.text}</span>
+                                                        <span className="admin-activity-time">{item.time}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Info del usuario */}
+                                    <div className="admin-user-card">
+                                        <div className="admin-user-card-avatar">
+                                            <i className="bi bi-person-fill"></i>
+                                        </div>
+                                        <div className="admin-user-card-info">
+                                            <span className="admin-user-card-name">{user?.name || 'Administrador'}</span>
+                                            <span className="admin-user-card-email">{user?.email}</span>
+                                        </div>
+                                    </div>
+                                </aside>
                             </div>
-                        </aside>
-                    </div>
+                        </>
+                    )}
+
+                    {activeTab === 'Eventos' && <AdminEventos />}
+                    {activeTab === 'Miembros' && <AdminPastores />}
+                    {activeTab === 'Mensajes' && <AdminMensajes />}
+                    {activeTab === 'Anuncios' && <div className="admin-coming-soon"><i className="bi bi-megaphone"></i><h2>Módulo de Anuncios</h2><p>Próximamente disponible.</p></div>}
+                    {activeTab === 'Configuracion' && <div className="admin-coming-soon"><i className="bi bi-gear"></i><h2>Configuración</h2><p>Próximamente disponible.</p></div>}
+
                 </div>
             </main>
         </div>
