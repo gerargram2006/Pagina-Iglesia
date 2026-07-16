@@ -1779,14 +1779,23 @@ a {
 
 .login-input-with-toggle {
   position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.login-input-with-toggle input {
+  padding-right: 45px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .password-toggle {
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: 4px 6px;
@@ -1797,15 +1806,24 @@ a {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  z-index: 2;
 }
 
 .password-toggle:hover {
-  color: var(--primary-600);
+  color: var(--gold-500);
 }
 
 .password-toggle:focus-visible {
   outline: 2px solid var(--gold-500);
   outline-offset: 2px;
+}
+
+.password-toggle-icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.password-toggle:active .password-toggle-icon {
+  transform: scale(0.85);
 }
 
 /* ==========================================================================
