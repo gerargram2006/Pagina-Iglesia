@@ -37,6 +37,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 // Importa jsonwebtoken - librería para crear y verificar tokens JWT
 const jwt = require('jsonwebtoken');
+// Importa middleware de autenticación
+const { verificarToken } = require('./middleware/auth');
 
 // Crea una instancia de la aplicación Express
 const app = express();
@@ -175,6 +177,109 @@ app.post('/api/auth/login', (req, res) => {
                 rol: usuario.rol          // Rol (admin, superadmin, etc.)
             }
         });
+});
+});
+
+// --- ENDPOINTS PARA EVENTOS ---
+
+// Crear evento (Protegido)
+app.post('/api/eventos', verificarToken, (req, res) => {
+    const { titulo, descripcion, fecha, lugar, imagen_url } = req.body;
+    db.query(
+        'INSERT INTO eventos (titulo, descripcion, fecha, lugar, imagen_url) VALUES (?, ?, ?, ?, ?)',
+        [titulo, descripcion, fecha, lugar, imagen_url],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ id: result.insertId, titulo, descripcion, fecha, lugar, imagen_url });
+        }
+    );
+});
+
+// Actualizar evento (Protegido)
+app.put('/api/eventos/:id', verificarToken, (req, res) => {
+    const { id } = req.params;
+    const { titulo, descripcion, fecha, lugar, imagen_url } = req.body;
+    db.query(
+        'UPDATE eventos SET titulo = ?, descripcion = ?, fecha = ?, lugar = ?, imagen_url = ? WHERE id = ?',
+        [titulo, descripcion, fecha, lugar, imagen_url, id],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ success: true });
+        }
+    );
+});
+
+// Borrar evento (Protegido)
+app.delete('/api/eventos/:id', verificarToken, (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM eventos WHERE id = ?', [id], (err, result) => {
+        if (err) return res.status(500).json(err);
+        res.json({ success: true });
+    });
+});
+
+// --- ENDPOINTS PARA PASTORES ---
+
+// Obtener todos los pastores
+app.get('/api/pastores', (req, res) => {
+    db.query('SELECT * FROM pastores', (err, results) => {
+        if (err) return res.status(500).json(err);
+        res.json(results);
+    });
+});
+
+// Crear pastor (Protegido)
+app.post('/api/pastores', verificarToken, (req, res) => {
+    const { nombre, cargo, biografia, foto_url } = req.body;
+    db.query(
+        'INSERT INTO pastores (nombre, cargo, biografia, foto_url) VALUES (?, ?, ?, ?)',
+        [nombre, cargo, biografia, foto_url],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ id: result.insertId, nombre, cargo, biografia, foto_url });
+        }
+    );
+});
+
+// Actualizar pastor (Protegido)
+app.put('/api/pastores/:id', verificarToken, (req, res) => {
+    const { id } = req.params;
+    const { nombre, cargo, biografia, foto_url } = req.body;
+    db.query(
+        'UPDATE pastores SET nombre = ?, cargo = ?, biografia = ?, foto_url = ? WHERE id = ?',
+        [nombre, cargo, biografia, foto_url, id],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ success: true });
+        }
+    );
+});
+
+// Borrar pastor (Protegido)
+app.delete('/api/pastores/:id', verificarToken, (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM pastores WHERE id = ?', [id], (err, result) => {
+        if (err) return res.status(500).json(err);
+        res.json({ success: true });
+    });
+});
+
+// --- ENDPOINTS PARA MENSAJES ---
+
+// Obtener mensajes (Protegido)
+app.get('/api/mensajes', verificarToken, (req, res) => {
+    db.query('SELECT * FROM mensajes_contacto ORDER BY fecha_envio DESC', (err, results) => {
+        if (err) return res.status(500).json(err);
+        res.json(results);
+    });
+});
+
+// Borrar mensaje (Protegido)
+app.delete('/api/mensajes/:id', verificarToken, (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM mensajes_contacto WHERE id = ?', [id], (err, result) => {
+        if (err) return res.status(500).json(err);
+        res.json({ success: true });
     });
 });
 
