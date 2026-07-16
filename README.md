@@ -1,93 +1,105 @@
 # Iglesia Asamblea de Dios - Sitio Web
 
-Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React 19 + Vite 8** en el frontend y **Node.js + Express 5** en el backend. Ofrece información sobre horarios de culto, eventos, pastores, quiénes somos, datos de contacto y un panel de administración protegido con autenticación JWT.
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-000000?style=flat-square)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![License](https://img.shields.io/badge/License-Institucional-green?style=flat-square)
+
+Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React 19 + Vite 8** en el frontend y **Node.js + Express 5** en el backend. Ofrece informacion sobre horarios de culto, eventos, pastores, quienes somos, datos de contacto y un panel de administracion protegido con autenticacion JWT.
 
 ---
 
 ## Tabla de contenidos
 
-- [Características](#características)
-- [Tecnologías](#tecnologías)
+- [Caracteristicas](#caracteristicas)
+- [Tecnologias](#tecnologias)
 - [Arquitectura del proyecto](#arquitectura-del-proyecto)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Instalación y arranque](#instalación-y-arranque)
+- [Instalacion y arranque](#instalacion-y-arranque)
 - [Scripts disponibles](#scripts-disponibles)
-- [Rutas de la aplicación](#rutas-de-la-aplicación)
-- [Sistema de autenticación](#sistema-de-autenticación)
+- [Rutas de la aplicacion](#rutas-de-la-aplicacion)
+- [Sistema de autenticacion](#sistema-de-autenticacion)
 - [API del backend](#api-del-backend)
 - [Base de datos](#base-de-datos)
 - [Animaciones de scroll](#animaciones-de-scroll)
-- [Configuración del proyecto](#configuración-del-proyecto)
+- [Configuracion del proyecto](#configuracion-del-proyecto)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
 
 ---
 
-## Características
+## Caracteristicas
 
-### Páginas públicas
-- **Inicio**: Página principal con hero interactivo, formas flotantes y efecto de scroll animado.
-- **Horarios**: Información sobre los horarios de culto con tarjetas dinámicas e iconos.
-- **Quiénes Somos**: Layout de 2 columnas con imagen, historia, valores y métricas de la iglesia.
-- **Galería**: Nueva sección tipo bento grid con 6 espacios para fotos de la congregación.
-- **Pastores**: Perfiles del equipo pastoral con soporte para fotos reales y anillos decorativos.
-- **Eventos**: Lista cronológica de próximos eventos y actividades con thumbnails de imágenes.
-- **Llamado a la acción (CTA)**: Banner visual motivacional a pantalla completa con partículas decorativas.
-- **Contacto**: Formulario de contacto y datos de la congregación.
+### Paginas publicas
 
-### Panel de administración
-- **Login seguro**: Formulario con email/contraseña, show/hide de contraseña, "Recordar correo".
-- **Panel de control**: Saludo dinámico según hora, reloj en tiempo real, tarjetas de gestión.
-- **Estadísticas**: Sección de métricas rápidas (miembros, eventos, mensajes).
-- **Cierre de sesión**: Botón de logout con limpieza de token JWT.
+| Pagina | Ruta | Descripcion |
+|--------|------|-------------|
+| **Inicio** | `/` | Hero interactivo con formas flotantes, scroll animado y layout de una columna |
+| **Horarios** | `/horarios` | Tarjetas dinamicas con iconos para domingos, miercoles y sabados |
+| **Quienes Somos** | `/quienes-somos` | Layout de 2 columnas con imagen, historia, valores y metricas |
+| **Galeria** | `/quienes-somos` | Bento grid con 6 espacios para fotos de la congregacion |
+| **Pastores** | `/pastores` | Perfiles del equipo pastoral con fotos reales y anillos decorativos |
+| **Eventos** | `/eventos` | Lista cronologica de proximos eventos con thumbnails |
+| **CTA** | `/` (seccion) | Banner motivacional a pantalla completa con particulas decorativas |
+| **Contacto** | `/contacto` | Formulario de contacto y datos de la congregacion |
+
+### Panel de administracion
+
+| Funcionalidad | Descripcion |
+|---------------|-------------|
+| **Login seguro** | Formulario con email/contrasena, toggle de visibilidad (ojo), "Recordar correo" |
+| **Panel de control** | Saludo dinamico segun hora del dia, reloj en tiempo real, tarjetas de gestion |
+| **Estadisticas** | Metricas rapidas: miembros, eventos, mensajes |
+| **Logout** | Cierre de sesion con limpieza completa de token JWT |
 
 ### Generales
-- **Diseño responsive**: Compatible con dispositivos móviles, tablets y escritorio.
-- **Navegación SPA**: Enrutamiento fluido sin recargas de página con React Router.
-- **Diseño Premium**: Glassmorphism en el NavBar, barra de navegación móvil custom y efectos modernos de hover/shimmer.
-- **Animaciones de scroll**: Elementos animados en cascada al hacer scroll con IntersectionObserver.
-- **Footer persistente**: Pie de página visible en rutas públicas con versículo destacado y redes sociales.
-- **Paleta de colores**: Verde bosque + dorado eclesiástico con variables CSS.
+
+- **Diseño responsive**: Compatiple con moviles, tablets y escritorio (3 breakpoints: 991px, 767px, 575px)
+- **SPA fluida**: Enrutamiento sin recargas de pagina con React Router
+- **Diseño premium**: Glassmorphism en NavBar, hamburger custom y efectos hover/shimmer
+- **Animaciones de scroll**: Elementos en cascada al hacer scroll con IntersectionObserver
+- **Footer persistente**: Versiculo destacado, redes sociales y horarios en rutas publicas
+- **Paleta de colores**: Verde bosque + dorado eclesiastico con CSS custom properties
+- **Accesibilidad**: aria-labels, focus-visible, semantic HTML, contraste WCAG
 
 ---
 
-## Tecnologías
-
-### Estadísticas de Lenguajes
-| Lenguaje | Porcentaje |
-|---|---|
-| JavaScript / React (JS/JSX) | ~ 40.7% |
-| HTML | ~ 34.9% |
-| CSS | ~ 24.4% |
+## Tecnologias
 
 ### Frontend
 
-| Tecnología | Versión | Descripción |
-|---|---|---|
+| Tecnologia | Version | Descripcion |
+|------------|---------|-------------|
 | [React](https://react.dev/) | ^19.2.7 | Biblioteca para interfaces de usuario |
 | [Vite](https://vite.dev/) | ^8.1.1 | Herramienta de desarrollo y bundler |
 | [React Router](https://reactrouter.com/) | ^7.18.1 | Enrutamiento SPA |
-| [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades, componentes) |
+| [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades) |
 | [React Bootstrap](https://react-bootstrap.github.io/) | ^2.10.10 | Componentes Bootstrap para React |
-| [Bootstrap Icons](https://icons.getbootstrap.com/) | ^1.13.1 | Librería de iconos |
-| [OxLint](https://oxc.rs/) | ^1.71.0 | Linter ultrarrápido |
+| [Bootstrap Icons](https://icons.getbootstrap.com/) | ^1.13.1 | Libreria de iconos |
+| [OxLint](https://oxc.rs/) | ^1.71.0 | Linter ultrarrapido |
 
 ### Backend
 
-| Tecnología | Versión | Descripción |
-|---|---|---|
+| Tecnologia | Version | Descripcion |
+|------------|---------|-------------|
 | [Node.js](https://nodejs.org/) | >= 18 | Runtime de JavaScript |
 | [Express](https://expressjs.com/) | ^5.2.1 | Framework web para Node.js |
 | [MySQL2](https://github.com/sidorares/node-mysql2) | ^3.22.6 | Driver de MySQL |
-| [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Hashing seguro de contraseñas |
-| [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) | ^9.0.3 | Generación y verificación de JWT |
-| [cors](https://www.npmjs.com/package/cors) | ^2.8.6 | Habilitar Cross-Origin Resource Sharing |
+| [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Hashing seguro de contrasenas |
+| [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) | ^9.0.3 | Generacion y verificacion de JWT |
+| [cors](https://www.npmjs.com/package/cors) | ^2.8.6 | Cross-Origin Resource Sharing |
 | [dotenv](https://www.npmjs.com/package/dotenv) | ^17.4.2 | Variables de entorno desde .env |
 
 ### Base de datos
 
-| Tecnología | Versión | Descripción |
-|---|---|---|
-| [MySQL](https://www.mysql.com/) | 8.0 | Base de datos relacional (vía Docker) |
-| [Docker Compose](https://docs.docker.com/compose/) | - | Orquestación de contenedores |
+| Tecnologia | Version | Descripcion |
+|------------|---------|-------------|
+| [MySQL](https://www.mysql.com/) | 8.0 | Base de datos relacional (via Docker) |
+| [Docker Compose](https://docs.docker.com/compose/) | - | Orquestacion de contenedores |
 
 ---
 
@@ -105,7 +117,7 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 │  │ Login      │  │ Footer    │  │  (user,     │ │
 │  │ Admin      │  │ Layout    │  │   token,    │ │
 │  │ Horarios   │  │ PageHeader│  │   login,    │ │
-│  │ Eventos... │  │           │  │   logout)   │ │
+│  │ Eventos... │  │ 11 total  │  │   logout)   │ │
 │  └───────────┘  └───────────┘  └─────────────┘ │
 │                      │                          │
 │              Vite Proxy (/api)                  │
@@ -144,63 +156,62 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 ```
 Pagina-Iglesia/
 ├── public/
-│   ├── img/                    # Imágenes públicas (logo, etc.)
-│   ├── js/                     # Scripts estáticos (legado)
+│   ├── img/                    # Imagenes publicas (logo, etc.)
+│   ├── js/                     # Scripts estaticos (legado)
 │   └── icons.svg               # Iconos SVG
 ├── src/
 │   ├── assets/                 # Recursos importados por el bundler
 │   │   └── hero.png
-│   ├── components/             # Componentes reutilizables
+│   ├── components/             # 11 componentes reutilizables
 │   │   ├── Layout.jsx          # Layout principal con Outlet y Footer
-│   │   ├── NavBar.jsx          # Barra de navegación responsiva con Glassmorphism
-│   │   ├── Footer.jsx          # Pie de página con enlaces, versículo y redes sociales
-│   │   ├── PageHeader.jsx      # Encabezado de páginas internas
+│   │   ├── NavBar.jsx          # Barra de navegacion responsiva con Glassmorphism
+│   │   ├── Footer.jsx          # Pie de pagina con enlaces, versiculo y redes sociales
+│   │   ├── PageHeader.jsx      # Encabezado de paginas internas
 │   │   ├── ScheduleSection.jsx # Tarjetas de horarios de culto con iconos
-│   │   ├── AboutSection.jsx    # Sección "Quiénes Somos" (Layout 2 columnas y métricas)
-│   │   ├── GallerySection.jsx  # Galería de fotos (Bento grid de 6 espacios)
-│   │   ├── PastorsSection.jsx  # Tarjetas de pastores/líderes (soporte para foto real)
-│   │   ├── EventsSection.jsx   # Lista de próximos eventos (con thumbnails)
-│   │   ├── CTASection.jsx      # Sección "Llamado a la acción" con partículas
+│   │   ├── AboutSection.jsx    # Seccion "Quienes Somos" (2 columnas + metricas)
+│   │   ├── GallerySection.jsx  # Galeria de fotos (Bento grid de 6 espacios)
+│   │   ├── PastorsSection.jsx  # Tarjetas de pastores/lideres (foto real)
+│   │   ├── EventsSection.jsx   # Lista de proximos eventos (con thumbnails)
+│   │   ├── CTASection.jsx      # Seccion "Llamado a la accion" con particulas
 │   │   └── ContactSection.jsx  # Info de contacto + formulario
 │   ├── context/
-│   │   └── AuthContext.jsx     # Proveedor de autenticación (login/logout/JWT)
+│   │   └── AuthContext.jsx     # Proveedor de autenticacion (login/logout/JWT)
 │   ├── hooks/
 │   │   └── useScrollAnimations.js # Hook de animaciones scroll (IntersectionObserver)
-│   ├── pages/                  # Páginas/rutas de la aplicación
-│   │   ├── Home.jsx            # Página principal (hero + secciones)
-│   │   ├── Horarios.jsx        # Página de horarios
-│   │   ├── QuienesSomos.jsx    # Página "Quiénes Somos"
-│   │   ├── Pastores.jsx        # Página de pastores
-│   │   ├── Eventos.jsx         # Página de eventos
-│   │   ├── Contacto.jsx        # Página de contacto
-│   │   ├── Login.jsx           # Formulario de inicio de sesión
-│   │   └── Admin.jsx           # Panel de administración protegido
+│   ├── pages/                  # 8 paginas/rutas de la aplicacion
+│   │   ├── Home.jsx            # Pagina principal (hero + secciones)
+│   │   ├── Horarios.jsx        # Pagina de horarios
+│   │   ├── QuienesSomos.jsx    # Pagina "Quienes Somos"
+│   │   ├── Pastores.jsx        # Pagina de pastores
+│   │   ├── Eventos.jsx         # Pagina de eventos
+│   │   ├── Contacto.jsx        # Pagina de contacto
+│   │   ├── Login.jsx           # Formulario de inicio de sesion
+│   │   └── Admin.jsx           # Panel de administracion protegido
 │   ├── styles/
-│   │   └── styles.css          # Estilos globales del proyecto (~1600 líneas)
-│   ├── App.jsx                 # Definición de rutas (Router + Auth)
+│   │   └── styles.css          # Estilos globales (~2540 lineas)
+│   ├── App.jsx                 # Definicion de rutas (Router + Auth)
 │   └── main.jsx                # Punto de entrada de la app
 ├── backend/
 │   ├── server.js               # Servidor Express con endpoints API
 │   ├── generarClave.js         # Utilidad para generar hashes bcrypt
-│   ├── package.json            # Dependencias del backend
-│   └── node_modules/
-├── src_legacy/                 # Código legado (HTML/CSS/JS vanilla)
-├── dist/                       # Build de producción (generado por vite build)
+│   └── package.json            # Dependencias del backend
+├── src_legacy/                 # Codigo legado (HTML/CSS/JS vanilla)
+├── dist/                       # Build de produccion (vite build)
 ├── index.html                  # HTML de entrada para Vite
-├── vite.config.js              # Configuración de Vite (proxy API, plugin React)
-├── docker-compose.yml          # Configuración de MySQL en Docker
+├── vite.config.js              # Configuracion de Vite (proxy API, plugin React)
+├── docker-compose.yml          # Configuracion de MySQL en Docker
 ├── init.sql                    # Schema de la base de datos + datos de ejemplo
 ├── .env                        # Variables de entorno (NO versionar)
 ├── .gitignore
-├── .oxlintrc.json              # Configuración de OxLint
-├── .prettierrc                 # Configuración de Prettier
-├── .editorconfig               # Configuración del editor
+├── .oxlintrc.json              # Configuracion de OxLint
+├── .prettierrc                 # Configuracion de Prettier
+├── .editorconfig               # Configuracion del editor
 └── README.md                   # Este archivo
 ```
 
 ---
 
-## Instalación y arranque
+## Instalacion y arranque
 
 ### Requisitos previos
 
@@ -217,7 +228,7 @@ cd Pagina-Iglesia
 
 ### 2. Configurar variables de entorno
 
-Copia y edita el archivo `.env` en la raíz del proyecto:
+Copia y edita el archivo `.env` en la raiz del proyecto:
 
 ```env
 # Base de datos
@@ -253,17 +264,17 @@ npm install
 cd backend && npm install && cd ..
 ```
 
-### 6. Generar hash de contraseña (opcional)
+### 6. Generar hash de contrasena (opcional)
 
 ```bash
 cd backend && node generarClave.js
 ```
 
-Copia el hash generado y actualízalo en la tabla `usuarios` de la base de datos.
+Copia el hash generado y actualizalo en la tabla `usuarios` de la base de datos.
 
 ### 7. Iniciar servidores
 
-Abre **tres terminales** en la raíz del proyecto:
+Abre **tres terminales** en la raiz del proyecto:
 
 ```bash
 # Terminal 1 — Base de datos (Docker)
@@ -276,7 +287,7 @@ cd backend && npm start
 npm run dev
 ```
 
-> Si Docker ya está corriendo, solo necesitas las terminales del backend y del frontend.
+> Si Docker ya esta corriendo, solo necesitas las terminales del backend y del frontend.
 
 ### 8. Abrir en el navegador
 
@@ -287,43 +298,43 @@ npm run dev
 
 ## Scripts disponibles
 
-### Frontend (`package.json` raíz)
+### Frontend (`package.json` raiz)
 
-| Comando | Descripción |
-|---|---|
+| Comando | Descripcion |
+|---------|-------------|
 | `npm run dev` | Inicia el servidor de desarrollo con HMR (puerto 5173) |
-| `npm run build` | Genera el build de producción en `dist/` |
-| `npm run preview` | Vista previa del build de producción |
+| `npm run build` | Genera el build de produccion en `dist/` |
+| `npm run preview` | Vista previa del build de produccion |
 | `npm run lint` | Ejecuta el linter (OxLint) |
 
 ### Backend (`backend/package.json`)
 
-| Comando | Descripción |
-|---|---|
+| Comando | Descripcion |
+|---------|-------------|
 | `npm start` | Inicia el servidor Express en puerto 3000 |
-| `node generarClave.js` | Genera un hash bcrypt para una contraseña |
+| `node generarClave.js` | Genera un hash bcrypt para una contrasena |
 
 ---
 
-## Rutas de la aplicación
+## Rutas de la aplicacion
 
-### Rutas públicas
+### Rutas publicas
 
-| Ruta | Página | Descripción |
-|---|---|---|
-| `/` | Home | Página principal con hero y secciones |
-| `/horarios` | Horarios | Horarios de culto (domingo, miércoles, sábado) |
-| `/quienes-somos` | Quiénes Somos | Historia, misión y valores de la iglesia |
+| Ruta | Pagina | Descripcion |
+|------|--------|-------------|
+| `/` | Home | Pagina principal con hero y secciones |
+| `/horarios` | Horarios | Horarios de culto (domingo, miercoles, sabado) |
+| `/quienes-somos` | Quienes Somos | Historia, mision y valores de la iglesia |
 | `/pastores` | Pastores | Equipo pastoral con perfiles |
-| `/eventos` | Eventos | Eventos y actividades próximas |
+| `/eventos` | Eventos | Eventos y actividades proximas |
 | `/contacto` | Contacto | Formulario de contacto y datos |
 
 ### Rutas protegidas
 
-| Ruta | Página | Requisito |
-|---|---|---|
-| `/admin` | Panel Admin | Sesión activa (JWT válido) |
-| `/login` | Login | Sin sesión activa |
+| Ruta | Pagina | Requisito |
+|------|--------|-----------|
+| `/admin` | Panel Admin | Sesion activa (JWT valido) |
+| `/login` | Login | Sin sesion activa |
 
 ### Comportamiento de rutas protegidas
 
@@ -334,20 +345,20 @@ Usuario autenticado    → /login  → Redirige a /admin
 
 ---
 
-## Sistema de autenticación
+## Sistema de autenticacion
 
 ### Flujo completo
 
 ```
-1. Usuario ingresa email + contraseña en /login
+1. Usuario ingresa email + contrasena en /login
            ↓
-2. Frontend envía POST /api/auth/login con credenciales
+2. Frontend envia POST /api/auth/login con credenciales
            ↓
 3. Backend busca usuario por email en MySQL
            ↓
-4. Backend compara contraseña con bcrypt.compare()
+4. Backend compara contrasena con bcrypt.compare()
            ↓
-5. Si es válida: genera JWT (expira en 2 horas)
+5. Si es valida: genera JWT (expira en 2 horas)
            ↓
 6. Backend retorna { token, user: { id, name, email, rol } }
            ↓
@@ -362,29 +373,33 @@ Usuario autenticado    → /login  → Redirige a /admin
 
 ### Token JWT
 
-- **Algoritmo**: HMAC-SHA256 (por defecto de jsonwebtoken)
-- **Caducidad**: 2 horas
-- **Payload**: `{ id, rol }`
-- **Almacenamiento**: localStorage del navegador
+| Propiedad | Valor |
+|-----------|-------|
+| Algoritmo | HMAC-SHA256 |
+| Caducidad | 2 horas |
+| Payload | `{ id, rol }` |
+| Almacenamiento | localStorage del navegador |
 
 ### Funcionalidades del Login
 
-| Función | Descripción |
-|---|---|
-| Show/Hide contraseña | Botón de ojo para alternar visibilidad |
+| Funcion | Descripcion |
+|---------|-------------|
+| Show/Hide contrasena | Boton de ojo con icono dinamico (bi-eye / bi-eye-slash) y animacion de escala al hacer click |
 | Recordar correo | Checkbox que guarda el email en localStorage |
-| Validación HTML5 | Campos requeridos, email válido, min 6 caracteres |
-| Error shake | Animación de sacudida al fallar el login |
-| Spinner | Indicador de carga durante el envío |
-| Redirección automática | Si ya hay sesión activa, redirige a /admin |
+| Validacion HTML5 | Campos requeridos, email valido, min 6 caracteres |
+| Error shake | Animacion de sacudida al fallar el login |
+| Spinner | Indicador de carga circular durante el envio |
+| Redireccion automatica | Si ya hay sesion activa, redirige a /admin |
 
 ### Seguridad
 
-- La contraseña **nunca** se almacena en el frontend
-- Se usa `localStorage` para persistencia (aceptable para apps internas)
-- Tokens JWT con caducidad de 2 horas
-- El backend valida email + contraseña con bcrypt
-- Se usa parameterized queries (`?`) para prevenir SQL injection
+| Medida | Implementacion |
+|--------|----------------|
+| Hash de contrasenas | bcrypt con salt rounds |
+| Tokens JWT | Caducidad de 2 horas, payload minimal |
+| SQL Injection | Parameterized queries (`?`) en todas las consultas |
+| Frontend | Contrasena nunca se almacena en texto plano |
+| Persistencia | localStorage (aceptable para apps internas) |
 
 ---
 
@@ -408,8 +423,8 @@ Retorna todos los eventos de la iglesia.
 [
   {
     "id": 1,
-    "title": "Conferencia de Jóvenes",
-    "description": "Evento especial para jóvenes de la iglesia",
+    "title": "Conferencia de Jovenes",
+    "description": "Evento especial para jovenes de la iglesia",
     "date": "2026-07-20",
     "location": "Templo Principal",
     "image": "https://..."
@@ -421,7 +436,7 @@ Retorna todos los eventos de la iglesia.
 
 #### `POST /api/auth/login`
 
-Autentica un usuario con email y contraseña.
+Autentica un usuario con email y contrasena.
 
 **Request body:**
 
@@ -449,10 +464,10 @@ Autentica un usuario con email y contraseña.
 
 **Respuestas de error:**
 
-| Código | Causa |
-|---|---|
+| Codigo | Causa |
+|--------|-------|
 | `400` | Faltan campos email o password |
-| `401` | Usuario no encontrado o contraseña incorrecta |
+| `401` | Usuario no encontrado o contrasena incorrecta |
 | `500` | Error interno del servidor |
 
 ---
@@ -461,20 +476,20 @@ Autentica un usuario con email y contraseña.
 
 ### Tablas
 
-| Tabla | Descripción | Columnas principales |
-|---|---|---|
+| Tabla | Descripcion | Columnas principales |
+|-------|-------------|---------------------|
 | `usuarios` | Usuarios administradores | id, email, password (bcrypt hash), name, rol |
 | `eventos` | Eventos de la iglesia | id, title, description, date, location, image |
-| `pastores` | Pastores y líderes | id, name, role, bio, photo |
+| `pastores` | Pastores y lideres | id, name, role, bio, photo |
 | `horarios` | Horarios de culto | id, day, time, activity |
 | `mensajes_contacto` | Mensajes del formulario | id, name, email, message, created_at |
 
 ### Usuario de prueba
 
 | Campo | Valor |
-|---|---|
+|-------|-------|
 | Email | `admin@iglesia.com` |
-| Contraseña | `123456` |
+| Contrasena | `123456` |
 | Rol | `admin` |
 
 ---
@@ -483,10 +498,10 @@ Autentica un usuario con email y contraseña.
 
 El proyecto usa un sistema de animaciones basado en `IntersectionObserver`:
 
-### Tipos de animación disponibles
+### Tipos de animacion disponibles
 
 | Atributo `data-animate` | Efecto |
-|---|---|
+|-------------------------|--------|
 | `fade-in-up` | Elemento aparece desde abajo |
 | `fade-in-down` | Elemento aparece desde arriba |
 | `fade-in-left` | Elemento aparece desde la izquierda |
@@ -504,13 +519,14 @@ Se pueden combinar con clases `delay-1`, `delay-2`, `delay-3`, `delay-4` para cr
 ### Custom hook: `useScrollAnimations`
 
 Ubicado en `src/hooks/useScrollAnimations.js`. Se encarga de:
+
 - Observar todos los elementos con `data-animate` en el DOM.
 - Agregar la clase `animated` cuando entran en el viewport.
 - Limpiar el observer al desmontar o cambiar de ruta.
 
 ---
 
-## Configuración del proyecto
+## Configuracion del proyecto
 
 ### OxLint (`.oxlintrc.json`)
 
@@ -521,17 +537,17 @@ Linter configurado con plugins de React y reglas de Oxc:
 
 ### Prettier (`.prettierrc`)
 
-| Opción | Valor |
-|---|---|
+| Opcion | Valor |
+|--------|-------|
 | Comas simples | No |
-| Indentación | 4 espacios |
+| Indentacion | 4 espacios |
 | Comas trailing | Estilo ES5 |
-| Ancho de línea | 120 caracteres |
-| Salto de línea | LF |
+| Ancho de linea | 120 caracteres |
+| Salto de linea | LF |
 
 ### EditorConfig (`.editorconfig`)
 
-Configuración unificada para editores: indentación por espacios, charset UTF-8 y limpieza de espacios en blanco.
+Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y limpieza de espacios en blanco.
 
 ### Vite (`vite.config.js`)
 
@@ -542,24 +558,95 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 
 - **Servicio**: MySQL 8.0
 - **Puerto**: 3306
-- **Base de datos**: `iglesia_db` (creada automáticamente con `init.sql`)
-
----
+- **Base de datos**: `iglesia_db` (creada automaticamente con `init.sql`)
 
 ### Paleta de colores
 
 | Grupo | Colores | Uso |
-|---|---|---|
+|-------|---------|-----|
 | Verde bosque | `#0a1f12` → `#52b788` | Fondo del hero, navbar, footer, secciones principales |
 | Dorado | `#b8942e` → `#e8cf7a` | Botones primarios, acentos, bordes decorativos |
 | Neutros | `#f8faf7` → `#2d2d2d` | Texto, fondos, bordes, sombras |
 
-### Tipografía
+### Tipografia
 
 | Fuente | Uso |
-|---|---|
-| [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) | Títulos y encabezados (serif elegante) |
+|--------|-----|
+| [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) | Titulos y encabezados (serif elegante) |
 | [Inter](https://fonts.google.com/specimen/Inter) | Texto del cuerpo (sans-serif legible) |
+
+---
+
+## Troubleshooting
+
+### El backend no conecta a MySQL
+
+- Verifica que Docker este corriendo: `docker ps`
+- Asegurate de que las variables de entorno en `.env` sean correctas
+- Verifica que el contenedor MySQL este en el puerto 3306: `docker logs iglesia-mysql`
+
+### El frontend muestra errores de CORS
+
+- Verifica que el proxy de Vite este configurado en `vite.config.js`
+- Asegurate de que el backend este corriendo en el puerto 3000
+
+### Los estilos no se aplican correctamente
+
+- Ejecuta `npm run lint` para verificar errores de sintaxis
+- Verifica que `styles.css` este importado en `main.jsx`
+
+### La autenticacion falla
+
+- Verifica que el JWT_SECRET en `.env` este definido
+- Asegurate de que el hash de la contrasena este correctamente generado con `node generarClave.js`
+- Revisa los logs del backend para ver errores detallados
+
+---
+
+## Roadmap
+
+### Implementado
+
+- [x] Paginas publicas (Inicio, Horarios, Quienes Somos, Pastores, Eventos, Contacto)
+- [x] Panel de administracion con autenticacion JWT
+- [x] Login con toggle de contrasena, recordar correo y validacion
+- [x] Animaciones de scroll con IntersectionObserver
+- [x] Diseno responsive con 3 breakpoints
+- [x] Navbar con Glassmorphism
+- [x] Footer con versiculo y redes sociales
+- [x] Docker Compose para MySQL
+
+### Proximo
+
+- [ ] CRUD completo para eventos desde el panel admin
+- [ ] CRUD de pastores desde el panel admin
+- [ ] Gestion de horarios desde el panel admin
+- [ ] Subida de imagenes para eventos y pastores
+- [ ] Paginacion en listas de eventos
+- [ ] Buscador de eventos
+- [ ] Seccion de galeria con lightbox
+- [ ] Formulario de contacto funcional (envio de emails)
+- [ ] Dashboard con graficos de estadisticas
+- [ ] Optimizacion de imagenes y lazy loading
+- [ ] PWA (Progressive Web App)
+- [ ] Tests unitarios y de integracion
+
+---
+
+## Contribuir
+
+1. Crea un branch para tu feature: `git checkout -b feature/nueva-funcionalidad`
+2. Haz commit de tus cambios: `git commit -m "Agregar nueva funcionalidad"`
+3. Push al branch: `git push origin feature/nueva-funcionalidad`
+4. Abre un Pull Request
+
+### Convenciones de codigo
+
+- Usar **OxLint** para linting: `npm run lint`
+- Formatear con **Prettier** antes de commitear
+- Seguir la estructura de carpetas existente: `components/`, `pages/`, `hooks/`, `context/`
+- Usar CSS custom properties (variables) en lugar de valores hardcodeados
+- Comentar solo lo necesario — preferir codigo autoexplicativo
 
 ---
 
