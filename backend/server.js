@@ -169,10 +169,10 @@ app.post('/api/auth/login', (req, res) => {
             message: 'Bienvenido',
             token: token,
             user: {
-                id: usuario.id,       // ID del usuario
-                name: usuario.name,   // Nombre del usuario
-                email: usuario.email, // Email del usuario
-                rol: usuario.rol      // Rol (admin, superadmin, etc.)
+                id: usuario.id,           // ID del usuario
+                name: usuario.nombre,     // Nombre del usuario (columna 'nombre' en MySQL)
+                email: usuario.email,     // Email del usuario
+                rol: usuario.rol          // Rol (admin, superadmin, etc.)
             }
         });
     });
