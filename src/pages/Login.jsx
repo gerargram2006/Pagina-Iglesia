@@ -177,9 +177,9 @@ export default function Login() {
                                     onClick={() => setShowPassword(!showPassword)}
                                     aria-label={showPassword ? 'Ocultar contrasena' : 'Mostrar contrasena'}
                                     tabIndex={-1}
+                                    title={showPassword ? 'Ocultar contrasena' : 'Mostrar contrasena'}
                                 >
-                                    {/* Icono dinámico: ojo tachado si se muestra, ojo normal si está oculta */}
-                                    <i className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}></i>
+                                    <i className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'} password-toggle-icon`}></i>
                                 </button>
                             </div>
                         </div>
