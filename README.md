@@ -51,9 +51,12 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 
 | Funcionalidad | Descripcion |
 |---------------|-------------|
-| **Login seguro** | Formulario con email/contrasena, toggle de visibilidad (ojo), "Recordar correo" |
-| **Panel de control** | Saludo dinamico segun hora del dia, reloj en tiempo real, tarjetas de gestion |
-| **Estadisticas** | Metricas rapidas: miembros, eventos, mensajes |
+| **Login seguro** | Formulario con email/contrasena, toggle de visibilidad (ojo), "Recordar correo" y proteccion JWT |
+| **Dashboard Premium** | Banner interactivo, saludo dinamico, reloj en tiempo real y tarjetas glassmorphism |
+| **Estadisticas** | Metricas dinamicas conectadas a la BD: total de miembros, eventos y mensajes |
+| **Gestor de Eventos** | CRUD completo: Listado en tabla, modal de creacion/edicion y eliminacion |
+| **Equipo Pastoral** | CRUD completo: Gestion de lideres (nombres, cargos, biografias y fotos) |
+| **Bandeja Mensajes**| Lectura y eliminacion de mensajes recibidos desde el formulario publico |
 | **Logout** | Cierre de sesion con limpieza completa de token JWT |
 
 ### Generales
@@ -129,8 +132,10 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 │  Puerto: 3000                                   │
 │                                                 │
 │  ┌──────────────────────────────────────────┐   │
-│  │  GET  /api/eventos                       │   │
 │  │  POST /api/auth/login                    │   │
+│  │  GET, POST, PUT, DELETE /api/eventos     │   │
+│  │  GET, POST, PUT, DELETE /api/pastores    │   │
+│  │  GET, DELETE /api/mensajes               │   │
 │  └──────────────────────────────────────────┘   │
 │                      │                          │
 │              MySQL2 Driver                      │
@@ -160,6 +165,8 @@ Pagina-Iglesia/
 │   ├── js/                     # Scripts estaticos (legado)
 │   └── icons.svg               # Iconos SVG
 ├── src/
+│   ├── api/                    # Interfaz de conexion con el Backend
+│   │   └── index.js            # Inyector automatico de tokens JWT para fetch
 │   ├── assets/                 # Recursos importados por el bundler
 │   │   └── hero.png
 │   ├── components/             # 11 componentes reutilizables
@@ -178,7 +185,11 @@ Pagina-Iglesia/
 │   │   └── AuthContext.jsx     # Proveedor de autenticacion (login/logout/JWT)
 │   ├── hooks/
 │   │   └── useScrollAnimations.js # Hook de animaciones scroll (IntersectionObserver)
-│   ├── pages/                  # 8 paginas/rutas de la aplicacion
+│   ├── pages/                  # Paginas y rutas de la aplicacion
+│   │   ├── admin/              # Componentes de gestion CRUD (Panel Admin)
+│   │   │   ├── AdminEventos.jsx
+│   │   │   ├── AdminPastores.jsx
+│   │   │   └── AdminMensajes.jsx
 │   │   ├── Home.jsx            # Pagina principal (hero + secciones)
 │   │   ├── Horarios.jsx        # Pagina de horarios
 │   │   ├── QuienesSomos.jsx    # Pagina "Quienes Somos"
@@ -608,28 +619,26 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 ### Implementado
 
 - [x] Paginas publicas (Inicio, Horarios, Quienes Somos, Pastores, Eventos, Contacto)
-- [x] Panel de administracion con autenticacion JWT
+- [x] Panel de administracion con autenticacion JWT y proteccion de rutas
+- [x] Dashboard dinamico con estadisticas reales y diseno premium (Glassmorphism)
+- [x] CRUD completo para eventos desde el panel admin
+- [x] CRUD de pastores y lideres desde el panel admin
+- [x] Gestor de bandeja de entrada de mensajes
 - [x] Login con toggle de contrasena, recordar correo y validacion
 - [x] Animaciones de scroll con IntersectionObserver
 - [x] Diseno responsive con 3 breakpoints
-- [x] Navbar con Glassmorphism
-- [x] Footer con versiculo y redes sociales
-- [x] Docker Compose para MySQL
+- [x] Navbar inteligente y Footer dinamico
+- [x] Docker Compose para despliegue rapido de MySQL
 
 ### Proximo
 
-- [ ] CRUD completo para eventos desde el panel admin
-- [ ] CRUD de pastores desde el panel admin
 - [ ] Gestion de horarios desde el panel admin
-- [ ] Subida de imagenes para eventos y pastores
-- [ ] Paginacion en listas de eventos
-- [ ] Buscador de eventos
-- [ ] Seccion de galeria con lightbox
-- [ ] Formulario de contacto funcional (envio de emails)
-- [ ] Dashboard con graficos de estadisticas
-- [ ] Optimizacion de imagenes y lazy loading
-- [ ] PWA (Progressive Web App)
-- [ ] Tests unitarios y de integracion
+- [ ] Subida de imagenes a un CDN o almacenamiento local para eventos/pastores
+- [ ] Paginacion y buscador dinamico en listas de eventos del panel
+- [ ] Seccion de galeria con lightbox publico
+- [ ] Optimizacion de imagenes, formatos WebP y lazy loading
+- [ ] PWA (Progressive Web App) para instalacion en moviles
+- [ ] Tests unitarios y de integracion (Jest + Testing Library)
 
 ---
 
