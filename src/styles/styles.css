@@ -22,26 +22,32 @@
 }
 
 :root {
-  /* Colores principales */
-  --primary-900: #0a1f12;
+  /* Colores principales - paleta premium profunda */
+  --primary-900: #071a0e;
   --primary-800: #1b4332;
   --primary-700: #2d6a4f;
   --primary-600: #40916c;
   --primary-500: #52b788;
   --primary-400: #74c69d;
+  --primary-300: #95d5b2;
+  --primary-100: rgba(45, 106, 79, 0.1);
 
-  /* Dorado */
+  /* Dorado eclesiástico - enriquecido */
+  --gold-700: #9a7b1e;
   --gold-600: #b8942e;
   --gold-500: #c9a84c;
   --gold-400: #dbb958;
   --gold-300: #e8cf7a;
+  --gold-200: #f0dfa0;
 
-  /* Neutros */
+  /* Neutros refinados */
   --white: #ffffff;
   --gray-50: #f8faf7;
   --gray-100: #f0f2ef;
   --gray-200: #e2e5e0;
+  --gray-300: #cdd1ca;
   --gray-400: #9ca3a0;
+  --gray-500: #6b746f;
   --gray-600: #5a635e;
   --gray-700: #3d4540;
   --gray-800: #2d2d2d;
@@ -53,21 +59,35 @@
   --bg: var(--white);
   --bg-alt: var(--gray-50);
 
-  /* Efectos */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.1);
-  --shadow-gold: 0 8px 32px rgba(201, 168, 76, 0.25);
-  --shadow-glow: 0 0 40px rgba(201, 168, 76, 0.15);
+  /* Sombras multicapa premium */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.03);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.06), 0 16px 48px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.08), 0 24px 64px rgba(0, 0, 0, 0.1);
+  --shadow-gold: 0 6px 20px rgba(201, 168, 76, 0.2), 0 12px 40px rgba(201, 168, 76, 0.15);
+  --shadow-glow: 0 0 30px rgba(201, 168, 76, 0.12), 0 0 60px rgba(201, 168, 76, 0.06);
+  --shadow-green: 0 6px 20px rgba(45, 106, 79, 0.15), 0 12px 40px rgba(45, 106, 79, 0.1);
 
-  --radius-sm: 8px;
+  /* Glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-dark-bg: rgba(10, 31, 18, 0.85);
+  --glass-dark-border: rgba(255, 255, 255, 0.08);
+
+  /* Radios refinados */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
+  --radius-2xl: 40px;
 
+  /* Transiciones suaves */
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html {
