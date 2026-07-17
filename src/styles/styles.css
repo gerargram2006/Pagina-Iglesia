@@ -3294,8 +3294,10 @@ a {
 /* Table Styles */
 .admin-table-container {
   overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .admin-table {
@@ -3305,9 +3307,9 @@ a {
   min-width: 800px;
 }
 
-.admin-table th, 
+.admin-table th,
 .admin-table td {
-  padding: 16px;
+  padding: 18px 24px;
   text-align: left;
   border-bottom: 1px solid var(--gray-100);
 }
@@ -3315,16 +3317,20 @@ a {
 .admin-table th {
   background-color: var(--gray-50);
   color: var(--gray-500);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .admin-table td {
   color: var(--gray-700);
   font-size: 0.95rem;
   vertical-align: middle;
+  transition: background var(--transition-fast);
 }
 
 .admin-table tr:last-child td {
@@ -3332,7 +3338,7 @@ a {
 }
 
 .admin-table tr:hover td {
-  background-color: rgba(27, 67, 50, 0.02);
+  background-color: rgba(201, 168, 76, 0.03);
 }
 
 .admin-table-empty {
@@ -3427,26 +3433,47 @@ a {
 .admin-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(7, 26, 14, 0.7);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1050;
   padding: 20px;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 .admin-modal {
   background: var(--white);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+  animation: modalScaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-400), var(--gold-500));
+  background-size: 200% 100%;
+  animation: shimmerBorder 3s linear infinite;
+  z-index: 20;
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .admin-modal-header {
@@ -3492,20 +3519,23 @@ a {
   font-size: 0.95rem;
 }
 
-.form-group input, 
+.form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  font-size: 0.98rem;
+  transition: all var(--transition-fast);
+  background: var(--gray-50);
 }
-.form-group input:focus, 
+.form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--gold-500);
+  border-color: var(--primary-500);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.15);
 }
 
 .form-group small {
