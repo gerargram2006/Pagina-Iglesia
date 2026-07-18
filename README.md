@@ -1,5 +1,7 @@
 # Iglesia Asamblea de Dios - Sitio Web
 
+<div align="center">
+
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)
@@ -7,7 +9,28 @@
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)
 ![License](https://img.shields.io/badge/License-Institucional-green?style=flat-square)
 
-Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React 19 + Vite 8** en el frontend y **Node.js + Express 5** en el backend. Ofrece informacion sobre horarios de culto, eventos, pastores, quienes somos, datos de contacto y un panel de administracion protegido con autenticacion JWT.
+**Sitio web institucional de la Iglesia Asamblea de Dios**
+
+Una plataforma completa con panel de administración, gestión de eventos,
+equipo pastoral y sistema de autenticación JWT.
+
+</div>
+
+---
+
+## Introduccion
+
+Este proyecto es el sitio web oficial de la Iglesia Asamblea de Dios, diseñado para
+compartir información sobre horarios de culto, eventos, pastores, historia de la iglesia
+y datos de contacto. Incluye un panel de administración completo con autenticación segura.
+
+### Por que este proyecto?
+
+- **Frontend moderno**: React 19 + Vite 8 con JSX y Fast Refresh
+- **Backend robusto**: Node.js + Express 5 con autenticación JWT
+- **Base de datos**: MySQL 8.0 ejecutándose en Docker
+- **Diseño premium**: Glassmorphism, animaciones de scroll y responsive completo
+- **CRUD completo**: Gestión de eventos, pastores y mensajes desde el panel admin
 
 ---
 
@@ -17,7 +40,7 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 - [Tecnologias](#tecnologias)
 - [Arquitectura del proyecto](#arquitectura-del-proyecto)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Instalacion y arranque](#instalacion-y-arranque)
+- [Instalacion rapida](#instalacion-rapida)
 - [Scripts disponibles](#scripts-disponibles)
 - [Rutas de la aplicacion](#rutas-de-la-aplicacion)
 - [Sistema de autenticacion](#sistema-de-autenticacion)
@@ -61,9 +84,9 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 
 ### Generales
 
-- **Diseño responsive**: Compatiple con moviles, tablets y escritorio (3 breakpoints: 991px, 767px, 575px)
+- **Diseno responsive**: Compatiple con moviles, tablets y escritorio (3 breakpoints: 991px, 767px, 575px)
 - **SPA fluida**: Enrutamiento sin recargas de pagina con React Router
-- **Diseño premium**: Glassmorphism en NavBar, hamburger custom y efectos hover/shimmer
+- **Diseno premium**: Glassmorphism en NavBar, hamburger custom y efectos hover/shimmer
 - **Animaciones de scroll**: Elementos en cascada al hacer scroll con IntersectionObserver
 - **Footer persistente**: Versiculo destacado, redes sociales y horarios en rutas publicas
 - **Paleta de colores**: Verde bosque + dorado eclesiastico con CSS custom properties
@@ -160,150 +183,120 @@ Sitio web institucional de la Iglesia Asamblea de Dios, desarrollado con **React
 
 ```
 Pagina-Iglesia/
-├── public/
-│   ├── img/                    # Imagenes publicas (logo, etc.)
-│   ├── js/                     # Scripts estaticos (legado)
-│   └── icons.svg               # Iconos SVG
-├── src/
-│   ├── api/                    # Interfaz de conexion con el Backend
-│   │   └── index.js            # Inyector automatico de tokens JWT para fetch
-│   ├── assets/                 # Recursos importados por el bundler
+├── public/                    # Archivos estaticos servidos por Vite
+│   ├── img/                   # Imagenes publicas (logo, etc.)
+│   ├── js/                    # Scripts estaticos (legado)
+│   └── icons.svg              # Iconos SVG
+├── src/                       # Codigo fuente del frontend React
+│   ├── api/                   # Cliente HTTP centralizado
+│   │   └── index.js           # Funcion fetchAPI con inyeccion automatica de JWT
+│   ├── assets/                # Recursos importados por el bundler
 │   │   └── hero.png
-│   ├── components/             # 11 componentes reutilizables
-│   │   ├── Layout.jsx          # Layout principal con Outlet y Footer
-│   │   ├── NavBar.jsx          # Barra de navegacion responsiva con Glassmorphism
-│   │   ├── Footer.jsx          # Pie de pagina con enlaces, versiculo y redes sociales
-│   │   ├── PageHeader.jsx      # Encabezado de paginas internas
-│   │   ├── ScheduleSection.jsx # Tarjetas de horarios de culto con iconos
-│   │   ├── AboutSection.jsx    # Seccion "Quienes Somos" (2 columnas + metricas)
-│   │   ├── GallerySection.jsx  # Galeria de fotos (Bento grid de 6 espacios)
-│   │   ├── PastorsSection.jsx  # Tarjetas de pastores/lideres (foto real)
-│   │   ├── EventsSection.jsx   # Lista de proximos eventos (con thumbnails)
-│   │   ├── CTASection.jsx      # Seccion "Llamado a la accion" con particulas
-│   │   └── ContactSection.jsx  # Info de contacto + formulario
+│   ├── components/            # 11 componentes reutilizables
+│   │   ├── Layout.jsx         # Layout principal con Outlet y Footer
+│   │   ├── NavBar.jsx         # Barra de navegacion responsiva con Glassmorphism
+│   │   ├── Footer.jsx         # Pie de pagina con enlaces, versiculo y redes sociales
+│   │   ├── PageHeader.jsx     # Encabezado de paginas internas
+│   │   ├── ScheduleSection.jsx# Tarjetas de horarios de culto con iconos
+│   │   ├── AboutSection.jsx   # Seccion "Quienes Somos" (2 columnas + metricas)
+│   │   ├── GallerySection.jsx # Galeria de fotos (Bento grid de 6 espacios)
+│   │   ├── PastorsSection.jsx # Tarjetas de pastores/lideres (foto real)
+│   │   ├── EventsSection.jsx  # Lista de proximos eventos (con thumbnails)
+│   │   ├── CTASection.jsx     # Seccion "Llamado a la accion" con particulas
+│   │   └── ContactSection.jsx # Info de contacto + formulario
 │   ├── context/
-│   │   └── AuthContext.jsx     # Proveedor de autenticacion (login/logout/JWT)
+│   │   └── AuthContext.jsx    # Proveedor de autenticacion (login/logout/JWT)
 │   ├── hooks/
 │   │   └── useScrollAnimations.js # Hook de animaciones scroll (IntersectionObserver)
-│   ├── pages/                  # Paginas y rutas de la aplicacion
-│   │   ├── admin/              # Componentes de gestion CRUD (Panel Admin)
+│   ├── pages/                 # Paginas y rutas de la aplicacion
+│   │   ├── admin/             # Componentes de gestion CRUD (Panel Admin)
 │   │   │   ├── AdminEventos.jsx
 │   │   │   ├── AdminPastores.jsx
 │   │   │   └── AdminMensajes.jsx
-│   │   ├── Home.jsx            # Pagina principal (hero + secciones)
-│   │   ├── Horarios.jsx        # Pagina de horarios
-│   │   ├── QuienesSomos.jsx    # Pagina "Quienes Somos"
-│   │   ├── Pastores.jsx        # Pagina de pastores
-│   │   ├── Eventos.jsx         # Pagina de eventos
-│   │   ├── Contacto.jsx        # Pagina de contacto
-│   │   ├── Login.jsx           # Formulario de inicio de sesion
-│   │   └── Admin.jsx           # Panel de administracion protegido
+│   │   ├── Home.jsx           # Pagina principal (hero + secciones)
+│   │   ├── Horarios.jsx       # Pagina de horarios
+│   │   ├── QuienesSomos.jsx   # Pagina "Quienes Somos"
+│   │   ├── Pastores.jsx       # Pagina de pastores
+│   │   ├── Eventos.jsx        # Pagina de eventos
+│   │   ├── Contacto.jsx       # Pagina de contacto
+│   │   ├── Login.jsx          # Formulario de inicio de sesion
+│   │   └── Admin.jsx          # Panel de administracion protegido
 │   ├── styles/
-│   │   └── styles.css          # Estilos globales (~2540 lineas)
-│   ├── App.jsx                 # Definicion de rutas (Router + Auth)
-│   └── main.jsx                # Punto de entrada de la app
-├── backend/
-│   ├── server.js               # Servidor Express con endpoints API
-│   ├── generarClave.js         # Utilidad para generar hashes bcrypt
-│   └── package.json            # Dependencias del backend
-├── src_legacy/                 # Codigo legado (HTML/CSS/JS vanilla)
-├── dist/                       # Build de produccion (vite build)
-├── index.html                  # HTML de entrada para Vite
-├── vite.config.js              # Configuracion de Vite (proxy API, plugin React)
-├── docker-compose.yml          # Configuracion de MySQL en Docker
-├── init.sql                    # Schema de la base de datos + datos de ejemplo
-├── .env                        # Variables de entorno (NO versionar)
-├── .gitignore
-├── .oxlintrc.json              # Configuracion de OxLint
-├── .prettierrc                 # Configuracion de Prettier
-├── .editorconfig               # Configuracion del editor
-└── README.md                   # Este archivo
+│   │   └── styles.css         # Estilos globales (~2540 lineas)
+│   ├── App.jsx                # Definicion de rutas (Router + Auth)
+│   └── main.jsx               # Punto de entrada de la app
+├── backend/                   # Codigo fuente del servidor Express
+│   ├── server.js              # Servidor Express con endpoints API
+│   ├── generarClave.js        # Utilidad para generar hashes bcrypt
+│   ├── reseteo.js             # Utilidad para resetear contrasena del admin
+│   ├── middleware/
+│   │   └── auth.js            # Middleware de verificacion JWT
+│   └── package.json           # Dependencias del backend
+├── src_legacy/                # Codigo legado (HTML/CSS/JS vanilla)
+├── dist/                      # Build de produccion (vite build)
+├── index.html                 # HTML de entrada para Vite
+├── vite.config.js             # Configuracion de Vite (proxy API, plugin React)
+├── docker-compose.yml         # Configuracion de MySQL en Docker
+├── init.sql                   # Schema de la base de datos + datos de ejemplo
+├── .env                       # Variables de entorno (NO versionar)
+├── .gitignore                 # Archivos ignorados por Git
+├── .oxlintrc.json             # Configuracion de OxLint
+├── .prettierrc                # Configuracion de Prettier
+├── .editorconfig              # Configuracion del editor
+└── README.md                  # Este archivo
 ```
 
 ---
 
-## Instalacion y arranque
+## Instalacion rapida
 
 ### Requisitos previos
 
 - [Node.js](https://nodejs.org/) >= 18
 - [npm](https://www.npmjs.com/) >= 9
-- [Docker](https://www.docker.com/) (opcional, para MySQL)
+- [Docker](https://www.docker.com/) (para MySQL)
 
-### 1. Clonar el repositorio
+### Pasos para instalar
 
 ```bash
+# 1. Clonar el repositorio
 git clone <url-del-repositorio>
 cd Pagina-Iglesia
-```
 
-### 2. Configurar variables de entorno
-
-Copia y edita el archivo `.env` en la raiz del proyecto:
-
-```env
-# Base de datos
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=tu_password
-DB_NAME=iglesia_db
-
-# JWT
-JWT_SECRET=tu_secreto_seguro_aqui
-```
-
-### 3. Levantar la base de datos (Docker)
-
-```bash
-docker-compose up -d
-```
-
-### 4. Inicializar la base de datos
-
-```bash
-mysql -u root -p < init.sql
-```
-
-### 5. Instalar dependencias
-
-```bash
-# Frontend
+# 2. Instalar dependencias del frontend
 npm install
 
-# Backend
+# 3. Instalar dependencias del backend
 cd backend && npm install && cd ..
-```
 
-### 6. Generar hash de contrasena (opcional)
+# 4. Configurar variables de entorno (copiar .env.example o crear uno)
+# Edita .env con tus credenciales de MySQL y JWT_SECRET
 
-```bash
-cd backend && node generarClave.js
-```
-
-Copia el hash generado y actualizalo en la tabla `usuarios` de la base de datos.
-
-### 7. Iniciar servidores
-
-Abre **tres terminales** en la raiz del proyecto:
-
-```bash
-# Terminal 1 — Base de datos (Docker)
+# 5. Levantar MySQL en Docker
 docker-compose up -d
 
-# Terminal 2 — Backend (puerto 3000)
+# 6. Inicializar la base de datos
+mysql -u root -p < init.sql
+
+# 7. Iniciar el backend (Terminal 1)
 cd backend && npm start
 
-# Terminal 3 — Frontend (puerto 5173)
+# 8. Iniciar el frontend (Terminal 2)
 npm run dev
 ```
 
-> Si Docker ya esta corriendo, solo necesitas las terminales del backend y del frontend.
-
-### 8. Abrir en el navegador
+### Abrir en el navegador
 
 - **Frontend**: [http://localhost:5173](http://localhost:5173)
 - **Backend API**: [http://localhost:3000](http://localhost:3000)
+
+### Credenciales de prueba
+
+| Campo | Valor |
+|-------|-------|
+| Email | `admin@iglesia.com` |
+| Contrasena | `123456` |
+| Rol | `admin` |
 
 ---
 
@@ -324,6 +317,7 @@ npm run dev
 |---------|-------------|
 | `npm start` | Inicia el servidor Express en puerto 3000 |
 | `node generarClave.js` | Genera un hash bcrypt para una contrasena |
+| `node reseteo.js` | Resetea la contrasena del admin a '123456' |
 
 ---
 
@@ -434,11 +428,11 @@ Retorna todos los eventos de la iglesia.
 [
   {
     "id": 1,
-    "title": "Conferencia de Jovenes",
-    "description": "Evento especial para jovenes de la iglesia",
-    "date": "2026-07-20",
-    "location": "Templo Principal",
-    "image": "https://..."
+    "titulo": "Conferencia de Jovenes",
+    "descripcion": "Evento especial para jovenes de la iglesia",
+    "fecha": "2026-07-20T10:00:00.000Z",
+    "lugar": "Templo Principal",
+    "imagen_url": "https://..."
   }
 ]
 ```
@@ -466,7 +460,7 @@ Autentica un usuario con email y contrasena.
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
     "id": 1,
-    "name": "Admin",
+    "name": "Gerar Admin",
     "email": "admin@iglesia.com",
     "rol": "admin"
   }
@@ -483,17 +477,83 @@ Autentica un usuario con email y contrasena.
 
 ---
 
+#### `POST /api/eventos` (Protegido)
+
+Crea un nuevo evento. Requiere token JWT valido.
+
+**Request body:**
+
+```json
+{
+  "titulo": "Retiro de Jovenes",
+  "descripcion": "Un fin de semana de fellowship y crecimiento espiritual",
+  "fecha": "2026-08-15 09:00:00",
+  "lugar": "Centro de Retiros",
+  "imagen_url": "https://..."
+}
+```
+
+---
+
+#### `PUT /api/eventos/:id` (Protegido)
+
+Actualiza un evento existente. Requiere token JWT valido.
+
+---
+
+#### `DELETE /api/eventos/:id` (Protegido)
+
+Elimina un evento. Requiere token JWT valido.
+
+---
+
+#### `GET /api/pastores`
+
+Retorna todos los pastores y lideres de la iglesia.
+
+---
+
+#### `POST /api/pastores` (Protegido)
+
+Crea un nuevo registro de pastor/lider. Requiere token JWT valido.
+
+---
+
+#### `PUT /api/pastores/:id` (Protegido)
+
+Actualiza un registro de pastor existente. Requiere token JWT valido.
+
+---
+
+#### `DELETE /api/pastores/:id` (Protegido)
+
+Elimina un registro de pastor. Requiere token JWT valido.
+
+---
+
+#### `GET /api/mensajes` (Protegido)
+
+Retorna todos los mensajes del formulario de contacto (ordenados por fecha descendente). Requiere token JWT valido.
+
+---
+
+#### `DELETE /api/mensajes/:id` (Protegido)
+
+Elimina un mensaje. Requiere token JWT valido.
+
+---
+
 ## Base de datos
 
 ### Tablas
 
 | Tabla | Descripcion | Columnas principales |
 |-------|-------------|---------------------|
-| `usuarios` | Usuarios administradores | id, email, password (bcrypt hash), name, rol |
-| `eventos` | Eventos de la iglesia | id, title, description, date, location, image |
-| `pastores` | Pastores y lideres | id, name, role, bio, photo |
-| `horarios` | Horarios de culto | id, day, time, activity |
-| `mensajes_contacto` | Mensajes del formulario | id, name, email, message, created_at |
+| `usuarios` | Usuarios administradores | id, email, password (bcrypt hash), nombre, rol |
+| `eventos` | Eventos de la iglesia | id, titulo, descripcion, fecha, lugar, imagen_url |
+| `pastores` | Pastores y lideres | id, nombre, cargo, biografia, foto_url |
+| `horarios` | Horarios de culto | id, dia, hora, actividad |
+| `mensajes_contacto` | Mensajes del formulario | id, nombre, email, mensaje, fecha_envio |
 
 ### Usuario de prueba
 
@@ -568,8 +628,9 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 ### Docker Compose (`docker-compose.yml`)
 
 - **Servicio**: MySQL 8.0
-- **Puerto**: 3306
+- **Puerto**: 3307 (mapeado al 3306 del contenedor)
 - **Base de datos**: `iglesia_db` (creada automaticamente con `init.sql`)
+- **Volumen persistente**: Los datos sobreviven al reiniciar el contenedor
 
 ### Paleta de colores
 
@@ -594,7 +655,8 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 
 - Verifica que Docker este corriendo: `docker ps`
 - Asegurate de que las variables de entorno en `.env` sean correctas
-- Verifica que el contenedor MySQL este en el puerto 3306: `docker logs iglesia-mysql`
+- Verifica que el contenedor MySQL este en el puerto 3307: `docker logs mysql-proyecto-iglesia`
+- Si el contenedor no inicio, revisa los logs: `docker-compose logs db`
 
 ### El frontend muestra errores de CORS
 
@@ -610,7 +672,14 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 
 - Verifica que el JWT_SECRET en `.env` este definido
 - Asegurate de que el hash de la contrasena este correctamente generado con `node generarClave.js`
+- Si olvidaste la contrasena, ejecuta `node reseteo.js` para resetearla a '123456'
 - Revisa los logs del backend para ver errores detallados
+
+### Docker no inicia MySQL
+
+- Verifica que Docker Desktop este corriendo
+- Si el puerto 3307 esta ocupado, cambia el mapeo en `docker-compose.yml`
+- Para reiniciar limpio: `docker-compose down -v && docker-compose up -d`
 
 ---
 
@@ -629,6 +698,7 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 - [x] Diseno responsive con 3 breakpoints
 - [x] Navbar inteligente y Footer dinamico
 - [x] Docker Compose para despliegue rapido de MySQL
+- [x] Comentarios detallados en todos los archivos del proyecto
 
 ### Proximo
 
@@ -662,3 +732,11 @@ Configuracion unificada para editores: indentacion por espacios, charset UTF-8 y
 ## Licencia
 
 Este proyecto es para uso institucional de la Iglesia Asamblea de Dios.
+
+---
+
+<div align="center">
+
+**Desconectado con amor** — Iglesia Asamblea de Dios
+
+</div>
