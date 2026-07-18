@@ -45,7 +45,7 @@ CREATE TABLE mensajes_contacto (
 
 -- 3. Los "Intos" (Datos de prueba)
 INSERT INTO usuarios (email, password, nombre, rol) 
-VALUES ('admin@iglesia.com', '123456', 'Gerar Admin', 'admin');
+VALUES ('admin@iglesia.com', '$2b$10$3qESVBrZtLVwFzDQHEcBxOsoO5KNSOH/jPxJHxWIJncPp28Ns5rpS', 'Gerar Admin', 'admin');
 
 INSERT INTO eventos (titulo, descripcion, fecha, lugar, imagen_url) 
 VALUES 
