@@ -1,11 +1,24 @@
+# =============================================================================
+# Archivo .editorconfig - Configuración unificada de editores
+# =============================================================================
+# Establece reglas de formato que la mayoría de editores respetan
+# automáticamente (VS Code, IntelliJ, Sublime Text, etc.).
+# Asegura consistencia en el estilo de código entre diferentes editores.
+# Más info: https://editorconfig.org
+# =============================================================================
+
+# Marca este archivo como la raíz de la configuración
+# (evita que EditorConfig busque configuraciones en directorios superiores)
 root = true
 
+# Configuración para TODOS los archivos
 [*]
-indent_style = space
-indent_size = 4
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+indent_style = space      # Usar espacios (no tabs) para indentación
+indent_size = 4           # Cada nivel de indentación = 4 espacios
+charset = utf-8           # Codificación UTF-8 (soporte para tildes, ñ, emojis)
+trim_trailing_whitespace = true  # Eliminar espacios en blanco al final de cada línea
+insert_final_newline = true      # Asegurar que cada archivo termine con salto de línea
 
+# Configuración específica para archivos Markdown
 [*.md]
-trim_trailing_whitespace = false
+trim_trailing_whitespace = false  # En Markdown, los dobles espacios al final = <br>

@@ -1,4 +1,12 @@
-# Logs
+# =============================================================================
+# Archivo .gitignore - Archivos que Git ignora
+# =============================================================================
+# Este archivo le dice a Git qué archivos y carpetas NO debe rastrear.
+# Evita que se suban dependencias, archivos generados y datos sensibles.
+# =============================================================================
+
+# --- Logs de npm/yarn/pnpm ---
+# Archivos de log generados por gestores de paquetes
 logs
 *.log
 npm-debug.log*
@@ -7,20 +15,31 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# --- Dependencias node_modules ---
+# Carpetas de dependencias instaladas (se regeneran con npm install)
 node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.env
 backend/node_modules/
+
+# --- Archivos generados por Vite (build) ---
+#/dist          # Build de producción (vite build)
+dist-ssr        # Build de SSR (Server Side Rendering)
+*.local         # Archivos de configuración local de Vite
+
+# --- Editores de código ---
+# Configuraciones de editores que no deben compartirse
+.vscode/*
+!.vscode/extensions.json  # Excepción: permitir extensions.json compartido
+.idea                      # IntelliJ IDEA / WebStorm
+.DS_Store                  # macOS: metadata de Finder
+*.suo                      # Visual Studio: usuario settings
+*.ntvs*                    # Visual Studio: Northwind Tracer
+*.njsproj                  # Visual Studio: Node.js project
+*.sln                      # Visual Studio: solution file
+*.sw?                      # Vim: swap files
+
+# --- Variables de entorno sensibles ---
+# Credenciales, claves JWT, contraseñas - NUNCA subir a Git
+.env
+
+# --- Build del backend ---
+# Los node_modules del backend se ignoran por separado
