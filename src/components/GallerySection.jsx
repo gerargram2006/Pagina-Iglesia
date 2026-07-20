@@ -1,15 +1,3 @@
-/**
- * Componente GallerySection - Galería de fotos de la iglesia.
- *
- * Muestra un grid estilo bento con 6 espacios para imágenes de la iglesia.
- * Los placeholders tienen un diseño estilizado con instrucciones para
- * que el usuario reemplace con fotos reales.
- *
- * Props:
- *   @param {string} title    - Título de la sección (null para ocultar)
- *   @param {string} subtitle - Subtítulo descriptivo (null para ocultar)
- *   @param {string} id       - ID HTML para enlaces internos
- */
 export default function GallerySection({ title = "Nuestra Comunidad", subtitle = "Momentos que reflejan el amor de Dios en nuestra iglesia", id = "galeria" }) {
     const galleryItems = [
         { label: "Alabanza y Adoración", hint: "Foto de worship", span: "gallery-item-wide" },
@@ -27,12 +15,7 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
                 <div className="gallery-grid">
                     {galleryItems.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`gallery-item ${item.span}`}
-                            data-animate="scale-in"
-                        >
-                            {/* Placeholder - reemplazar con <img src="tu-foto.jpg" alt={item.label} /> */}
+                        <div key={index} className={`gallery-item ${item.span}`} data-animate="scale-in">
                             <div className="gallery-placeholder">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
                                     <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>

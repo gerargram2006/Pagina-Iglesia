@@ -1,50 +1,8 @@
-/**
- * Componente EventsSection - Sección de próximos eventos con imágenes.
- *
- * Muestra una lista de eventos próximos de la iglesia con thumbnails.
- * Se usa en Home (sección) y en /eventos (página completa).
- *
- * Props:
- *   @param {string} title    - Título de la sección (null para ocultar)
- *   @param {string} subtitle - Subtítulo descriptivo (null para ocultar)
- *   @param {string} id       - ID HTML para enlaces internos
- *
- * Cada evento incluye:
- *   - Imagen thumbnail placeholder.
- *   - Fecha destacada (día + mes) con fondo degradado verde.
- *   - Nombre del evento.
- *   - Descripción breve de la actividad.
- *
- * Para agregar imágenes reales:
- *   1. Coloca las fotos en /public/img/eventos/
- *   2. Cambia hasImage a true y imageSrc a la ruta correcta
- */
 export default function EventsSection({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }) {
     const events = [
-        {
-            day: "15",
-            month: "Jul",
-            name: "Campaña de Oración",
-            description: "Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.",
-            hasImage: false,
-            imageSrc: "/img/eventos/campana-oracion.jpg",
-        },
-        {
-            day: "22",
-            month: "Jul",
-            name: "Conferencia Familiar",
-            description: "Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.",
-            hasImage: false,
-            imageSrc: "/img/eventos/conferencia-familiar.jpg",
-        },
-        {
-            day: "05",
-            month: "Ago",
-            name: "Bautismo Masivo",
-            description: "Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.",
-            hasImage: false,
-            imageSrc: "/img/eventos/bautismo.jpg",
-        },
+        { day: "15", month: "Jul", name: "Campaña de Oración", description: "Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.", hasImage: false, imageSrc: "/img/eventos/campana-oracion.jpg" },
+        { day: "22", month: "Jul", name: "Conferencia Familiar", description: "Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.", hasImage: false, imageSrc: "/img/eventos/conferencia-familiar.jpg" },
+        { day: "05", month: "Ago", name: "Bautismo Masivo", description: "Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.", hasImage: false, imageSrc: "/img/eventos/bautismo.jpg" },
     ];
 
     return (
@@ -55,7 +13,6 @@ export default function EventsSection({ title = "Próximos Eventos", subtitle = 
                 <div className="events-list">
                     {events.map((event, index) => (
                         <div key={index} className="event-item" data-animate="fade-in-left">
-                            {/* Thumbnail del evento */}
                             <div className="event-thumb">
                                 {event.hasImage ? (
                                     <img src={event.imageSrc} alt={event.name} />
@@ -68,12 +25,10 @@ export default function EventsSection({ title = "Próximos Eventos", subtitle = 
                                     </div>
                                 )}
                             </div>
-                            {/* Fecha del evento */}
                             <div className="event-date">
                                 <span className="event-day">{event.day}</span>
                                 <span className="event-month">{event.month}</span>
                             </div>
-                            {/* Info del evento */}
                             <div className="event-info">
                                 <h3>{event.name}</h3>
                                 <p>{event.description}</p>

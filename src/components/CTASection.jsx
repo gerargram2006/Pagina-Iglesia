@@ -1,17 +1,6 @@
-/**
- * Componente CTASection - Sección de llamado a la acción.
- *
- * Banner visual a pantalla completa con fondo gradiente y texto motivacional.
- * Invita a los visitantes a unirse a la comunidad de la iglesia.
- * Incluye espacio para imagen de fondo tipo congregación adorando.
- *
- * Props:
- *   @param {string} id - ID HTML para enlaces internos
- */
 export default function CTASection({ id = "unete" }) {
     return (
         <section id={id} className="cta-section">
-            {/* Partículas decorativas */}
             <div className="cta-particles" aria-hidden="true">
                 <span className="cta-particle cta-particle-1"></span>
                 <span className="cta-particle cta-particle-2"></span>

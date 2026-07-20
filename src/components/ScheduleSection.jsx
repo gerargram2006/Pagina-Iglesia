@@ -1,22 +1,3 @@
-/**
- * Componente ScheduleSection - Sección de horarios de culto.
- *
- * Muestra las tarjetas con los horarios de las reuniones semanales de la iglesia.
- * Se usa tanto en la página Home (sección) como en la página /horarios (página completa).
- *
- * Props:
- *   @param {string} title    - Título de la sección (se oculta si es null)
- *   @param {string} subtitle - Subtítulo de la sección (se oculta si es null)
- *   @param {string} id       - ID HTML para enlaces internos (ej: "#horarios")
- *
- * Horarios mostrados:
- *   - Domingo 10:00 AM → Culto de Alabanza y Adoración
- *   - Miércoles 7:00 PM → Estudio Bíblico y Oración
- *   - Sábado 6:00 PM → Grupos de Jóvenes
- *
- * Cada tarjeta usa data-animate="fade-in-up" con delays escalonados
- * para crear un efecto cascada al hacer scroll.
- */
 export default function ScheduleSection({ title = "Horarios de Culto", subtitle = "Te esperamos en nuestras reuniones semanales", id = "horarios" }) {
     const schedules = [
         { day: "Domingo", time: "10:00 AM - 12:00 PM", name: "Culto de Alabanza y Adoración", icon: "🙏" },
