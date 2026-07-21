@@ -25,7 +25,7 @@ export default function AboutSection({ title = "Quiénes Somos", subtitle = "Con
                             </div>
                         </div>
                         <div className="about-image-wrapper" data-animate="fade-in-right">
-                            <img src="/img/galeria-congregacion.png" alt="Nuestra iglesia" className="about-image" loading="lazy" />
+                            <img src="/img/galeria-congregacion.webp" alt="Nuestra iglesia" className="about-image" loading="lazy" />
                             <div className="about-image-decoration" aria-hidden="true"></div>
                         </div>
                     </div>

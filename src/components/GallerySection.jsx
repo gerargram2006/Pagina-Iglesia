@@ -1,11 +1,11 @@
 export default function GallerySection({ title = "Nuestra Comunidad", subtitle = "Momentos que reflejan el amor de Dios en nuestra iglesia", id = "galeria" }) {
     const galleryItems = [
-        { label: "Alabanza y Adoración", image: "/img/galeria-congregacion.png", span: "gallery-item-wide" },
-        { label: "Grupos de Jóvenes", image: "/img/galeria-jovenes.png", span: "" },
-        { label: "Ministerio Infantil", image: "/img/galeria-infantil.png", span: "" },
-        { label: "Ministerio de Mujeres", image: "/img/galeria-mujeres.png", span: "" },
-        { label: "Bautizos", image: "/img/galeria-bautizos.png", span: "" },
-        { label: "Eventos Especiales", image: "/img/galeria-congregacion.png", span: "gallery-item-wide" },
+        { label: "Alabanza y Adoración", image: "/img/galeria-congregacion.webp", span: "gallery-item-wide" },
+        { label: "Grupos de Jóvenes", image: "/img/galeria-jovenes.webp", span: "" },
+        { label: "Ministerio Infantil", image: "/img/galeria-infantil.webp", span: "" },
+        { label: "Ministerio de Mujeres", image: "/img/galeria-mujeres.webp", span: "" },
+        { label: "Bautizos", image: "/img/galeria-bautizos.webp", span: "" },
+        { label: "Eventos Especiales", image: "/img/galeria-congregacion.webp", span: "gallery-item-wide" },
     ];
 
     return (
