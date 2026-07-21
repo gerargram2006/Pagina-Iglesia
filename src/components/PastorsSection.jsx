@@ -1,7 +1,7 @@
 export default function PastorsSection({ title = "Nuestros Pastores", subtitle = "Liderazgo espiritual al servicio de Dios", id = "pastores" }) {
     const pastors = [
-        { name: "Pastor Juan Pérez", role: "Pastor Principal", description: "Más de 20 años dedicados al ministerio pastoral y la enseñanza bíblica.", initials: "JP", hasPhoto: false, photoSrc: "/img/pastores/pastor-principal.jpg" },
-        { name: "Pastora María García", role: "Pastora de Jóvenes", description: "Liderando y guiando a la nueva generación en su caminar con Cristo.", initials: "MG", hasPhoto: false, photoSrc: "/img/pastores/pastora-jovenes.jpg" },
+        { name: "Pastor Juan Pérez", role: "Pastor Principal", description: "Más de 20 años dedicados al ministerio pastoral y la enseñanza bíblica.", initials: "JP", hasPhoto: true, photoSrc: "/img/pastor-principal.png" },
+        { name: "Pastora María García", role: "Pastora de Jóvenes", description: "Liderando y guiando a la nueva generación en su caminar con Cristo.", initials: "MG", hasPhoto: false, photoSrc: "" },
     ];
 
     return (

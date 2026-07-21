@@ -25,13 +25,7 @@ export default function AboutSection({ title = "Quiénes Somos", subtitle = "Con
                             </div>
                         </div>
                         <div className="about-image-wrapper" data-animate="fade-in-right">
-                            <div className="about-image-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M8 0a.5.5 0 0 1 .447.276L8.81 1h4.69A1.5 1.5 0 0 1 15 2.5V11H1V2.5A1.5 1.5 0 0 1 2.5 1h4.69l.362-.724A.5.5 0 0 1 8 0zM2 12v1.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V12H2z"/>
-                                </svg>
-                                <span>Foto de la iglesia</span>
-                                <span className="about-image-size">600 × 500px</span>
-                            </div>
+                            <img src="/img/galeria-congregacion.png" alt="Nuestra iglesia" className="about-image" loading="lazy" />
                             <div className="about-image-decoration" aria-hidden="true"></div>
                         </div>
                     </div>

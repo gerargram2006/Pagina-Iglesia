@@ -1,11 +1,11 @@
 export default function GallerySection({ title = "Nuestra Comunidad", subtitle = "Momentos que reflejan el amor de Dios en nuestra iglesia", id = "galeria" }) {
     const galleryItems = [
-        { label: "Alabanza y Adoración", hint: "Foto de worship", span: "gallery-item-wide" },
-        { label: "Estudio Bíblico", hint: "Foto de estudio bíblico", span: "" },
-        { label: "Grupos de Jóvenes", hint: "Foto de jóvenes", span: "" },
-        { label: "Comunión", hint: "Foto de comunión", span: "" },
-        { label: "Servicio Comunitario", hint: "Foto de servicio", span: "" },
-        { label: "Eventos Especiales", hint: "Foto de eventos", span: "gallery-item-wide" },
+        { label: "Alabanza y Adoración", image: "/img/galeria-congregacion.png", span: "gallery-item-wide" },
+        { label: "Grupos de Jóvenes", image: "/img/galeria-jovenes.png", span: "" },
+        { label: "Ministerio Infantil", image: "/img/galeria-infantil.png", span: "" },
+        { label: "Ministerio de Mujeres", image: "/img/galeria-mujeres.png", span: "" },
+        { label: "Bautizos", image: "/img/galeria-bautizos.png", span: "" },
+        { label: "Eventos Especiales", image: "/img/galeria-congregacion.png", span: "gallery-item-wide" },
     ];
 
     return (
@@ -16,13 +16,7 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
                 <div className="gallery-grid">
                     {galleryItems.map((item, index) => (
                         <div key={index} className={`gallery-item ${item.span}`} data-animate="scale-in">
-                            <div className="gallery-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
-                                </svg>
-                                <span className="gallery-placeholder-text">{item.hint}</span>
-                            </div>
+                            <img src={item.image} alt={item.label} className="gallery-img" loading="lazy" />
                             <div className="gallery-overlay">
                                 <span className="gallery-label">{item.label}</span>
                             </div>
