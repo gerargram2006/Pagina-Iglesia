@@ -65,7 +65,7 @@ export default function Login() {
             <div className="login-split">
                 <div className="login-branding" aria-hidden="true">
                     <div className="login-branding-content">
-                        <img src="/img/LogoAD.PNG" alt="" className="login-branding-logo" />
+                        <img src="/img/logo-oficial.png" alt="" className="login-branding-logo" />
                         <h2 className="login-branding-title">Asamblea de Dios</h2>
                         <div className="login-branding-divider"></div>
                         <p className="login-branding-subtitle">Administra el contenido de tu iglesia de forma sencilla y segura.</p>
@@ -81,7 +81,7 @@ export default function Login() {
                     <div className="login-container">
                         <div className="login-card">
                             <div className="login-header">
-                                <img src="/img/LogoAD.PNG" alt="Asamblea de Dios" className="login-logo" />
+                                <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="login-logo" />
                                 <h1>Panel de Administración</h1>
                                 <p>Ingresa tus credenciales para acceder</p>
                             </div>

@@ -292,8 +292,7 @@ a {
    ========================================================================== */
 
 .hero {
-  /* PLACEHOLDER: Cambia esta URL por tu foto real */
-  /* background-image: url('/img/hero-bg.jpg'); */
+  background-image: url('/img/hero-inicio.png');
   background: linear-gradient(155deg,
     #050f09 0%,
     var(--primary-900) 20%,
