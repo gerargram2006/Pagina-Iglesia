@@ -23,7 +23,7 @@ export default function NavBar() {
         <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
             <div className="container">
                 <Link to="/" className="logo">
-                    <img src="/img/LogoAD.PNG" alt="Asamblea de Dios" className="logo-img" />
+                    <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="logo-img" />
                     <span className="logo-text">Asamblea de Dios</span>
                 </Link>
 
