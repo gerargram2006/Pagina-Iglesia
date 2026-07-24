@@ -95,9 +95,9 @@ export default function Admin() {
         <div className="admin-page">
             <aside className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar--open' : ''}`}>
                 <div className="admin-sidebar-header">
-                    <div className="logo navbar-brand mb-0" style={{ flex: 1 }}>
-                        <img src="/img/logo-oficial.png" alt="Logo" className="navbar-logo" />
-                        <span className="navbar-title" style={{ fontSize: '1.1rem' }}>Admin Panel</span>
+                    <div className="d-flex flex-column align-items-center text-center p-3" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+                        <img src="/img/logo-oficial.png" alt="Logo" className="img-fluid" style={{ maxWidth: '130px' }} />
+                        <span className="text-uppercase fs-6 text-white-50 mt-2 fw-semibold" style={{ letterSpacing: '1.5px' }}>Admin Panel</span>
                     </div>
                     <button className="admin-sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Cerrar menú">
                         <i className="bi bi-x-lg"></i>
