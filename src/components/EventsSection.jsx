@@ -1,8 +1,8 @@
 export default function EventsSection({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }) {
     const events = [
-        { day: "15", month: "Jul", name: "Campaña de Oración", description: "Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.", hasImage: false, imageSrc: "/img/eventos/campana-oracion.jpg" },
-        { day: "22", month: "Jul", name: "Conferencia Familiar", description: "Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.", hasImage: false, imageSrc: "/img/eventos/conferencia-familiar.jpg" },
-        { day: "05", month: "Ago", name: "Bautismo Masivo", description: "Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.", hasImage: false, imageSrc: "/img/eventos/bautismo.jpg" },
+        { day: "15", month: "Jul", name: "Campaña de Oración", description: "Un tiempo especial de oración y ayuno por las necesidades de nuestra comunidad.", badge: "Oración", badgeColor: "badge-prayer", hasImage: false, imageSrc: "/img/eventos/campana-oracion.jpg" },
+        { day: "22", month: "Jul", name: "Conferencia Familiar", description: "Una conferencia dedicada a fortalecer los lazos familiares según la palabra de Dios.", badge: "Conferencia", badgeColor: "badge-conference", hasImage: false, imageSrc: "/img/eventos/conferencia-familiar.jpg" },
+        { day: "05", month: "Ago", name: "Bautismo Masivo", description: "Celebración de bautismo para todos los nuevos creyentes de nuestra iglesia.", badge: "Celebración", badgeColor: "badge-celebration", hasImage: false, imageSrc: "/img/eventos/bautismo.jpg" },
     ];
 
     return (
@@ -30,8 +30,12 @@ export default function EventsSection({ title = "Próximos Eventos", subtitle = 
                                 <span className="event-month">{event.month}</span>
                             </div>
                             <div className="event-info">
+                                <span className={`event-badge ${event.badgeColor}`}>{event.badge}</span>
                                 <h3>{event.name}</h3>
                                 <p>{event.description}</p>
+                                <a href="#contacto" className="event-link">
+                                    Más información <i className="bi bi-arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
                     ))}
