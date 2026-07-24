@@ -21,6 +21,13 @@ equipo pastoral y sistema de autenticación JWT.
 [English](README.md) | [Español](README.es.md) | [Português](README.pt.md)
 
 ---
+## 🎨 Prototipo de Diseño
+
+El diseño visual, la estructura y la experiencia de usuario (UX/UI) fueron planificados y aprobados utilizando un prototipo inicial.
+
+<div align="center">
+  <img src="docs/PrototipoAD.png" alt="Prototipo del Website" width="800" />
+</div>
 
 ## Tabla de Contenidos
 
@@ -706,6 +713,8 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 - [x] Navbar inteligente y Footer dinámico
 - [x] Docker Compose para despliegue rápido de MySQL
 - [x] Comentarios detallados en todos los archivos del proyecto
+- [x] Corrección de sintaxis JSX: comentarios movidos dentro del elemento raíz para evitar errores de parseo en Login, Footer, ContactSection y AuthContext
+- [x] Rediseño de la cabecera del sidebar admin: logo responsivo (max-width 130px) y subtítulo estilizado con texto uppercase y letter-spacing
 
 ### Próximo
 
