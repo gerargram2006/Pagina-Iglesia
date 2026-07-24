@@ -14,7 +14,11 @@ export default function ScheduleSection({ title = "Horarios de Culto", subtitle 
                     {schedules.map((schedule, index) => (
                         <div key={index} className="col-12 col-md-4">
                             <div className={`schedule-card delay-${index + 1}`} data-animate="fade-in-up">
+                                <span className="schedule-step-number" aria-hidden="true">
+                                    {String(index + 1).padStart(2, '0')}
+                                </span>
                                 <span className="schedule-icon">{schedule.icon}</span>
+                                <div className="schedule-divider" aria-hidden="true"></div>
                                 <div className="schedule-day">{schedule.day}</div>
                                 <div className="schedule-time">{schedule.time}</div>
                                 <div className="schedule-name">{schedule.name}</div>
