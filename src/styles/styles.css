@@ -292,21 +292,15 @@ a {
    ========================================================================== */
 
 .hero {
-  background-image: url('/img/hero-inicio.png');
-  background: linear-gradient(155deg,
-    #050f09 0%,
-    var(--primary-900) 20%,
-    var(--primary-800) 40%,
-    var(--primary-700) 65%,
-    #1a5c40 85%,
-    var(--primary-600) 100%
-  );
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/hero-inicio.webp');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
   contain: layout style;
