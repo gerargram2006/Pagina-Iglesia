@@ -52,8 +52,8 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
     };
 
     return (
-        {/* Sección con ID para enlaces internos (#contacto) */}
         <section id={id} className="section">
+            {/* Sección con ID para enlaces internos (#contacto) */}
             <div className="container">
                 {/* Título y subtítulo con animaciones de scroll */}
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
