@@ -98,8 +98,8 @@ export default function Login() {
     const isFormValid = () => email.trim().length > 0 && password.length >= 6;
 
     return (
-        {/* Contenedor principal de la página de login */}
         <div className="login-page">
+            {/* Contenedor principal de la página de login */}
             {/* Orbs decorativos animados (círculos con gradientes difusos) */}
             <div className="login-orb login-orb-1" aria-hidden="true"></div>
             <div className="login-orb login-orb-2" aria-hidden="true"></div>
