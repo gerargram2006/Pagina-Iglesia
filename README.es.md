@@ -67,12 +67,13 @@ autenticación segura JWT.
 
 | Página | Ruta | Descripción |
 |--------|------|-------------|
-| **Inicio** | `/` | Hero interactivo con formas flotantes, animaciones de scroll y layout de una columna |
+| **Inicio** | `/` | Hero interactivo con imagen de fondo (hero-inicio.webp), formas flotantes, animaciones de scroll y layout de una columna |
 | **Horarios** | `/horarios` | Tarjetas dinámicas con iconos para domingos, miércoles y sábados |
 | **Quiénes Somos** | `/quienes-somos` | Layout de 2 columnas con imagen, historia, valores y métricas |
 | **Galería** | `/quienes-somos` | Bento grid con 6 espacios para fotos de la congregación |
 | **Pastores** | `/pastores` | Perfiles del equipo pastoral con fotos reales y anillos decorativos |
 | **Eventos** | `/eventos` | Lista cronológica de próximos eventos con thumbnails |
+| **Anexos** | `/anexos` | Sedes de la iglesia con info del pastor, dirección, horario y contacto |
 | **CTA** | `/` (sección) | Banner motivacional a pantalla completa con partículas decorativas |
 | **Contacto** | `/contacto` | Formulario de contacto y datos de la congregación |
 
@@ -224,6 +225,7 @@ Pagina-Iglesia/
 │   │   ├── QuienesSomos.jsx   # Página "Quiénes Somos"
 │   │   ├── Pastores.jsx       # Página de pastores
 │   │   ├── Eventos.jsx        # Página de eventos
+│   │   ├── Anexos.jsx         # Página de anexos/sedes con info de cada iglesia
 │   │   ├── Contacto.jsx       # Página de contacto
 │   │   ├── Login.jsx          # Formulario de inicio de sesión
 │   │   └── Admin.jsx          # Panel de administración protegido
@@ -336,6 +338,7 @@ npm run dev
 | `/quienes-somos` | Quiénes Somos | Historia, misión y valores de la iglesia |
 | `/pastores` | Pastores | Equipo pastoral con perfiles |
 | `/eventos` | Eventos | Próximos eventos y actividades |
+| `/anexos` | Anexos | Sedes de la iglesia con información y recursos |
 | `/contacto` | Contacto | Formulario de contacto y datos |
 
 ### Rutas Protegidas
@@ -691,7 +694,7 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 
 ### Implementado
 
-- [x] Páginas públicas (Inicio, Horarios, Quiénes Somos, Pastores, Eventos, Contacto)
+- [x] Páginas públicas (Inicio, Horarios, Quiénes Somos, Pastores, Eventos, Anexos, Contacto)
 - [x] Panel de administración con autenticación JWT y protección de rutas
 - [x] Dashboard dinámico con estadísticas reales y diseño premium (Glassmorphism)
 - [x] CRUD completo para eventos desde el panel admin

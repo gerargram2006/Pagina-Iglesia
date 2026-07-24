@@ -67,12 +67,13 @@ segura JWT.
 
 | Página | Rota | Descrição |
 |--------|------|-----------|
-| **Início** | `/` | Hero interativo com formas flutuantes, animações de scroll e layout de uma coluna |
+| **Início** | `/` | Hero interativo com imagem de fundo (hero-inicio.webp), formas flutuantes, animações de scroll e layout de uma coluna |
 | **Horários** | `/horarios` | Cards dinâmicos com ícones para domingos, quartas e sábados |
 | **Quem Somos** | `/quienes-somos` | Layout de 2 colunas com imagem, história, valores e métricas |
 | **Galeria** | `/quienes-somos` | Bento grid com 6 espaços para fotos da congregação |
 | **Pastores** | `/pastores` | Perfis da equipe pastoral com fotos reais e anéis decorativos |
 | **Eventos** | `/eventos` | Lista cronológica dos próximos eventos com thumbnails |
+| **Anexos** | `/anexos` | Sedes da igreja com info do pastor, endereço, horário e contato |
 | **CTA** | `/` (seção) | Banner motivacional em tela cheia com partículas decorativas |
 | **Contato** | `/contacto` | Formulário de contato e dados da congregação |
 
@@ -224,6 +225,7 @@ Pagina-Iglesia/
 │   │   ├── QuienesSomos.jsx   # Página "Quem Somos"
 │   │   ├── Pastores.jsx       # Página de pastores
 │   │   ├── Eventos.jsx        # Página de eventos
+│   │   ├── Anexos.jsx         # Página de anexos/sedes com info de cada igreja
 │   │   ├── Contacto.jsx       # Página de contato
 │   │   ├── Login.jsx          # Formulário de login
 │   │   └── Admin.jsx          # Painel de administração protegido
@@ -336,6 +338,7 @@ npm run dev
 | `/quienes-somos` | Quem Somos | História, missão e valores da igreja |
 | `/pastores` | Pastores | Equipe pastoral com perfis |
 | `/eventos` | Eventos | Próximos eventos e atividades |
+| `/anexos` | Anexos | Sedes da igreja com informações e recursos |
 | `/contacto` | Contato | Formulário de contato e dados |
 
 ### Rotas Protegidas
@@ -691,7 +694,7 @@ Configuração unificada para editores: indentação por espaços, charset UTF-8
 
 ### Implementado
 
-- [x] Páginas públicas (Início, Horários, Quem Somos, Pastores, Eventos, Contato)
+- [x] Páginas públicas (Início, Horários, Quem Somos, Pastores, Eventos, Anexos, Contato)
 - [x] Painel de administração com autenticação JWT e proteção de rotas
 - [x] Dashboard dinâmico com estatísticas reais e design premium (Glassmorphism)
 - [x] CRUD completo para eventos pelo painel admin

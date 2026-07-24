@@ -66,12 +66,13 @@ details. It includes a complete admin panel with secure JWT authentication.
 
 | Page | Route | Description |
 |------|-------|-------------|
-| **Home** | `/` | Interactive hero with floating shapes, scroll animations, and single-column layout |
+| **Home** | `/` | Interactive hero with background image (hero-inicio.webp), floating shapes, scroll animations, and single-column layout |
 | **Schedule** | `/horarios` | Dynamic cards with icons for Sunday, Wednesday, and Saturday services |
 | **About Us** | `/quienes-somos` | 2-column layout with image, history, values, and metrics |
 | **Gallery** | `/quienes-somos` | Bento grid with 6 photo slots for the congregation |
 | **Pastors** | `/pastores` | Pastoral team profiles with real photos and decorative rings |
 | **Events** | `/eventos` | Chronological list of upcoming events with thumbnails |
+| **Anexos** | `/anexos` | Church branches/sedes with pastor, address, schedule and contact info |
 | **CTA** | `/` (section) | Full-screen motivational banner with decorative particles |
 | **Contact** | `/contacto` | Contact form and congregation details |
 
@@ -223,6 +224,7 @@ Pagina-Iglesia/
 │   │   ├── QuienesSomos.jsx   # About page
 │   │   ├── Pastores.jsx       # Pastors page
 │   │   ├── Eventos.jsx        # Events page
+│   │   ├── Anexos.jsx         # Anexos/sedes page with branch info
 │   │   ├── Contacto.jsx       # Contact page
 │   │   ├── Login.jsx          # Login form
 │   │   └── Admin.jsx          # Protected admin panel
@@ -335,6 +337,7 @@ npm run dev
 | `/quienes-somos` | About Us | Church history, mission, and values |
 | `/pastores` | Pastors | Pastoral team with profiles |
 | `/eventos` | Events | Upcoming events and activities |
+| `/anexos` | Anexos | Church branches with info and resources |
 | `/contacto` | Contact | Contact form and details |
 
 ### Protected Routes
@@ -690,7 +693,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 
 ### Implemented
 
-- [x] Public pages (Home, Schedule, About Us, Pastors, Events, Contact)
+- [x] Public pages (Home, Schedule, About Us, Pastors, Events, Anexos, Contact)
 - [x] Admin panel with JWT authentication and route protection
 - [x] Dynamic dashboard with real statistics and premium design (Glassmorphism)
 - [x] Full CRUD for events from the admin panel
