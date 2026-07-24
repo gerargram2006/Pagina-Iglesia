@@ -18,7 +18,13 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
                         <div key={index} className={`gallery-item ${item.span}`} data-animate="scale-in">
                             <img src={item.image} alt={item.label} className="gallery-img" loading="lazy" />
                             <div className="gallery-overlay">
-                                <span className="gallery-label">{item.label}</span>
+                                <div className="gallery-overlay-content">
+                                    <i className="bi bi-zoom-in gallery-zoom-icon" aria-hidden="true"></i>
+                                    <span className="gallery-label">{item.label}</span>
+                                </div>
+                            </div>
+                            <div className="gallery-label-bar">
+                                <span>{item.label}</span>
                             </div>
                         </div>
                     ))}
