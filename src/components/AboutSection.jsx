@@ -33,7 +33,7 @@ export default function AboutSection({ title = "Quiénes Somos", subtitle = "Con
                         <div className="row g-4">
                             <div className="col-12 col-md-4">
                                 <div className="value-item" data-animate="scale-in">
-                                    <span className="value-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-cross" viewBox="0 0 16 16" aria-hidden="true" style={{verticalAlign: 'middle'}}><path d="M7 2h2v3h3v2H9v7H7V7H4V5h3V2z"/></svg></span>
+                                    <span className="value-icon"><i className="bi bi-book-fill" aria-hidden="true"></i></span>
                                     <h3>Fe</h3>
                                     <p>Creemos en Dios Padre, Hijo y Espíritu Santo</p>
                                 </div>
