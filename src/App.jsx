@@ -7,6 +7,7 @@ import QuienesSomos from './pages/QuienesSomos';
 import Pastores from './pages/Pastores';
 import Eventos from './pages/Eventos';
 import Contacto from './pages/Contacto';
+import Anexos from './pages/Anexos';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 
@@ -29,6 +30,7 @@ export default function App() {
                         <Route path="quienes-somos" element={<QuienesSomos />} />
                         <Route path="pastores" element={<Pastores />} />
                         <Route path="eventos" element={<Eventos />} />
+                        <Route path="anexos" element={<Anexos />} />
                         <Route path="contacto" element={<Contacto />} />
                     </Route>
                     <Route path="/login" element={<Login />} />

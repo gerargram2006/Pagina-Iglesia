@@ -57,6 +57,9 @@ export default function NavBar() {
                             <Link className={`nav-link ${path === '/eventos' ? 'active' : ''}`} to="/eventos">Eventos</Link>
                         </li>
                         <li className="nav-item">
+                            <Link className={`nav-link ${path === '/anexos' ? 'active' : ''}`} to="/anexos">Anexos</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link className={`nav-link ${path === '/contacto' ? 'active' : ''}`} to="/contacto">Contacto</Link>
                         </li>
                         <li className="nav-item">
