@@ -81,7 +81,6 @@ export default function Login() {
                     <div className="login-container">
                         <div className="login-card">
                             <div className="login-header">
-                                <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="login-logo" />
                                 <h1>Panel de Administración</h1>
                                 <p>Ingresa tus credenciales para acceder</p>
                             </div>
