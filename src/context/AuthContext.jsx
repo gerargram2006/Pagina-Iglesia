@@ -93,8 +93,8 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        {/* Proveedor del contexto: comparte los valores con todos los componentes hijos */}
         <AuthContext.Provider value={{ user, token, loading, login, logout }}>
+            {/* Proveedor del contexto: comparte los valores con todos los componentes hijos */}
             {children}
         </AuthContext.Provider>
     );
