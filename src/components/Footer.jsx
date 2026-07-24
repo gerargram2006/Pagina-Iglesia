@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
  */
 export default function Footer() {
     return (
-        {/* Elemento footer con la clase "footer" para estilos personalizados */}
         <footer className="footer">
+            {/* Elemento footer con la clase "footer" para estilos personalizados */}
             <div className="container">
                 {/* Fila con 3 columnas en desktop, 2 en tablet, 1 en móvil */}
                 <div className="row g-4 footer-content">
