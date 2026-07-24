@@ -22,9 +22,9 @@ export default function NavBar() {
     return (
         <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
             <div className="container">
-                <Link to="/" className="logo">
-                    <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="logo-img" />
-                    <span className="logo-text">Asamblea de Dios</span>
+                <Link to="/" className="logo d-flex align-items-center gap-3">
+                    <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo" />
+                    <span className="navbar-title">Asamblea de Dios</span>
                 </Link>
 
                 <button

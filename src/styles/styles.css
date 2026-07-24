@@ -156,30 +156,29 @@ a {
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
   text-decoration: none;
 }
 
-.logo-img {
-  width: 52px;
-  height: auto;
+.navbar-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
   transition: transform var(--transition);
 }
 
-.logo:hover .logo-img {
+.logo:hover .navbar-logo {
   transform: scale(1.05) rotate(-3deg);
 }
 
-.logo-text {
+.navbar-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--white);
   letter-spacing: 0.5px;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 0;
 }
 
 /* Nav Menu */
@@ -3862,7 +3861,7 @@ a {
 }
 
 @media (max-width: 575.98px) {
-  .logo-text {
+  .navbar-title {
     font-size: 1.15rem;
   }
 
