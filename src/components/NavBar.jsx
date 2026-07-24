@@ -1,113 +1,87 @@
-// Importa Link (para navegación) y useLocation (para obtener la URL actual) de React Router
-import { Link, useLocation } from 'react-router-dom';
-// Importa useAuth para saber si hay usuario logueado (mostrar "Admin" o "Iniciar Sesión")
-import { useAuth } from '../context/AuthContext';
-// Importa useState (estado local) y useEffect (efectos secundarios) de React
-import { useState, useEffect } from 'react';
+import React from 'react';
+// Importamos Link y NavLink de react-router-dom para navegar sin recargar la página
+import { Link, NavLink } from 'react-router-dom';
 
-/**
- * NavBar - Componente de barra de navegación principal
- * Se muestra en todas las páginas del sitio
- * Incluye: logo, enlaces de navegación, menú hamburguesa (móvil), y botón de admin/login
- */
-export default function NavBar() {
-    // Obtiene la ubicación actual (URL) para resaltar el enlace activo
-    const location = useLocation();
-    // Extrae solo el pathname (ej: "/eventos") para comparar con cada enlace
-    const path = location.pathname;
-    // Obtiene el usuario del contexto de autenticación (null si no está logueado)
-    const { user } = useAuth();
-    // Estado para controlar si el menú móvil está abierto o cerrado
-    const [menuOpen, setMenuOpen] = useState(false);
-    // Estado para detectar si el usuario ha hecho scroll (cambia el estilo del navbar)
-    const [scrolled, setScrolled] = useState(false);
-
-    // Efecto que escucha el evento de scroll para cambiar el estilo del navbar
-    // Se activa cuando el usuario scrollea más de 60px hacia abajo
-    useEffect(() => {
-        // Función que actualiza el estado scrolled basado en la posición del scroll
-        const handleScroll = () => setScrolled(window.scrollY > 60);
-        // Agrega el event listener al window (passive: true para mejor rendimiento)
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        // Limpia el event listener cuando el componente se desmonta
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []); // Array vacío = solo se ejecuta una vez al montar
-
-    // Efecto que cierra el menú móvil cuando cambia la ruta (al navegar a otra página)
-    useEffect(() => {
-        setMenuOpen(false); // Cierra el menú al cambiar de página
-    }, [path]); // Se ejecuta cada vez que cambia la URL
-
+const NavBar = () => {
     return (
-        {/* Elemento nav principal con clase base "navbar" y clase condicional "navbar-scrolled" */}
-        <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
-            {/* Contenedor centrado con ancho máximo (clase de Bootstrap) */}
-            <div className="container">
-                {/* Logo de la iglesia: enlace al inicio con imagen y texto */}
-                <Link to="/" className="logo navbar-brand">
-                    {/* Imagen del logo oficial (45px de altura definido en CSS) */}
-                    <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo" />
-                    {/* Nombre de la iglesia al lado del logo */}
-                    <span className="navbar-title">Asamblea de Dios</span>
+        <nav className="navbar navbar-expand-lg navbar-dark position-absolute w-100 z-3">
+            <div className="container py-2">
+
+                {/* ==========================================
+            1. SECCIÓN DEL LOGO Y TÍTULO (CORREGIDA) 
+            ========================================== */}
+                {/* d-flex: Convierte el contenedor en Flexbox para alinear cosas al lado de otras
+            align-items-center: Centra verticalmente el barquito y el texto
+            gap-3: Le da una separación bonita de 16px entre la imagen y el texto
+            m-0 p-0: Quita cualquier margen o relleno fantasma que rompa el centrado */}
+                <Link className="navbar-brand d-flex align-items-center gap-3 m-0 p-0" to="/">
+                    <img
+                        src="/img/logo-oficial.png"
+                        alt="Logo Asamblea de Dios"
+                        className="navbar-logo"
+                    />
+                    {/* text-white y fw-bold le dan el color y grosor. m-0 y p-0 evitan que el texto flote */}
+                    <span className="navbar-title text-white fw-bold m-0 p-0">
+                        Asamblea de Dios
+                    </span>
                 </Link>
 
-                {/* Botón hamburguesa para abrir/cerrar el menú en dispositivos móviles */}
+                {/* ==========================================
+            2. BOTÓN HAMBURGUESA (PARA CELULARES) 
+            ========================================== */}
                 <button
-                    className={`navbar-toggler ${menuOpen ? 'active' : ''}`}
+                    className="navbar-toggler border-0 shadow-none"
                     type="button"
-                    onClick={() => setMenuOpen(!menuOpen)} // Alterna el estado del menú
-                    aria-expanded={menuOpen} // Accesibilidad: indica si el menú está abierto
-                    aria-label="Menú" // Accesibilidad: texto alternativo para lectores de pantalla
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
                 >
-                    {/* Tres barras horizontales que forman el ícono de hamburguesa */}
-                    <span className="toggler-bar"></span>
-                    <span className="toggler-bar"></span>
-                    <span className="toggler-bar"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
 
-                {/* Contenedor del menú de navegación (se oculta en móvil, se muestra al abrir) */}
-                <div className={`nav-menu ${menuOpen ? 'nav-menu-open' : ''}`}>
-                    {/* Lista de enlaces de navegación */}
-                    <ul className="nav-links">
-                        {/* Cada nav-item contiene un Link de React Router */}
+                {/* ==========================================
+            3. MENÚ DE ENLACES Y BOTÓN DE LOGIN 
+            ========================================== */}
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    {/* ms-auto: empuja todo este bloque hacia la derecha de la pantalla */}
+                    <ul className="navbar-nav ms-auto align-items-center gap-1 gap-lg-3">
                         <li className="nav-item">
-                            {/* Enlace a Inicio: se resalta (active) cuando la URL es "/" */}
-                            <Link className={`nav-link ${path === '/' ? 'active' : ''}`} to="/">Inicio</Link>
+                            {/* NavLink se da cuenta automáticamente si estás en esa página y se pinta diferente */}
+                            <NavLink className="nav-link text-white" to="/">Inicio</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/horarios' ? 'active' : ''}`} to="/horarios">Horarios</Link>
+                            <NavLink className="nav-link text-white" to="/horarios">Horarios</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/quienes-somos' ? 'active' : ''}`} to="/quienes-somos">Quiénes Somos</Link>
+                            <NavLink className="nav-link text-white" to="/quienes-somos">Quiénes Somos</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/pastores' ? 'active' : ''}`} to="/pastores">Pastores</Link>
+                            <NavLink className="nav-link text-white" to="/pastores">Pastores</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/eventos' ? 'active' : ''}`} to="/eventos">Eventos</Link>
+                            <NavLink className="nav-link text-white" to="/eventos">Eventos</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/anexos' ? 'active' : ''}`} to="/anexos">Anexos</Link>
+                            <NavLink className="nav-link text-white" to="/anexos">Anexos</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === '/contacto' ? 'active' : ''}`} to="/contacto">Contacto</Link>
+                            <NavLink className="nav-link text-white" to="/contacto">Contacto</NavLink>
                         </li>
-                        {/* Botón de Admin / Login: cambia según si hay sesión activa */}
-                        <li className="nav-item">
-                            <Link
-                                className={`nav-link nav-admin-link ${path === '/admin' || path === '/login' ? 'active' : ''}`}
-                                // Si hay usuario, lleva a /admin; si no, lleva a /login
-                                to={user ? '/admin' : '/login'}
-                            >
-                                {/* Icono de usuario (ícono de Bootstrap Icons) */}
-                                <i className="bi bi-person-circle"></i>
-                                {/* Texto dinámico: "Admin" si está logueado, "Iniciar Sesión" si no */}
-                                {user ? 'Admin' : 'Iniciar Sesión'}
+
+                        {/* BOTÓN DE INICIAR SESIÓN */}
+                        <li className="nav-item ms-lg-3 mt-3 mt-lg-0">
+                            <Link className="btn btn-outline-warning rounded-pill px-4 d-flex align-items-center gap-2" to="/login">
+                                <i className="bi bi-person-circle"></i> Iniciar Sesión
                             </Link>
                         </li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     );
-}
+};
+
+export default NavBar;
