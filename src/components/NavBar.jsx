@@ -22,7 +22,7 @@ export default function NavBar() {
     return (
         <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
             <div className="container">
-                <Link to="/" className="logo d-flex align-items-center gap-3">
+                <Link to="/" className="logo navbar-brand">
                     <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo" />
                     <span className="navbar-title">Asamblea de Dios</span>
                 </Link>
