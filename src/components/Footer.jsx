@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="row g-4 footer-content">
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="footer-brand">
-                            <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="footer-logo" />
+                            <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo mb-4" />
                             <p>Asamblea de Dios — Una iglesia con propósito y visión.</p>
                             <blockquote className="footer-verse">
                                 <p>"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos."</p>
