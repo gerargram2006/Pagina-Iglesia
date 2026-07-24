@@ -743,7 +743,10 @@ Este projeto é para uso institucional da Iglesia Asamblea de Deus.
 ---
 
 <div align="center">
+  
+  **Desconectado com amor** — Igreja Assembleia de Deus
+  <br><br>
 
-**Desconectado com amor** — Iglesia Asamblea de Deus
+  <img src="public/img/logo-oficial.png" alt="Logo Assembleia de Deus" width="250" />
 
 </div>

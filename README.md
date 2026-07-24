@@ -742,7 +742,10 @@ This project is for institutional use of Iglesia Asamblea de Dios.
 ---
 
 <div align="center">
+  
+  **Developed with love** — Iglesia Asamblea de Dios
+  <br><br>
 
-**Disconnected with love** — Iglesia Asamblea de Dios
+  <img src="public/img/logo-oficial.png" alt="Logo Asamblea de Dios" width="250" />
 
 </div>

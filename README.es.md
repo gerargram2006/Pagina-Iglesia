@@ -743,7 +743,10 @@ Este proyecto es para uso institucional de la Iglesia Asamblea de Dios.
 ---
 
 <div align="center">
+  
+  **Desarrollado con amor** — Iglesia Asamblea de Dios
+  <br><br>
 
-**Desconectado con amor** — Iglesia Asamblea de Dios
+  <img src="public/img/logo-oficial.png" alt="Logo Asamblea de Dios" width="250" />
 
 </div>
