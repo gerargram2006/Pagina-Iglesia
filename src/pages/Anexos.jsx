@@ -67,7 +67,7 @@ export default function Anexos() {
             <main>
                 {/* SECCIÓN 1: Sedes/Anexos de la iglesia */}
                 <section className="section">
-                    <div className="container">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         {/* Título de la sección con animación */}
                         <h2 className="section-title" data-animate="fade-in-down">Conoce Nuestras Sedes</h2>
                         <p className="section-subtitle" data-animate="fade-in-up">
@@ -75,10 +75,10 @@ export default function Anexos() {
                         </p>
 
                         {/* Grid de tarjetas de sedes (3 columnas en desktop, 1 en móvil) */}
-                        <div className="row g-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {/* Recorre el array de sedes y crea una tarjeta por cada una */}
                             {sedes.map((sede) => (
-                                <div className="col-12 col-md-4" key={sede.id}>
+                                <div className="" key={sede.id}>
                                     {/* Tarjeta del anexo: clase primaria si es la sede principal */}
                                     <div className={`anexo-card ${sede.isPrimary ? 'anexo-card--primary' : ''}`} data-animate="fade-in-up">
                                         {/* Badge "Sede Principal" solo se muestra si isPrimary es true */}
@@ -125,15 +125,15 @@ export default function Anexos() {
 
                 {/* SECCIÓN 2: Recursos descargables */}
                 <section className="section section-alt">
-                    <div className="container">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <h2 className="section-title" data-animate="fade-in-down">Recursos Descargables</h2>
                         <p className="section-subtitle" data-animate="fade-in-up">
                             Material de estudio y guías para tu crecimiento espiritual.
                         </p>
                         {/* Grid de tarjetas de recursos (2 columnas en desktop) */}
-                        <div className="row g-4 justify-content-center">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center">
                             {recursos.map((recurso) => (
-                                <div className="col-12 col-md-5" key={recurso.id}>
+                                <div className="" key={recurso.id}>
                                     <div className="recurso-card" data-animate="scale-in">
                                         {/* Icono del recurso (PDF, libro, etc.) */}
                                         <div className="recurso-icon">
