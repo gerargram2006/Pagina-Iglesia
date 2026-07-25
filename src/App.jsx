@@ -23,8 +23,21 @@ import Admin from './pages/Admin';         // Panel de administración
 function ProtectedRoute({ children }) {
     // Obtiene el usuario actual y el estado de carga del contexto de autenticación
     const { user, loading } = useAuth();
-    // Mientras se verifica la sesión, no muestra nada (evita parpadeos)
-    if (loading) return null;
+    // Mientras se verifica la sesión, muestra un spinner de carga
+    if (loading) return (
+        <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#f3f5f1',
+            gap: '16px'
+        }}>
+            <i className="bi bi-arrow-repeat spin" style={{ fontSize: '2.5rem', color: '#2d6a4f' }}></i>
+            <span style={{ color: '#5a635e', fontWeight: 500, fontSize: '0.95rem' }}>Verificando sesión...</span>
+        </div>
+    );
     // Si no hay usuario autenticado, redirige a la página de login
     if (!user) return <Navigate to="/login" replace />;
     // Si hay usuario, muestra el contenido protegido

@@ -1,9 +1,5 @@
 const API_URL = 'http://localhost:3000/api';
 
-interface AuthData {
-  token?: string;
-}
-
 interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
 }
@@ -39,16 +35,9 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}): Promise<u
     ...options.headers,
   };
 
-  const authData = localStorage.getItem('auth');
-  if (authData) {
-    try {
-      const parsed: AuthData = JSON.parse(authData);
-      if (parsed?.token) {
-        headers['Authorization'] = `Bearer ${parsed.token}`;
-      }
-    } catch (e) {
-      console.error('Error parseando token auth del localStorage', e);
-    }
+  const token = localStorage.getItem('admin_token');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
   }
 
   const config: RequestInit = { ...options, headers };

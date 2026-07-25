@@ -53,18 +53,14 @@ export default function Login() {
     // Fortaleza de la contraseña (memorizado para no recalcular en cada render)
     const passwordStrength = useMemo(() => getPasswordStrength(password), [password]);
 
-    // Obtiene la función login del contexto de autenticación
-    const { login } = useAuth();
-    // Obtiene la función navigate para redirigir después del login
+    // Efecto que redirige a /admin si ya hay una sesión activa
+    // Usa el contexto de Auth en vez de localStorage directamente
+    const { login, user } = useAuth();
     const navigate = useNavigate();
 
-    // Efecto que redirige a /admin si ya hay una sesión activa
     useEffect(() => {
-        const storedUser = localStorage.getItem('admin_user');
-        const storedToken = localStorage.getItem('admin_token');
-        // Si hay credenciales guardadas, redirige al admin (evita ver login innecesariamente)
-        if (storedUser && storedToken) navigate('/admin', { replace: true });
-    }, [navigate]); // Se ejecuta cuando cambia navigate
+        if (user) navigate('/admin', { replace: true });
+    }, [user, navigate]);
 
     /**
      * handleSubmit - Procesa el envío del formulario de login
@@ -118,11 +114,9 @@ export default function Login() {
                         <p className="login-branding-subtitle">Administra el contenido de tu iglesia de forma sencilla y segura.</p>
                         {/* Características destacadas con iconos */}
                         <div className="login-branding-features">
-                            <div className="flex flex-col items-start gap-4 mx-auto w-fit">
-                                <div className="flex items-center gap-3"><i className="bi bi-shield-check"></i><span>Acceso seguro</span></div>
-                                <div className="flex items-center gap-3"><i className="bi bi-speedometer2"></i><span>Panel intuitivo</span></div>
-                                <div className="flex items-center gap-3"><i className="bi bi-phone"></i><span>Responsive</span></div>
-                            </div>
+                            <div className="login-branding-feature"><i className="bi bi-shield-check"></i><span>Acceso seguro</span></div>
+                            <div className="login-branding-feature"><i className="bi bi-speedometer2"></i><span>Panel intuitivo</span></div>
+                            <div className="login-branding-feature"><i className="bi bi-phone"></i><span>Responsive</span></div>
                         </div>
                     </div>
                 </div>
