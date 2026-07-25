@@ -43,7 +43,7 @@ export default function Footer() {
                             <div className="footer-schedule">
                                 <h4>Horario Principal</h4>
                                 <p><i className="bi bi-clock" aria-hidden="true"></i> Domingos 10:00 AM</p>
-                                <p><i className="bi bi-geo-alt" aria-hidden="true"></i> Calle Principal #123</p>
+                                <p><i className="bi bi-geo-alt" aria-hidden="true"></i> Comandante Canga N° 416, Mariano Melgar 04006 #123</p>
                             </div>
                         </div>
                     </div>
