@@ -7,12 +7,12 @@ export default function ScheduleSection({ title = "Horarios de Culto", subtitle 
 
     return (
         <section id={id} className="section">
-            <div className="container">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
-                <div className="row g-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {schedules.map((schedule, index) => (
-                        <div key={index} className="col-12 col-md-4">
+                        <div key={index}>
                             <div className={`schedule-card delay-${index + 1}`} data-animate="fade-in-up">
                                 <span className="schedule-step-number" aria-hidden="true">
                                     {String(index + 1).padStart(2, '0')}
