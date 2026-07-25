@@ -118,9 +118,11 @@ export default function Login() {
                         <p className="login-branding-subtitle">Administra el contenido de tu iglesia de forma sencilla y segura.</p>
                         {/* Características destacadas con iconos */}
                         <div className="login-branding-features">
-                            <div className="login-branding-feature"><i className="bi bi-shield-check"></i><span>Acceso seguro</span></div>
-                            <div className="login-branding-feature"><i className="bi bi-speedometer2"></i><span>Panel intuitivo</span></div>
-                            <div className="login-branding-feature"><i className="bi bi-phone"></i><span>Responsive</span></div>
+                            <div className="flex flex-col items-start gap-4 mx-auto w-fit">
+                                <div className="flex items-center gap-3"><i className="bi bi-shield-check"></i><span>Acceso seguro</span></div>
+                                <div className="flex items-center gap-3"><i className="bi bi-speedometer2"></i><span>Panel intuitivo</span></div>
+                                <div className="flex items-center gap-3"><i className="bi bi-phone"></i><span>Responsive</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
