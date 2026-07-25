@@ -10,7 +10,7 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
 
     return (
         <section id={id} className="section">
-            <div className="container">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
                 <div className="gallery-grid">
