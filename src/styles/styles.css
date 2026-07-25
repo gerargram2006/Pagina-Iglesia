@@ -1847,7 +1847,8 @@ a {
 .login-branding-logo {
   width: 100px;
   height: auto;
-  margin-bottom: 28px;
+  margin: 0 auto 28px;
+  display: block;
   filter: drop-shadow(0 4px 20px rgba(201, 168, 76, 0.3));
   animation: logoPulse 4s ease-in-out infinite;
 }
