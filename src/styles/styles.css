@@ -740,7 +740,8 @@ a {
   }
 
   .about-image-size {
-    @apply text-[0.75rem] !important opacity-50;
+    @apply text-[0.75rem] opacity-50;
+    font-size: 0.75rem;
   }
 
   .about-image {
@@ -1652,7 +1653,7 @@ a {
   }
 
   .footer-schedule h4 {
-    @apply !mb-4;
+    @apply mb-4;
   }
 
   .footer-schedule p {
@@ -3045,6 +3046,16 @@ a {
   }
 }
 
+@keyframes shimmerBorder {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
@@ -3755,64 +3766,7 @@ a {
   color: var(--gray-300);
 }
 
-/* ==========================================================================
-   CONTACT FORM — Field Icons
-   ========================================================================== */
-
-.contact-field-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.contact-field-wrapper>i {
-  position: absolute;
-  left: 22px;
-  color: var(--gray-400);
-  font-size: 1.05rem;
-  pointer-events: none;
-  transition: color var(--transition-fast);
-  z-index: 1;
-}
-
-.contact-field-wrapper input,
-.contact-field-wrapper textarea {
-  width: 100%;
-  padding: 16px 22px 16px 52px;
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius-sm);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.98rem;
-  transition: all var(--transition-fast);
-  background: var(--gray-50);
-  color: var(--text);
-}
-
-.contact-field-wrapper input:focus,
-.contact-field-wrapper textarea:focus {
-  outline: none;
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
-  background: var(--white);
-}
-
-.contact-field-wrapper:focus-within>i {
-  color: var(--primary-500);
-}
-
-.contact-field-wrapper input::placeholder,
-.contact-field-wrapper textarea::placeholder {
-  color: var(--text-muted);
-}
-
-.contact-field-wrapper textarea {
-  resize: vertical;
-}
-
-.contact-field-textarea>i {
-  top: 18px;
-  align-self: flex-start;
-}
+/* Duplicate .contact-field-wrapper block removed — already defined in @layer components above */
 
 /* Form feedback error variant */
 .form-feedback--error p {
@@ -4122,28 +4076,13 @@ a {
   animation: statusPulse 2s ease-in-out infinite;
 }
 
-/* --- ESTILOS ESPECÍFICOS DEL NAVBAR --- */
-.navbar-brand {
-  display: flex !important;
-  align-items: center !important;
-}
-
-.navbar-logo {
-  height: 45px;
-  /* Controla el alto del barquito para que se vea proporcionado con el texto */
-  width: auto;
-  /* Mantiene la proporción original sin estirarse */
-  object-fit: contain;
-  margin: 0 !important;
-}
+/* Duplicate .navbar-logo and .navbar-brand removed — already defined above with @apply */
 
 .navbar-title {
   font-size: 1.5rem;
-  /* Tamaño de letra de "Asamblea de Dios" */
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
   line-height: 1;
-  /* TRUCO DE ORO: Elimina el espacio invisible arriba y abajo de la fuente */
   display: flex;
   align-items: center;
 }

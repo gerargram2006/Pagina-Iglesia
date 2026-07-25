@@ -31,22 +31,22 @@ export default function AboutSection({ title = "Quiénes Somos", subtitle = "Con
                     </div>
                     <div className="about-values">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div data-animate="scale-in">
-                                <div className="value-item" data-animate="scale-in">
+                            <div>
+                                <div className="value-item delay-1" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-book-fill" aria-hidden="true"></i></span>
                                     <h3>Fe</h3>
                                     <p>Creemos en Dios Padre, Hijo y Espíritu Santo</p>
                                 </div>
                             </div>
-                            <div data-animate="scale-in">
-                                <div className="value-item" data-animate="scale-in">
+                            <div>
+                                <div className="value-item delay-2" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-heart-fill" aria-hidden="true"></i></span>
                                     <h3>Amor</h3>
                                     <p>Amamos a Dios y al prójimo como a nosotros mismos</p>
                                 </div>
                             </div>
-                            <div data-animate="scale-in">
-                                <div className="value-item" data-animate="scale-in">
+                            <div>
+                                <div className="value-item delay-3" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-people-fill" aria-hidden="true"></i></span>
                                     <h3>Servicio</h3>
                                     <p>Servimos a nuestra comunidad con humildad</p>
