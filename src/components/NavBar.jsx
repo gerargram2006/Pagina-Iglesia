@@ -15,7 +15,7 @@ const NavBar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4">
+        <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-black/20 backdrop-blur-md border-b border-white/10">
             {/* Bloque Izquierdo: Logo + Nombre */}
             <Link to="/" className="flex items-center gap-4 shrink-0">
                 <img
@@ -46,7 +46,7 @@ const NavBar = () => {
             {/* Bloque Derecho: Iniciar Sesión */}
             <Link
                 to="/login"
-                className="hidden md:flex items-center gap-2 text-yellow-400 font-bold text-sm shrink-0 transition-colors duration-200 hover:text-yellow-300"
+                className="hidden md:flex items-center gap-2 px-5 py-2 bg-yellow-500 text-green-950 font-bold rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg shrink-0"
             >
                 <i className="bi bi-person-circle text-lg"></i>
                 Iniciar Sesión
@@ -83,7 +83,7 @@ const NavBar = () => {
                     <Link
                         to="/login"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 text-yellow-400 font-bold text-xl mt-4 transition-colors duration-200 hover:text-yellow-300"
+                        className="flex items-center gap-3 px-6 py-3 bg-yellow-500 text-green-950 font-bold rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg text-xl mt-4"
                     >
                         <i className="bi bi-person-circle text-2xl"></i>
                         Iniciar Sesión
