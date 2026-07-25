@@ -60,8 +60,8 @@ autenticación segura JWT.
 
 ### ¿Por qué este proyecto?
 
-- **Frontend Moderno**: React 19 + Vite 8 con JSX y Fast Refresh
-- **Backend Robusto**: Node.js + Express 5 con autenticación JWT
+- **Frontend Moderno**: React 19 + Vite 8 + TypeScript con JSX y Fast Refresh
+- **Backend Robusto**: Node.js + Express 5 + TypeScript con autenticación JWT
 - **Base de Datos**: MySQL 8.0 ejecutándose en Docker
 - **Diseño Premium**: Glassmorphism, animaciones de scroll y completamente responsivo
 - **CRUD Completo**: Gestión de eventos, pastores y mensajes desde el panel admin
@@ -115,6 +115,7 @@ autenticación segura JWT.
 | Tecnología | Versión | Descripción |
 |------------|---------|-------------|
 | [React](https://react.dev/) | ^19.2.7 | Biblioteca para interfaces de usuario |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Verificación estática de tipos |
 | [Vite](https://vite.dev/) | ^8.1.1 | Servidor de desarrollo y bundler |
 | [React Router](https://reactrouter.com/) | ^7.18.1 | Enrutamiento SPA |
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades) |
@@ -127,6 +128,7 @@ autenticación segura JWT.
 | Tecnología | Versión | Descripción |
 |------------|---------|-------------|
 | [Node.js](https://nodejs.org/) | >= 18 | Runtime de JavaScript |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Verificación estática de tipos |
 | [Express](https://expressjs.com/) | ^5.2.1 | Framework web para Node.js |
 | [MySQL2](https://github.com/sidorares/node-mysql2) | ^3.22.6 | Driver de MySQL |
 | [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Hashing seguro de contraseñas |
@@ -203,7 +205,7 @@ Pagina-Iglesia/
 │   └── icons.svg              # Iconos SVG
 ├── src/                       # Código fuente del frontend React
 │   ├── api/                   # Cliente HTTP centralizado
-│   │   └── index.js           # Función fetchAPI con inyección automática de JWT
+│   │   └── index.ts           # Función fetchAPI con inyección automática de JWT
 │   ├── assets/                # Recursos importados por el bundler
 │   │   └── hero.png
 │   ├── components/            # 11 componentes reutilizables
@@ -221,7 +223,7 @@ Pagina-Iglesia/
 │   ├── context/
 │   │   └── AuthContext.jsx    # Proveedor de autenticación (login/logout/JWT)
 │   ├── hooks/
-│   │   └── useScrollAnimations.js # Hook de animaciones scroll (IntersectionObserver)
+│   │   └── useScrollAnimations.ts # Hook de animaciones scroll (IntersectionObserver)
 │   ├── pages/                 # Páginas y rutas de la aplicación
 │   │   ├── admin/             # Componentes de gestión CRUD (Panel Admin)
 │   │   │   ├── AdminEventos.jsx
@@ -241,14 +243,14 @@ Pagina-Iglesia/
 │   ├── App.jsx                # Definición de rutas (Router + Auth)
 │   └── main.jsx               # Punto de entrada de la app
 ├── backend/                   # Código fuente del servidor Express
-│   ├── server.js              # Servidor Express con endpoints API
-│   ├── generarClave.js        # Utilidad para generar hashes bcrypt
-│   ├── reseteo.js             # Utilidad para resetear contraseña del admin
+│   ├── server.ts              # Servidor Express con endpoints API
+│   ├── generarClave.ts        # Utilidad para generar hashes bcrypt
+│   ├── reseteo.ts             # Utilidad para resetear contraseña del admin
 │   ├── middleware/
-│   │   └── auth.js            # Middleware de verificación JWT
+│   │   └── auth.ts            # Middleware de verificación JWT
 │   └── package.json           # Dependencias del backend
 ├── index.html                 # HTML de entrada para Vite
-├── vite.config.js             # Configuración de Vite (proxy API, plugin React)
+├── vite.config.ts             # Configuración de Vite (proxy API, plugin React)
 ├── docker-compose.yml         # Configuración de MySQL en Docker
 ├── init.sql                   # Schema de la base de datos + datos de ejemplo
 ├── .env                       # Variables de entorno (NO versionar)
@@ -329,8 +331,9 @@ npm run dev
 | Comando | Descripción |
 |---------|-------------|
 | `npm start` | Inicia el servidor Express en puerto 3000 |
-| `node generarClave.js` | Genera un hash bcrypt para una contraseña |
-| `node reseteo.js` | Resetea la contraseña del admin a '123456' |
+| `npm run dev` | Inicia el servidor Express con hot-reload |
+| `tsx generarClave.ts` | Genera un hash bcrypt para una contraseña |
+| `tsx reseteo.ts` | Resetea la contraseña del admin a '123456' |
 
 ---
 
@@ -603,7 +606,7 @@ Se pueden combinar con clases `delay-1`, `delay-2`, `delay-3`, `delay-4` para cr
 
 ### Custom Hook: `useScrollAnimations`
 
-Ubicado en `src/hooks/useScrollAnimations.js`. Se encarga de:
+Ubicado en `src/hooks/useScrollAnimations.ts`. Se encarga de:
 
 - Observar todos los elementos con `data-animate` en el DOM
 - Agregar la clase `animated` cuando entran en el viewport
@@ -634,7 +637,7 @@ Linter configurado con plugins de React y reglas de Oxc:
 
 Configuración unificada para editores: indentación por espacios, charset UTF-8 y limpieza de espacios en blanco.
 
-### Vite (`vite.config.js`)
+### Vite (`vite.config.ts`)
 
 - **Plugin**: `@vitejs/plugin-react` para JSX y Fast Refresh
 - **Proxy**: `/api` → `http://localhost:3000` (redirige peticiones al backend)
@@ -674,7 +677,7 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 
 ### El frontend muestra errores de CORS
 
-- Verifica que el proxy de Vite esté configurado en `vite.config.js`
+- Verifica que el proxy de Vite esté configurado en `vite.config.ts`
 - Asegúrate de que el backend esté corriendo en el puerto 3000
 
 ### Los estilos no se aplican correctamente
@@ -685,8 +688,8 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 ### La autenticación falla
 
 - Verifica que `JWT_SECRET` en `.env` esté definido
-- Asegúrate de que el hash de la contraseña esté correctamente generado con `node generarClave.js`
-- Si olvidaste la contraseña, ejecuta `node reseteo.js` para resetearla a '123456'
+- Asegúrate de que el hash de la contraseña esté correctamente generado con `tsx generarClave.ts`
+- Si olvidaste la contraseña, ejecuta `tsx reseteo.ts` para resetearla a '123456'
 - Revisa los logs del backend para ver errores detallados
 
 ### Docker no inicia MySQL

@@ -59,8 +59,8 @@ details. It includes a complete admin panel with secure JWT authentication.
 
 ### Why this project?
 
-- **Modern Frontend**: React 19 + Vite 8 with JSX and Fast Refresh
-- **Solid Backend**: Node.js + Express 5 with JWT authentication
+- **Modern Frontend**: React 19 + Vite 8 + TypeScript with JSX and Fast Refresh
+- **Solid Backend**: Node.js + Express 5 + TypeScript with JWT authentication
 - **Database**: MySQL 8.0 running in Docker
 - **Premium Design**: Glassmorphism, scroll animations, and fully responsive
 - **Full CRUD**: Manage events, pastors, and messages from the admin panel
@@ -114,6 +114,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 | Technology | Version | Description |
 |------------|---------|-------------|
 | [React](https://react.dev/) | ^19.2.7 | UI component library |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Static type checking |
 | [Vite](https://vite.dev/) | ^8.1.1 | Dev server and bundler |
 | [React Router](https://reactrouter.com/) | ^7.18.1 | SPA routing |
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | CSS framework (grid, utilities) |
@@ -126,6 +127,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 | Technology | Version | Description |
 |------------|---------|-------------|
 | [Node.js](https://nodejs.org/) | >= 18 | JavaScript runtime |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Static type checking |
 | [Express](https://expressjs.com/) | ^5.2.1 | Web framework for Node.js |
 | [MySQL2](https://github.com/sidorares/node-mysql2) | ^3.22.6 | MySQL driver |
 | [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Secure password hashing |
@@ -202,7 +204,7 @@ Pagina-Iglesia/
 │   └── icons.svg              # SVG icons
 ├── src/                       # React frontend source code
 │   ├── api/                   # Centralized HTTP client
-│   │   └── index.js           # fetchAPI function with auto JWT injection
+│   │   └── index.ts           # fetchAPI function with auto JWT injection
 │   ├── assets/                # Bundler-imported resources
 │   │   └── hero.png
 │   ├── components/            # 11 reusable components
@@ -220,7 +222,7 @@ Pagina-Iglesia/
 │   ├── context/
 │   │   └── AuthContext.jsx    # Auth provider (login/logout/JWT)
 │   ├── hooks/
-│   │   └── useScrollAnimations.js # Scroll animation hook (IntersectionObserver)
+│   │   └── useScrollAnimations.ts # Scroll animation hook (IntersectionObserver)
 │   ├── pages/                 # Application pages and routes
 │   │   ├── admin/             # CRUD admin components
 │   │   │   ├── AdminEventos.jsx
@@ -240,14 +242,14 @@ Pagina-Iglesia/
 │   ├── App.jsx                # Route definitions (Router + Auth)
 │   └── main.jsx               # App entry point
 ├── backend/                   # Express server source code
-│   ├── server.js              # Express server with API endpoints
-│   ├── generarClave.js        # Utility to generate bcrypt hashes
-│   ├── reseteo.js             # Utility to reset admin password
+│   ├── server.ts              # Express server with API endpoints
+│   ├── generarClave.ts        # Utility to generate bcrypt hashes
+│   ├── reseteo.ts             # Utility to reset admin password
 │   ├── middleware/
-│   │   └── auth.js            # JWT verification middleware
+│   │   └── auth.ts            # JWT verification middleware
 │   └── package.json           # Backend dependencies
 ├── index.html                 # Entry HTML for Vite
-├── vite.config.js             # Vite configuration (API proxy, React plugin)
+├── vite.config.ts             # Vite configuration (API proxy, React plugin)
 ├── docker-compose.yml         # MySQL Docker configuration
 ├── init.sql                   # Database schema + seed data
 ├── .env                       # Environment variables (DO NOT commit)
@@ -328,8 +330,9 @@ npm run dev
 | Command | Description |
 |---------|-------------|
 | `npm start` | Start Express server on port 3000 |
-| `node generarClave.js` | Generate a bcrypt hash for a password |
-| `node reseteo.js` | Reset admin password to '123456' |
+| `npm run dev` | Start Express server with hot-reload |
+| `tsx generarClave.ts` | Generate a bcrypt hash for a password |
+| `tsx reseteo.ts` | Reset admin password to '123456' |
 
 ---
 
@@ -602,7 +605,7 @@ Combine with `delay-1`, `delay-2`, `delay-3`, `delay-4` classes for staggered ef
 
 ### Custom Hook: `useScrollAnimations`
 
-Located at `src/hooks/useScrollAnimations.js`. It handles:
+Located at `src/hooks/useScrollAnimations.ts`. It handles:
 
 - Observing all elements with `data-animate` in the DOM
 - Adding the `animated` class when they enter the viewport
@@ -633,7 +636,7 @@ Linter configured with React plugins and Oxc rules:
 
 Unified editor configuration: space indentation, UTF-8 charset, and whitespace trimming.
 
-### Vite (`vite.config.js`)
+### Vite (`vite.config.ts`)
 
 - **Plugin**: `@vitejs/plugin-react` for JSX and Fast Refresh
 - **Proxy**: `/api` → `http://localhost:3000` (redirects requests to the backend)
@@ -673,7 +676,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 
 ### Frontend shows CORS errors
 
-- Verify the Vite proxy is configured in `vite.config.js`
+- Verify the Vite proxy is configured in `vite.config.ts`
 - Ensure the backend is running on port 3000
 
 ### Styles not applying correctly
@@ -684,8 +687,8 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 ### Authentication fails
 
 - Check that `JWT_SECRET` is defined in `.env`
-- Ensure the password hash is correctly generated with `node generarClave.js`
-- If you forgot the password, run `node reseteo.js` to reset it to '123456'
+- Ensure the password hash is correctly generated with `tsx generarClave.ts`
+- If you forgot the password, run `tsx reseteo.ts` to reset it to '123456'
 - Check backend logs for detailed errors
 
 ### Docker won't start MySQL

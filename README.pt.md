@@ -61,8 +61,8 @@ segura JWT.
 
 ### Por que este projeto?
 
-- **Frontend Moderno**: React 19 + Vite 8 com JSX e Fast Refresh
-- **Backend Robusto**: Node.js + Express 5 com autenticação JWT
+- **Frontend Moderno**: React 19 + Vite 8 + TypeScript com JSX e Fast Refresh
+- **Backend Robusto**: Node.js + Express 5 + TypeScript com autenticação JWT
 - **Banco de Dados**: MySQL 8.0 rodando em Docker
 - **Design Premium**: Glassmorphism, animações de scroll e totalmente responsivo
 - **CRUD Completo**: Gestão de eventos, pastores e mensagens pelo painel admin
@@ -116,6 +116,7 @@ segura JWT.
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
 | [React](https://react.dev/) | ^19.2.7 | Biblioteca para interfaces de usuário |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Verificação estática de tipos |
 | [Vite](https://vite.dev/) | ^8.1.1 | Servidor de desenvolvimento e bundler |
 | [React Router](https://reactrouter.com/) | ^7.18.1 | Roteamento SPA |
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades) |
@@ -128,6 +129,7 @@ segura JWT.
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
 | [Node.js](https://nodejs.org/) | >= 18 | Runtime de JavaScript |
+| [TypeScript](https://www.typescriptlang.org/) | ^7.0.2 | Verificação estática de tipos |
 | [Express](https://expressjs.com/) | ^5.2.1 | Framework web para Node.js |
 | [MySQL2](https://github.com/sidorares/node-mysql2) | ^3.22.6 | Driver de MySQL |
 | [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Hashing seguro de senhas |
@@ -204,7 +206,7 @@ Pagina-Iglesia/
 │   └── icons.svg              # Ícones SVG
 ├── src/                       # Código-fonte do frontend React
 │   ├── api/                   # Cliente HTTP centralizado
-│   │   └── index.js           # Função fetchAPI com injeção automática de JWT
+│   │   └── index.ts           # Função fetchAPI com injeção automática de JWT
 │   ├── assets/                # Recursos importados pelo bundler
 │   │   └── hero.png
 │   ├── components/            # 11 componentes reutilizáveis
@@ -222,7 +224,7 @@ Pagina-Iglesia/
 │   ├── context/
 │   │   └── AuthContext.jsx    # Provedor de autenticação (login/logout/JWT)
 │   ├── hooks/
-│   │   └── useScrollAnimations.js # Hook de animações scroll (IntersectionObserver)
+│   │   └── useScrollAnimations.ts # Hook de animações scroll (IntersectionObserver)
 │   ├── pages/                 # Páginas e rotas da aplicação
 │   │   ├── admin/             # Componentes de gestão CRUD (Painel Admin)
 │   │   │   ├── AdminEventos.jsx
@@ -242,14 +244,14 @@ Pagina-Iglesia/
 │   ├── App.jsx                # Definição de rotas (Router + Auth)
 │   └── main.jsx               # Ponto de entrada da app
 ├── backend/                   # Código-fonte do servidor Express
-│   ├── server.js              # Servidor Express com endpoints API
-│   ├── generarClave.js        # Utilidade para gerar hashes bcrypt
-│   ├── reseteo.js             # Utilidade para redefinir senha do admin
+│   ├── server.ts              # Servidor Express com endpoints API
+│   ├── generarClave.ts        # Utilidade para gerar hashes bcrypt
+│   ├── reseteo.ts             # Utilidade para redefinir senha do admin
 │   ├── middleware/
-│   │   └── auth.js            # Middleware de verificação JWT
+│   │   └── auth.ts            # Middleware de verificação JWT
 │   └── package.json           # Dependências do backend
 ├── index.html                 # HTML de entrada para o Vite
-├── vite.config.js             # Configuração do Vite (proxy API, plugin React)
+├── vite.config.ts             # Configuração do Vite (proxy API, plugin React)
 ├── docker-compose.yml         # Configuração do MySQL em Docker
 ├── init.sql                   # Schema do banco de dados + dados de exemplo
 ├── .env                       # Variáveis de ambiente (NÃO versionar)
@@ -330,8 +332,9 @@ npm run dev
 | Comando | Descrição |
 |---------|-----------|
 | `npm start` | Inicia o servidor Express na porta 3000 |
-| `node generarClave.js` | Gera um hash bcrypt para uma senha |
-| `node reseteo.js` | Redefine a senha do admin para '123456' |
+| `npm run dev` | Inicia o servidor Express com hot-reload |
+| `tsx generarClave.ts` | Gera um hash bcrypt para uma senha |
+| `tsx reseteo.ts` | Redefine a senha do admin para '123456' |
 
 ---
 
@@ -604,7 +607,7 @@ Podem ser combinadas com classes `delay-1`, `delay-2`, `delay-3`, `delay-4` para
 
 ### Custom Hook: `useScrollAnimations`
 
-Localizado em `src/hooks/useScrollAnimations.js`. Ele faz:
+Localizado em `src/hooks/useScrollAnimations.ts`. Ele faz:
 
 - Observar todos os elementos com `data-animate` no DOM
 - Adicionar a classe `animated` quando entram no viewport
@@ -635,7 +638,7 @@ Linter configurado com plugins React e regras Oxc:
 
 Configuração unificada para editores: indentação por espaços, charset UTF-8 e limpeza de espaços em branco.
 
-### Vite (`vite.config.js`)
+### Vite (`vite.config.ts`)
 
 - **Plugin**: `@vitejs/plugin-react` para JSX e Fast Refresh
 - **Proxy**: `/api` → `http://localhost:3000` (redireciona requisições para o backend)
@@ -675,7 +678,7 @@ Configuração unificada para editores: indentação por espaços, charset UTF-8
 
 ### O frontend mostra erros de CORS
 
-- Verifique se o proxy do Vite está configurado em `vite.config.js`
+- Verifique se o proxy do Vite está configurado em `vite.config.ts`
 - Certifique-se de que o backend está rodando na porta 3000
 
 ### Os estilos não são aplicados corretamente
@@ -686,8 +689,8 @@ Configuração unificada para editores: indentação por espaços, charset UTF-8
 ### A autenticação falha
 
 - Verifique se `JWT_SECRET` está definido em `.env`
-- Certifique-se de que o hash da senha foi gerado corretamente com `node generarClave.js`
-- Se esqueceu a senha, execute `node reseteo.js` para redefini-la para '123456'
+- Certifique-se de que o hash da senha foi gerado corretamente com `tsx generarClave.ts`
+- Se esqueceu a senha, execute `tsx reseteo.ts` para redefini-la para '123456'
 - Confira os logs do backend para erros detalhados
 
 ### O Docker não inicia o MySQL
