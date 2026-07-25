@@ -131,100 +131,17 @@ a {
 }
 
 /* ==========================================================================
-   NAVBAR (Glassmorphism)
+   NAVBAR (Glassmorphism) - Solo estilos residual para hero/page-header
    ========================================================================== */
 
-@layer components {
-  .navbar {
-    @apply flex items-center justify-between py-[22px] fixed top-0 left-0 right-0 z-[1000];
-    transition: background var(--transition), padding var(--transition),
-      box-shadow var(--transition), backdrop-filter var(--transition);
-  }
+.hero header,
+.page-header header {
+  position: relative;
+}
 
-  .page-header .navbar,
-  .hero .navbar {
-    @apply relative;
-  }
-
-  .page-header .container,
-  .hero .container {
-    @apply relative z-[1];
-  }
-
-  .navbar-brand {
-    @apply !flex !items-center gap-3 p-0;
-  }
-
-  .navbar-logo {
-    @apply !h-[45px] w-auto object-contain !m-0;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-    transition: transform var(--transition);
-  }
-
-  .logo:hover .navbar-logo {
-    @apply scale-[1.05] -rotate-3;
-  }
-
-  .navbar-title {
-    @apply font-playfair text-[1.5rem] font-bold text-white tracking-wider !m-0 !p-0 leading-none flex items-center;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .nav-links {
-    @apply list-none flex items-center gap-1;
-  }
-
-  .nav-links a {
-    @apply text-white/78 no-underline font-medium text-[0.92rem] relative py-[9px] px-[18px] rounded-[50px] tracking-wide;
-    transition: all var(--transition-fast);
-  }
-
-  .nav-links a:hover {
-    @apply text-white bg-white/10;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-  }
-
-  .nav-links a.active {
-    @apply text-white bg-white/[0.12];
-  }
-
-  .nav-links a.active::after {
-    content: '';
-    @apply absolute bottom-[2px] left-1/2 -translate-x-1/2 w-[22px] h-[2.5px] rounded-sm;
-    background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
-    box-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
-  }
-
-  .navbar-toggler {
-    @apply hidden flex-col gap-[5px] bg-transparent p-2 cursor-pointer z-[1001] border border-white/20 rounded-tw-sm;
-    transition: all var(--transition-fast);
-  }
-
-  .navbar-toggler:focus {
-    @apply outline-none;
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
-  }
-
-  .navbar-toggler:hover {
-    @apply border-white/50 bg-white/[0.08];
-  }
-
-  .toggler-bar {
-    @apply block w-[22px] h-[2px] bg-white rounded-sm;
-    transition: all var(--transition-fast);
-  }
-
-  .navbar-toggler.active .toggler-bar:nth-child(1) {
-    @apply rotate-45 translate-x-[5px] translate-y-[5px];
-  }
-
-  .navbar-toggler.active .toggler-bar:nth-child(2) {
-    @apply opacity-0;
-  }
-
-  .navbar-toggler.active .toggler-bar:nth-child(3) {
-    @apply -rotate-45 translate-x-[5px] -translate-y-[5px];
-  }
+.navbar-logo {
+  @apply h-[45px] w-auto object-contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 /* Navbar scroll - Glassmorphism */
