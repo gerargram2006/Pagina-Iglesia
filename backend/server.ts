@@ -154,6 +154,28 @@ app.delete('/api/pastores/:id', verificarToken, (req: Request, res: Response) =>
   });
 });
 
+app.post('/api/mensajes', (req: Request, res: Response) => {
+  const { nombre, email, asunto, mensaje } = req.body;
+
+  if (!nombre || !email || !mensaje) {
+    res.status(400).json({ error: 'Nombre, email y mensaje son requeridos' });
+    return;
+  }
+
+  // La tabla no tiene columna 'asunto', se incluye al inicio del mensaje
+  const mensajeCompleto = asunto ? `[${asunto}] ${mensaje}` : mensaje;
+
+  db.query(
+    'INSERT INTO mensajes_contacto (nombre, email, mensaje) VALUES (?, ?, ?)',
+    [nombre, email, mensajeCompleto],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: 'Error al guardar el mensaje' });
+      const insertResult = result as mysql.ResultSetHeader;
+      res.json({ id: insertResult.insertId, nombre, email, asunto, mensaje });
+    }
+  );
+});
+
 app.get('/api/mensajes', verificarToken, (_req: Request, res: Response) => {
   db.query('SELECT * FROM mensajes_contacto ORDER BY fecha_envio DESC', (err, results) => {
     if (err) return res.status(500).json(err);
