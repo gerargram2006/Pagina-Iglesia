@@ -1,7 +1,7 @@
 export default function AboutSection({ title = "Quiénes Somos", subtitle = "Conoce nuestra historia y misión", id = "quienes-somos" }) {
     return (
         <section id={id} className="section section-alt">
-            <div className="container">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
                 <div className="about-content">
@@ -30,22 +30,22 @@ export default function AboutSection({ title = "Quiénes Somos", subtitle = "Con
                         </div>
                     </div>
                     <div className="about-values">
-                        <div className="row g-4">
-                            <div className="col-12 col-md-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div data-animate="scale-in">
                                 <div className="value-item" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-book-fill" aria-hidden="true"></i></span>
                                     <h3>Fe</h3>
                                     <p>Creemos en Dios Padre, Hijo y Espíritu Santo</p>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-4">
+                            <div data-animate="scale-in">
                                 <div className="value-item" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-heart-fill" aria-hidden="true"></i></span>
                                     <h3>Amor</h3>
                                     <p>Amamos a Dios y al prójimo como a nosotros mismos</p>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-4">
+                            <div data-animate="scale-in">
                                 <div className="value-item" data-animate="scale-in">
                                     <span className="value-icon"><i className="bi bi-people-fill" aria-hidden="true"></i></span>
                                     <h3>Servicio</h3>
