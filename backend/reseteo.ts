@@ -16,6 +16,7 @@ async function resetearPassword(): Promise<void> {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       port: Number(process.env.DB_PORT) || 3306,
+      charset: 'utf8mb4',
     });
 
     console.log("3. Forzando la cerradura...");
