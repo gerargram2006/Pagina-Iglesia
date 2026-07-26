@@ -15,15 +15,15 @@ const NavBar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-black/20 backdrop-blur-md border-b border-white/10">
+        <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10">
             {/* Bloque Izquierdo: Logo + Nombre */}
-            <Link to="/" className="flex items-center gap-4 shrink-0">
+            <Link to="/" className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <img
                     src="/img/logo-oficial.png"
                     alt="Logo Asamblea de Dios"
-                    className="h-11 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+                    className="h-9 sm:h-11 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                 />
-                <span className="font-bold text-white text-xl tracking-wide whitespace-nowrap">
+                <span className="font-bold text-white text-base sm:text-xl tracking-wide whitespace-nowrap hidden sm:inline">
                     Asamblea de Dios
                 </span>
             </Link>
@@ -55,7 +55,7 @@ const NavBar = () => {
             {/* Botón hamburguesa (solo móvil) */}
             <button
                 type="button"
-                className="md:hidden flex flex-col gap-1.5 p-2 border border-white/20 rounded-lg bg-transparent cursor-pointer z-50 hover:border-white/50 hover:bg-white/10 transition-all duration-200"
+                className="md:hidden flex flex-col gap-1.5 p-1.5 sm:p-2 border border-white/20 rounded-lg bg-transparent cursor-pointer z-50 hover:border-white/50 hover:bg-white/10 transition-all duration-200"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-expanded={menuOpen}
                 aria-label="Toggle navigation"
