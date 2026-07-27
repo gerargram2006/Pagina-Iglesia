@@ -91,8 +91,7 @@ VALUES
 -- Pastores de prueba
 INSERT INTO pastores (nombre, cargo, biografia, foto_url)
 VALUES 
-('Pastor Juan Pérez', 'Pastor Principal', 'Con más de 20 años de ministerio sirviendo a la comunidad.', 'https://via.placeholder.com/800x800'),
-('Líder María Gómez', 'Directora de Alabanza', 'Apasionada por llevar a la iglesia a la adoración.', 'https://via.placeholder.com/800x800');
+('Pastor Ruideto Costa', 'Pastor Principal', 'Con más de 10 años de ministerio sirviendo a la comunidad.', '/img/pastor-principal.webp');
 
 -- Horarios de prueba
 INSERT INTO horarios (dia, hora, actividad)
