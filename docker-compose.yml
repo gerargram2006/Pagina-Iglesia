@@ -24,8 +24,8 @@ services:
       MYSQL_DATABASE: ${DB_NAME}              # Crea automáticamente la base de datos "iglesia_db"
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}     # Contraseña del usuario root de MySQL
     ports:
-      - "3307:3306"                           # Mapea puerto 3307 del host al 3306 del contenedor
-                                              # (se usa 3307 para evitar conflictos con otras instancias de MySQL)
+      - "33007:3306"                           # Mapea puerto 33007 del host al 3306 del contenedor
+                                              # (se usa 33007 para evitar conflictos con otras instancias de MySQL)
     volumes:
       - mysql_data:/var/lib/mysql             # Volumen persistente: los datos sobreviven al detener el contenedor
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Copia init.sql al directorio de inicialización
