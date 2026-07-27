@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api';
+import { api, type ApiEvento, type EventoInput } from '../../api';
 
-const emptyEvent = { id: null, titulo: '', descripcion: '', fecha: '', lugar: 'Auditorio Principal', imagen_url: '' };
+interface EventFormData {
+    id: number | null;
+    titulo: string;
+    descripcion: string;
+    fecha: string;
+    lugar: string;
+    imagen_url: string;
+}
 
-function eventForm(evento) {
+const emptyEvent: EventFormData = { id: null, titulo: '', descripcion: '', fecha: '', lugar: 'Auditorio Principal', imagen_url: '' };
+
+function eventForm(evento: ApiEvento | null): EventFormData {
     if (!evento) return emptyEvent;
     return {
         id: evento.id,
@@ -15,19 +24,19 @@ function eventForm(evento) {
     };
 }
 
-function errorMessage(error, fallback) {
+function errorMessage(error: unknown, fallback: string): string {
     return error instanceof Error ? error.message : fallback;
 }
 
 export default function AdminEventos() {
-    const [eventos, setEventos] = useState([]);
+    const [eventos, setEventos] = useState<ApiEvento[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
-    const [formData, setFormData] = useState(emptyEvent);
+    const [formData, setFormData] = useState<EventFormData>(emptyEvent);
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
-    const [deletingId, setDeletingId] = useState(null);
+    const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const cargarEventos = async () => {
         try {
@@ -43,7 +52,7 @@ export default function AdminEventos() {
 
     useEffect(() => { cargarEventos(); }, []);
 
-    const handleOpenModal = (evento = null) => {
+    const handleOpenModal = (evento: ApiEvento | null = null) => {
         setFormData(eventForm(evento));
         setFormError('');
         setModalOpen(true);
@@ -56,11 +65,11 @@ export default function AdminEventos() {
         setFormError('');
     };
 
-    const handleSave = async (event) => {
+    const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setFormError('');
         setSaving(true);
-        const payload = {
+        const payload: EventoInput = {
             titulo: formData.titulo,
             descripcion: formData.descripcion,
             fecha: `${formData.fecha.replace('T', ' ')}:00`,
@@ -81,7 +90,7 @@ export default function AdminEventos() {
         }
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: number) => {
         if (!window.confirm('¿Seguro que quieres borrar este evento? Esta acción no se puede deshacer.')) return;
 
         try {
@@ -127,7 +136,7 @@ export default function AdminEventos() {
                                 </div></td>
                             </tr>
                         ))}
-                        {eventos.length === 0 && <tr><td colSpan="6" className="admin-table-empty">No hay eventos registrados.</td></tr>}
+                        {eventos.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay eventos registrados.</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -138,11 +147,11 @@ export default function AdminEventos() {
                         <div className="admin-modal-header"><h3 id="event-modal-title">{formData.id ? 'Editar Evento' : 'Nuevo Evento'}</h3><button className="admin-modal-close" onClick={handleCloseModal} aria-label="Cerrar"><i className="bi bi-x-lg"></i></button></div>
                         <form onSubmit={handleSave} className="admin-modal-form">
                             {formError && <div className="admin-error-msg" role="alert">{formError}</div>}
-                            <div className="form-group"><label htmlFor="event-title">Título del evento</label><input id="event-title" type="text" required maxLength="150" value={formData.titulo} onChange={(e) => setFormData({ ...formData, titulo: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="event-title">Título del evento</label><input id="event-title" type="text" required maxLength={150} value={formData.titulo} onChange={(e) => setFormData({ ...formData, titulo: e.target.value })} /></div>
                             <div className="form-group"><label htmlFor="event-date">Fecha y hora</label><input id="event-date" type="datetime-local" required value={formData.fecha} onChange={(e) => setFormData({ ...formData, fecha: e.target.value })} /></div>
-                            <div className="form-group"><label htmlFor="event-place">Lugar</label><input id="event-place" type="text" required maxLength="150" value={formData.lugar} onChange={(e) => setFormData({ ...formData, lugar: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="event-place">Lugar</label><input id="event-place" type="text" required maxLength={150} value={formData.lugar} onChange={(e) => setFormData({ ...formData, lugar: e.target.value })} /></div>
                             <div className="form-group"><label htmlFor="event-image">URL de imagen</label><input id="event-image" type="url" value={formData.imagen_url} onChange={(e) => setFormData({ ...formData, imagen_url: e.target.value })} placeholder="https://..." /></div>
-                            <div className="form-group"><label htmlFor="event-description">Descripción</label><textarea id="event-description" rows="3" maxLength="5000" value={formData.descripcion} onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}></textarea></div>
+                            <div className="form-group"><label htmlFor="event-description">Descripción</label><textarea id="event-description" rows={3} maxLength={5000} value={formData.descripcion} onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}></textarea></div>
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar evento</>}</button></div>
                         </form>
                     </div>

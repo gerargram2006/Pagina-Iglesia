@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api';
+import { api, type ApiPastor, type PastorInput } from '../../api';
 
-const emptyPastor = { id: null, nombre: '', cargo: '', biografia: '', foto_url: '' };
+interface PastorFormData {
+    id: number | null;
+    nombre: string;
+    cargo: string;
+    biografia: string;
+    foto_url: string;
+}
 
-function pastorForm(pastor) {
+const emptyPastor: PastorFormData = { id: null, nombre: '', cargo: '', biografia: '', foto_url: '' };
+
+function pastorForm(pastor: ApiPastor | null): PastorFormData {
     if (!pastor) return emptyPastor;
     return {
         id: pastor.id,
@@ -14,19 +22,19 @@ function pastorForm(pastor) {
     };
 }
 
-function errorMessage(error, fallback) {
+function errorMessage(error: unknown, fallback: string): string {
     return error instanceof Error ? error.message : fallback;
 }
 
 export default function AdminPastores() {
-    const [pastores, setPastores] = useState([]);
+    const [pastores, setPastores] = useState<ApiPastor[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
-    const [formData, setFormData] = useState(emptyPastor);
+    const [formData, setFormData] = useState<PastorFormData>(emptyPastor);
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
-    const [deletingId, setDeletingId] = useState(null);
+    const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const cargarPastores = async () => {
         try {
@@ -42,7 +50,7 @@ export default function AdminPastores() {
 
     useEffect(() => { cargarPastores(); }, []);
 
-    const handleOpenModal = (pastor = null) => {
+    const handleOpenModal = (pastor: ApiPastor | null = null) => {
         setFormData(pastorForm(pastor));
         setFormError('');
         setModalOpen(true);
@@ -55,11 +63,11 @@ export default function AdminPastores() {
         setFormError('');
     };
 
-    const handleSave = async (event) => {
+    const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setFormError('');
         setSaving(true);
-        const payload = {
+        const payload: PastorInput = {
             nombre: formData.nombre,
             cargo: formData.cargo,
             biografia: formData.biografia,
@@ -79,7 +87,7 @@ export default function AdminPastores() {
         }
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: number) => {
         if (!window.confirm('¿Seguro que quieres borrar este registro? Esta acción no se puede deshacer.')) return;
 
         try {
@@ -125,7 +133,7 @@ export default function AdminPastores() {
                                 </div></td>
                             </tr>
                         ))}
-                        {pastores.length === 0 && <tr><td colSpan="6" className="admin-table-empty">No hay miembros registrados.</td></tr>}
+                        {pastores.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay miembros registrados.</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -136,10 +144,10 @@ export default function AdminPastores() {
                         <div className="admin-modal-header"><h3 id="pastor-modal-title">{formData.id ? 'Editar miembro' : 'Nuevo miembro'}</h3><button className="admin-modal-close" onClick={handleCloseModal} aria-label="Cerrar"><i className="bi bi-x-lg"></i></button></div>
                         <form onSubmit={handleSave} className="admin-modal-form">
                             {formError && <div className="admin-error-msg" role="alert">{formError}</div>}
-                            <div className="form-group"><label htmlFor="pastor-name">Nombre completo</label><input id="pastor-name" type="text" required maxLength="100" value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} /></div>
-                            <div className="form-group"><label htmlFor="pastor-role">Cargo o rol</label><input id="pastor-role" type="text" required maxLength="100" value={formData.cargo} onChange={(e) => setFormData({ ...formData, cargo: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="pastor-name">Nombre completo</label><input id="pastor-name" type="text" required maxLength={100} value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="pastor-role">Cargo o rol</label><input id="pastor-role" type="text" required maxLength={100} value={formData.cargo} onChange={(e) => setFormData({ ...formData, cargo: e.target.value })} /></div>
                             <div className="form-group"><label htmlFor="pastor-photo">URL de foto</label><input id="pastor-photo" type="url" value={formData.foto_url} onChange={(e) => setFormData({ ...formData, foto_url: e.target.value })} placeholder="https://..." /></div>
-                            <div className="form-group"><label htmlFor="pastor-bio">Biografía</label><textarea id="pastor-bio" rows="4" maxLength="5000" value={formData.biografia} onChange={(e) => setFormData({ ...formData, biografia: e.target.value })}></textarea></div>
+                            <div className="form-group"><label htmlFor="pastor-bio">Biografía</label><textarea id="pastor-bio" rows={4} maxLength={5000} value={formData.biografia} onChange={(e) => setFormData({ ...formData, biografia: e.target.value })}></textarea></div>
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar cambios</>}</button></div>
                         </form>
                     </div>

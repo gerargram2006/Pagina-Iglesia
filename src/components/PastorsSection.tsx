@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
-import { api } from '../api';
+import { api, ApiPastor } from '../api';
 
-function initials(name) {
+function initials(name: string): string {
     return name
         .split(/\s+/)
         .filter(Boolean)
         .slice(0, 2)
-        .map((part) => part[0])
+        .map((part) => part[0]!)
         .join('')
         .toUpperCase();
 }
 
-export default function PastorsSection({ title = 'Nuestros Pastores', subtitle = 'Liderazgo espiritual al servicio de Dios', id = 'pastores' }) {
-    const [pastors, setPastors] = useState([]);
+interface PastorsSectionProps {
+    title?: string | null;
+    subtitle?: string | null;
+    id?: string;
+}
+
+export default function PastorsSection({ title = 'Nuestros Pastores', subtitle = 'Liderazgo espiritual al servicio de Dios', id = 'pastores' }: PastorsSectionProps) {
+    const [pastors, setPastors] = useState<ApiPastor[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 

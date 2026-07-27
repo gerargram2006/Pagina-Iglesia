@@ -1,6 +1,11 @@
 import NavBar from './NavBar';
 
-export default function PageHeader({ title, subtitle }) {
+interface PageHeaderProps {
+    title: string;
+    subtitle?: string;
+}
+
+export default function PageHeader({ title, subtitle }: PageHeaderProps) {
     return (
         <header className="page-header">
             <div className="page-header-shapes" aria-hidden="true">

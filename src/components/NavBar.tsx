@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const navLinks = [
+interface NavLinkItem {
+    to: string;
+    label: string;
+}
+
+const navLinks: NavLinkItem[] = [
     { to: '/', label: 'Inicio' },
     { to: '/horarios', label: 'Horarios' },
     { to: '/quienes-somos', label: 'Quiénes Somos' },
@@ -16,7 +21,6 @@ const NavBar = () => {
 
     return (
         <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10">
-            {/* Bloque Izquierdo: Logo + Nombre */}
             <Link to="/" className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <img
                     src="/img/logo-oficial.png"
@@ -28,7 +32,6 @@ const NavBar = () => {
                 </span>
             </Link>
 
-            {/* Bloque Central: Enlaces de navegación */}
             <nav className="hidden md:flex items-center gap-8">
                 {navLinks.map(({ to, label }) => (
                     <NavLink
@@ -43,7 +46,6 @@ const NavBar = () => {
                 ))}
             </nav>
 
-            {/* Bloque Derecho: Iniciar Sesión */}
             <Link
                 to="/login"
                 className="hidden md:flex items-center gap-2 px-5 py-2 bg-yellow-500 text-green-950 font-bold rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg shrink-0"
@@ -52,7 +54,6 @@ const NavBar = () => {
                 Iniciar Sesión
             </Link>
 
-            {/* Botón hamburguesa (solo móvil) */}
             <button
                 type="button"
                 className="md:hidden flex flex-col gap-1.5 p-1.5 sm:p-2 border border-white/20 rounded-lg bg-transparent cursor-pointer z-50 hover:border-white/50 hover:bg-white/10 transition-all duration-200"
@@ -65,7 +66,6 @@ const NavBar = () => {
                 <span className={`block w-6 h-0.5 bg-white rounded-sm transition-all duration-200 ${menuOpen ? '-rotate-45 translate-x-1.5 -translate-y-1.5' : ''}`}></span>
             </button>
 
-            {/* Menú móvil (overlay) */}
             {menuOpen && (
                 <div className="md:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-primary-900/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8">
                     {navLinks.map(({ to, label }) => (

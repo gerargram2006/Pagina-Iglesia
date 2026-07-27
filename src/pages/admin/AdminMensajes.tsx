@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api';
+import { api, type ApiMensaje } from '../../api';
 
-function errorMessage(error, fallback) {
+function errorMessage(error: unknown, fallback: string): string {
     return error instanceof Error ? error.message : fallback;
 }
 
 export default function AdminMensajes() {
-    const [mensajes, setMensajes] = useState([]);
+    const [mensajes, setMensajes] = useState<ApiMensaje[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [deletingId, setDeletingId] = useState(null);
+    const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const cargarMensajes = async () => {
         try {
@@ -25,7 +25,7 @@ export default function AdminMensajes() {
 
     useEffect(() => { cargarMensajes(); }, []);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: number) => {
         if (!window.confirm('¿Seguro que quieres borrar este mensaje? Esta acción no se puede deshacer.')) return;
 
         try {
