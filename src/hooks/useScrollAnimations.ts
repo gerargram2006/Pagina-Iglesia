@@ -5,9 +5,6 @@ export default function useScrollAnimations(): void {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>('[data-animate]');
-    if (!elements.length) return;
-
     const observer = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
@@ -23,8 +20,22 @@ export default function useScrollAnimations(): void {
       }
     );
 
-    elements.forEach((el) => observer.observe(el));
+    const observeElements = () => {
+      const elements = document.querySelectorAll<HTMLElement>('[data-animate]:not(.animated)');
+      elements.forEach((el) => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
+    observeElements();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, [pathname]);
 }
