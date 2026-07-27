@@ -1,71 +1,98 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../api';
+
+const emptyEvent = { id: null, titulo: '', descripcion: '', fecha: '', lugar: 'Auditorio Principal', imagen_url: '' };
+
+function eventForm(evento) {
+    if (!evento) return emptyEvent;
+    return {
+        id: evento.id,
+        titulo: evento.titulo ?? '',
+        descripcion: evento.descripcion ?? '',
+        fecha: String(evento.fecha ?? '').replace(' ', 'T').slice(0, 16),
+        lugar: evento.lugar ?? '',
+        imagen_url: evento.imagen_url ?? '',
+    };
+}
+
+function errorMessage(error, fallback) {
+    return error instanceof Error ? error.message : fallback;
+}
 
 export default function AdminEventos() {
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
-    const [formData, setFormData] = useState({ id: null, titulo: '', descripcion: '', fecha: '', lugar: '', imagen_url: '' });
+    const [formData, setFormData] = useState(emptyEvent);
+    const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
-
-    useEffect(() => { cargarEventos(); }, []);
+    const [deletingId, setDeletingId] = useState(null);
 
     const cargarEventos = async () => {
         try {
             setLoading(true);
-            const data = await api.eventos.getAll();
-            setEventos(data);
-        } catch {
-            setError('Error al cargar los eventos');
+            setError('');
+            setEventos(await api.eventos.getAll());
+        } catch (requestError) {
+            setError(errorMessage(requestError, 'No se pudieron cargar los eventos.'));
         } finally {
             setLoading(false);
         }
     };
 
+    useEffect(() => { cargarEventos(); }, []);
+
     const handleOpenModal = (evento = null) => {
-        if (evento) {
-            const formattedDate = new Date(evento.fecha).toISOString().slice(0, 16);
-            setFormData({ ...evento, fecha: formattedDate });
-        } else {
-            setFormData({ id: null, titulo: '', descripcion: '', fecha: '', lugar: 'Auditorio Principal', imagen_url: '' });
-        }
+        setFormData(eventForm(evento));
+        setFormError('');
         setModalOpen(true);
     };
 
     const handleCloseModal = () => {
+        if (saving) return;
         setModalOpen(false);
-        setFormData({ id: null, titulo: '', descripcion: '', fecha: '', lugar: '', imagen_url: '' });
+        setFormData(emptyEvent);
+        setFormError('');
     };
 
-    const handleSave = async (e) => {
-        e.preventDefault();
-        try {
-            setSaving(true);
-            const mysqlDate = formData.fecha.replace('T', ' ') + ':00';
-            const payload = { ...formData, fecha: mysqlDate };
+    const handleSave = async (event) => {
+        event.preventDefault();
+        setFormError('');
+        setSaving(true);
+        const payload = {
+            titulo: formData.titulo,
+            descripcion: formData.descripcion,
+            fecha: `${formData.fecha.replace('T', ' ')}:00`,
+            lugar: formData.lugar,
+            imagen_url: formData.imagen_url,
+        };
 
-            if (formData.id) {
-                await api.eventos.update(formData.id, payload);
-            } else {
-                await api.eventos.create(payload);
-            }
+        try {
+            if (formData.id) await api.eventos.update(formData.id, payload);
+            else await api.eventos.create(payload);
+            setModalOpen(false);
+            setFormData(emptyEvent);
             await cargarEventos();
-            handleCloseModal();
-        } catch (err) {
-            alert('Error al guardar: ' + err.message);
+        } catch (requestError) {
+            setFormError(errorMessage(requestError, 'No se pudo guardar el evento.'));
         } finally {
             setSaving(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm('¿Estás seguro de que quieres borrar este evento?')) return;
+        if (!window.confirm('¿Seguro que quieres borrar este evento? Esta acción no se puede deshacer.')) return;
+
         try {
+            setDeletingId(id);
+            setError('');
             await api.eventos.delete(id);
-            await cargarEventos();
-        } catch (err) {
-            alert('Error al borrar: ' + err.message);
+            setEventos((items) => items.filter((evento) => evento.id !== id));
+        } catch (requestError) {
+            setError(errorMessage(requestError, 'No se pudo borrar el evento.'));
+        } finally {
+            setDeletingId(null);
         }
     };
 
@@ -75,89 +102,48 @@ export default function AdminEventos() {
         <div className="admin-crud-section">
             <div className="admin-crud-header">
                 <h2>Gestión de Eventos</h2>
-                <button className="btn-primary" onClick={() => handleOpenModal()}>
-                    <i className="bi bi-plus-circle"></i> Nuevo Evento
-                </button>
+                <div className="admin-crud-actions">
+                    <button className="btn-secondary" onClick={cargarEventos}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
+                    <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-plus-circle"></i> Nuevo Evento</button>
+                </div>
             </div>
 
-            {error && <div className="admin-error-msg">{error}</div>}
+            {error && <div className="admin-error-msg" role="alert">{error}</div>}
 
             <div className="admin-table-container">
                 <table className="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Imagen</th>
-                            <th>Título</th>
-                            <th>Fecha</th>
-                            <th>Lugar</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>ID</th><th>Imagen</th><th>Título</th><th>Fecha</th><th>Lugar</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {eventos.map(evt => (
-                            <tr key={evt.id}>
-                                <td>{evt.id}</td>
-                                <td>
-                                    {evt.imagen_url ?
-                                        <img src={evt.imagen_url} alt="thumbnail" className="admin-table-img" /> :
-                                        <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>
-                                    }
-                                </td>
-                                <td><strong>{evt.titulo}</strong></td>
-                                <td>{new Date(evt.fecha).toLocaleDateString('es-PE')} {new Date(evt.fecha).toLocaleTimeString('es-PE', {hour: '2-digit', minute:'2-digit'})}</td>
-                                <td>{evt.lugar}</td>
-                                <td>
-                                    <div className="admin-table-actions">
-                                        <button className="btn-icon btn-edit" onClick={() => handleOpenModal(evt)} title="Editar"><i className="bi bi-pencil"></i></button>
-                                        <button className="btn-icon btn-delete" onClick={() => handleDelete(evt.id)} title="Borrar"><i className="bi bi-trash"></i></button>
-                                    </div>
-                                </td>
+                        {eventos.map((evento) => (
+                            <tr key={evento.id}>
+                                <td>{evento.id}</td>
+                                <td>{evento.imagen_url ? <img src={evento.imagen_url} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
+                                <td><strong>{evento.titulo}</strong></td>
+                                <td>{new Date(evento.fecha).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' })}</td>
+                                <td>{evento.lugar}</td>
+                                <td><div className="admin-table-actions">
+                                    <button className="btn-icon btn-edit" onClick={() => handleOpenModal(evento)} title="Editar evento" aria-label={`Editar ${evento.titulo}`}><i className="bi bi-pencil"></i></button>
+                                    <button className="btn-icon btn-delete" onClick={() => handleDelete(evento.id)} title="Borrar evento" aria-label={`Borrar ${evento.titulo}`} disabled={deletingId === evento.id}><i className={deletingId === evento.id ? 'bi bi-arrow-repeat spin' : 'bi bi-trash'}></i></button>
+                                </div></td>
                             </tr>
                         ))}
-                        {eventos.length === 0 && (
-                            <tr><td colSpan="6" className="admin-table-empty">No hay eventos registrados.</td></tr>
-                        )}
+                        {eventos.length === 0 && <tr><td colSpan="6" className="admin-table-empty">No hay eventos registrados.</td></tr>}
                     </tbody>
                 </table>
             </div>
 
             {modalOpen && (
-                <div className="admin-modal-overlay">
-                    <div className="admin-modal">
-                        <div className="admin-modal-header">
-                            <h3>{formData.id ? 'Editar Evento' : 'Nuevo Evento'}</h3>
-                            <button className="admin-modal-close" onClick={handleCloseModal}><i className="bi bi-x-lg"></i></button>
-                        </div>
+                <div className="admin-modal-overlay" role="presentation">
+                    <div className="admin-modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+                        <div className="admin-modal-header"><h3 id="event-modal-title">{formData.id ? 'Editar Evento' : 'Nuevo Evento'}</h3><button className="admin-modal-close" onClick={handleCloseModal} aria-label="Cerrar"><i className="bi bi-x-lg"></i></button></div>
                         <form onSubmit={handleSave} className="admin-modal-form">
-                            <div className="form-group">
-                                <label>Título del Evento</label>
-                                <input type="text" required value={formData.titulo} onChange={e => setFormData({...formData, titulo: e.target.value})} placeholder="Ej. Servicio Dominical" />
-                            </div>
-                            <div className="form-group">
-                                <label>Fecha y Hora</label>
-                                <input type="datetime-local" required value={formData.fecha} onChange={e => setFormData({...formData, fecha: e.target.value})} />
-                            </div>
-                            <div className="form-group">
-                                <label>Lugar</label>
-                                <input type="text" required value={formData.lugar} onChange={e => setFormData({...formData, lugar: e.target.value})} placeholder="Ej. Auditorio Principal" />
-                            </div>
-                            <div className="form-group">
-                                <label>URL de Imagen</label>
-                                <input type="url" value={formData.imagen_url} onChange={e => setFormData({...formData, imagen_url: e.target.value})} placeholder="https://..." />
-                                <small>Enlace directo a una imagen web para mostrar en la tarjeta.</small>
-                            </div>
-                            <div className="form-group">
-                                <label>Descripción</label>
-                                <textarea rows="3" value={formData.descripcion} onChange={e => setFormData({...formData, descripcion: e.target.value})} placeholder="Detalles del evento..."></textarea>
-                            </div>
-                            <div className="admin-modal-footer">
-                                <button type="button" className="btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                                <button type="submit" className="btn-primary" disabled={saving}>
-                                    {saving ? <i className="bi bi-arrow-repeat spin"></i> : <i className="bi bi-save"></i>}
-                                    {saving ? ' Guardando...' : ' Guardar Evento'}
-                                </button>
-                            </div>
+                            {formError && <div className="admin-error-msg" role="alert">{formError}</div>}
+                            <div className="form-group"><label htmlFor="event-title">Título del evento</label><input id="event-title" type="text" required maxLength="150" value={formData.titulo} onChange={(e) => setFormData({ ...formData, titulo: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="event-date">Fecha y hora</label><input id="event-date" type="datetime-local" required value={formData.fecha} onChange={(e) => setFormData({ ...formData, fecha: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="event-place">Lugar</label><input id="event-place" type="text" required maxLength="150" value={formData.lugar} onChange={(e) => setFormData({ ...formData, lugar: e.target.value })} /></div>
+                            <div className="form-group"><label htmlFor="event-image">URL de imagen</label><input id="event-image" type="url" value={formData.imagen_url} onChange={(e) => setFormData({ ...formData, imagen_url: e.target.value })} placeholder="https://..." /></div>
+                            <div className="form-group"><label htmlFor="event-description">Descripción</label><textarea id="event-description" rows="3" maxLength="5000" value={formData.descripcion} onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}></textarea></div>
+                            <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar evento</>}</button></div>
                         </form>
                     </div>
                 </div>
