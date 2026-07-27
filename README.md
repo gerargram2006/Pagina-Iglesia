@@ -149,8 +149,8 @@ details. It includes a complete admin panel with secure JWT authentication.
 ```
 ┌─────────────────────────────────────────────────┐
 │                  FRONTEND (Vite)                │
-│  React 19 + React Router 7 + Bootstrap 5       │
-│  Port: 5173                                     │
+│  React 19 + TypeScript + React Router 7         │
+│  + Bootstrap 5 · Port: 5173                     │
 │                                                 │
 │  ┌───────────┐  ┌───────────┐  ┌─────────────┐ │
 │  │   Pages    │  │Components │  │   Context   │ │
@@ -208,39 +208,39 @@ Pagina-Iglesia/
 │   ├── assets/                # Bundler-imported resources
 │   │   └── hero.png
 │   ├── components/            # 11 reusable components
-│   │   ├── Layout.jsx         # Main layout with Outlet and Footer
-│   │   ├── NavBar.jsx         # Responsive navbar with Glassmorphism
-│   │   ├── Footer.jsx         # Footer with links, verse, and social media
-│   │   ├── PageHeader.jsx     # Internal page header
-│   │   ├── ScheduleSection.jsx# Worship schedule cards with icons
-│   │   ├── AboutSection.jsx   # About section (2 columns + metrics)
-│   │   ├── GallerySection.jsx # Photo gallery (6-slot Bento grid)
-│   │   ├── PastorsSection.jsx # Pastor/leader cards (real photos)
-│   │   ├── EventsSection.jsx  # Upcoming events list (with thumbnails)
-│   │   ├── CTASection.jsx     # Call-to-action section with particles
-│   │   └── ContactSection.jsx # Contact info + form
+│   │   ├── Layout.tsx         # Main layout with Outlet and Footer
+│   │   ├── NavBar.tsx         # Responsive navbar with Glassmorphism
+│   │   ├── Footer.tsx         # Footer with links, verse, and social media
+│   │   ├── PageHeader.tsx     # Internal page header
+│   │   ├── ScheduleSection.tsx# Worship schedule cards with icons
+│   │   ├── AboutSection.tsx   # About section (2 columns + metrics)
+│   │   ├── GallerySection.tsx # Photo gallery (6-slot Bento grid)
+│   │   ├── PastorsSection.tsx # Pastor/leader cards (real photos)
+│   │   ├── EventsSection.tsx  # Upcoming events list (with thumbnails)
+│   │   ├── CTASection.tsx     # Call-to-action section with particles
+│   │   └── ContactSection.tsx # Contact info + form
 │   ├── context/
-│   │   └── AuthContext.jsx    # Auth provider (login/logout/JWT)
+│   │   └── AuthContext.tsx    # Auth provider (login/logout/JWT)
 │   ├── hooks/
 │   │   └── useScrollAnimations.ts # Scroll animation hook (IntersectionObserver)
 │   ├── pages/                 # Application pages and routes
 │   │   ├── admin/             # CRUD admin components
-│   │   │   ├── AdminEventos.jsx
-│   │   │   ├── AdminPastores.jsx
-│   │   │   └── AdminMensajes.jsx
-│   │   ├── Home.jsx           # Home page (hero + sections)
-│   │   ├── Horarios.jsx       # Schedule page
-│   │   ├── QuienesSomos.jsx   # About page
-│   │   ├── Pastores.jsx       # Pastors page
-│   │   ├── Eventos.jsx        # Events page
-│   │   ├── Anexos.jsx         # Anexos/sedes page with branch info
-│   │   ├── Contacto.jsx       # Contact page
-│   │   ├── Login.jsx          # Login form
-│   │   └── Admin.jsx          # Protected admin panel
+│   │   │   ├── AdminEventos.tsx
+│   │   │   ├── AdminPastores.tsx
+│   │   │   └── AdminMensajes.tsx
+│   │   ├── Home.tsx           # Home page (hero + sections)
+│   │   ├── Horarios.tsx       # Schedule page
+│   │   ├── QuienesSomos.tsx   # About page
+│   │   ├── Pastores.tsx       # Pastors page
+│   │   ├── Eventos.tsx        # Events page
+│   │   ├── Anexos.tsx         # Anexos/sedes page with branch info
+│   │   ├── Contacto.tsx       # Contact page
+│   │   ├── Login.tsx          # Login form
+│   │   └── Admin.tsx          # Protected admin panel
 │   ├── styles/
 │   │   └── styles.css         # Global styles (~2540 lines)
-│   ├── App.jsx                # Route definitions (Router + Auth)
-│   └── main.jsx               # App entry point
+│   ├── App.tsx                # Route definitions (Router + Auth)
+│   └── main.tsx               # App entry point
 ├── backend/                   # Express server source code
 │   ├── server.ts              # Express server with API endpoints
 │   ├── generarClave.ts        # Utility to generate bcrypt hashes
@@ -682,7 +682,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 ### Styles not applying correctly
 
 - Run `npm run lint` to check for syntax errors
-- Verify `styles.css` is imported in `main.jsx`
+- Verify `styles.css` is imported in `main.tsx`
 
 ### Authentication fails
 
@@ -715,6 +715,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 - [x] Smart navbar and dynamic footer
 - [x] Docker Compose for quick MySQL deployment
 - [x] Detailed comments throughout the project
+- [x] Full TypeScript migration: all 25 frontend files (components, pages, context, entry points) converted from `.jsx` to `.tsx` with interfaces, typed props, and typed state
 - [x] JSX syntax fixes: moved comments inside root elements to prevent parse errors in Login, Footer, ContactSection, and AuthContext
 - [x] Admin sidebar header redesign: responsive logo (max-width 130px) and styled subtitle with uppercase text and letter-spacing
 

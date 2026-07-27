@@ -151,8 +151,8 @@ segura JWT.
 ```
 ┌─────────────────────────────────────────────────┐
 │                  FRONTEND (Vite)                │
-│  React 19 + React Router 7 + Bootstrap 5       │
-│  Porta: 5173                                   │
+│  React 19 + TypeScript + React Router 7         │
+│  + Bootstrap 5 · Porta: 5173                    │
 │                                                 │
 │  ┌───────────┐  ┌───────────┐  ┌─────────────┐ │
 │  │   Pages    │  │Components │  │   Context   │ │
@@ -210,39 +210,39 @@ Pagina-Iglesia/
 │   ├── assets/                # Recursos importados pelo bundler
 │   │   └── hero.png
 │   ├── components/            # 11 componentes reutilizáveis
-│   │   ├── Layout.jsx         # Layout principal com Outlet e Footer
-│   │   ├── NavBar.jsx         # Barra de navegação responsiva com Glassmorphism
-│   │   ├── Footer.jsx         # Rodapé com links, versículo e redes sociais
-│   │   ├── PageHeader.jsx     # Cabeçalho de páginas internas
-│   │   ├── ScheduleSection.jsx# Cards de horários de culto com ícones
-│   │   ├── AboutSection.jsx   # Seção "Quem Somos" (2 colunas + métricas)
-│   │   ├── GallerySection.jsx # Galeria de fotos (Bento grid de 6 espaços)
-│   │   ├── PastorsSection.jsx # Cards de pastores/líderes (foto real)
-│   │   ├── EventsSection.jsx  # Lista de próximos eventos (com thumbnails)
-│   │   ├── CTASection.jsx     # Seção "Chamada à ação" com partículas
-│   │   └── ContactSection.jsx # Info de contato + formulário
+│   │   ├── Layout.tsx         # Layout principal com Outlet e Footer
+│   │   ├── NavBar.tsx         # Barra de navegação responsiva com Glassmorphism
+│   │   ├── Footer.tsx         # Rodapé com links, versículo e redes sociais
+│   │   ├── PageHeader.tsx     # Cabeçalho de páginas internas
+│   │   ├── ScheduleSection.tsx# Cards de horários de culto com ícones
+│   │   ├── AboutSection.tsx   # Seção "Quem Somos" (2 colunas + métricas)
+│   │   ├── GallerySection.tsx # Galeria de fotos (Bento grid de 6 espaços)
+│   │   ├── PastorsSection.tsx # Cards de pastores/líderes (foto real)
+│   │   ├── EventsSection.tsx  # Lista de próximos eventos (com thumbnails)
+│   │   ├── CTASection.tsx     # Seção "Chamada à ação" com partículas
+│   │   └── ContactSection.tsx # Info de contato + formulário
 │   ├── context/
-│   │   └── AuthContext.jsx    # Provedor de autenticação (login/logout/JWT)
+│   │   └── AuthContext.tsx    # Provedor de autenticação (login/logout/JWT)
 │   ├── hooks/
 │   │   └── useScrollAnimations.ts # Hook de animações scroll (IntersectionObserver)
 │   ├── pages/                 # Páginas e rotas da aplicação
 │   │   ├── admin/             # Componentes de gestão CRUD (Painel Admin)
-│   │   │   ├── AdminEventos.jsx
-│   │   │   ├── AdminPastores.jsx
-│   │   │   └── AdminMensajes.jsx
-│   │   ├── Home.jsx           # Página principal (hero + seções)
-│   │   ├── Horarios.jsx       # Página de horários
-│   │   ├── QuienesSomos.jsx   # Página "Quem Somos"
-│   │   ├── Pastores.jsx       # Página de pastores
-│   │   ├── Eventos.jsx        # Página de eventos
-│   │   ├── Anexos.jsx         # Página de anexos/sedes com info de cada igreja
-│   │   ├── Contacto.jsx       # Página de contato
-│   │   ├── Login.jsx          # Formulário de login
-│   │   └── Admin.jsx          # Painel de administração protegido
+│   │   │   ├── AdminEventos.tsx
+│   │   │   ├── AdminPastores.tsx
+│   │   │   └── AdminMensajes.tsx
+│   │   ├── Home.tsx           # Página principal (hero + seções)
+│   │   ├── Horarios.tsx       # Página de horários
+│   │   ├── QuienesSomos.tsx   # Página "Quem Somos"
+│   │   ├── Pastores.tsx       # Página de pastores
+│   │   ├── Eventos.tsx        # Página de eventos
+│   │   ├── Anexos.tsx         # Página de anexos/sedes com info de cada igreja
+│   │   ├── Contacto.tsx       # Página de contato
+│   │   ├── Login.tsx          # Formulário de login
+│   │   └── Admin.tsx          # Painel de administração protegido
 │   ├── styles/
 │   │   └── styles.css         # Estilos globais (~2540 linhas)
-│   ├── App.jsx                # Definição de rotas (Router + Auth)
-│   └── main.jsx               # Ponto de entrada da app
+│   ├── App.tsx                # Definição de rotas (Router + Auth)
+│   └── main.tsx               # Ponto de entrada da app
 ├── backend/                   # Código-fonte do servidor Express
 │   ├── server.ts              # Servidor Express com endpoints API
 │   ├── generarClave.ts        # Utilidade para gerar hashes bcrypt
@@ -684,7 +684,7 @@ Configuração unificada para editores: indentação por espaços, charset UTF-8
 ### Os estilos não são aplicados corretamente
 
 - Execute `npm run lint` para verificar erros de sintaxe
-- Verifique se `styles.css` está importado em `main.jsx`
+- Verifique se `styles.css` está importado em `main.tsx`
 
 ### A autenticação falha
 
@@ -717,6 +717,7 @@ Configuração unificada para editores: indentação por espaços, charset UTF-8
 - [x] Navbar inteligente e Footer dinâmico
 - [x] Docker Compose para deploy rápido do MySQL
 - [x] Comentários detalhados em todos os arquivos do projeto
+- [x] Migração completa para TypeScript: os 25 arquivos do frontend (componentes, páginas, contexto, entry points) convertidos de `.jsx` para `.tsx` com interfaces, props tipados e estado tipado
 - [x] Correção de sintaxe JSX: comentários movidos para dentro do elemento raiz para evitar erros de parseio em Login, Footer, ContactSection e AuthContext
 - [x] Redesign do cabeçalho do sidebar admin: logo responsivo (max-width 130px) e subtítulo estilizado com texto uppercase e letter-spacing
 
