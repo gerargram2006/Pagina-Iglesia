@@ -2,9 +2,11 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import cors, { type CorsOptions } from 'cors';
 import mysql, { type ResultSetHeader, type RowDataPacket } from 'mysql2/promise';
 import bcrypt from 'bcrypt';
+import path from 'node:path';
 import jwt from 'jsonwebtoken';
 import { config } from './config';
 import { verificarToken } from './middleware/auth';
+import { upload } from './middleware/upload';
 
 interface UsuarioRow extends RowDataPacket {
   id: number;
@@ -39,6 +41,14 @@ interface MensajeRow extends RowDataPacket {
   fecha_envio: string;
 }
 
+interface AnuncioRow extends RowDataPacket {
+  id: number;
+  titulo: string;
+  descripcion: string | null;
+  imagen_url: string | null;
+  fecha_creacion: string;
+}
+
 interface EventoInput {
   titulo: string;
   descripcion: string | null;
@@ -59,6 +69,12 @@ interface MensajeInput {
   email: string;
   asunto: string | null;
   mensaje: string;
+}
+
+interface AnuncioInput {
+  titulo: string;
+  descripcion: string | null;
+  imagen_url: string | null;
 }
 
 type HttpError = Error & { status?: number };
@@ -126,6 +142,8 @@ function optionalText(value: unknown, field: string, maxLength: number): string 
 function optionalUrl(value: unknown, field: string): string | null {
   const url = optionalText(value, field, 255);
   if (!url) return null;
+
+  if (url.startsWith('/uploads/')) return url;
 
   try {
     const parsed = new URL(url);
@@ -205,6 +223,15 @@ function validateMensaje(body: unknown): MensajeInput {
   };
 }
 
+function validateAnuncio(body: unknown): AnuncioInput {
+  const data = requireBody(body);
+  return {
+    titulo: requiredText(data.titulo, 'Título', 150),
+    descripcion: optionalText(data.descripcion, 'Descripción', 5_000),
+    imagen_url: optionalUrl(data.imagen_url, 'URL de imagen'),
+  };
+}
+
 async function requireAffected(result: ResultSetHeader, resource: string): Promise<void> {
   if (result.affectedRows === 0) throw createHttpError(404, `${resource} no encontrado.`);
 }
@@ -212,6 +239,8 @@ async function requireAffected(result: ResultSetHeader, resource: string): Promi
 app.disable('x-powered-by');
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/api/health', asyncHandler(async (_req, res) => {
   await db.query('SELECT 1');
@@ -247,8 +276,11 @@ app.post('/api/auth/login', asyncHandler(async (req, res) => {
   });
 }));
 
-app.post('/api/eventos', verificarToken, asyncHandler(async (req, res) => {
+app.post('/api/eventos', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
   const evento = validateEvento(req.body);
+  if (req.file) {
+    evento.imagen_url = `/uploads/${req.file.filename}`;
+  }
   const [result] = await db.execute<ResultSetHeader>(
     'INSERT INTO eventos (titulo, descripcion, fecha, lugar, imagen_url) VALUES (?, ?, ?, ?, ?)',
     [evento.titulo, evento.descripcion, evento.fecha, evento.lugar, evento.imagen_url]
@@ -256,9 +288,12 @@ app.post('/api/eventos', verificarToken, asyncHandler(async (req, res) => {
   res.status(201).json({ id: result.insertId, ...evento });
 }));
 
-app.put('/api/eventos/:id', verificarToken, asyncHandler(async (req, res) => {
+app.put('/api/eventos/:id', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
   const id = requireId(req.params.id);
   const evento = validateEvento(req.body);
+  if (req.file) {
+    evento.imagen_url = `/uploads/${req.file.filename}`;
+  }
   const [result] = await db.execute<ResultSetHeader>(
     'UPDATE eventos SET titulo = ?, descripcion = ?, fecha = ?, lugar = ?, imagen_url = ? WHERE id = ?',
     [evento.titulo, evento.descripcion, evento.fecha, evento.lugar, evento.imagen_url, id]
@@ -281,8 +316,11 @@ app.get('/api/pastores', asyncHandler(async (_req, res) => {
   res.json(pastores);
 }));
 
-app.post('/api/pastores', verificarToken, asyncHandler(async (req, res) => {
+app.post('/api/pastores', verificarToken, upload.single('foto'), asyncHandler(async (req, res) => {
   const pastor = validatePastor(req.body);
+  if (req.file) {
+    pastor.foto_url = `/uploads/${req.file.filename}`;
+  }
   const [result] = await db.execute<ResultSetHeader>(
     'INSERT INTO pastores (nombre, cargo, biografia, foto_url) VALUES (?, ?, ?, ?)',
     [pastor.nombre, pastor.cargo, pastor.biografia, pastor.foto_url]
@@ -290,9 +328,12 @@ app.post('/api/pastores', verificarToken, asyncHandler(async (req, res) => {
   res.status(201).json({ id: result.insertId, ...pastor });
 }));
 
-app.put('/api/pastores/:id', verificarToken, asyncHandler(async (req, res) => {
+app.put('/api/pastores/:id', verificarToken, upload.single('foto'), asyncHandler(async (req, res) => {
   const id = requireId(req.params.id);
   const pastor = validatePastor(req.body);
+  if (req.file) {
+    pastor.foto_url = `/uploads/${req.file.filename}`;
+  }
   const [result] = await db.execute<ResultSetHeader>(
     'UPDATE pastores SET nombre = ?, cargo = ?, biografia = ?, foto_url = ? WHERE id = ?',
     [pastor.nombre, pastor.cargo, pastor.biografia, pastor.foto_url, id]
@@ -329,6 +370,46 @@ app.delete('/api/mensajes/:id', verificarToken, asyncHandler(async (req, res) =>
   const id = requireId(req.params.id);
   const [result] = await db.execute<ResultSetHeader>('DELETE FROM mensajes_contacto WHERE id = ?', [id]);
   await requireAffected(result, 'Mensaje');
+  res.status(204).send();
+}));
+
+app.get('/api/anuncios', asyncHandler(async (_req, res) => {
+  const [anuncios] = await db.execute<AnuncioRow[]>(
+    'SELECT id, titulo, descripcion, imagen_url, fecha_creacion FROM anuncios ORDER BY fecha_creacion DESC'
+  );
+  res.json(anuncios);
+}));
+
+app.post('/api/anuncios', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const anuncio = validateAnuncio(req.body);
+  if (req.file) {
+    anuncio.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'INSERT INTO anuncios (titulo, descripcion, imagen_url) VALUES (?, ?, ?)',
+    [anuncio.titulo, anuncio.descripcion, anuncio.imagen_url]
+  );
+  res.status(201).json({ id: result.insertId, ...anuncio });
+}));
+
+app.put('/api/anuncios/:id', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const anuncio = validateAnuncio(req.body);
+  if (req.file) {
+    anuncio.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE anuncios SET titulo = ?, descripcion = ?, imagen_url = ? WHERE id = ?',
+    [anuncio.titulo, anuncio.descripcion, anuncio.imagen_url, id]
+  );
+  await requireAffected(result, 'Anuncio');
+  res.json({ id, ...anuncio });
+}));
+
+app.delete('/api/anuncios/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const [result] = await db.execute<ResultSetHeader>('DELETE FROM anuncios WHERE id = ?', [id]);
+  await requireAffected(result, 'Anuncio');
   res.status(204).send();
 }));
 
