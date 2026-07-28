@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Importamos Swiper y sus estilos
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -13,7 +14,9 @@ interface SlideData {
     titulo: string;
     subtitulo: string;
     btnPrincipal: string;
+    urlPrincipal: string;
     btnSecundario: string;
+    urlSecundario: string;
 }
 
 // Estos son los datos falsos por ahora (luego vendrán de tu Base de Datos)
@@ -24,7 +27,9 @@ const slides: SlideData[] = [
         titulo: "Bienvenido a\nAsamblea de Dios",
         subtitulo: "Descubre el propósito que Dios tiene para tu vida. Un lugar para crecer, servir y amar en comunidad.",
         btnPrincipal: "Conéctate",
-        btnSecundario: "Saber más"
+        urlPrincipal: "/redes",
+        btnSecundario: "Saber más",
+        urlSecundario: "/quienes-somos"
     },
     {
         id: 2,
@@ -32,7 +37,9 @@ const slides: SlideData[] = [
         titulo: "Noche de\nJóvenes",
         subtitulo: "Únete a nosotros este sábado para un tiempo de adoración, juegos y palabra diseñada para ti.",
         btnPrincipal: "Ver Horarios",
-        btnSecundario: "Ver Galería"
+        urlPrincipal: "/horarios",
+        btnSecundario: "Ver Galería",
+        urlSecundario: "/"
     },
     {
         id: 3,
@@ -40,7 +47,9 @@ const slides: SlideData[] = [
         titulo: "Siguiente Paso:\nBautizos",
         subtitulo: "Inscríbete para nuestra próxima ceremonia de bautizos en agua y declara tu fe públicamente.",
         btnPrincipal: "Inscribirme",
-        btnSecundario: "¿Qué es el bautizo?"
+        urlPrincipal: "/contacto",
+        btnSecundario: "¿Qué es el bautizo?",
+        urlSecundario: "/quienes-somos"
     }
 ];
 
@@ -120,12 +129,12 @@ const HeroSlider: React.FC = () => {
 
                             {/* Botones */}
                             <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3 mt-4 md:mt-0 shrink-0">
-                                <button className="px-6 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors text-sm md:text-base w-full sm:w-auto">
+                                <Link to={slide.urlPrincipal} className="px-6 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors text-sm md:text-base w-full sm:w-auto text-center block">
                                     {slide.btnPrincipal}
-                                </button>
-                                <button className="px-6 py-2.5 bg-white/20 backdrop-blur-md text-white font-semibold rounded-full hover:bg-white/30 transition-colors text-sm md:text-base w-full sm:w-auto">
+                                </Link>
+                                <Link to={slide.urlSecundario} className="px-6 py-2.5 bg-white/20 backdrop-blur-md text-white font-semibold rounded-full hover:bg-white/30 transition-colors text-sm md:text-base w-full sm:w-auto text-center block">
                                     {slide.btnSecundario}
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </SwiperSlide>
