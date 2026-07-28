@@ -78,7 +78,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 | **About Us** | `/quienes-somos` | 2-column layout with image, history, values, and metrics |
 | **Gallery** | `/quienes-somos` | Bento grid with 6 photo slots for the congregation |
 | **Pastors** | `/pastores` | Pastoral team profiles with real photos and decorative rings |
-| **Events** | `/eventos` | Chronological list of upcoming events with thumbnails |
+| **Events** | `/eventos` | Interactive carousel with upcoming events cards (Swiper), plus chronological list on `/eventos` page |
 | **Anexos** | `/anexos` | Church branches/sedes with pastor, address, schedule and contact info |
 | **CTA** | `/` (section) | Full-screen motivational banner with decorative particles |
 | **Contact** | `/contacto` | Contact form and congregation details |
@@ -120,6 +120,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | CSS framework (grid, utilities) |
 | [React Bootstrap](https://react-bootstrap.github.io/) | ^2.10.10 | Bootstrap components for React |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | ^1.13.1 | Icon library |
+| [Swiper](https://swiperjs.com/) | ^14.0.6 | Touch slider/carousel library |
 | [OxLint](https://oxc.rs/) | ^1.71.0 | Ultra-fast linter |
 
 ### Backend
@@ -158,7 +159,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 │  │ Login      │  │ Footer    │  │  (user,     │ │
 │  │ Admin      │  │ Layout    │  │   token,    │ │
 │  │ Schedule   │  │ PageHeader│  │   login,    │ │
-│  │ Events...  │  │ 11 total  │  │   logout)   │ │
+│  │ Events...  │  │ 12 total  │  │   logout)   │ │
 │  └───────────┘  └───────────┘  └─────────────┘ │
 │                      │                          │
 │              Vite Proxy (/api)                  │
@@ -207,7 +208,7 @@ Pagina-Iglesia/
 │   │   └── index.ts           # fetchAPI function with auto JWT injection
 │   ├── assets/                # Bundler-imported resources
 │   │   └── hero.png
-│   ├── components/            # 11 reusable components
+│   ├── components/            # 12 reusable components
 │   │   ├── Layout.tsx         # Main layout with Outlet and Footer
 │   │   ├── NavBar.tsx         # Responsive navbar with Glassmorphism
 │   │   ├── Footer.tsx         # Footer with links, verse, and social media
@@ -217,6 +218,7 @@ Pagina-Iglesia/
 │   │   ├── GallerySection.tsx # Photo gallery (6-slot Bento grid)
 │   │   ├── PastorsSection.tsx # Pastor/leader cards (real photos)
 │   │   ├── EventsSection.tsx  # Upcoming events list (with thumbnails)
+│   │   ├── EventosSlider.tsx  # Events interactive carousel (Swiper, responsive, autoplay)
 │   │   ├── CTASection.tsx     # Call-to-action section with particles
 │   │   └── ContactSection.tsx # Contact info + form
 │   ├── context/
@@ -713,6 +715,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 - [x] Scroll animations with IntersectionObserver
 - [x] Responsive design with 3 breakpoints
 - [x] Smart navbar and dynamic footer
+- [x] Interactive events carousel with Swiper (responsive breakpoints, autoplay, pagination, navigation arrows)
 - [x] Docker Compose for quick MySQL deployment
 - [x] Detailed comments throughout the project
 - [x] Full TypeScript migration: all 25 frontend files (components, pages, context, entry points) converted from `.jsx` to `.tsx` with interfaces, typed props, and typed state

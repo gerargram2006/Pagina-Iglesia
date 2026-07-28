@@ -79,7 +79,7 @@ autenticación segura JWT.
 | **Quiénes Somos** | `/quienes-somos` | Layout de 2 columnas con imagen, historia, valores y métricas |
 | **Galería** | `/quienes-somos` | Bento grid con 6 espacios para fotos de la congregación |
 | **Pastores** | `/pastores` | Perfiles del equipo pastoral con fotos reales y anillos decorativos |
-| **Eventos** | `/eventos` | Lista cronológica de próximos eventos con thumbnails |
+| **Eventos** | `/eventos` | Carrusel interactivo de eventos con tarjetas (Swiper), más lista cronológica en `/eventos` |
 | **Anexos** | `/anexos` | Sedes de la iglesia con info del pastor, dirección, horario y contacto |
 | **CTA** | `/` (sección) | Banner motivacional a pantalla completa con partículas decorativas |
 | **Contacto** | `/contacto` | Formulario de contacto y datos de la congregación |
@@ -121,6 +121,7 @@ autenticación segura JWT.
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades) |
 | [React Bootstrap](https://react-bootstrap.github.io/) | ^2.10.10 | Componentes Bootstrap para React |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | ^1.13.1 | Librería de iconos |
+| [Swiper](https://swiperjs.com/) | ^14.0.6 | Librería de sliders/carruseles táctiles |
 | [OxLint](https://oxc.rs/) | ^1.71.0 | Linter ultrarrápido |
 
 ### Backend
@@ -159,7 +160,7 @@ autenticación segura JWT.
 │  │ Login      │  │ Footer    │  │  (user,     │ │
 │  │ Admin      │  │ Layout    │  │   token,    │ │
 │  │ Horarios   │  │ PageHeader│  │   login,    │ │
-│  │ Eventos... │  │ 11 total  │  │   logout)   │ │
+│  │ Eventos... │  │ 12 total  │  │   logout)   │ │
 │  └───────────┘  └───────────┘  └─────────────┘ │
 │                      │                          │
 │              Vite Proxy (/api)                  │
@@ -208,7 +209,7 @@ Pagina-Iglesia/
 │   │   └── index.ts           # Función fetchAPI con inyección automática de JWT
 │   ├── assets/                # Recursos importados por el bundler
 │   │   └── hero.png
-│   ├── components/            # 11 componentes reutilizables
+│   ├── components/            # 12 componentes reutilizables
 │   │   ├── Layout.tsx         # Layout principal con Outlet y Footer
 │   │   ├── NavBar.tsx         # Barra de navegación responsiva con Glassmorphism
 │   │   ├── Footer.tsx         # Pie de página con enlaces, versículo y redes sociales
@@ -218,6 +219,7 @@ Pagina-Iglesia/
 │   │   ├── GallerySection.tsx # Galería de fotos (Bento grid de 6 espacios)
 │   │   ├── PastorsSection.tsx # Tarjetas de pastores/líderes (foto real)
 │   │   ├── EventsSection.tsx  # Lista de próximos eventos (con thumbnails)
+│   │   ├── EventosSlider.tsx  # Carrusel interactivo de eventos (Swiper, responsive, autoplay)
 │   │   ├── CTASection.tsx     # Sección "Llamado a la acción" con partículas
 │   │   └── ContactSection.tsx # Info de contacto + formulario
 │   ├── context/
@@ -714,6 +716,7 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 - [x] Animaciones de scroll con IntersectionObserver
 - [x] Diseño responsivo con 3 breakpoints
 - [x] Navbar inteligente y Footer dinámico
+- [x] Carrusel interactivo de eventos con Swiper (breakpoints responsivos, autoplay, paginación, flechas de navegación)
 - [x] Docker Compose para despliegue rápido de MySQL
 - [x] Comentarios detallados en todos los archivos del proyecto
 - [x] Migración completa a TypeScript: los 25 archivos del frontend (componentes, páginas, contexto, entry points) convertidos de `.jsx` a `.tsx` con interfaces, props tipadas y estado tipado
