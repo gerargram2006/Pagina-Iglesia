@@ -49,6 +49,15 @@ interface AnuncioRow extends RowDataPacket {
   fecha_creacion: string;
 }
 
+interface RecursoRow extends RowDataPacket {
+  id: number;
+  titulo: string;
+  descripcion: string | null;
+  tipo: string;
+  archivo_url: string;
+  fecha_creacion: string;
+}
+
 interface EventoInput {
   titulo: string;
   descripcion: string | null;
@@ -75,6 +84,13 @@ interface AnuncioInput {
   titulo: string;
   descripcion: string | null;
   imagen_url: string | null;
+}
+
+interface RecursoInput {
+  titulo: string;
+  descripcion: string | null;
+  tipo: string;
+  archivo_url: string;
 }
 
 type HttpError = Error & { status?: number };
@@ -229,6 +245,18 @@ function validateAnuncio(body: unknown): AnuncioInput {
     titulo: requiredText(data.titulo, 'Título', 150),
     descripcion: optionalText(data.descripcion, 'Descripción', 5_000),
     imagen_url: optionalUrl(data.imagen_url, 'URL de imagen'),
+  };
+}
+
+function validateRecurso(body: unknown): RecursoInput {
+  const data = requireBody(body);
+  const archivo_url = optionalUrl(data.archivo_url, 'URL de archivo');
+  if (!archivo_url) throw createHttpError(400, 'El archivo es obligatorio.');
+  return {
+    titulo: requiredText(data.titulo, 'Título', 150),
+    descripcion: optionalText(data.descripcion, 'Descripción', 5_000),
+    tipo: requiredText(data.tipo, 'Tipo', 50),
+    archivo_url,
   };
 }
 
@@ -410,6 +438,46 @@ app.delete('/api/anuncios/:id', verificarToken, asyncHandler(async (req, res) =>
   const id = requireId(req.params.id);
   const [result] = await db.execute<ResultSetHeader>('DELETE FROM anuncios WHERE id = ?', [id]);
   await requireAffected(result, 'Anuncio');
+  res.status(204).send();
+}));
+
+app.get('/api/recursos', asyncHandler(async (_req, res) => {
+  const [recursos] = await db.execute<RecursoRow[]>(
+    'SELECT id, titulo, descripcion, tipo, archivo_url, fecha_creacion FROM recursos ORDER BY fecha_creacion DESC'
+  );
+  res.json(recursos);
+}));
+
+app.post('/api/recursos', verificarToken, upload.single('archivo'), asyncHandler(async (req, res) => {
+  if (req.file) {
+    req.body.archivo_url = `/uploads/${req.file.filename}`;
+  }
+  const recurso = validateRecurso(req.body);
+  const [result] = await db.execute<ResultSetHeader>(
+    'INSERT INTO recursos (titulo, descripcion, tipo, archivo_url) VALUES (?, ?, ?, ?)',
+    [recurso.titulo, recurso.descripcion, recurso.tipo, recurso.archivo_url]
+  );
+  res.status(201).json({ id: result.insertId, ...recurso });
+}));
+
+app.put('/api/recursos/:id', verificarToken, upload.single('archivo'), asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  if (req.file) {
+    req.body.archivo_url = `/uploads/${req.file.filename}`;
+  }
+  const recurso = validateRecurso(req.body);
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE recursos SET titulo = ?, descripcion = ?, tipo = ?, archivo_url = ? WHERE id = ?',
+    [recurso.titulo, recurso.descripcion, recurso.tipo, recurso.archivo_url, id]
+  );
+  await requireAffected(result, 'Recurso');
+  res.json({ id, ...recurso });
+}));
+
+app.delete('/api/recursos/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const [result] = await db.execute<ResultSetHeader>('DELETE FROM recursos WHERE id = ?', [id]);
+  await requireAffected(result, 'Recurso');
   res.status(204).send();
 }));
 
