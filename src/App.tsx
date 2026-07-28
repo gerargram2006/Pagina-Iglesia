@@ -8,6 +8,7 @@ import Pastores from './pages/Pastores';
 import Eventos from './pages/Eventos';
 import Contacto from './pages/Contacto';
 import Anexos from './pages/Anexos';
+import RedesSociales from './pages/RedesSociales';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import type { ReactNode } from 'react';
@@ -44,6 +45,7 @@ export default function App() {
                         <Route path="pastores" element={<Pastores />} />
                         <Route path="eventos" element={<Eventos />} />
                         <Route path="anexos" element={<Anexos />} />
+                        <Route path="redes" element={<RedesSociales />} />
                         <Route path="contacto" element={<Contacto />} />
                     </Route>
 
