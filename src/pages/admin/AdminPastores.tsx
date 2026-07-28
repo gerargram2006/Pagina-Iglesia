@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiPastor, type PastorInput } from '../../api';
+import { api, type ApiPastor } from '../../api';
 
 interface PastorFormData {
     id: number | null;
@@ -7,9 +7,10 @@ interface PastorFormData {
     cargo: string;
     biografia: string;
     foto_url: string;
+    foto: File | null;
 }
 
-const emptyPastor: PastorFormData = { id: null, nombre: '', cargo: '', biografia: '', foto_url: '' };
+const emptyPastor: PastorFormData = { id: null, nombre: '', cargo: '', biografia: '', foto_url: '', foto: null };
 
 function pastorForm(pastor: ApiPastor | null): PastorFormData {
     if (!pastor) return emptyPastor;
@@ -19,6 +20,7 @@ function pastorForm(pastor: ApiPastor | null): PastorFormData {
         cargo: pastor.cargo ?? '',
         biografia: pastor.biografia ?? '',
         foto_url: pastor.foto_url ?? '',
+        foto: null,
     };
 }
 
@@ -67,12 +69,15 @@ export default function AdminPastores() {
         event.preventDefault();
         setFormError('');
         setSaving(true);
-        const payload: PastorInput = {
-            nombre: formData.nombre,
-            cargo: formData.cargo,
-            biografia: formData.biografia,
-            foto_url: formData.foto_url,
-        };
+        const payload = new FormData();
+        payload.append('nombre', formData.nombre);
+        payload.append('cargo', formData.cargo);
+        payload.append('biografia', formData.biografia);
+        if (formData.foto) {
+            payload.append('foto', formData.foto);
+        } else if (formData.foto_url) {
+            payload.append('foto_url', formData.foto_url);
+        }
 
         try {
             if (formData.id) await api.pastores.update(formData.id, payload);
@@ -123,7 +128,7 @@ export default function AdminPastores() {
                         {pastores.map((pastor) => (
                             <tr key={pastor.id}>
                                 <td>{pastor.id}</td>
-                                <td>{pastor.foto_url ? <img src={pastor.foto_url} alt="" className="admin-table-avatar" /> : <div className="admin-table-avatar-placeholder"><i className="bi bi-person"></i></div>}</td>
+                                <td>{pastor.foto_url ? <img src={pastor.foto_url.startsWith('http') ? pastor.foto_url : `http://localhost:3307${pastor.foto_url}`} alt="" className="admin-table-avatar" /> : <div className="admin-table-avatar-placeholder"><i className="bi bi-person"></i></div>}</td>
                                 <td><strong>{pastor.nombre}</strong></td>
                                 <td><span className="badge-cargo">{pastor.cargo}</span></td>
                                 <td className="text-truncate" style={{ maxWidth: '200px' }}>{pastor.biografia}</td>
@@ -146,7 +151,11 @@ export default function AdminPastores() {
                             {formError && <div className="admin-error-msg" role="alert">{formError}</div>}
                             <div className="form-group"><label htmlFor="pastor-name">Nombre completo</label><input id="pastor-name" type="text" required maxLength={100} value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} /></div>
                             <div className="form-group"><label htmlFor="pastor-role">Cargo o rol</label><input id="pastor-role" type="text" required maxLength={100} value={formData.cargo} onChange={(e) => setFormData({ ...formData, cargo: e.target.value })} /></div>
-                            <div className="form-group"><label htmlFor="pastor-photo">URL de foto</label><input id="pastor-photo" type="url" value={formData.foto_url} onChange={(e) => setFormData({ ...formData, foto_url: e.target.value })} placeholder="https://..." /></div>
+                            <div className="form-group">
+                                <label htmlFor="pastor-photo">Foto (Opcional)</label>
+                                <input id="pastor-photo" type="file" accept="image/*" onChange={(e) => setFormData({ ...formData, foto: e.target.files ? (e.target.files[0] ?? null) : null })} />
+                                {formData.foto_url && !formData.foto && <small className="text-muted d-block mt-1">Foto actual guardada. Si subes una nueva, la reemplazará.</small>}
+                            </div>
                             <div className="form-group"><label htmlFor="pastor-bio">Biografía</label><textarea id="pastor-bio" rows={4} maxLength={5000} value={formData.biografia} onChange={(e) => setFormData({ ...formData, biografia: e.target.value })}></textarea></div>
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar cambios</>}</button></div>
                         </form>
