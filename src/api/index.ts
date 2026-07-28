@@ -15,7 +15,8 @@ export interface EventoInput {
   descripcion: string;
   fecha: string;
   lugar: string;
-  imagen_url: string;
+  imagen?: File;
+  imagen_url?: string;
 }
 
 export interface ApiPastor {
@@ -30,7 +31,23 @@ export interface PastorInput {
   nombre: string;
   cargo: string;
   biografia: string;
-  foto_url: string;
+  foto?: File;
+  foto_url?: string;
+}
+
+export interface ApiAnuncio {
+  id: number;
+  titulo: string;
+  descripcion: string | null;
+  imagen_url: string | null;
+  fecha_creacion: string;
+}
+
+export interface AnuncioInput {
+  titulo: string;
+  descripcion: string;
+  imagen?: File;
+  imagen_url?: string;
 }
 
 export interface ApiMensaje {
@@ -65,7 +82,9 @@ interface ApiErrorResponse {
 
 async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const headers = new Headers(options.headers);
-  headers.set('Content-Type', 'application/json');
+  if (!(options.body instanceof FormData)) {
+    headers.set('Content-Type', 'application/json');
+  }
 
   const token = localStorage.getItem('admin_token');
   if (token) headers.set('Authorization', `Bearer ${token}`);
@@ -88,18 +107,18 @@ export const api = {
   },
   eventos: {
     getAll: (): Promise<ApiEvento[]> => fetchAPI<ApiEvento[]>('/eventos'),
-    create: (data: EventoInput): Promise<ApiEvento> =>
-      fetchAPI<ApiEvento>('/eventos', { method: 'POST', body: JSON.stringify(data) }),
-    update: (id: number, data: EventoInput): Promise<ApiEvento> =>
-      fetchAPI<ApiEvento>(`/eventos/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    create: (data: FormData): Promise<ApiEvento> =>
+      fetchAPI<ApiEvento>('/eventos', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiEvento> =>
+      fetchAPI<ApiEvento>(`/eventos/${id}`, { method: 'PUT', body: data }),
     delete: (id: number): Promise<void> => fetchAPI<void>(`/eventos/${id}`, { method: 'DELETE' }),
   },
   pastores: {
     getAll: (): Promise<ApiPastor[]> => fetchAPI<ApiPastor[]>('/pastores'),
-    create: (data: PastorInput): Promise<ApiPastor> =>
-      fetchAPI<ApiPastor>('/pastores', { method: 'POST', body: JSON.stringify(data) }),
-    update: (id: number, data: PastorInput): Promise<ApiPastor> =>
-      fetchAPI<ApiPastor>(`/pastores/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    create: (data: FormData): Promise<ApiPastor> =>
+      fetchAPI<ApiPastor>('/pastores', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiPastor> =>
+      fetchAPI<ApiPastor>(`/pastores/${id}`, { method: 'PUT', body: data }),
     delete: (id: number): Promise<void> => fetchAPI<void>(`/pastores/${id}`, { method: 'DELETE' }),
   },
   mensajes: {
@@ -107,5 +126,13 @@ export const api = {
     create: (data: MensajeInput): Promise<MensajeInput & { id: number }> =>
       fetchAPI<MensajeInput & { id: number }>('/mensajes', { method: 'POST', body: JSON.stringify(data) }),
     delete: (id: number): Promise<void> => fetchAPI<void>(`/mensajes/${id}`, { method: 'DELETE' }),
+  },
+  anuncios: {
+    getAll: (): Promise<ApiAnuncio[]> => fetchAPI<ApiAnuncio[]>('/anuncios'),
+    create: (data: FormData): Promise<ApiAnuncio> =>
+      fetchAPI<ApiAnuncio>('/anuncios', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiAnuncio> =>
+      fetchAPI<ApiAnuncio>(`/anuncios/${id}`, { method: 'PUT', body: data }),
+    delete: (id: number): Promise<void> => fetchAPI<void>(`/anuncios/${id}`, { method: 'DELETE' }),
   },
 };
