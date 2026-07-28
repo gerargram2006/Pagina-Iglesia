@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import { api, type ApiRecurso } from '../api';
 
 interface Sede {
     id: number;
@@ -11,20 +13,12 @@ interface Sede {
     isPrimary: boolean;
 }
 
-interface Recurso {
-    id: number;
-    titulo: string;
-    descripcion: string;
-    tipo: string;
-    icono: string;
-}
-
 const sedes: Sede[] = [
     {
         id: 1,
         nombre: "Sede Principal (Central)",
         pastor: "Pastor Ruideto Costa",
-        direccion: "Av. Principal 123, Distrito Central",
+        direccion: "Comandante Canga N° 416, Mariano Melgar 04006",
         horario: "Domingos 9:00 AM y 6:00 PM",
         contacto: "+51 987 654 321",
         mapaUrl: "#",
@@ -52,24 +46,24 @@ const sedes: Sede[] = [
     },
 ];
 
-const recursos: Recurso[] = [
-    {
-        id: 1,
-        titulo: "Plan de Lectura Anual",
-        descripcion: "Guía en PDF para leer la Biblia en un año.",
-        tipo: "PDF",
-        icono: "bi-file-earmark-pdf",
-    },
-    {
-        id: 2,
-        titulo: "Lecciones para Células",
-        descripcion: "Material de estudio para los grupos en casa del mes.",
-        tipo: "PDF",
-        icono: "bi-book",
-    },
-];
-
 export default function Anexos() {
+    const [recursos, setRecursos] = useState<ApiRecurso[]>([]);
+    const [loadingRecursos, setLoadingRecursos] = useState(true);
+
+    useEffect(() => {
+        const fetchRecursos = async () => {
+            try {
+                const data = await api.recursos.getAll();
+                setRecursos(data);
+            } catch (error) {
+                console.error("Error fetching recursos:", error);
+            } finally {
+                setLoadingRecursos(false);
+            }
+        };
+        fetchRecursos();
+    }, []);
+
     return (
         <>
             <PageHeader title="Nuestros Anexos y Recursos" subtitle="Encuentra una iglesia cerca de ti y accede a material útil" />
@@ -128,22 +122,29 @@ export default function Anexos() {
                         <p className="section-subtitle" data-animate="fade-in-up">
                             Material de estudio y guías para tu crecimiento espiritual.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center">
-                            {recursos.map((recurso) => (
-                                <div className="" key={recurso.id}>
-                                    <div className="recurso-card" data-animate="scale-in">
-                                        <div className="recurso-icon">
-                                            <i className={`bi ${recurso.icono}`} aria-hidden="true"></i>
+                        {loadingRecursos ? (
+                            <div className="text-center w-full py-8 text-muted">
+                                <i className="bi bi-arrow-repeat spin" style={{ fontSize: '2rem' }}></i>
+                                <p className="mt-2">Cargando recursos...</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center">
+                                {recursos.map((recurso) => (
+                                    <div className="" key={recurso.id}>
+                                        <div className="recurso-card" data-animate="scale-in">
+                                            <div className="recurso-icon">
+                                                <i className={`bi bi-file-earmark-${recurso.tipo.toLowerCase()}`} aria-hidden="true"></i>
+                                            </div>
+                                            <h3 className="recurso-title">{recurso.titulo}</h3>
+                                            <p className="recurso-desc">{recurso.descripcion}</p>
+                                            <a href={recurso.archivo_url.startsWith('http') ? recurso.archivo_url : `http://localhost:3307${recurso.archivo_url}`} target="_blank" rel="noreferrer" className="btn btn-primary recurso-btn" style={{ display: 'inline-block', textAlign: 'center' }}>
+                                                <i className="bi bi-download" aria-hidden="true"></i> Descargar {recurso.tipo}
+                                            </a>
                                         </div>
-                                        <h3 className="recurso-title">{recurso.titulo}</h3>
-                                        <p className="recurso-desc">{recurso.descripcion}</p>
-                                        <button className="btn btn-primary recurso-btn">
-                                            <i className="bi bi-download" aria-hidden="true"></i> Descargar {recurso.tipo}
-                                        </button>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
             </main>
