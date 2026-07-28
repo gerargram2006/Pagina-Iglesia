@@ -50,6 +50,23 @@ export interface AnuncioInput {
   imagen_url?: string;
 }
 
+export interface ApiRecurso {
+  id: number;
+  titulo: string;
+  descripcion: string | null;
+  tipo: string;
+  archivo_url: string;
+  fecha_creacion: string;
+}
+
+export interface RecursoInput {
+  titulo: string;
+  descripcion: string;
+  tipo: string;
+  archivo?: File;
+  archivo_url?: string;
+}
+
 export interface ApiMensaje {
   id: number;
   nombre: string;
@@ -134,5 +151,13 @@ export const api = {
     update: (id: number, data: FormData): Promise<ApiAnuncio> =>
       fetchAPI<ApiAnuncio>(`/anuncios/${id}`, { method: 'PUT', body: data }),
     delete: (id: number): Promise<void> => fetchAPI<void>(`/anuncios/${id}`, { method: 'DELETE' }),
+  },
+  recursos: {
+    getAll: (): Promise<ApiRecurso[]> => fetchAPI<ApiRecurso[]>('/recursos'),
+    create: (data: FormData): Promise<ApiRecurso> =>
+      fetchAPI<ApiRecurso>('/recursos', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiRecurso> =>
+      fetchAPI<ApiRecurso>(`/recursos/${id}`, { method: 'PUT', body: data }),
+    delete: (id: number): Promise<void> => fetchAPI<void>(`/recursos/${id}`, { method: 'DELETE' }),
   },
 };
