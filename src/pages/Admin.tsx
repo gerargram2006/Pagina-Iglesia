@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AdminEventos from './admin/AdminEventos';
 import AdminPastores from './admin/AdminPastores';
 import AdminMensajes from './admin/AdminMensajes';
+import AdminAnuncios from './admin/AdminAnuncios';
 import { api } from '../api';
 
 function getGreeting(): string {
@@ -280,7 +281,7 @@ export default function Admin() {
                     {activeTab === 'Eventos' && <AdminEventos />}
                     {activeTab === 'Miembros' && <AdminPastores />}
                     {activeTab === 'Mensajes' && <AdminMensajes />}
-                    {activeTab === 'Anuncios' && <div className="admin-coming-soon"><i className="bi bi-megaphone"></i><h2>Módulo de Anuncios</h2><p>Próximamente disponible.</p></div>}
+                    {activeTab === 'Anuncios' && <AdminAnuncios />}
                     {activeTab === 'Configuración' && <div className="admin-coming-soon"><i className="bi bi-gear"></i><h2>Configuración</h2><p>Próximamente disponible.</p></div>}
                 </div>
             </main>
