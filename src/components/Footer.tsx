@@ -35,10 +35,9 @@ export default function Footer() {
                         <div className="footer-social">
                             <h4>Síguenos</h4>
                             <div className="social-icons">
-                                <a href="#" className="social-icon" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
-                                <a href="#" className="social-icon" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
-                                <a href="#" className="social-icon" aria-label="YouTube"><i className="bi bi-youtube"></i></a>
-                                <a href="#" className="social-icon" aria-label="TikTok"><i className="bi bi-tiktok"></i></a>
+                                <a href="https://www.facebook.com/profile.php?id=100076728549417" className="social-icon" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
+                                <a href="https://www.instagram.com/asambleaarequipadedios_16/" className="social-icon" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
+                                <a href="https://www.tiktok.com/@asamblea_de_dios16?is_from_webapp=1&sender_device=pc" className="social-icon" aria-label="TikTok"><i className="bi bi-tiktok"></i></a>
                             </div>
                             <div className="footer-schedule">
                                 <h4>Horario Principal</h4>
