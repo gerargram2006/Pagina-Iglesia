@@ -5,6 +5,7 @@ import AdminEventos from './admin/AdminEventos';
 import AdminPastores from './admin/AdminPastores';
 import AdminMensajes from './admin/AdminMensajes';
 import AdminAnuncios from './admin/AdminAnuncios';
+import AdminRecursos from './admin/AdminRecursos';
 import { api } from '../api';
 
 function getGreeting(): string {
@@ -33,6 +34,7 @@ const adminCards: AdminCard[] = [
     { title: 'Anuncios', description: 'Publicar anuncios para la congregación', icon: 'bi-megaphone', gradient: 'linear-gradient(135deg, #b8942e, #dbb958)' },
     { title: 'Miembros', description: 'Administrar el directorio de miembros', icon: 'bi-people', gradient: 'linear-gradient(135deg, #1b4332, #2d6a4f)' },
     { title: 'Mensajes', description: 'Revisar mensajes de contacto', icon: 'bi-chat-dots', gradient: 'linear-gradient(135deg, #c9a84c, #e8cf7a)' },
+    { title: 'Recursos', description: 'Gestionar material descargable (PDFs)', icon: 'bi-folder2-open', gradient: 'linear-gradient(135deg, #2d6a4f, #40916c)' },
 ];
 
 interface ActivityItem {
@@ -59,6 +61,7 @@ const sidebarItems: SidebarItem[] = [
     { label: 'Anuncios', icon: 'bi-megaphone' },
     { label: 'Miembros', icon: 'bi-people' },
     { label: 'Mensajes', icon: 'bi-chat-dots' },
+    { label: 'Recursos', icon: 'bi-folder2-open' },
     { label: 'Configuración', icon: 'bi-gear' },
 ];
 
@@ -282,6 +285,7 @@ export default function Admin() {
                     {activeTab === 'Miembros' && <AdminPastores />}
                     {activeTab === 'Mensajes' && <AdminMensajes />}
                     {activeTab === 'Anuncios' && <AdminAnuncios />}
+                    {activeTab === 'Recursos' && <AdminRecursos />}
                     {activeTab === 'Configuración' && <div className="admin-coming-soon"><i className="bi bi-gear"></i><h2>Configuración</h2><p>Próximamente disponible.</p></div>}
                 </div>
             </main>
