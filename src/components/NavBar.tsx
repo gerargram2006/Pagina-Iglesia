@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 interface NavLinkItem {
@@ -18,9 +18,25 @@ const navLinks: NavLinkItem[] = [
 
 const NavBar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10">
+        <header
+            className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 transition-all duration-300 ${
+                isScrolled
+                    ? 'py-2 sm:py-3 bg-[#1a3b2b] shadow-lg border-b border-white/5'
+                    : 'py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10'
+            }`}
+        >
             <Link to="/" className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <img
                     src="/img/logo-oficial.png"
@@ -95,3 +111,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
