@@ -11,8 +11,8 @@
 
 **Sitio web institucional de la Iglesia Asamblea de Dios**
 
-Una plataforma completa con panel de administración, gestión de eventos,
-equipo pastoral y sistema de autenticación JWT.
+Una plataforma completa con panel de administración, gestión de eventos y anuncios,
+equipo pastoral, recursos descargables y sistema de autenticación JWT.
 
 </div>
 
@@ -64,7 +64,7 @@ autenticación segura JWT.
 - **Backend Robusto**: Node.js + Express 5 + TypeScript con autenticación JWT
 - **Base de Datos**: MySQL 8.0 ejecutándose en Docker
 - **Diseño Premium**: Glassmorphism, animaciones de scroll y completamente responsivo
-- **CRUD Completo**: Gestión de eventos, pastores y mensajes desde el panel admin
+- **CRUD Completo**: Gestión de eventos, anuncios, pastores, recursos y mensajes desde el panel admin
 
 ---
 
@@ -74,13 +74,14 @@ autenticación segura JWT.
 
 | Página | Ruta | Descripción |
 |--------|------|-------------|
-| **Inicio** | `/` | Hero interactivo con imagen de fondo (hero-inicio.webp), formas flotantes, animaciones de scroll y layout de una columna |
+| **Inicio** | `/` | Hero carrusel a pantalla completa (Swiper con 3 diapositivas: bienvenida, noche de jóvenes, bautizos) con botones CTA, animaciones de scroll y layout de una columna |
 | **Horarios** | `/horarios` | Tarjetas dinámicas con iconos para domingos, miércoles y sábados |
 | **Quiénes Somos** | `/quienes-somos` | Layout de 2 columnas con imagen, historia, valores y métricas |
 | **Galería** | `/quienes-somos` | Bento grid con 6 espacios para fotos de la congregación |
 | **Pastores** | `/pastores` | Perfiles del equipo pastoral con fotos reales y anillos decorativos |
 | **Eventos** | `/eventos` | Carrusel interactivo de eventos con tarjetas (Swiper), más lista cronológica en `/eventos` |
 | **Anexos** | `/anexos` | Sedes de la iglesia con info del pastor, dirección, horario y contacto |
+| **Redes Sociales** | `/redes` | Tarjetas con enlaces a los perfiles sociales oficiales (Facebook, Instagram, YouTube, TikTok) |
 | **CTA** | `/` (sección) | Banner motivacional a pantalla completa con partículas decorativas |
 | **Contacto** | `/contacto` | Formulario de contacto y datos de la congregación |
 
@@ -91,8 +92,10 @@ autenticación segura JWT.
 | **Login Seguro** | Formulario con email/contraseña, toggle de visibilidad, "Recordar correo" y protección JWT |
 | **Dashboard Premium** | Banner interactivo, saludo dinámico, reloj en tiempo real y tarjetas glassmorphism |
 | **Estadísticas** | Métricas dinámicas conectadas a la BD: total de miembros, eventos y mensajes |
-| **Gestor de Eventos** | CRUD completo: listado en tabla, modal de creación/edición y eliminación |
-| **Equipo Pastoral** | CRUD completo: gestión de líderes (nombres, cargos, biografías y fotos) |
+| **Gestor de Eventos** | CRUD completo: listado en tabla, modal de creación/edición, eliminación y subida de imagen |
+| **Gestor de Anuncios** | CRUD completo: publicar anuncios para la congregación con subida de imagen |
+| **Equipo Pastoral** | CRUD completo: gestión de líderes (nombres, cargos, biografías) con subida de foto |
+| **Gestor de Recursos** | CRUD completo: materiales descargables (PDFs) con subida de archivo |
 | **Bandeja de Mensajes** | Lectura y eliminación de mensajes recibidos desde el formulario público |
 | **Logout** | Cierre de sesión con limpieza completa de token JWT |
 
@@ -121,6 +124,7 @@ autenticación segura JWT.
 | [Bootstrap](https://getbootstrap.com/) | ^5.3.8 | Framework CSS (grid, utilidades) |
 | [React Bootstrap](https://react-bootstrap.github.io/) | ^2.10.10 | Componentes Bootstrap para React |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | ^1.13.1 | Librería de iconos |
+| [Tailwind CSS](https://tailwindcss.com/) | ^3.4.19 | Framework CSS utilitario (paleta personalizada) |
 | [Swiper](https://swiperjs.com/) | ^14.0.6 | Librería de sliders/carruseles táctiles |
 | [OxLint](https://oxc.rs/) | ^1.71.0 | Linter ultrarrápido |
 
@@ -135,6 +139,7 @@ autenticación segura JWT.
 | [bcrypt](https://www.npmjs.com/package/bcrypt) | ^6.0.0 | Hashing seguro de contraseñas |
 | [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) | ^9.0.3 | Generación y verificación de JWT |
 | [cors](https://www.npmjs.com/package/cors) | ^2.8.6 | Cross-Origin Resource Sharing |
+| [multer](https://www.npmjs.com/package/multer) | ^2.2.0 | Manejo de subida de archivos (imágenes + PDFs) |
 | [dotenv](https://www.npmjs.com/package/dotenv) | ^17.4.2 | Variables de entorno desde .env |
 
 ### Base de Datos
@@ -152,7 +157,7 @@ autenticación segura JWT.
 ┌─────────────────────────────────────────────────┐
 │                  FRONTEND (Vite)                │
 │  React 19 + TypeScript + React Router 7         │
-│  + Bootstrap 5 · Puerto: 5173                   │
+│  + Bootstrap 5 + Tailwind · Puerto: 5173        │
 │                                                 │
 │  ┌───────────┐  ┌───────────┐  ┌─────────────┐ │
 │  │   Pages    │  │Components │  │   Context   │ │
@@ -160,22 +165,25 @@ autenticación segura JWT.
 │  │ Login      │  │ Footer    │  │  (user,     │ │
 │  │ Admin      │  │ Layout    │  │   token,    │ │
 │  │ Horarios   │  │ PageHeader│  │   login,    │ │
-│  │ Eventos... │  │ 12 total  │  │   logout)   │ │
+│  │ Eventos... │  │ 14 total  │  │   logout)   │ │
 │  └───────────┘  └───────────┘  └─────────────┘ │
 │                      │                          │
-│              Vite Proxy (/api)                  │
+│              Vite Proxy (/api → 3307)           │
 └──────────────────────┼──────────────────────────┘
                        │
 ┌──────────────────────┼──────────────────────────┐
 │               BACKEND (Express)                 │
 │  Node.js + Express 5                            │
-│  Puerto: 3000                                   │
+│  Puerto: 3307                                   │
 │                                                 │
 │  ┌──────────────────────────────────────────┐   │
 │  │  POST /api/auth/login                    │   │
-│  │  GET, POST, PUT, DELETE /api/eventos     │   │
-│  │  GET, POST, PUT, DELETE /api/pastores    │   │
-│  │  GET, DELETE /api/mensajes               │   │
+│  │  CRUD /api/eventos  (subida de imagen)   │   │
+│  │  CRUD /api/pastores  (subida de foto)    │   │
+│  │  CRUD /api/anuncios  (subida de imagen)  │   │
+│  │  CRUD /api/recursos  (subida de PDF)     │   │
+│  │  GET,DELETE /api/mensajes                │   │
+│  │  GET /api/health · /uploads (estático)   │   │
 │  └──────────────────────────────────────────┘   │
 │                      │                          │
 │              MySQL2 Driver                      │
@@ -183,14 +191,15 @@ autenticación segura JWT.
                        │
 ┌──────────────────────┼──────────────────────────┐
 │               DATABASE (MySQL 8.0)              │
-│  Contenedor Docker - Puerto 3306                │
+│  Contenedor Docker - Puerto Host 33007 → 3306   │
 │  Base de datos: iglesia_db                      │
 │                                                 │
 │  ┌──────────┐ ┌────────┐ ┌──────────┐          │
 │  │ usuarios │ │eventos │ │ pastores │          │
 │  ├──────────┤ ├────────┤ ├──────────┤          │
-│  │ eventos  │ │horarios│ │ mensajes │          │
-│  └──────────┘ └────────┘ └──────────┘          │
+│  │ anuncios │ │recursos│ │ mensajes │          │
+│  │ horarios │ └────────┘ └──────────┘          │
+│  └──────────┘                                  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -201,19 +210,17 @@ autenticación segura JWT.
 ```
 Pagina-Iglesia/
 ├── public/                    # Archivos estáticos servidos por Vite
-│   ├── img/                   # Imágenes públicas (logo, etc.)
-│   ├── js/                    # Scripts estáticos (legado)
-│   └── icons.svg              # Iconos SVG
+│   └── img/                   # Imágenes públicas (logo, galería, pastores, hero)
 ├── src/                       # Código fuente del frontend React
 │   ├── api/                   # Cliente HTTP centralizado
-│   │   └── index.ts           # Función fetchAPI con inyección automática de JWT
-│   ├── assets/                # Recursos importados por el bundler
-│   │   └── hero.png
-│   ├── components/            # 12 componentes reutilizables
+│   │   └── index.ts           # Función fetchAPI con inyección automática de JWT + soporte FormData
+│   ├── components/            # 14 componentes reutilizables
 │   │   ├── Layout.tsx         # Layout principal con Outlet y Footer
 │   │   ├── NavBar.tsx         # Barra de navegación responsiva con Glassmorphism
 │   │   ├── Footer.tsx         # Pie de página con enlaces, versículo y redes sociales
-│   │   ├── PageHeader.tsx     # Encabezado de páginas internas
+│   │   ├── PageHeader.tsx     # Encabezado de páginas internas (estilo hero)
+│   │   ├── HeroSlider.tsx     # Hero carrusel a pantalla completa (Swiper, 3 diapositivas)
+│   │   ├── Hero.tsx           # Hero de una sola diapositiva (respaldo)
 │   │   ├── ScheduleSection.tsx# Tarjetas de horarios de culto con iconos
 │   │   ├── AboutSection.tsx   # Sección "Quiénes Somos" (2 columnas + métricas)
 │   │   ├── GallerySection.tsx # Galería de fotos (Bento grid de 6 espacios)
@@ -230,32 +237,42 @@ Pagina-Iglesia/
 │   │   ├── admin/             # Componentes de gestión CRUD (Panel Admin)
 │   │   │   ├── AdminEventos.tsx
 │   │   │   ├── AdminPastores.tsx
-│   │   │   └── AdminMensajes.tsx
-│   │   ├── Home.tsx           # Página principal (hero + secciones)
+│   │   │   ├── AdminMensajes.tsx
+│   │   │   ├── AdminAnuncios.tsx
+│   │   │   └── AdminRecursos.tsx
+│   │   ├── Home.tsx           # Página principal (hero slider + secciones)
 │   │   ├── Horarios.tsx       # Página de horarios
 │   │   ├── QuienesSomos.tsx   # Página "Quiénes Somos"
 │   │   ├── Pastores.tsx       # Página de pastores
 │   │   ├── Eventos.tsx        # Página de eventos
 │   │   ├── Anexos.tsx         # Página de anexos/sedes con info de cada iglesia
+│   │   ├── RedesSociales.tsx  # Página de enlaces a redes sociales
 │   │   ├── Contacto.tsx       # Página de contacto
 │   │   ├── Login.tsx          # Formulario de inicio de sesión
-│   │   └── Admin.tsx          # Panel de administración protegido
+│   │   └── Admin.tsx          # Panel de administración protegido (sidebar + 5 módulos)
 │   ├── styles/
-│   │   └── styles.css         # Estilos globales (~2540 líneas)
-│   ├── App.tsx                # Definición de rutas (Router + Auth)
+│   │   └── styles.css         # Estilos globales (directivas Bootstrap + Tailwind, ~4600 líneas)
+│   ├── App.tsx                # Definición de rutas (Router + Auth + ProtectedRoute)
 │   └── main.tsx               # Punto de entrada de la app
 ├── backend/                   # Código fuente del servidor Express
-│   ├── server.ts              # Servidor Express con endpoints API
+│   ├── server.ts              # Servidor Express con todos los endpoints API
+│   ├── config.ts              # Configuración basada en env (puerto, JWT, BD, CORS)
 │   ├── generarClave.ts        # Utilidad para generar hashes bcrypt
 │   ├── reseteo.ts             # Utilidad para resetear contraseña del admin
 │   ├── middleware/
-│   │   └── auth.ts            # Middleware de verificación JWT
+│   │   ├── auth.ts            # Middleware de verificación JWT
+│   │   └── upload.ts          # Configuración de Multer (imágenes + PDFs, límite 5MB)
+│   ├── uploads/               # Archivos subidos servidos en /uploads (gitignored)
 │   └── package.json           # Dependencias del backend
 ├── index.html                 # HTML de entrada para Vite
-├── vite.config.ts             # Configuración de Vite (proxy API, plugin React)
-├── docker-compose.yml         # Configuración de MySQL en Docker
-├── init.sql                   # Schema de la base de datos + datos de ejemplo
+├── vite.config.ts             # Configuración de Vite (proxy API → 3307, plugin React)
+├── tsconfig.json              # Configuración de TypeScript (frontend)
+├── postcss.config.js          # PostCSS (Tailwind + Autoprefixer)
+├── tailwind.config.js         # Tema personalizado de Tailwind (paleta, fuentes, sombras)
+├── docker-compose.yml         # Configuración de MySQL en Docker (puerto 33007)
+├── init.sql                   # Schema de la base de datos + datos de ejemplo (se ejecuta automáticamente)
 ├── .env                       # Variables de entorno (NO versionar)
+├── example.env                # Plantilla con placeholders + CORS_ORIGIN
 ├── .gitignore                 # Archivos ignorados por Git
 ├── .oxlintrc.json             # Configuración de OxLint
 ├── .prettierrc                # Configuración de Prettier
@@ -287,25 +304,26 @@ npm install
 cd backend && npm install && cd ..
 
 # 4. Configurar variables de entorno
-# Edita .env con tus credenciales de MySQL y JWT_SECRET
+cp example.env .env
+# Edita .env con tus credenciales de MySQL y un JWT_SECRET seguro
 
-# 5. Levantar MySQL en Docker
+# 5. Levantar MySQL en Docker (init.sql se ejecuta automáticamente la primera vez)
 docker-compose up -d
 
-# 6. Inicializar la base de datos
-mysql -u root -p < init.sql
-
-# 7. Iniciar el backend (Terminal 1)
+# 6. Iniciar el backend (Terminal 1)
 cd backend && npm start
 
-# 8. Iniciar el frontend (Terminal 2)
+# 7. Iniciar el frontend (Terminal 2)
 npm run dev
 ```
+
+> **Nota:** `init.sql` se monta en el directorio `/docker-entrypoint-initdb.d/` del contenedor, por lo que se ejecuta automáticamente la primera vez que se crea el contenedor. Para una importación manual posterior, usa `mysql -h 127.0.0.1 -P 33007 -u root -p < init.sql`.
 
 ### Abrir en el Navegador
 
 - **Frontend**: [http://localhost:5173](http://localhost:5173)
-- **Backend API**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:3307](http://localhost:3307)
+- **Panel Admin**: [http://localhost:5173/admin](http://localhost:5173/admin)
 
 ### Credenciales de Prueba
 
@@ -332,10 +350,10 @@ npm run dev
 
 | Comando | Descripción |
 |---------|-------------|
-| `npm start` | Inicia el servidor Express en puerto 3000 |
-| `npm run dev` | Inicia el servidor Express con hot-reload |
-| `tsx generarClave.ts` | Genera un hash bcrypt para una contraseña |
-| `tsx reseteo.ts` | Resetea la contraseña del admin a '123456' |
+| `npm start` | Inicia el servidor Express en puerto 3307 |
+| `npm run dev` | Inicia el servidor Express con hot-reload (tsx watch) |
+| `npx tsx generarClave.ts` | Genera un hash bcrypt para una contraseña |
+| `npx tsx reseteo.ts` | Resetea la contraseña del admin a '123456' |
 
 ---
 
@@ -351,6 +369,7 @@ npm run dev
 | `/pastores` | Pastores | Equipo pastoral con perfiles |
 | `/eventos` | Eventos | Próximos eventos y actividades |
 | `/anexos` | Anexos | Sedes de la iglesia con información y recursos |
+| `/redes` | Redes Sociales | Enlaces a los perfiles sociales oficiales |
 | `/contacto` | Contacto | Formulario de contacto y datos |
 
 ### Rutas Protegidas
@@ -392,7 +411,7 @@ Usuario autenticado    → /login  → Redirige a /admin
            ↓
 9. ProtectedRoute verifica user en AuthContext
            ↓
-10. Admin.jsx renderiza el panel de control
+10. ProtectedRoute renderiza el panel de control (Admin.tsx)
 ```
 
 ### Token JWT
@@ -432,10 +451,47 @@ Usuario autenticado    → /login  → Redirige a /admin
 ### URL Base
 
 ```
-http://localhost:3000
+http://localhost:3307
 ```
 
-### Endpoints
+> **Tip:** En desarrollo el frontend usa un proxy de `/api/*` hacia esta dirección, así que rutas relativas como `/api/eventos` funcionan desde el navegador.
+
+### Resumen de Endpoints
+
+| Método | Endpoint | Auth | Descripción |
+|--------|----------|------|-------------|
+| `GET` | `/api/health` | No | Health check (verifica conectividad con la BD) |
+| `POST` | `/api/auth/login` | No | Autentica y retorna un JWT |
+| `GET` | `/api/eventos` | No | Lista todos los eventos |
+| `POST` | `/api/eventos` | JWT | Crea un evento (subida de imagen opcional) |
+| `PUT` | `/api/eventos/:id` | JWT | Actualiza un evento (subida de imagen opcional) |
+| `DELETE` | `/api/eventos/:id` | JWT | Elimina un evento |
+| `GET` | `/api/pastores` | No | Lista todos los pastores |
+| `POST` | `/api/pastores` | JWT | Crea un pastor (subida de foto opcional) |
+| `PUT` | `/api/pastores/:id` | JWT | Actualiza un pastor (subida de foto opcional) |
+| `DELETE` | `/api/pastores/:id` | JWT | Elimina un pastor |
+| `POST` | `/api/mensajes` | No | Envía un mensaje de contacto |
+| `GET` | `/api/mensajes` | JWT | Lista mensajes de contacto (más recientes primero) |
+| `DELETE` | `/api/mensajes/:id` | JWT | Elimina un mensaje |
+| `GET` | `/api/anuncios` | No | Lista todos los anuncios |
+| `POST` | `/api/anuncios` | JWT | Crea un anuncio (subida de imagen opcional) |
+| `PUT` | `/api/anuncios/:id` | JWT | Actualiza un anuncio (subida de imagen opcional) |
+| `DELETE` | `/api/anuncios/:id` | JWT | Elimina un anuncio |
+| `GET` | `/api/recursos` | No | Lista los recursos descargables |
+| `POST` | `/api/recursos` | JWT | Crea un recurso (subida de archivo obligatoria) |
+| `PUT` | `/api/recursos/:id` | JWT | Actualiza un recurso (subida de archivo opcional) |
+| `DELETE` | `/api/recursos/:id` | JWT | Elimina un recurso |
+| `GET` | `/uploads/*` | No | Sirve archivos subidos (imágenes/PDFs) |
+
+#### `GET /api/health`
+
+**Respuesta exitosa (200):**
+
+```json
+{ "status": "ok" }
+```
+
+---
 
 #### `GET /api/eventos`
 
@@ -500,7 +556,7 @@ Autentica un usuario con email y contraseña.
 
 Crea un nuevo evento. Requiere token JWT válido.
 
-**Cuerpo de la petición:**
+**Cuerpo de la petición (JSON):**
 
 ```json
 {
@@ -511,6 +567,8 @@ Crea un nuevo evento. Requiere token JWT válido.
   "imagen_url": "https://..."
 }
 ```
+
+**Alternativa multipart:** envía los mismos campos como `multipart/form-data` e incluye un archivo `imagen` (máx 5 MB, solo imágenes) en lugar de `imagen_url`. El archivo se guarda en `backend/uploads/` y se sirve en `/uploads/<nombre>`.
 
 ---
 
@@ -530,11 +588,25 @@ Elimina un evento. Requiere token JWT válido.
 
 Retorna todos los pastores y líderes de la iglesia.
 
+**Respuesta exitosa (200):**
+
+```json
+[
+  {
+    "id": 1,
+    "nombre": "Pastor Ruideto Costa",
+    "cargo": "Pastor Principal",
+    "biografia": "Con más de 10 años de ministerio...",
+    "foto_url": "/img/pastor-principal.webp"
+  }
+]
+```
+
 ---
 
 #### `POST /api/pastores` (Protegido)
 
-Crea un nuevo registro de pastor/líder. Requiere token JWT válido.
+Crea un nuevo registro de pastor/líder. Requiere token JWT válido. Acepta JSON (`nombre`, `cargo`, `biografia`, `foto_url`) o `multipart/form-data` con un archivo `foto`.
 
 ---
 
@@ -550,6 +622,35 @@ Elimina un registro de pastor. Requiere token JWT válido.
 
 ---
 
+#### `POST /api/mensajes`
+
+Envía un mensaje desde el formulario público de contacto. No requiere autenticación.
+
+**Cuerpo de la petición:**
+
+```json
+{
+  "nombre": "Juan Pérez",
+  "email": "juan@example.com",
+  "asunto": "Petición de oración",
+  "mensaje": "Oren por mi familia, por favor."
+}
+```
+
+**Respuesta exitosa (201):**
+
+```json
+{
+  "id": 3,
+  "nombre": "Juan Pérez",
+  "email": "juan@example.com",
+  "asunto": "Petición de oración",
+  "mensaje": "Oren por mi familia, por favor."
+}
+```
+
+---
+
 #### `GET /api/mensajes` (Protegido)
 
 Retorna todos los mensajes del formulario de contacto (ordenados por fecha descendente). Requiere token JWT válido.
@@ -559,6 +660,54 @@ Retorna todos los mensajes del formulario de contacto (ordenados por fecha desce
 #### `DELETE /api/mensajes/:id` (Protegido)
 
 Elimina un mensaje. Requiere token JWT válido.
+
+---
+
+#### `GET /api/anuncios`
+
+Retorna todos los anuncios (ordenados por fecha de creación descendente).
+
+---
+
+#### `POST /api/anuncios` (Protegido)
+
+Crea un anuncio. Requiere token JWT válido. Acepta JSON (`titulo`, `descripcion`, `imagen_url`) o `multipart/form-data` con un archivo `imagen`.
+
+---
+
+#### `PUT /api/anuncios/:id` (Protegido)
+
+Actualiza un anuncio. Requiere token JWT válido.
+
+---
+
+#### `DELETE /api/anuncios/:id` (Protegido)
+
+Elimina un anuncio. Requiere token JWT válido.
+
+---
+
+#### `GET /api/recursos`
+
+Retorna todos los recursos descargables (ordenados por fecha de creación descendente).
+
+---
+
+#### `POST /api/recursos` (Protegido)
+
+Crea un recurso. Requiere token JWT válido. Debe enviarse como `multipart/form-data` con los campos `titulo`, `tipo` y un archivo `archivo` (imagen o PDF, máx 5 MB).
+
+---
+
+#### `PUT /api/recursos/:id` (Protegido)
+
+Actualiza un recurso. Requiere token JWT válido.
+
+---
+
+#### `DELETE /api/recursos/:id` (Protegido)
+
+Elimina un recurso. Requiere token JWT válido.
 
 ---
 
@@ -573,6 +722,10 @@ Elimina un mensaje. Requiere token JWT válido.
 | `pastores` | Pastores y líderes | id, nombre, cargo, biografia, foto_url |
 | `horarios` | Horarios de culto | id, dia, hora, actividad |
 | `mensajes_contacto` | Mensajes del formulario | id, nombre, email, mensaje, fecha_envio |
+| `anuncios` | Anuncios | id, titulo, descripcion, imagen_url, fecha_creacion |
+| `recursos` | Recursos descargables | id, titulo, descripcion, tipo, archivo_url, fecha_creacion |
+
+> **Nota:** `init.sql` actualmente crea las primeras cinco tablas. Las tablas `anuncios` y `recursos` (usadas por los módulos de anuncios y recursos) deben agregarse a `init.sql` para que se creen automáticamente con Docker.
 
 ### Usuario de Prueba
 
@@ -642,14 +795,15 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 ### Vite (`vite.config.ts`)
 
 - **Plugin**: `@vitejs/plugin-react` para JSX y Fast Refresh
-- **Proxy**: `/api` → `http://localhost:3000` (redirige peticiones al backend)
+- **Proxy**: `/api` → `http://localhost:3307` (redirige peticiones al backend)
 
 ### Docker Compose (`docker-compose.yml`)
 
 - **Servicio**: MySQL 8.0
-- **Puerto**: 3307 (mapeado al 3306 del contenedor)
-- **Base de datos**: `iglesia_db` (creada automáticamente con `init.sql`)
+- **Puerto**: 33007 (host) mapeado al 3306 (contenedor)
+- **Base de datos**: `iglesia_db` (creada automáticamente con `init.sql` en el primer arranque)
 - **Volumen persistente**: Los datos sobreviven al reiniciar el contenedor
+- **Nombre del contenedor**: `mysql-proyecto-iglesia`
 
 ### Paleta de Colores
 
@@ -673,32 +827,40 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 ### El backend no conecta a MySQL
 
 - Verifica que Docker esté corriendo: `docker ps`
-- Asegúrate de que las variables de entorno en `.env` sean correctas
-- Verifica que el contenedor MySQL esté en el puerto 3307: `docker logs mysql-proyecto-iglesia`
+- Asegúrate de que las variables de entorno en `.env` sean correctas (`DB_HOST`, `DB_PORT=33007`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`)
+- Verifica que el contenedor MySQL esté corriendo: `docker logs mysql-proyecto-iglesia`
 - Si el contenedor no inició, revisa los logs: `docker-compose logs db`
 
 ### El frontend muestra errores de CORS
 
-- Verifica que el proxy de Vite esté configurado en `vite.config.ts`
-- Asegúrate de que el backend esté corriendo en el puerto 3000
+- Verifica que el proxy de Vite esté configurado en `vite.config.ts` (puerto objetivo 3307)
+- Asegúrate de que el backend esté corriendo en el puerto 3307
+- Revisa `CORS_ORIGIN` en `.env` e incluye tu origen de frontend (`http://localhost:5173`)
 
 ### Los estilos no se aplican correctamente
 
 - Ejecuta `npm run lint` para verificar errores de sintaxis
 - Verifica que `styles.css` esté importado en `main.tsx`
+- Reinicia el servidor de desarrollo después de cambiar `tailwind.config.js`
 
 ### La autenticación falla
 
 - Verifica que `JWT_SECRET` en `.env` esté definido
-- Asegúrate de que el hash de la contraseña esté correctamente generado con `tsx generarClave.ts`
-- Si olvidaste la contraseña, ejecuta `tsx reseteo.ts` para resetearla a '123456'
+- Asegúrate de que el hash de la contraseña esté correctamente generado con `npx tsx generarClave.ts` (desde la carpeta `backend/`)
+- Si olvidaste la contraseña, ejecuta `npx tsx reseteo.ts` para resetearla a '123456' (desde la carpeta `backend/`)
 - Revisa los logs del backend para ver errores detallados
+
+### La subida de archivos falla o retorna errores
+
+- Solo se permiten imágenes y PDFs (máximo 5 MB por archivo)
+- Verifica que el directorio `backend/uploads/` exista y tenga permisos de escritura
+- Ajusta el límite en `files.size` si necesitas archivos más grandes
 
 ### Docker no inicia MySQL
 
 - Verifica que Docker Desktop esté corriendo
-- Si el puerto 3307 está ocupado, cambia el mapeo en `docker-compose.yml`
-- Para reiniciar limpio: `docker-compose down -v && docker-compose up -d`
+- Si el puerto 33007 está ocupado, cambia el mapeo en `docker-compose.yml`
+- Para reiniciar limpio (también re-ejecuta `init.sql`): `docker-compose down -v && docker-compose up -d`
 
 ---
 
@@ -706,12 +868,16 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 
 ### Implementado
 
-- [x] Páginas públicas (Inicio, Horarios, Quiénes Somos, Pastores, Eventos, Anexos, Contacto)
+- [x] Páginas públicas (Inicio, Horarios, Quiénes Somos, Pastores, Eventos, Anexos, Redes Sociales, Contacto)
 - [x] Panel de administración con autenticación JWT y protección de rutas
 - [x] Dashboard dinámico con estadísticas reales y diseño premium (Glassmorphism)
-- [x] CRUD completo para eventos desde el panel admin
-- [x] CRUD de pastores y líderes desde el panel admin
+- [x] CRUD completo para eventos desde el panel admin (con subida de imagen)
+- [x] CRUD de pastores y líderes desde el panel admin (con subida de foto)
+- [x] CRUD completo de anuncios desde el panel admin (con subida de imagen)
+- [x] CRUD completo de recursos (PDFs) desde el panel admin (con subida de archivo)
 - [x] Gestor de bandeja de entrada de mensajes
+- [x] Subida de archivos con Multer (imágenes para eventos/pastores/anuncios, PDFs para recursos)
+- [x] Hero carrusel a pantalla completa (Swiper) con CTAs que enlazan a páginas internas
 - [x] Login con toggle de contraseña, recordar correo y validación
 - [x] Animaciones de scroll con IntersectionObserver
 - [x] Diseño responsivo con 3 breakpoints
@@ -725,8 +891,9 @@ Configuración unificada para editores: indentación por espacios, charset UTF-8
 
 ### Próximo
 
+- [ ] Agregar las tablas `anuncios` y `recursos` a `init.sql` para que se creen automáticamente con Docker
 - [ ] Gestión de horarios desde el panel admin
-- [ ] Subida de imágenes a un CDN o almacenamiento local para eventos/pastores
+- [ ] Subida de imágenes a un CDN
 - [ ] Paginación y buscador dinámico en listas de eventos del panel
 - [ ] Sección de galería con lightbox público
 - [ ] Optimización de imágenes, formatos WebP y lazy loading
