@@ -1,146 +1,127 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 // Importamos Swiper y sus estilos
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade'; // Efecto de transición suave
 
-// Definimos la estructura de cada "Diapositiva"
+// Interfaz TypeScript
 interface SlideData {
     id: number;
     imagen: string;
     titulo: string;
     subtitulo: string;
     btnPrincipal: string;
-    urlPrincipal: string;
     btnSecundario: string;
-    urlSecundario: string;
 }
 
-// Estos son los datos falsos por ahora (luego vendrán de tu Base de Datos)
+// Datos de los slides (Usando tus imágenes locales)
 const slides: SlideData[] = [
     {
         id: 1,
-        imagen: "https://images.unsplash.com/photo-1544427920-c49ccf08c146?q=80&w=2000&auto=format&fit=crop",
-        titulo: "Bienvenido a\nAsamblea de Dios",
+        imagen: "/img/galeria-congregacion.webp",
+        titulo: "Bienvenido a \nAsamblea de Dios",
         subtitulo: "Descubre el propósito que Dios tiene para tu vida. Un lugar para crecer, servir y amar en comunidad.",
         btnPrincipal: "Conéctate",
-        urlPrincipal: "/redes",
-        btnSecundario: "Saber más",
-        urlSecundario: "/quienes-somos"
+        btnSecundario: "Saber más"
     },
     {
         id: 2,
-        imagen: "/img/galeria-jovenes.webp", // Usando tu imagen local
-        titulo: "Noche de\nJóvenes",
+        imagen: "/img/galeria-jovenes.webp",
+        titulo: "Noche de \nJóvenes",
         subtitulo: "Únete a nosotros este sábado para un tiempo de adoración, juegos y palabra diseñada para ti.",
         btnPrincipal: "Ver Horarios",
-        urlPrincipal: "/horarios",
-        btnSecundario: "Ver Galería",
-        urlSecundario: "/"
+        btnSecundario: "Ver Galería"
     },
     {
         id: 3,
-        imagen: "/img/galeria-bautizos.webp", // Usando tu imagen local
-        titulo: "Siguiente Paso:\nBautizos",
+        imagen: "/img/galeria-bautizos.webp",
+        titulo: "Siguiente Paso: \nBautizos",
         subtitulo: "Inscríbete para nuestra próxima ceremonia de bautizos en agua y declara tu fe públicamente.",
         btnPrincipal: "Inscribirme",
-        urlPrincipal: "/contacto",
-        btnSecundario: "¿Qué es el bautizo?",
-        urlSecundario: "/quienes-somos"
+        btnSecundario: "¿Qué es el bautizo?"
+    },
+    {
+        id: 4,
+        imagen: "/img/galeria-infantil.webp", // Agregada la imagen de niños
+        titulo: "Ministerio \nInfantil",
+        subtitulo: "Un espacio seguro y divertido donde tus hijos aprenderán sobre el amor de Jesús.",
+        btnPrincipal: "Conocer más",
+        btnSecundario: "Horarios"
     }
 ];
 
 const HeroSlider: React.FC = () => {
     return (
-        <section className="relative w-full h-screen overflow-hidden bg-black">
-            <style>{`
-                .mySwiper .swiper-button-next,
-                .mySwiper .swiper-button-prev {
-                    color: white;
-                    background-color: rgba(255, 255, 255, 0.15);
-                    backdrop-filter: blur(8px);
-                    width: 44px;
-                    height: 44px;
-                    border-radius: 50%;
-                    transition: all 0.3s ease;
-                }
-                .mySwiper .swiper-button-next:hover,
-                .mySwiper .swiper-button-prev:hover {
-                    background-color: rgba(255, 255, 255, 0.3);
-                }
-                .mySwiper .swiper-button-next::after,
-                .mySwiper .swiper-button-prev::after {
-                    font-size: 16px;
-                    font-weight: 800;
-                }
-                .mySwiper .swiper-pagination-bullet {
-                    background-color: white;
-                    opacity: 0.4;
-                    width: 6px;
-                    height: 6px;
-                    transition: all 0.3s ease;
-                }
-                .mySwiper .swiper-pagination-bullet-active {
-                    opacity: 1;
-                    width: 16px;
-                    border-radius: 4px;
-                }
-                .mySwiper .swiper-pagination {
-                    bottom: 24px !important;
-                }
-            `}</style>
-            
+        <div className="relative w-full h-screen">
+
+            {/* SWIPER SLIDER */}
             <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                navigation={true}
-                pagination={{ clickable: true }}
+                modules={[Navigation, Pagination, Autoplay, EffectFade]}
+                effect="fade" // Efecto de desvanecimiento premium
+                navigation={{
+                    nextEl: '.swiper-button-next-custom',
+                    prevEl: '.swiper-button-prev-custom',
+                }}
+                pagination={{
+                    clickable: true,
+                    bulletActiveClass: 'swiper-pagination-bullet-active bg-white' // Personaliza los puntos
+                }}
                 autoplay={{ delay: 6000, disableOnInteraction: false }}
                 loop={true}
-                className="w-full h-full mySwiper"
+                className="w-full h-full"
             >
                 {slides.map((slide) => (
                     <SwiperSlide key={slide.id} className="relative w-full h-full">
-                        {/* Imagen de Fondo */}
+                        {/* Imagen de Fondo (Ahora usando las locales) */}
                         <img
                             src={slide.imagen}
                             alt={slide.titulo}
                             className="absolute inset-0 w-full h-full object-cover"
                         />
 
-                        {/* Capa de Gradiente para oscurecer y mejorar legibilidad */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                        {/* Capa de Gradiente (El Truco) */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20"></div>
 
-                        {/* Contenedor del Contenido */}
-                        <div className="absolute bottom-0 w-full px-8 pb-20 md:px-20 md:pb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 z-10">
-                            
-                            {/* Textos */}
-                            <div className="text-white max-w-xl text-left">
-                                {/* Usamos whitespace-pre-line para que respete los saltos de línea (\n) */}
-                                <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold tracking-tight mb-2 leading-tight whitespace-pre-line">
+                        {/* Contenedor del Contenido (Alineado Abajo) */}
+                        <div className="absolute bottom-0 w-full px-6 pb-24 sm:px-16 sm:pb-32 flex flex-col sm:flex-row justify-between items-end gap-8 z-10">
+
+                            <div className="text-white max-w-3xl">
+                                <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-5 leading-tight whitespace-pre-line drop-shadow-lg">
                                     {slide.titulo}
                                 </h1>
-                                <p className="text-base md:text-lg text-gray-200 font-medium">
+                                <p className="text-lg sm:text-xl text-gray-200 font-medium max-w-2xl drop-shadow-md">
                                     {slide.subtitulo}
                                 </p>
                             </div>
 
-                            {/* Botones */}
-                            <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3 mt-4 md:mt-0 shrink-0">
-                                <Link to={slide.urlPrincipal} className="px-6 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors text-sm md:text-base w-full sm:w-auto text-center block">
+                            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4">
+                                <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
                                     {slide.btnPrincipal}
-                                </Link>
-                                <Link to={slide.urlSecundario} className="px-6 py-2.5 bg-white/20 backdrop-blur-md text-white font-semibold rounded-full hover:bg-white/30 transition-colors text-sm md:text-base w-full sm:w-auto text-center block">
+                                </button>
+                                <button className="px-8 py-4 bg-black/30 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/50 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
                                     {slide.btnSecundario}
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </SwiperSlide>
                 ))}
+
+                {/* FLECHAS PERSONALIZADAS TIPO ELEVATION CHURCH */}
+                <div className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition opacity-0 md:opacity-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </div>
+                <div className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition opacity-0 md:opacity-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
             </Swiper>
-        </section>
+        </div>
     );
 };
 
