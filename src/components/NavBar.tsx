@@ -9,11 +9,10 @@ interface NavLinkItem {
 const navLinks: NavLinkItem[] = [
     { to: '/', label: 'Inicio' },
     { to: '/horarios', label: 'Horarios' },
-    { to: '/quienes-somos', label: 'Quiénes Somos' },
-    { to: '/pastores', label: 'Pastores' },
+    { to: '/quienes-somos', label: 'Nosotros' },
     { to: '/eventos', label: 'Eventos' },
-    { to: '/anexos', label: 'Anexos' },
     { to: '/contacto', label: 'Contacto' },
+    { to: '/donaciones', label: 'Donaciones' },
 ];
 
 const NavBar = () => {
@@ -31,11 +30,10 @@ const NavBar = () => {
 
     return (
         <header
-            className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 transition-all duration-300 ${
-                isScrolled
+            className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 transition-all duration-300 ${isScrolled
                     ? 'py-2 sm:py-3 bg-[#1a3b2b] shadow-lg border-b border-white/5'
                     : 'py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10'
-            }`}
+                }`}
         >
             <Link to="/" className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <img
