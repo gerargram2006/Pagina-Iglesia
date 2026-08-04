@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 // Importamos Swiper y sus estilos
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
@@ -54,6 +54,9 @@ const slides: SlideData[] = [
 ];
 
 const HeroSlider: React.FC = () => {
+    const prevRef = useRef<HTMLDivElement>(null);
+    const nextRef = useRef<HTMLDivElement>(null);
+
     return (
         <div className="relative w-full h-screen">
 
@@ -62,8 +65,14 @@ const HeroSlider: React.FC = () => {
                 modules={[Navigation, Pagination, Autoplay, EffectFade]}
                 effect="fade" // Efecto de desvanecimiento premium
                 navigation={{
-                    nextEl: '.swiper-button-next-custom',
-                    prevEl: '.swiper-button-prev-custom',
+                    prevEl: prevRef.current,
+                    nextEl: nextRef.current,
+                }}
+                onBeforeInit={(swiper) => {
+                    if (swiper.params.navigation && typeof swiper.params.navigation === 'object') {
+                        swiper.params.navigation.prevEl = prevRef.current;
+                        swiper.params.navigation.nextEl = nextRef.current;
+                    }
                 }}
                 pagination={{
                     clickable: true,
@@ -110,12 +119,18 @@ const HeroSlider: React.FC = () => {
                 ))}
 
                 {/* FLECHAS PERSONALIZADAS TIPO ELEVATION CHURCH */}
-                <div className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition opacity-0 md:opacity-100">
+                <div
+                    ref={prevRef}
+                    className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </div>
-                <div className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition opacity-0 md:opacity-100">
+                <div
+                    ref={nextRef}
+                    className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/60 transition"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
