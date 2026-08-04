@@ -9,6 +9,7 @@ import Eventos from './pages/Eventos';
 import Contacto from './pages/Contacto';
 import Anexos from './pages/Anexos';
 import RedesSociales from './pages/RedesSociales';
+import Donaciones from './pages/Donaciones';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import type { ReactNode } from 'react';
@@ -47,6 +48,7 @@ export default function App() {
                         <Route path="anexos" element={<Anexos />} />
                         <Route path="redes" element={<RedesSociales />} />
                         <Route path="contacto" element={<Contacto />} />
+                        <Route path="donaciones" element={<Donaciones />} />
                     </Route>
 
                     <Route path="/login" element={<Login />} />
