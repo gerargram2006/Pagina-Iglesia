@@ -6,6 +6,9 @@ import AdminPastores from './admin/AdminPastores';
 import AdminMensajes from './admin/AdminMensajes';
 import AdminAnuncios from './admin/AdminAnuncios';
 import AdminRecursos from './admin/AdminRecursos';
+import AdminSlides from './admin/AdminSlides';
+import AdminHorarios from './admin/AdminHorarios';
+import AdminGaleria from './admin/AdminGaleria';
 import { api } from '../api';
 
 function getGreeting(): string {
@@ -35,6 +38,9 @@ const adminCards: AdminCard[] = [
     { title: 'Miembros', description: 'Administrar el directorio de miembros', icon: 'bi-people', gradient: 'linear-gradient(135deg, #1b4332, #2d6a4f)' },
     { title: 'Mensajes', description: 'Revisar mensajes de contacto', icon: 'bi-chat-dots', gradient: 'linear-gradient(135deg, #c9a84c, #e8cf7a)' },
     { title: 'Recursos', description: 'Gestionar material descargable (PDFs)', icon: 'bi-folder2-open', gradient: 'linear-gradient(135deg, #2d6a4f, #40916c)' },
+    { title: 'Slides', description: 'Gestionar el slider principal del Hero', icon: 'bi-images', gradient: 'linear-gradient(135deg, #4a6fa5, #6b8cce)' },
+    { title: 'Horarios', description: 'Configurar horarios de reuniones', icon: 'bi-clock', gradient: 'linear-gradient(135deg, #7b2d8e, #a855c7)' },
+    { title: 'Galería', description: 'Administrar fotos de la comunidad', icon: 'bi-camera', gradient: 'linear-gradient(135deg, #d4772c, #e8a04c)' },
 ];
 
 interface ActivityItem {
@@ -62,6 +68,9 @@ const sidebarItems: SidebarItem[] = [
     { label: 'Miembros', icon: 'bi-people' },
     { label: 'Mensajes', icon: 'bi-chat-dots' },
     { label: 'Recursos', icon: 'bi-folder2-open' },
+    { label: 'Slides', icon: 'bi-images' },
+    { label: 'Horarios', icon: 'bi-clock' },
+    { label: 'Galería', icon: 'bi-camera' },
     { label: 'Configuración', icon: 'bi-gear' },
 ];
 
@@ -286,6 +295,9 @@ export default function Admin() {
                     {activeTab === 'Mensajes' && <AdminMensajes />}
                     {activeTab === 'Anuncios' && <AdminAnuncios />}
                     {activeTab === 'Recursos' && <AdminRecursos />}
+                    {activeTab === 'Slides' && <AdminSlides />}
+                    {activeTab === 'Horarios' && <AdminHorarios />}
+                    {activeTab === 'Galería' && <AdminGaleria />}
                     {activeTab === 'Configuración' && <div className="admin-coming-soon"><i className="bi bi-gear"></i><h2>Configuración</h2><p>Próximamente disponible.</p></div>}
                 </div>
             </main>
