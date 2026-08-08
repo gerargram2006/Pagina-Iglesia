@@ -58,6 +58,32 @@ interface RecursoRow extends RowDataPacket {
   fecha_creacion: string;
 }
 
+interface SlideRow extends RowDataPacket {
+  id: number;
+  titulo: string;
+  subtitulo: string | null;
+  imagen_url: string;
+  btn_principal: string | null;
+  btn_secundario: string | null;
+  orden: number;
+  activo: number;
+}
+
+interface HorarioRow extends RowDataPacket {
+  id: number;
+  dia: string;
+  hora: string;
+  actividad: string;
+}
+
+interface GaleriaRow extends RowDataPacket {
+  id: number;
+  titulo: string;
+  imagen_url: string;
+  destacada: number;
+  orden: number;
+}
+
 interface EventoInput {
   titulo: string;
   descripcion: string | null;
@@ -91,6 +117,29 @@ interface RecursoInput {
   descripcion: string | null;
   tipo: string;
   archivo_url: string;
+}
+
+interface SlideInput {
+  titulo: string;
+  subtitulo: string | null;
+  imagen_url: string | null;
+  btn_principal: string | null;
+  btn_secundario: string | null;
+  orden: number;
+  activo: number;
+}
+
+interface HorarioInput {
+  dia: string;
+  hora: string;
+  actividad: string;
+}
+
+interface GaleriaInput {
+  titulo: string;
+  imagen_url: string | null;
+  destacada: number;
+  orden: number;
 }
 
 type HttpError = Error & { status?: number };
@@ -257,6 +306,38 @@ function validateRecurso(body: unknown): RecursoInput {
     descripcion: optionalText(data.descripcion, 'Descripción', 5_000),
     tipo: requiredText(data.tipo, 'Tipo', 50),
     archivo_url,
+  };
+}
+
+function validateSlide(body: unknown): SlideInput {
+  const data = requireBody(body);
+  return {
+    titulo: requiredText(data.titulo, 'Título', 200),
+    subtitulo: optionalText(data.subtitulo, 'Subtítulo', 5_000),
+    imagen_url: optionalUrl(data.imagen_url, 'URL de imagen'),
+    btn_principal: optionalText(data.btn_principal, 'Botón principal', 100),
+    btn_secundario: optionalText(data.btn_secundario, 'Botón secundario', 100),
+    orden: typeof data.orden === 'number' ? data.orden : (typeof data.orden === 'string' ? Number(data.orden) || 0 : 0),
+    activo: data.activo === '0' || data.activo === 0 || data.activo === false ? 0 : 1,
+  };
+}
+
+function validateHorario(body: unknown): HorarioInput {
+  const data = requireBody(body);
+  return {
+    dia: requiredText(data.dia, 'Día', 20),
+    hora: requiredText(data.hora, 'Hora', 20),
+    actividad: requiredText(data.actividad, 'Actividad', 100),
+  };
+}
+
+function validateGaleria(body: unknown): GaleriaInput {
+  const data = requireBody(body);
+  return {
+    titulo: requiredText(data.titulo, 'Título', 150),
+    imagen_url: optionalUrl(data.imagen_url, 'URL de imagen'),
+    destacada: data.destacada === '1' || data.destacada === 1 || data.destacada === true ? 1 : 0,
+    orden: typeof data.orden === 'number' ? data.orden : (typeof data.orden === 'string' ? Number(data.orden) || 0 : 0),
   };
 }
 
@@ -478,6 +559,126 @@ app.delete('/api/recursos/:id', verificarToken, asyncHandler(async (req, res) =>
   const id = requireId(req.params.id);
   const [result] = await db.execute<ResultSetHeader>('DELETE FROM recursos WHERE id = ?', [id]);
   await requireAffected(result, 'Recurso');
+  res.status(204).send();
+}));
+
+// ── SLIDES ──────────────────────────────────────────────────────
+
+app.get('/api/slides', asyncHandler(async (_req, res) => {
+  const [slides] = await db.execute<SlideRow[]>(
+    'SELECT id, titulo, subtitulo, imagen_url, btn_principal, btn_secundario, orden, activo FROM slides ORDER BY orden ASC'
+  );
+  res.json(slides);
+}));
+
+app.post('/api/slides', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const slide = validateSlide(req.body);
+  if (req.file) {
+    slide.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'INSERT INTO slides (titulo, subtitulo, imagen_url, btn_principal, btn_secundario, orden, activo) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [slide.titulo, slide.subtitulo, slide.imagen_url, slide.btn_principal, slide.btn_secundario, slide.orden, slide.activo]
+  );
+  res.status(201).json({ id: result.insertId, ...slide });
+}));
+
+app.put('/api/slides/:id', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const slide = validateSlide(req.body);
+  if (req.file) {
+    slide.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE slides SET titulo = ?, subtitulo = ?, imagen_url = ?, btn_principal = ?, btn_secundario = ?, orden = ?, activo = ? WHERE id = ?',
+    [slide.titulo, slide.subtitulo, slide.imagen_url, slide.btn_principal, slide.btn_secundario, slide.orden, slide.activo, id]
+  );
+  await requireAffected(result, 'Slide');
+  res.json({ id, ...slide });
+}));
+
+app.delete('/api/slides/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const [result] = await db.execute<ResultSetHeader>('DELETE FROM slides WHERE id = ?', [id]);
+  await requireAffected(result, 'Slide');
+  res.status(204).send();
+}));
+
+// ── HORARIOS ────────────────────────────────────────────────────
+
+app.get('/api/horarios', asyncHandler(async (_req, res) => {
+  const [horarios] = await db.execute<HorarioRow[]>(
+    'SELECT id, dia, hora, actividad FROM horarios ORDER BY id ASC'
+  );
+  res.json(horarios);
+}));
+
+app.post('/api/horarios', verificarToken, asyncHandler(async (req, res) => {
+  const horario = validateHorario(req.body);
+  const [result] = await db.execute<ResultSetHeader>(
+    'INSERT INTO horarios (dia, hora, actividad) VALUES (?, ?, ?)',
+    [horario.dia, horario.hora, horario.actividad]
+  );
+  res.status(201).json({ id: result.insertId, ...horario });
+}));
+
+app.put('/api/horarios/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const horario = validateHorario(req.body);
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE horarios SET dia = ?, hora = ?, actividad = ? WHERE id = ?',
+    [horario.dia, horario.hora, horario.actividad, id]
+  );
+  await requireAffected(result, 'Horario');
+  res.json({ id, ...horario });
+}));
+
+app.delete('/api/horarios/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const [result] = await db.execute<ResultSetHeader>('DELETE FROM horarios WHERE id = ?', [id]);
+  await requireAffected(result, 'Horario');
+  res.status(204).send();
+}));
+
+// ── GALERÍA ─────────────────────────────────────────────────────
+
+app.get('/api/galeria', asyncHandler(async (_req, res) => {
+  const [galeria] = await db.execute<GaleriaRow[]>(
+    'SELECT id, titulo, imagen_url, destacada, orden FROM galeria ORDER BY orden ASC'
+  );
+  res.json(galeria);
+}));
+
+app.post('/api/galeria', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const item = validateGaleria(req.body);
+  if (req.file) {
+    item.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'INSERT INTO galeria (titulo, imagen_url, destacada, orden) VALUES (?, ?, ?, ?)',
+    [item.titulo, item.imagen_url, item.destacada, item.orden]
+  );
+  res.status(201).json({ id: result.insertId, ...item });
+}));
+
+app.put('/api/galeria/:id', verificarToken, upload.single('imagen'), asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const item = validateGaleria(req.body);
+  if (req.file) {
+    item.imagen_url = `/uploads/${req.file.filename}`;
+  }
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE galeria SET titulo = ?, imagen_url = ?, destacada = ?, orden = ? WHERE id = ?',
+    [item.titulo, item.imagen_url, item.destacada, item.orden, id]
+  );
+  await requireAffected(result, 'Imagen de galería');
+  res.json({ id, ...item });
+}));
+
+app.delete('/api/galeria/:id', verificarToken, asyncHandler(async (req, res) => {
+  const id = requireId(req.params.id);
+  const [result] = await db.execute<ResultSetHeader>('DELETE FROM galeria WHERE id = ?', [id]);
+  await requireAffected(result, 'Imagen de galería');
   res.status(204).send();
 }));
 
