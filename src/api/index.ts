@@ -82,6 +82,32 @@ export interface MensajeInput {
   mensaje: string;
 }
 
+export interface ApiSlide {
+  id: number;
+  titulo: string;
+  subtitulo: string | null;
+  imagen_url: string;
+  btn_principal: string | null;
+  btn_secundario: string | null;
+  orden: number;
+  activo: number;
+}
+
+export interface ApiHorario {
+  id: number;
+  dia: string;
+  hora: string;
+  actividad: string;
+}
+
+export interface ApiGaleria {
+  id: number;
+  titulo: string;
+  imagen_url: string;
+  destacada: number;
+  orden: number;
+}
+
 export interface AuthResponse {
   token: string;
   user: {
@@ -159,5 +185,29 @@ export const api = {
     update: (id: number, data: FormData): Promise<ApiRecurso> =>
       fetchAPI<ApiRecurso>(`/recursos/${id}`, { method: 'PUT', body: data }),
     delete: (id: number): Promise<void> => fetchAPI<void>(`/recursos/${id}`, { method: 'DELETE' }),
+  },
+  slides: {
+    getAll: (): Promise<ApiSlide[]> => fetchAPI<ApiSlide[]>('/slides'),
+    create: (data: FormData): Promise<ApiSlide> =>
+      fetchAPI<ApiSlide>('/slides', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiSlide> =>
+      fetchAPI<ApiSlide>(`/slides/${id}`, { method: 'PUT', body: data }),
+    delete: (id: number): Promise<void> => fetchAPI<void>(`/slides/${id}`, { method: 'DELETE' }),
+  },
+  horarios: {
+    getAll: (): Promise<ApiHorario[]> => fetchAPI<ApiHorario[]>('/horarios'),
+    create: (data: ApiHorario): Promise<ApiHorario> =>
+      fetchAPI<ApiHorario>('/horarios', { method: 'POST', body: JSON.stringify(data) }),
+    update: (id: number, data: ApiHorario): Promise<ApiHorario> =>
+      fetchAPI<ApiHorario>(`/horarios/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    delete: (id: number): Promise<void> => fetchAPI<void>(`/horarios/${id}`, { method: 'DELETE' }),
+  },
+  galeria: {
+    getAll: (): Promise<ApiGaleria[]> => fetchAPI<ApiGaleria[]>('/galeria'),
+    create: (data: FormData): Promise<ApiGaleria> =>
+      fetchAPI<ApiGaleria>('/galeria', { method: 'POST', body: data }),
+    update: (id: number, data: FormData): Promise<ApiGaleria> =>
+      fetchAPI<ApiGaleria>(`/galeria/${id}`, { method: 'PUT', body: data }),
+    delete: (id: number): Promise<void> => fetchAPI<void>(`/galeria/${id}`, { method: 'DELETE' }),
   },
 };
