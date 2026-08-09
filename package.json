@@ -16,7 +16,7 @@
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
-    "swiper": "^14.0.7"
+    "swiper": "^14.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
