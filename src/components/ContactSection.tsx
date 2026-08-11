@@ -53,14 +53,14 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                                 <span className="contact-icon"><i className="bi bi-geo-alt-fill" aria-hidden="true"></i></span>
                                 <div>
                                     <h4>Dirección</h4>
-                                    <p>Calle Principal #123, Ciudad</p>
+                                    <p>Comandante Canga N° 416, Mariano Melgar 04006, Arequipa</p>
                                 </div>
                             </div>
                             <div className="contact-item" data-animate="fade-in-left">
-                                <span className="contact-icon"><i className="bi bi-telephone-fill" aria-hidden="true"></i></span>
+                                <span className="contact-icon"><i className="bi bi-clock-fill" aria-hidden="true"></i></span>
                                 <div>
-                                    <h4>Teléfono</h4>
-                                    <p>(+1) 555-1234</p>
+                                    <h4>Horario Principal</h4>
+                                    <p>Domingos 10:00 AM</p>
                                 </div>
                             </div>
                             <div className="contact-item" data-animate="fade-in-left">
@@ -68,6 +68,17 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                                 <div>
                                     <h4>Email</h4>
                                     <p>contacto@asambleadedios.com</p>
+                                </div>
+                            </div>
+                            <div className="contact-item" data-animate="fade-in-left">
+                                <span className="contact-icon"><i className="bi bi-facebook" aria-hidden="true"></i></span>
+                                <div>
+                                    <h4>Redes Sociales</h4>
+                                    <p>
+                                        <a href="https://www.facebook.com/profile.php?id=100076728549417" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-gold-500 transition-colors">
+                                            Síguenos en Facebook
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -109,6 +120,21 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                                 </div>
                             )}
                         </form>
+                    </div>
+                </div>
+
+                {/* Google Maps embebido */}
+                <div className="contact-map" data-animate="fade-in-up">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.5!2d-71.52!3d-16.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDI0JzAwLjAiUyA3McKwMzEnMTIuMCJX!5e0!3m2!1ses!2spe!4v1234567890"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Ubicación de la Iglesia Asamblea de Dios en Arequipa"
+                    ></iframe>
+                    <div className="contact-map-label">
+                        <i className="bi bi-geo-alt-fill" aria-hidden="true"></i>
+                        <span>Comandante Canga N° 416, Mariano Melgar 04006 — Arequipa, Perú</span>
                     </div>
                 </div>
             </div>
