@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import { api, type ApiSlide } from '../api';
+import Hero from './Hero';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,32 +19,10 @@ const HeroSlider: React.FC = () => {
             try {
                 const data = await api.slides.getAll();
                 // Solo mostrar slides activos
-                const apiSlides = (Array.isArray(data) ? data : []).filter((s) => s.activo === 1);
-                
-                const heroSlide: ApiSlide = {
-                    id: -1,
-                    titulo: '',
-                    subtitulo: null,
-                    imagen_url: '/img/hero-inicio.webp',
-                    btn_principal: null,
-                    btn_secundario: null,
-                    orden: 0,
-                    activo: 1
-                };
-
-                setSlides([heroSlide, ...apiSlides]);
+                setSlides((Array.isArray(data) ? data : []).filter((s) => s.activo === 1));
             } catch {
-                // Si falla la API, mostrar al menos el slide principal
-                setSlides([{
-                    id: -1,
-                    titulo: '',
-                    subtitulo: null,
-                    imagen_url: '/img/hero-inicio.webp',
-                    btn_principal: null,
-                    btn_secundario: null,
-                    orden: 0,
-                    activo: 1
-                }]);
+                // Si falla la API, no mostrar nada
+                setSlides([]);
             } finally {
                 setLoading(false);
             }
@@ -60,7 +39,7 @@ const HeroSlider: React.FC = () => {
     }
 
     if (slides.length === 0) {
-        return null;
+        return <Hero />;
     }
 
     return (
