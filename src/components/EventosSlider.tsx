@@ -138,7 +138,7 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                             )}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                             <div className="absolute top-4 left-4 flex flex-col items-center bg-white/95 backdrop-blur-sm rounded-tw-sm px-3.5 py-2.5 shadow-tw-sm">
-                                                <span className="block text-[1.6rem] font-bold font-playfair leading-none text-primary-700">
+                                                <span className="block text-[1.6rem] font-bold font-playfair leading-none text-[#606C59]">
                                                     {event.day}
                                                 </span>
                                                 <span className="block text-[0.7rem] uppercase font-semibold mt-0.5 tracking-widest text-gold-600">
@@ -146,7 +146,7 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                                 </span>
                                             </div>
                                             <div className="absolute top-4 right-4 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" className="text-primary-700" aria-hidden="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" className="text-[#606C59]" aria-hidden="true">
                                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                                 </svg>
                                             </div>
@@ -160,7 +160,7 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                                     {event.lugar}
                                                 </span>
                                             )}
-                                            <h3 className="font-playfair text-[1.15rem] font-bold text-primary-700 leading-tight group-hover:text-primary-600 transition-colors duration-300">
+                                            <h3 className="font-playfair text-[1.15rem] font-bold text-[#606C59] leading-tight group-hover:text-primary-600 transition-colors duration-300">
                                                 {event.name}
                                             </h3>
                                             {event.description && (
@@ -185,7 +185,7 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                         <button
                             ref={prevRef}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-primary-700 hover:text-gold-600 -ml-1 hidden sm:flex"
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-[#606C59] hover:text-gold-600 -ml-1 hidden sm:flex"
                             aria-label="Anterior"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
@@ -194,7 +194,7 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                         </button>
                         <button
                             ref={nextRef}
-                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-primary-700 hover:text-gold-600 -mr-1 hidden sm:flex"
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-[#606C59] hover:text-gold-600 -mr-1 hidden sm:flex"
                             aria-label="Siguiente"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
