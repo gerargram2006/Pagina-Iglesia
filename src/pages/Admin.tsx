@@ -33,11 +33,11 @@ interface AdminCard {
 }
 
 const adminCards: AdminCard[] = [
-    { title: 'Eventos', description: 'Crear y administrar eventos de la iglesia', icon: 'bi-calendar-event', gradient: 'linear-gradient(135deg, #2d6a4f, #40916c)' },
+    { title: 'Eventos', description: 'Crear y administrar eventos de la iglesia', icon: 'bi-calendar-event', gradient: 'linear-gradient(135deg, #606C59, #77856f)' },
     { title: 'Anuncios', description: 'Publicar anuncios para la congregación', icon: 'bi-megaphone', gradient: 'linear-gradient(135deg, #b8942e, #dbb958)' },
-    { title: 'Miembros', description: 'Administrar el directorio de miembros', icon: 'bi-people', gradient: 'linear-gradient(135deg, #1b4332, #2d6a4f)' },
+    { title: 'Miembros', description: 'Administrar el directorio de miembros', icon: 'bi-people', gradient: 'linear-gradient(135deg, #4b5545, #606C59)' },
     { title: 'Mensajes', description: 'Revisar mensajes de contacto', icon: 'bi-chat-dots', gradient: 'linear-gradient(135deg, #c9a84c, #e8cf7a)' },
-    { title: 'Recursos', description: 'Gestionar material descargable (PDFs)', icon: 'bi-folder2-open', gradient: 'linear-gradient(135deg, #2d6a4f, #40916c)' },
+    { title: 'Recursos', description: 'Gestionar material descargable (PDFs)', icon: 'bi-folder2-open', gradient: 'linear-gradient(135deg, #606C59, #77856f)' },
     { title: 'Slides', description: 'Gestionar el slider principal del Hero', icon: 'bi-images', gradient: 'linear-gradient(135deg, #4a6fa5, #6b8cce)' },
     { title: 'Horarios', description: 'Configurar horarios de reuniones', icon: 'bi-clock', gradient: 'linear-gradient(135deg, #7b2d8e, #a855c7)' },
     { title: 'Galería', description: 'Administrar fotos de la comunidad', icon: 'bi-camera', gradient: 'linear-gradient(135deg, #d4772c, #e8a04c)' },
