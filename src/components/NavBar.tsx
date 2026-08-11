@@ -31,7 +31,7 @@ const NavBar = () => {
     return (
         <header
             className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 transition-all duration-300 ${isScrolled
-                    ? 'py-2 sm:py-3 bg-[#1a3b2b] shadow-lg border-b border-white/5'
+                    ? 'py-2 sm:py-3 bg-[#606C59] shadow-lg border-b border-white/5'
                     : 'py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10'
                 }`}
         >
@@ -62,10 +62,11 @@ const NavBar = () => {
 
             <Link
                 to="/login"
-                className="hidden md:flex items-center gap-2 px-5 py-2 bg-yellow-500 text-green-950 font-bold rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg shrink-0"
+                className="hidden md:flex items-center justify-center text-white hover:text-yellow-400 transition-colors duration-200 shrink-0 ml-2"
+                title="Iniciar Sesión"
+                aria-label="Iniciar Sesión"
             >
-                <i className="bi bi-person-circle text-lg"></i>
-                Iniciar Sesión
+                <i className="bi bi-person-circle text-2xl"></i>
             </Link>
 
             <button
@@ -97,10 +98,11 @@ const NavBar = () => {
                     <Link
                         to="/login"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 px-6 py-3 bg-yellow-500 text-green-950 font-bold rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg text-xl mt-4"
+                        className="flex items-center justify-center text-white hover:text-yellow-400 transition-colors duration-200 mt-4"
+                        title="Iniciar Sesión"
+                        aria-label="Iniciar Sesión"
                     >
-                        <i className="bi bi-person-circle text-2xl"></i>
-                        Iniciar Sesión
+                        <i className="bi bi-person-circle text-4xl"></i>
                     </Link>
                 </div>
             )}
