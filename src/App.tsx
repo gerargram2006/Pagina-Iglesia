@@ -26,7 +26,7 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
             background: '#f3f5f1',
             gap: '16px'
         }}>
-            <i className="bi bi-arrow-repeat spin" style={{ fontSize: '2.5rem', color: '#2d6a4f' }}></i>
+            <i className="bi bi-arrow-repeat spin" style={{ fontSize: '2.5rem', color: '#606C59' }}></i>
             <span style={{ color: '#5a635e', fontWeight: 500, fontSize: '0.95rem' }}>Verificando sesión...</span>
         </div>
     );
