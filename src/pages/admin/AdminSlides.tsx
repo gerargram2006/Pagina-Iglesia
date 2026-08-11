@@ -140,7 +140,7 @@ export default function AdminSlides() {
                                 <td>{slide.imagen_url ? <img src={slide.imagen_url.startsWith('http') ? slide.imagen_url : `http://localhost:3307${slide.imagen_url}`} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 <td><strong>{slide.titulo.replace(/\n/g, ' ')}</strong><br /><small style={{ color: '#888' }}>{(slide.subtitulo ?? '').slice(0, 60)}...</small></td>
                                 <td><small>{slide.btn_principal} / {slide.btn_secundario}</small></td>
-                                <td><span className={`badge-cargo`} style={{ background: slide.activo ? '#2d6a4f22' : '#dc354522', color: slide.activo ? '#2d6a4f' : '#dc3545' }}>{slide.activo ? 'Activo' : 'Inactivo'}</span></td>
+                                <td><span className={`badge-cargo`} style={{ background: slide.activo ? '#606C5922' : '#dc354522', color: slide.activo ? '#606C59' : '#dc3545' }}>{slide.activo ? 'Activo' : 'Inactivo'}</span></td>
                                 <td><div className="admin-table-actions">
                                     <button className="btn-icon btn-edit" onClick={() => handleOpenModal(slide)} title="Editar slide" aria-label={`Editar ${slide.titulo}`}><i className="bi bi-pencil"></i></button>
                                     <button className="btn-icon btn-delete" onClick={() => handleDelete(slide.id)} title="Borrar slide" aria-label={`Borrar ${slide.titulo}`} disabled={deletingId === slide.id}><i className={deletingId === slide.id ? 'bi bi-arrow-repeat spin' : 'bi bi-trash'}></i></button>
