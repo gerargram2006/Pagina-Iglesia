@@ -26,6 +26,8 @@ export default function Footer() {
                                 <li><Link to="/quienes-somos">Quiénes Somos</Link></li>
                                 <li><Link to="/pastores">Pastores</Link></li>
                                 <li><Link to="/eventos">Eventos</Link></li>
+                                <li><Link to="/anexos">Anexos y Recursos</Link></li>
+                                <li><Link to="/donaciones">Donaciones</Link></li>
                                 <li><Link to="/contacto">Contacto</Link></li>
                             </ul>
                         </div>
@@ -35,21 +37,21 @@ export default function Footer() {
                         <div className="footer-social">
                             <h4>Síguenos</h4>
                             <div className="social-icons">
-                                <a href="https://www.facebook.com/profile.php?id=100076728549417" className="social-icon" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
-                                <a href="https://www.instagram.com/asambleaarequipadedios_16/" className="social-icon" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
-                                <a href="https://www.tiktok.com/@asamblea_de_dios16?is_from_webapp=1&sender_device=pc" className="social-icon" aria-label="TikTok"><i className="bi bi-tiktok"></i></a>
+                                <a href="https://www.facebook.com/profile.php?id=100076728549417" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
+                                <a href="https://www.instagram.com/asambleaarequipadedios_16/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
+                                <a href="https://www.tiktok.com/@asamblea_de_dios16?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="TikTok"><i className="bi bi-tiktok"></i></a>
                             </div>
                             <div className="footer-schedule">
                                 <h4>Horario Principal</h4>
                                 <p><i className="bi bi-clock" aria-hidden="true"></i> Domingos 10:00 AM</p>
-                                <p><i className="bi bi-geo-alt" aria-hidden="true"></i> Comandante Canga N° 416, Mariano Melgar 04006 #123</p>
+                                <p><i className="bi bi-geo-alt" aria-hidden="true"></i> Comandante Canga N° 416, Mariano Melgar 04006</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} Asamblea de Dios. Todos los derechos reservados.</p>
+                    <p>&copy; {new Date().getFullYear()} Asamblea de Dios — Arequipa. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>
