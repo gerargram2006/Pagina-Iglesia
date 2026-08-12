@@ -47,6 +47,7 @@ El diseño visual, la estructura y la experiencia de usuario (UX/UI) fueron plan
 
 ## Tabla de Contenidos
 
+- [Novedades](#novedades)
 - [Acerca de](#acerca-de)
 - [Características](#características)
 - [Tecnologías](#tecnologías)
@@ -64,6 +65,16 @@ El diseño visual, la estructura y la experiencia de usuario (UX/UI) fueron plan
 - [Roadmap](#roadmap)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
+
+---
+
+## ✨ Novedades
+
+- **Sistema CRUD Autoeficiente**: Capacidades completas de administración para los Slides del Hero, Horarios de Culto y contenido de la Galería.
+- **Integración Dinámica del Frontend**: Las secciones Hero Slider, Horarios y Galería ahora consumen los datos directamente desde la API.
+- **Mejoras de Tema y Estilos**: Se aplicó una paleta de colores verdes moderna e integral en todo el sitio público y el panel de administración.
+- **Mejoras UI/UX**: Rediseño de la página de Donaciones con tarjetas de impacto, enlaces de Redes Sociales actualizados y nuevo botón flotante de "Volver Arriba".
+- **Utilidades de Base de Datos**: Se añadieron scripts robustos (`fix_db_all.ts`) para sanear y corregir problemas de codificación de texto en la base de datos.
 
 ---
 
