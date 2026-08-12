@@ -47,6 +47,7 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 
 ## Table of Contents
 
+- [What's New](#whats-new)
 - [About](#about)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -64,6 +65,16 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
+
+---
+
+## ✨ What's New
+
+- **Self-Sufficient CRUD System**: Full administration capabilities for Hero Slides, Worship Schedules, and Gallery content.
+- **Dynamic Frontend Integration**: The Hero Slider, Schedule, and Gallery sections now consume data directly from the API.
+- **Enhanced Theme & Styling**: Applied a comprehensive, modern green color palette across the public site and admin panel.
+- **UI/UX Improvements**: Redesigned Donations page with impact cards, updated Social Media links, and added a floating "Scroll to Top" button.
+- **Database Utilities**: Added robust scripts (`fix_db_all.ts`) to sanitize and correct text encoding issues in the database.
 
 ---
 
