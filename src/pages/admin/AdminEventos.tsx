@@ -131,7 +131,7 @@ export default function AdminEventos() {
                         {eventos.map((evento) => (
                             <tr key={evento.id}>
                                 <td>{evento.id}</td>
-                                <td>{evento.imagen_url ? <img src={evento.imagen_url.startsWith('http') ? evento.imagen_url : `http://localhost:3307${evento.imagen_url}`} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
+                                <td>{evento.imagen_url ? <img src={evento.imagen_url.startsWith('/uploads/') ? `http://localhost:3307${evento.imagen_url}` : evento.imagen_url} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 <td><strong>{evento.titulo}</strong></td>
                                 <td>{new Date(evento.fecha).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' })}</td>
                                 <td>{evento.lugar}</td>
