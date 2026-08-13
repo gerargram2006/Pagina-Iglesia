@@ -69,57 +69,46 @@ const HeroSlider: React.FC = () => {
             >
                 {slides.map((slide) => (
                     <SwiperSlide key={slide.id} className="relative w-full h-full">
-                        {/* Imagen de Fondo */}
                         <img
                             src={slide.imagen_url}
                             alt={slide.titulo || 'Hero'}
-                            className={`absolute inset-0 w-full h-full object-cover ${slide.id === -1 ? 'object-center' : 'object-center'}`}
+                            className="absolute inset-0 w-full h-full object-cover object-center"
                         />
 
-                        {/* Slide principal (hero-inicio.webp) - solo imagen sin overlay */}
-                        {slide.id === -1 && (
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        )}
+                        {/* Capa de Gradiente */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20"></div>
 
-                        {/* Slides de la API - con gradiente y contenido */}
-                        {slide.id !== -1 && (
-                            <>
-                                {/* Capa de Gradiente */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20"></div>
+                        {/* Contenedor del Contenido */}
+                        <div className="absolute bottom-0 w-full px-6 pb-24 sm:px-16 sm:pb-32 flex flex-col sm:flex-row justify-between items-end gap-8 z-10">
+                            
+                            <div className="text-white max-w-3xl">
+                                {slide.titulo && (
+                                    <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-5 leading-tight whitespace-pre-line drop-shadow-lg">
+                                        {slide.titulo}
+                                    </h1>
+                                )}
+                                {slide.subtitulo && (
+                                    <p className="text-lg sm:text-xl text-gray-200 font-medium max-w-2xl drop-shadow-md">
+                                        {slide.subtitulo}
+                                    </p>
+                                )}
+                            </div>
 
-                                {/* Contenedor del Contenido */}
-                                <div className="absolute bottom-0 w-full px-6 pb-24 sm:px-16 sm:pb-32 flex flex-col sm:flex-row justify-between items-end gap-8 z-10">
-                                    
-                                    <div className="text-white max-w-3xl">
-                                        {slide.titulo && (
-                                            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-5 leading-tight whitespace-pre-line drop-shadow-lg">
-                                                {slide.titulo}
-                                            </h1>
-                                        )}
-                                        {slide.subtitulo && (
-                                            <p className="text-lg sm:text-xl text-gray-200 font-medium max-w-2xl drop-shadow-md">
-                                                {slide.subtitulo}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    {(slide.btn_principal || slide.btn_secundario) && (
-                                        <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4">
-                                            {slide.btn_principal && (
-                                                <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
-                                                    {slide.btn_principal}
-                                                </button>
-                                            )}
-                                            {slide.btn_secundario && (
-                                                <button className="px-8 py-4 bg-black/30 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/50 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
-                                                    {slide.btn_secundario}
-                                                </button>
-                                            )}
-                                        </div>
+                            {(slide.btn_principal || slide.btn_secundario) && (
+                                <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4">
+                                    {slide.btn_principal && (
+                                        <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
+                                            {slide.btn_principal}
+                                        </button>
+                                    )}
+                                    {slide.btn_secundario && (
+                                        <button className="px-8 py-4 bg-black/30 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/50 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto shadow-xl">
+                                            {slide.btn_secundario}
+                                        </button>
                                     )}
                                 </div>
-                            </>
-                        )}
+                            )}
+                        </div>
                     </SwiperSlide>
                 ))}
 
