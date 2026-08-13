@@ -12,6 +12,7 @@ import RedesSociales from './pages/RedesSociales';
 import Donaciones from './pages/Donaciones';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import NotFound from './pages/NotFound';
 import type { ReactNode } from 'react';
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -52,6 +53,8 @@ export default function App() {
                     </Route>
 
                     <Route path="/login" element={<Login />} />
+
+                    <Route path="*" element={<NotFound />} />
 
                     <Route
                         path="/admin"
