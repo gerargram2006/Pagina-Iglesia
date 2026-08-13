@@ -4,6 +4,7 @@
 -- =============================================================================
 
 USE iglesia_db;
+SET NAMES utf8mb4;
 
 -- Tabla slides: Contenido del Hero Slider principal
 CREATE TABLE IF NOT EXISTS slides (
