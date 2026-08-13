@@ -137,7 +137,7 @@ export default function Anexos() {
                                             </div>
                                             <h3 className="recurso-title">{recurso.titulo}</h3>
                                             <p className="recurso-desc">{recurso.descripcion}</p>
-                                            <a href={recurso.archivo_url.startsWith('http') ? recurso.archivo_url : `http://localhost:3307${recurso.archivo_url}`} target="_blank" rel="noreferrer" className="btn btn-primary recurso-btn" style={{ display: 'inline-block', textAlign: 'center' }}>
+                                            <a href={recurso.archivo_url} target="_blank" rel="noreferrer" className="btn btn-primary recurso-btn" style={{ display: 'inline-block', textAlign: 'center' }}>
                                                 <i className="bi bi-download" aria-hidden="true"></i> Descargar {recurso.tipo}
                                             </a>
                                         </div>
