@@ -154,6 +154,11 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
+// Fuerza UTF-8 en cada conexión nueva para evitar problemas con ñ, tildes, etc.
+db.on('connection', (connection) => {
+  void connection.query('SET NAMES utf8mb4');
+});
+
 const corsOptions: CorsOptions = {
   origin(origin, callback) {
     if (!origin || config.corsOrigins.includes(origin)) {
@@ -341,7 +346,7 @@ function validateGaleria(body: unknown): GaleriaInput {
   };
 }
 
-async function requireAffected(result: ResultSetHeader, resource: string): Promise<void> {
+function requireAffected(result: ResultSetHeader, resource: string): void {
   if (result.affectedRows === 0) throw createHttpError(404, `${resource} no encontrado.`);
 }
 
