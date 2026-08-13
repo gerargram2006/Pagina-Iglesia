@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { api, MensajeInput } from '../api';
+import { api, type MensajeInput } from '../api';
 
 interface ContactSectionProps {
     title?: string | null;
