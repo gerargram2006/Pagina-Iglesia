@@ -213,7 +213,7 @@ function optionalUrl(value: unknown, field: string): string | null {
   const url = optionalText(value, field, 255);
   if (!url) return null;
 
-  if (url.startsWith('/uploads/')) return url;
+  if (url.startsWith('/uploads/') || url.startsWith('/img/')) return url;
 
   try {
     const parsed = new URL(url);
