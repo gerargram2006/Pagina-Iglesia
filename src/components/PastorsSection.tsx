@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, ApiPastor } from '../api';
+import { api, type ApiPastor } from '../api';
 
 function initials(name: string): string {
     return name
