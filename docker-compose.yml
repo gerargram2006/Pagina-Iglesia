@@ -17,6 +17,7 @@ services:
   db:
     image: mysql:8.0                          # Imagen oficial de MySQL 8.0 desde Docker Hub
     container_name: mysql-proyecto-iglesia    # Nombre personalizado del contenedor (fácil de identificar)
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always                           # Reinicia automáticamente si el contenedor falla o se reinicia el sistema
     environment:
       # Variables de entorno que Docker usa para configurar MySQL al crearlo
