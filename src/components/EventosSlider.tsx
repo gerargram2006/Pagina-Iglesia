@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { api, ApiEvento } from '../api';
+import { api, type ApiEvento } from '../api';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
