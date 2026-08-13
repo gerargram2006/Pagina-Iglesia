@@ -88,8 +88,8 @@ VALUES ('admin@iglesia.com', '$2b$10$3qESVBrZtLVwFzDQHEcBxOsoO5KNSOH/jPxJHxWIJnc
 -- Eventos de prueba
 INSERT INTO eventos (titulo, descripcion, fecha, lugar, imagen_url) 
 VALUES 
-('Servicio Dominical', 'Acompáñanos a nuestro tiempo de alabanza y palabra.', '2026-07-19 10:00:00', 'Auditorio Principal', 'https://via.placeholder.com/800x450'),
-('Noche de Jóvenes', 'Un espacio diseñado para la juventud.', '2026-07-25 19:30:00', 'Salón Múltiple', 'https://via.placeholder.com/800x450');
+('Servicio Dominical', 'Acompáñanos a nuestro tiempo de alabanza y palabra.', '2026-07-19 10:00:00', 'Auditorio Principal', '/img/servicio-dominical.webp'),
+('Noche de Jóvenes', 'Un espacio diseñado para la juventud.', '2026-07-25 19:30:00', 'Salón Múltiple', '/img/noche-de-jovenes.webp');
 
 -- Pastores de prueba
 INSERT INTO pastores (nombre, cargo, biografia, foto_url)
