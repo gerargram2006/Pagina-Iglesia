@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { api, ApiEvento } from '../api';
+import { api, type ApiEvento } from '../api';
 
 const MONTHS_ES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
