@@ -25,6 +25,9 @@ COLLATE utf8mb4_unicode_ci;
 -- Selecciona la base de datos para que las siguientes operaciones se ejecuten sobre ella
 USE iglesia_db;
 
+-- Fuerza que esta sesión use UTF-8 para caracteres especiales (ñ, á, é, etc.)
+SET NAMES utf8mb4;
+
 -- =============================================================================
 -- 2. Definición de tablas
 -- =============================================================================
@@ -99,4 +102,4 @@ VALUES
 ('Domingo', '10:00:00', 'Culto General'),
 ('Miércoles', '18:00:00', 'Culto de Doctrina'),
 ('Viernes', '17:00:00', 'Estudio Bíblico'),
-('Sábado', '17:00:00', 'Reunión de Jóvenes'),
+('Sábado', '17:00:00', 'Reunión de Jóvenes');
