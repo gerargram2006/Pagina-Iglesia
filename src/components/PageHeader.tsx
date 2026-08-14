@@ -1,15 +1,20 @@
+// Importa la barra de navegación que se muestra sobre la imagen del encabezado
 import NavBar from './NavBar';
 
+// Define las propiedades que recibe el encabezado de página
 interface PageHeaderProps {
     title: string;
     subtitle?: string;
     imagen?: string;
 }
 
+// Define el componente que muestra el encabezado de cada página con imagen de fondo
 export default function PageHeader({ title, subtitle, imagen = "/img/galeria-congregacion.webp" }: PageHeaderProps) {
     return (
+        // Contenedor del encabezado con imagen de fondo a pantalla completa
         <header className="relative w-full h-[60vh] overflow-hidden bg-black">
             {/* Imagen de Fondo */}
+            {/* Imagen de fondo del encabezado */}
             <img
                 src={imagen}
                 alt={title}
@@ -17,22 +22,32 @@ export default function PageHeader({ title, subtitle, imagen = "/img/galeria-con
             />
 
             {/* Capa de Gradiente */}
+            {/* Gradiente oscuro que mejora la legibilidad del texto */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
             
             {/* NavBar sobre la imagen */}
+            {/* Contenedor que posiciona la barra de navegación sobre la imagen */}
             <div className="absolute top-0 left-0 w-full z-20">
+                {/* Renderiza la barra de navegación */}
                 <NavBar />
             </div>
 
             {/* Contenedor del Contenido */}
+            {/* Contenedor que posiciona el título y subtítulo en la parte inferior */}
             <div className="absolute bottom-0 w-full px-6 pb-16 sm:px-16 sm:pb-20 flex flex-col justify-end z-10">
+                {/* Nombre de la iglesia en la parte superior del contenido */}
                 <span className="text-primary-400 font-bold tracking-wider uppercase text-sm mb-3">✦ Asamblea de Dios ✦</span>
+                {/* Bloque con el título y subtítulo de la página */}
                 <div className="text-white max-w-3xl">
+                    {/* Título principal de la página */}
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
+                        {/* Muestra el título recibido como prop */}
                         {title}
                     </h1>
+                    {/* Muestra el subtítulo solo si fue proporcionado */}
                     {subtitle && (
                         <p className="text-lg sm:text-xl text-gray-300 font-medium">
+                            {/* Muestra el subtítulo recibido como prop */}
                             {subtitle}
                         </p>
                     )}
