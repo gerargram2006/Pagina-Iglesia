@@ -1,10 +1,7 @@
-// Importa el componente Link de React Router para la navegación interna
 import { Link } from 'react-router-dom';
 
-// Define el componente del pie de página
 export default function Footer() {
     return (
-        // Elemento raíz del pie de página
         <footer className="footer">
             {/* Contenedor central con ancho máximo y márgenes horizontales */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

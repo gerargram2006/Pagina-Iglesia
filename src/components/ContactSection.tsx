@@ -1,73 +1,45 @@
-// Importa el hook useState de React
 import { useState } from 'react';
-// Importa la API y el tipo MensajeInput para enviar los mensajes
 import { api, type MensajeInput } from '../api';
 
-// Define las propiedades que acepta el componente ContactSection
 interface ContactSectionProps {
-    // Título de la sección (opcional)
     title?: string | null;
-    // Subtítulo de la sección (opcional)
     subtitle?: string | null;
-    // Identificador del ancla de la sección (opcional)
     id?: string;
 }
 
-// Define la estructura del estado de retroalimentación del formulario
 interface FeedbackState {
-    // Indica si se muestra el mensaje de retroalimentación
     show: boolean;
-    // Indica si el mensaje es de error
     error: boolean;
-    // Texto del mensaje de retroalimentación
     text: string;
 }
 
-// Define el componente ContactSection con valores por defecto para sus propiedades
 export default function ContactSection({ title = "Contacto", subtitle = "Estamos para servirte, escríbenos", id = "contacto" }: ContactSectionProps) {
-    // Estado que guarda los datos ingresados en el formulario
     const [formData, setFormData] = useState<MensajeInput>({ nombre: '', email: '', asunto: '', mensaje: '' });
-    // Estado que indica si el mensaje se está enviando
     const [sending, setSending] = useState(false);
-    // Estado que guarda la retroalimentación del envío del formulario
     const [feedback, setFeedback] = useState<FeedbackState>({ show: false, error: false, text: '' });
 
-    // Función que actualiza el formulario cuando el usuario escribe en un campo
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        // Actualiza el campo modificado conservando el resto de los datos
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Función asíncrona que procesa el envío del formulario
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        // Evita que la página se recargue al enviar el formulario
         e.preventDefault();
-        // Activa el estado de envío
         setSending(true);
-        // Limpia la retroalimentación anterior
         setFeedback({ show: false, error: false, text: '' });
 
         try {
-            // Envía el mensaje a la API
             await api.mensajes.create(formData);
-            // Muestra un mensaje de éxito al usuario
             setFeedback({ show: true, error: false, text: '¡Mensaje enviado correctamente! Gracias por escribirnos.' });
-            // Limpia los campos del formulario tras el envío
             setFormData({ nombre: '', email: '', asunto: '', mensaje: '' });
         } catch {
-            // Muestra un mensaje de error si el envío falla
             setFeedback({ show: true, error: true, text: 'Error al enviar el mensaje. Inténtalo de nuevo.' });
         } finally {
-            // Desactiva el estado de envío
             setSending(false);
-            // Oculta la retroalimentación después de 5 segundos
             setTimeout(() => setFeedback(f => ({ ...f, show: false })), 5000);
         }
     };
 
-    // Devuelve el contenido JSX de la sección
     return (
-        // Crea la sección de contacto con su identificador y estilos
         <section id={id} className="section">
             {/* Contenedor central con ancho máximo y márgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -176,17 +148,14 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                             <button type="submit" className="btn btn-primary" disabled={sending}>
                                 {/* Muestra un indicador mientras se está enviando */}
                                 {sending ? (
-                                    // Indicador de carga con el texto "Enviando"
                                     <><span className="login-spinner"></span> Enviando...</>
                                 ) : (
-                                    // Ícono y texto para enviar el mensaje
                                     <><i className="bi bi-send"></i> Enviar Mensaje</>
                                 )}
                             </button>
 
                             {/* Muestra la retroalimentación si está activa */}
                             {feedback.show && (
-                                // Contenedor con el mensaje de éxito o error
                                 <div className={`form-feedback show ${feedback.error ? 'form-feedback--error' : ''}`}>
                                     {/* Párrafo con el mensaje de retroalimentación */}
                                     <p>
@@ -206,15 +175,10 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                 <div className="contact-map" data-animate="fade-in-up">
                     {/* Inserta el mapa de Google embebido con la ubicación */}
                     <iframe
-                        // URL del mapa de Google con la ubicación de la iglesia
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.5!2d-71.52!3d-16.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDI0JzAwLjAiUyA3McKwMzEnMTIuMCJX!5e0!3m2!1ses!2spe!4v1234567890"
-                        // Permite la pantalla completa del mapa
                         allowFullScreen
-                        // Carga el mapa de forma diferida
                         loading="lazy"
-                        // Política de referencia al navegar desde el mapa
                         referrerPolicy="no-referrer-when-downgrade"
-                        // Título descriptivo del mapa para accesibilidad
                         title="Ubicación de la Iglesia Asamblea de Dios en Arequipa"
                     ></iframe>
                     {/* Etiqueta con la dirección de la iglesia sobre el mapa */}

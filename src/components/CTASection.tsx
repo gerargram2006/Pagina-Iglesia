@@ -1,14 +1,9 @@
-// Define las propiedades que acepta el componente CTASection
 interface CTASectionProps {
-    // Identificador del ancla de la sección (opcional)
     id?: string;
 }
 
-// Define el componente CTASection con un valor por defecto para su propiedad
 export default function CTASection({ id = "unete" }: CTASectionProps) {
-    // Devuelve el contenido JSX de la sección
     return (
-        // Crea la sección de llamada a la acción con su identificador y estilos
         <section id={id} className="cta-section">
             {/* Contenedor de las partículas decorativas de fondo */}
             <div className="cta-particles" aria-hidden="true">

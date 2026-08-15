@@ -1,20 +1,13 @@
-// Importa React para poder usar JSX y el tipo React.FC
 import React from 'react';
 
-// Define el componente Hero como un componente funcional de React
 const Hero: React.FC = () => {
-    // Devuelve el contenido JSX que se va a renderizar
     return (
-        // Crea una sección de pantalla completa con la imagen de fondo
         <section className="relative w-full h-screen overflow-hidden">
             {/* Imagen de Fondo (Reemplazable por tu propia imagen después) */}
             {/* Inserta la imagen de fondo que cubre toda la sección */}
             <img
-                // Indica la ruta de la imagen de la congregación
                 src="/img/galeria-congregacion.webp"
-                // Texto alternativo para accesibilidad cuando la imagen no carga
                 alt="Congregación de la iglesia"
-                // Posiciona la imagen de forma absoluta cubriendo toda la sección
                 className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -58,5 +51,4 @@ const Hero: React.FC = () => {
     );
 };
 
-// Exporta el componente Hero como exportación por defecto
 export default Hero;

@@ -1,112 +1,66 @@
-// Importa los hooks useState, useEffect y useRef de React
 import { useState, useEffect, useRef } from 'react';
-// Importa el carrusel Swiper y sus slides
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Importa los módulos de autoplay, paginación y navegación de Swiper
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-// Importa la API y el tipo ApiEvento para obtener los eventos
 import { api, type ApiEvento } from '../api';
 
-// Importa los estilos base de Swiper
 import 'swiper/css';
-// Importa los estilos de paginación de Swiper
 import 'swiper/css/pagination';
-// Importa los estilos de navegación de Swiper
 import 'swiper/css/navigation';
 
-// Lista de nombres abreviados de los meses en español
 const MONTHS_ES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
-// Define la estructura de un evento ya procesado para mostrar en el slider
 interface ParsedEvent {
-    // Identificador único del evento
     id: number;
-    // Día del evento con dos dígitos
     day: string;
-    // Mes abreviado del evento
     month: string;
-    // Nombre o título del evento
     name: string;
-    // Descripción del evento
     description: string;
-    // Lugar donde se realiza el evento
     lugar: string;
-    // URL de la imagen del evento
     imageSrc: string;
 }
 
-// Función que transforma un evento de la API al formato interno de la interfaz
 function parseEvento(evt: ApiEvento): ParsedEvent {
-    // Convierte la fecha del evento en un objeto Date
     const date = new Date(evt.fecha);
-    // Devuelve el evento con los campos ya procesados
     return {
-        // Conserva el id original del evento
         id: evt.id,
-        // Extrae el día y lo rellena con ceros a la izquierda
         day: String(date.getDate()).padStart(2, '0'),
-        // Obtiene el nombre abreviado del mes
         month: MONTHS_ES[date.getMonth()]!,
-        // Conserva el título del evento
         name: evt.titulo,
-        // Usa la descripción o una cadena vacía si no existe
         description: evt.descripcion || '',
-        // Usa el lugar o una cadena vacía si no existe
         lugar: evt.lugar || '',
-        // Usa la imagen o una cadena vacía si no existe
         imageSrc: evt.imagen_url || '',
     };
 }
 
-// Define las propiedades que acepta el componente EventosSlider
 interface EventosSliderProps {
-    // Título de la sección (opcional)
     title?: string | null;
-    // Subtítulo de la sección (opcional)
     subtitle?: string | null;
-    // Identificador del ancla de la sección (opcional)
     id?: string;
 }
 
-// Define el componente EventosSlider con valores por defecto para sus propiedades
 export default function EventosSlider({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }: EventosSliderProps) {
-    // Estado que guarda la lista de eventos procesados
     const [events, setEvents] = useState<ParsedEvent[]>([]);
-    // Estado que indica si los eventos se están cargando
     const [loading, setLoading] = useState(true);
-    // Estado que guarda el mensaje de error si ocurre uno
     const [error, setError] = useState('');
-    // Referencia para el botón de retroceder del carrusel
     const prevRef = useRef<HTMLButtonElement>(null);
-    // Referencia para el botón de avanzar del carrusel
     const nextRef = useRef<HTMLButtonElement>(null);
 
-    // Efecto que se ejecuta una sola vez al montar el componente
     useEffect(() => {
-        // Función asíncrona que obtiene los eventos desde la API
         const fetchEvents = async () => {
             try {
-                // Obtiene todos los eventos desde la API
                 const data = await api.eventos.getAll();
-                // Transforma cada evento al formato interno de la interfaz
                 const parsed = (Array.isArray(data) ? data : []).map(parseEvento);
-                // Guarda los eventos procesados en el estado
                 setEvents(parsed);
             } catch {
-                // Guarda un mensaje de error si la petición falla
                 setError('No se pudieron cargar los eventos.');
             } finally {
-                // Desactiva el estado de carga en cualquier caso
                 setLoading(false);
             }
         };
-        // Llama a la función que obtiene los eventos
         fetchEvents();
     }, []);
 
-    // Devuelve el contenido JSX de la sección
     return (
-        // Crea la sección de eventos con su identificador y estilos
         <section id={id} className="section section-alt">
             {/* Contenedor central con ancho máximo y márgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -117,7 +71,6 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                 {/* Muestra el indicador de carga mientras se obtienen los eventos */}
                 {loading && (
-                    // Contenedor centrado con el mensaje de carga
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono animado de carga */}
                         <i className="bi bi-arrow-repeat spin text-2xl block mb-3"></i>
@@ -128,7 +81,6 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                 {/* Muestra el mensaje de error si ocurrió uno */}
                 {error && !loading && (
-                    // Contenedor centrado con el error
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de advertencia */}
                         <i className="bi bi-exclamation-triangle text-2xl block mb-3 text-gold-500"></i>
@@ -139,7 +91,6 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                 {/* Muestra un aviso si no hay eventos programados */}
                 {!loading && !error && events.length === 0 && (
-                    // Contenedor centrado con el aviso
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de calendario vacío */}
                         <i className="bi bi-calendar-x text-2xl block mb-3"></i>
@@ -150,63 +101,39 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                 {/* Muestra el carrusel solo si hay eventos disponibles */}
                 {!loading && !error && events.length > 0 && (
-                    // Contenedor relativo para el carrusel y sus flechas
                     <div className="relative">
                         {/* Configura el carrusel Swiper con sus módulos y opciones */}
                         <Swiper
-                            // Habilita los módulos de autoplay, paginación y navegación
                             modules={[Autoplay, Pagination, Navigation]}
-                            // Define la separación entre diapositivas
                             spaceBetween={24}
-                            // Muestra una diapositiva por vista
                             slidesPerView={1}
-                            // Configura los puntos de paginación clicables
                             pagination={{ clickable: true }}
-                            // Configura las flechas de navegación personalizadas
                             navigation={{
-                                // Referencia al botón anterior
                                 prevEl: prevRef.current,
-                                // Referencia al botón siguiente
                                 nextEl: nextRef.current,
                             }}
-                            // Muestra el cursor de mano al pasar sobre el carrusel
                             grabCursor={true}
-                            // Configura el autoplay con 5 segundos de retardo
                             autoplay={{
-                                // Retardo entre diapositivas
                                 delay: 5000,
-                                // Continúa el autoplay aunque el usuario interactúe
                                 disableOnInteraction: false,
-                                // Pausa el autoplay cuando el cursor está encima
                                 pauseOnMouseEnter: true,
                             }}
-                            // Habilita el bucle solo si hay tres o más eventos
                             loop={events.length >= 3}
-                            // Velocidad de transición en milisegundos
                             speed={600}
-                            // Define cuántos slides mostrar según el ancho de pantalla
                             breakpoints={{
-                                // En pantallas de 640px o más muestra dos slides
                                 640: { slidesPerView: 2 },
-                                // En pantallas de 1024px o más muestra tres slides
                                 1024: { slidesPerView: 3 },
                             }}
-                            // Agrega espacio inferior para los puntos de paginación
                             className="!pb-14"
-                            // Se ejecuta antes de inicializar Swiper para asignar las flechas
                             onBeforeInit={(swiper) => {
-                                // Verifica que la navegación esté configurada como objeto
                                 if (swiper.params.navigation && typeof swiper.params.navigation === 'object') {
-                                    // Asigna la referencia del botón anterior a Swiper
                                     swiper.params.navigation.prevEl = prevRef.current;
-                                    // Asigna la referencia del botón siguiente a Swiper
                                     swiper.params.navigation.nextEl = nextRef.current;
                                 }
                             }}
                         >
                             {/* Recorre la lista de eventos para generar cada diapositiva */}
                             {events.map((event) => (
-                                // Crea un slide de Swiper identificado por el id
                                 <SwiperSlide key={event.id}>
                                     {/* Tarjeta del evento con estilos y efectos al pasar el cursor */}
                                     <div className="group bg-white rounded-tw-lg overflow-hidden shadow-tw-sm hover:shadow-tw-lg transition-all duration-350 ease-spring h-full flex flex-col border border-neutral-200/60 will-change-transform">
@@ -214,17 +141,12 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                         <div className="relative overflow-hidden aspect-[4/3]">
                                             {/* Muestra la imagen si el evento tiene una */}
                                             {event.imageSrc ? (
-                                                // Inserta la imagen del evento con zoom al pasar el cursor
                                                 <img
-                                                    // URL de la imagen del evento
                                                     src={event.imageSrc}
-                                                    // Texto alternativo con el nombre del evento
                                                     alt={event.name}
-                                                    // Aplica zoom y leve rotación al pasar el cursor
                                                     className="w-full h-full object-cover transition-transform duration-700 ease-spring group-hover:scale-110 group-hover:-rotate-1"
                                                 />
                                             ) : (
-                                                // Muestra un marcador de posición si no hay imagen
                                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-800 to-primary-600 text-white/40">
                                                     {/* Ícono SVG de calendario como marcador de posición */}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -261,7 +183,6 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                         <div className="p-5 flex flex-col gap-2 flex-1">
                                             {/* Muestra el lugar solo si existe */}
                                             {event.lugar && (
-                                                // Etiqueta con el lugar del evento
                                                 <span className="inline-flex items-center gap-1.5 text-[0.75rem] font-semibold tracking-wide uppercase text-gold-600">
                                                     {/* Ícono SVG de ubicación */}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -278,16 +199,13 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                                             </h3>
                                             {/* Muestra la descripción solo si existe */}
                                             {event.description && (
-                                                // Descripción del evento limitada a dos líneas
                                                 <p className="text-text-light text-[0.88rem] leading-relaxed line-clamp-2 flex-1">
                                                     {event.description}
                                                 </p>
                                             )}
                                             {/* Enlace para obtener más información del evento */}
                                             <a
-                                                // Apunta al ancla de contacto de la página
                                                 href="#contacto"
-                                                // Estiliza el enlace con una flecha animada
                                                 className="inline-flex items-center gap-1.5 mt-auto pt-3 text-[0.85rem] font-semibold text-gold-600 hover:text-gold-500 transition-colors duration-300 no-underline group/link"
                                             >
                                                 Más información
@@ -305,11 +223,8 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
 
                         {/* Flecha personalizada para retroceder al evento anterior */}
                         <button
-                            // Asigna la referencia para el control anterior
                             ref={prevRef}
-                            // Posiciona y estiliza la flecha anterior en el lado izquierdo
                             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-[#606C59] hover:text-gold-600 -ml-1 hidden sm:flex"
-                            // Texto de accesibilidad para el botón anterior
                             aria-label="Anterior"
                         >
                             {/* Ícono SVG de la flecha hacia la izquierda */}
@@ -320,11 +235,8 @@ export default function EventosSlider({ title = "Próximos Eventos", subtitle = 
                         </button>
                         {/* Flecha personalizada para avanzar al siguiente evento */}
                         <button
-                            // Asigna la referencia para el control siguiente
                             ref={nextRef}
-                            // Posiciona y estiliza la flecha siguiente en el lado derecho
                             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full shadow-tw-sm hover:shadow-tw hover:bg-white transition-all duration-300 flex items-center justify-center text-[#606C59] hover:text-gold-600 -mr-1 hidden sm:flex"
-                            // Texto de accesibilidad para el botón siguiente
                             aria-label="Siguiente"
                         >
                             {/* Ícono SVG de la flecha hacia la derecha */}

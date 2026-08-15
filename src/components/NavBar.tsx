@@ -1,58 +1,37 @@
-// Importa los hooks useState y useEffect de React
 import { useState, useEffect } from 'react';
-// Importa los componentes Link y NavLink de React Router para la navegación
 import { Link, NavLink } from 'react-router-dom';
 
-// Define la estructura de un enlace del menú de navegación
 interface NavLinkItem {
     to: string;
     label: string;
 }
 
-// Define la lista de enlaces del menú principal
 const navLinks: NavLinkItem[] = [
-    // Enlace a la página de inicio
     { to: '/', label: 'Inicio' },
-    // Enlace a la página de horarios
     { to: '/horarios', label: 'Horarios' },
-    // Enlace a la página de Quiénes Somos
     { to: '/quienes-somos', label: 'Nosotros' },
-    // Enlace a la página de eventos
     { to: '/eventos', label: 'Eventos' },
-    // Enlace a la página de contacto
     { to: '/contacto', label: 'Contacto' },
-    // Enlace a la página de donaciones
     { to: '/donaciones', label: 'Donaciones' },
 ];
 
-// Define el componente de la barra de navegación
 const NavBar = () => {
-    // Estado que controla si el menú móvil está abierto o cerrado
     const [menuOpen, setMenuOpen] = useState(false);
-    // Estado que indica si el usuario ha hecho scroll en la página
     const [isScrolled, setIsScrolled] = useState(false);
 
-    // Al montar el componente, agrega un listener de scroll
     useEffect(() => {
-        // Función que actualiza el estado según la posición del scroll
         const handleScroll = () => {
-            // Marca que se hizo scroll cuando se superan los 50 píxeles
             setIsScrolled(window.scrollY > 50);
         };
 
-        // Escucha el evento de scroll en la ventana
         window.addEventListener('scroll', handleScroll);
-        // Limpia el listener al desmontar el componente
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
-        // Cabecera fija que cambia su apariencia según el estado del scroll
         <header
             className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 transition-all duration-300 ${isScrolled
-                    // Estilo de la barra cuando el usuario hizo scroll
                     ? 'py-2 sm:py-3 bg-[#606C59] shadow-lg border-b border-white/5'
-                    // Estilo de la barra cuando está en la parte superior
                     : 'py-3 sm:py-4 bg-black/20 backdrop-blur-md border-b border-white/10'
                 }`}
         >
@@ -77,7 +56,6 @@ const NavBar = () => {
                     <NavLink
                         key={to}
                         to={to}
-                        // Define el estilo según si el enlace está activo
                         className={({ isActive }) =>
                             `text-white font-medium text-sm tracking-wide transition-colors duration-200 hover:text-yellow-400 ${isActive ? 'text-yellow-400' : ''}`
                         }
@@ -103,9 +81,7 @@ const NavBar = () => {
             <button
                 type="button"
                 className="md:hidden flex flex-col gap-1.5 p-1.5 sm:p-2 border border-white/20 rounded-lg bg-transparent cursor-pointer z-50 hover:border-white/50 hover:bg-white/10 transition-all duration-200"
-                // Alterna el estado del menú al hacer clic
                 onClick={() => setMenuOpen(!menuOpen)}
-                // Indica a lectores de pantalla si el menú está abierto
                 aria-expanded={menuOpen}
                 aria-label="Toggle navigation"
             >
@@ -125,9 +101,7 @@ const NavBar = () => {
                         <NavLink
                             key={to}
                             to={to}
-                            // Cierra el menú al seleccionar un enlace
                             onClick={() => setMenuOpen(false)}
-                            // Define el estilo según si el enlace está activo
                             className={({ isActive }) =>
                                 `text-white text-2xl font-semibold tracking-wide transition-colors duration-200 hover:text-yellow-400 ${isActive ? 'text-yellow-400' : ''}`
                             }
@@ -139,7 +113,6 @@ const NavBar = () => {
                     {/* Enlace de inicio de sesión dentro del menú móvil */}
                     <Link
                         to="/login"
-                        // Cierra el menú al pulsar el enlace
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center justify-center text-white hover:text-yellow-400 transition-colors duration-200 mt-4"
                         title="Iniciar Sesión"
@@ -154,5 +127,4 @@ const NavBar = () => {
     );
 };
 
-// Exporta el componente de la barra de navegación
 export default NavBar;
