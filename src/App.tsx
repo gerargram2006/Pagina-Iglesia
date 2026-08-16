@@ -1,41 +1,22 @@
-// Importa los componentes de React Router para gestionar la navegación
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-// Importa el proveedor de autenticación y su hook
 import { AuthProvider, useAuth } from './context/AuthContext';
-// Importa el componente de diseño que envuelve las páginas
 import Layout from './components/Layout';
-// Importa la página de inicio
 import Home from './pages/Home';
-// Importa la página de horarios
 import Horarios from './pages/Horarios';
-// Importa la página de Quiénes Somos
 import QuienesSomos from './pages/QuienesSomos';
-// Importa la página de pastores
 import Pastores from './pages/Pastores';
-// Importa la página de eventos
 import Eventos from './pages/Eventos';
-// Importa la página de contacto
 import Contacto from './pages/Contacto';
-// Importa la página de anexos
 import Anexos from './pages/Anexos';
-// Importa la página de redes sociales
 import RedesSociales from './pages/RedesSociales';
-// Importa la página de donaciones
 import Donaciones from './pages/Donaciones';
-// Importa la página de inicio de sesión
 import Login from './pages/Login';
-// Importa la página de administración
 import Admin from './pages/Admin';
-// Importa la página de error 404
 import NotFound from './pages/NotFound';
-// Importa el tipo ReactNode para tipar los children
 import type { ReactNode } from 'react';
 
-// Define el componente que protege las rutas del panel de administración
 function ProtectedRoute({ children }: { children: ReactNode }) {
-    // Obtiene el usuario y el estado de carga de la sesión
     const { user, loading } = useAuth();
-    // Si todavía está verificando la sesión, muestra un indicador de carga
     if (loading) return (
         <div style={{
             minHeight: '100vh',
@@ -52,16 +33,12 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
             <span style={{ color: '#5a635e', fontWeight: 500, fontSize: '0.95rem' }}>Verificando sesión...</span>
         </div>
     );
-    // Si no hay usuario autenticado, redirige a la página de login
     if (!user) return <Navigate to="/login" replace />;
-    // Si hay sesión activa, renderiza el contenido protegido
     return children;
 }
 
-// Define el componente principal de la aplicación
 export default function App() {
     return (
-        // Envuelve la aplicación con el enrutador de React Router
         <BrowserRouter>
             {/* Provee el contexto de autenticación a toda la aplicación */}
             <AuthProvider>
@@ -99,7 +76,6 @@ export default function App() {
                     <Route
                         path="/admin"
                         element={
-                            // Protege la ruta para que solo accedan usuarios autenticados
                             <ProtectedRoute>
                                 {/* Renderiza el panel de administración */}
                                 <Admin />

@@ -1,208 +1,123 @@
-// Importa los hooks de React para manejar efectos secundarios y estado
 import { useEffect, useState } from 'react';
-// Importa el objeto api y el tipo ApiSlide para consumir el backend
 import { api, type ApiSlide } from '../../api';
 
-// Define la estructura de los datos del formulario del slide
 interface SlideFormData {
-    // Identificador opcional del slide (null si es nuevo)
     id: number | null;
-    // Título principal del slide
     titulo: string;
-    // Subtítulo o descripción del slide
     subtitulo: string;
-    // URL de la imagen de fondo ya existente
     imagen_url: string;
-    // Archivo de imagen seleccionado para subir
     imagen: File | null;
-    // Texto del botón principal del slide
     btn_principal: string;
-    // Texto del botón secundario del slide
     btn_secundario: string;
-    // Número de orden del slide en el carrusel
     orden: number;
-    // Indica si el slide está visible en la web
     activo: boolean;
 }
 
-// Define los valores iniciales para el formulario de un slide vacío
 const emptySlide: SlideFormData = { id: null, titulo: '', subtitulo: '', imagen_url: '', imagen: null, btn_principal: '', btn_secundario: '', orden: 0, activo: true };
 
-// Convierte un slide de la API en datos para el formulario
 function slideForm(slide: ApiSlide | null): SlideFormData {
-    // Si no hay slide, retorna los valores por defecto
     if (!slide) return emptySlide;
-    // Construye el objeto con los datos del slide recibido
     return {
-        // Copia el id del slide
         id: slide.id,
-        // Usa el título guardado o una cadena vacía
         titulo: slide.titulo ?? '',
-        // Usa el subtítulo guardado o una cadena vacía
         subtitulo: slide.subtitulo ?? '',
-        // Usa la URL de la imagen guardada o una cadena vacía
         imagen_url: slide.imagen_url ?? '',
-        // No se carga el archivo al editar (se conserva la URL actual)
         imagen: null,
-        // Usa el texto del botón principal guardado o una cadena vacía
         btn_principal: slide.btn_principal ?? '',
-        // Usa el texto del botón secundario guardado o una cadena vacía
         btn_secundario: slide.btn_secundario ?? '',
-        // Usa el orden guardado o 0 por defecto
         orden: slide.orden ?? 0,
-        // Convierte el valor 0/1 de la API a booleano
         activo: slide.activo === 1,
     };
 }
 
-// Retorna el mensaje del error si es un Error, si no usa el texto de respaldo
 function errorMessage(error: unknown, fallback: string): string {
     return error instanceof Error ? error.message : fallback;
 }
 
-// Componente principal del panel de administración de slides del hero
 export default function AdminSlides() {
-    // Estado con la lista de slides cargados desde el backend
     const [slides, setSlides] = useState<ApiSlide[]>([]);
-    // Estado que indica si la lista está cargándose
     const [loading, setLoading] = useState(true);
-    // Estado con el mensaje de error de la lista
     const [error, setError] = useState('');
-    // Estado que controla si el modal está abierto
     const [modalOpen, setModalOpen] = useState(false);
-    // Estado con los datos actuales del formulario del modal
     const [formData, setFormData] = useState<SlideFormData>(emptySlide);
-    // Estado con el mensaje de error del formulario
     const [formError, setFormError] = useState('');
-    // Estado que indica si se está guardando el formulario
     const [saving, setSaving] = useState(false);
-    // Estado con el id del slide que se está borrando
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
-    // Función que carga la lista de slides desde el backend
     const cargarSlides = async () => {
-        // Inicia el bloque de manejo de errores
         try {
-            // Activa el indicador de carga
             setLoading(true);
-            // Limpia el mensaje de error previo
             setError('');
-            // Obtiene los slides y los guarda en el estado
             setSlides(await api.slides.getAll());
         } catch (requestError) {
-            // Muestra un mensaje de error si falla la petición
             setError(errorMessage(requestError, 'No se pudieron cargar los slides.'));
         } finally {
-            // Desactiva el indicador de carga al terminar
             setLoading(false);
         }
     };
 
-    // Carga los slides automáticamente al montar el componente
     useEffect(() => { cargarSlides(); }, []);
 
-    // Abre el modal con los datos del registro seleccionado para editarlo
     const handleOpenModal = (slide: ApiSlide | null = null) => {
-        // Carga los datos del slide (o vacíos) en el formulario
         setFormData(slideForm(slide));
-        // Limpia el error del formulario
         setFormError('');
-        // Abre el modal
         setModalOpen(true);
     };
 
-    // Cierra el modal y limpia el formulario
     const handleCloseModal = () => {
-        // No permite cerrar el modal mientras se está guardando
         if (saving) return;
-        // Cierra el modal
         setModalOpen(false);
-        // Reinicia el formulario a los valores vacíos
         setFormData(emptySlide);
-        // Limpia el error del formulario
         setFormError('');
     };
 
-    // Guarda (crea o actualiza) el slide al enviar el formulario
     const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
-        // Evita que el formulario recargue la página
         event.preventDefault();
-        // Limpia el error del formulario antes de guardar
         setFormError('');
-        // Activa el indicador de guardado
         setSaving(true);
-        // Crea un FormData para enviar archivos y datos al backend
         const payload = new FormData();
-        // Añade el título al payload
         payload.append('titulo', formData.titulo);
-        // Añade el subtítulo al payload
         payload.append('subtitulo', formData.subtitulo);
-        // Añade el texto del botón principal al payload
         payload.append('btn_principal', formData.btn_principal);
-        // Añade el texto del botón secundario al payload
         payload.append('btn_secundario', formData.btn_secundario);
-        // Añade el orden convertido a texto
         payload.append('orden', String(formData.orden));
-        // Añade el estado activo como '1' o '0'
         payload.append('activo', formData.activo ? '1' : '0');
-        // Si se seleccionó un archivo de imagen
         if (formData.imagen) {
-            // Añade el archivo de imagen al payload
             payload.append('imagen', formData.imagen);
         } else if (formData.imagen_url) {
-            // Si no hay archivo, envía la URL de la imagen existente
             payload.append('imagen_url', formData.imagen_url);
         }
 
-        // Inicia el bloque de manejo de errores
         try {
-            // Si tiene id, actualiza el slide existente
             if (formData.id) await api.slides.update(formData.id, payload);
-            // Si no tiene id, crea un slide nuevo
             else await api.slides.create(payload);
-            // Cierra el modal al guardar correctamente
             setModalOpen(false);
-            // Reinicia el formulario
             setFormData(emptySlide);
-            // Recarga la lista para reflejar los cambios
             await cargarSlides();
         } catch (requestError) {
-            // Muestra el error en el formulario si falla el guardado
             setFormError(errorMessage(requestError, 'No se pudo guardar el slide.'));
         } finally {
-            // Desactiva el indicador de guardado
             setSaving(false);
         }
     };
 
-    // Elimina un slide tras pedir confirmación al usuario
     const handleDelete = async (id: number) => {
-        // Pide confirmación y cancela si el usuario no acepta
         if (!window.confirm('¿Seguro que quieres borrar este slide? Esta acción no se puede deshacer.')) return;
 
-        // Inicia el bloque de manejo de errores
         try {
-            // Marca el id del slide en proceso de borrado
             setDeletingId(id);
-            // Limpia el error de la lista
             setError('');
-            // Llama al backend para borrar el slide
             await api.slides.delete(id);
-            // Quita el slide borrado de la lista del estado
             setSlides((items) => items.filter((slide) => slide.id !== id));
         } catch (requestError) {
-            // Muestra un error si falla el borrado
             setError(errorMessage(requestError, 'No se pudo borrar el slide.'));
         } finally {
-            // Limpia el id en proceso de borrado
             setDeletingId(null);
         }
     };
 
-    // Muestra un indicador de carga mientras se obtienen los datos
     if (loading) return <div className="admin-loading"><i className="bi bi-arrow-repeat spin"></i> Cargando slides del Hero...</div>;
 
-    // Renderiza la sección principal del panel
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
@@ -227,7 +142,6 @@ export default function AdminSlides() {
                     <tbody>
                         {/* Recorre la lista de slides para mostrar una fila por cada uno */}
                         {slides.map((slide) => (
-                            // Fila que se atenúa visualmente si el slide está inactivo
                             <tr key={slide.id} style={{ opacity: slide.activo ? 1 : 0.5 }}>
                                 <td><span className="badge-cargo">{slide.orden}</span></td>
                                 {/* Muestra la miniatura de la imagen o un marcador de posición si no hay URL */}

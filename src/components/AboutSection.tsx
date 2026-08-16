@@ -1,18 +1,11 @@
-// Define las propiedades que acepta el componente AboutSection
 interface AboutSectionProps {
-    // Título de la sección (opcional)
     title?: string | null;
-    // Subtítulo de la sección (opcional)
     subtitle?: string | null;
-    // Identificador del ancla de la sección (opcional)
     id?: string;
 }
 
-// Define el componente AboutSection con valores por defecto para sus propiedades
 export default function AboutSection({ title = "Quiénes Somos", subtitle = "Conoce nuestra historia y misión", id = "quienes-somos" }: AboutSectionProps) {
-    // Devuelve el contenido JSX de la sección
     return (
-        // Crea la sección de información con su identificador y estilos
         <section id={id} className="section section-alt">
             {/* Contenedor central con ancho máximo y márgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

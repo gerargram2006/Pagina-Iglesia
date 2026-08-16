@@ -1,17 +1,13 @@
-// Importa la barra de navegación que se muestra sobre la imagen del encabezado
 import NavBar from './NavBar';
 
-// Define las propiedades que recibe el encabezado de página
 interface PageHeaderProps {
     title: string;
     subtitle?: string;
     imagen?: string;
 }
 
-// Define el componente que muestra el encabezado de cada página con imagen de fondo
 export default function PageHeader({ title, subtitle, imagen = "/img/galeria-congregacion.webp" }: PageHeaderProps) {
     return (
-        // Contenedor del encabezado con imagen de fondo a pantalla completa
         <header className="relative w-full h-[60vh] overflow-hidden bg-black">
             {/* Imagen de Fondo */}
             {/* Imagen de fondo del encabezado */}
