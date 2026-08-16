@@ -46,9 +46,10 @@ const DEFAULT_LANGUAGE = 'es';
 
 // Cultos fijos que la iglesia celebra cada semana
 const cultosSemanales = [
-    { dia: 'Martes', hora: '19:30', titulo: 'Culto de Oración' },
-    { dia: 'Jueves', hora: '19:30', titulo: 'Estudio Bíblico' },
-    { dia: 'Domingos', hora: '18:00', titulo: 'Culto General' },
+    { dia: 'Miércoles', hora: '6:00 PM - 8:00 PM', titulo: 'Culto de Enseñanza' },
+    { dia: 'Viernes', hora: '6:00 PM - 8:00 PM', titulo: 'Culto de Doctrina' },
+    { dia: 'Sábado', hora: '5:00 PM - 7:00 PM', titulo: 'Culto de Jóvenes' },
+    { dia: 'Domingos', hora: '10:30 AM', titulo: 'Culto Dominical' },
 ];
 
 // Construye la URL del iframe de Google Calendar con los parámetros configurados
