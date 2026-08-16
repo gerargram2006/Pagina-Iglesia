@@ -1,6 +1,6 @@
 import PageHeader from '../components/PageHeader';
-import ScheduleSection from '../components/ScheduleSection';
 import Events from '../components/Events';
+import ScheduleSection from '../components/ScheduleSection';
 
 export default function Horarios() {
     return (
@@ -8,7 +8,7 @@ export default function Horarios() {
             <PageHeader title="Horarios" subtitle="Conoce nuestros horarios de reunión" />
             <main>
                 <Events />
-                <ScheduleSection title={null} subtitle={null} id="" />
+                <ScheduleSection title={null} subtitle={null} id="anexos-horarios" showCentral={false} />
             </main>
         </>
     );
