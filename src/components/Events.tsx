@@ -1,5 +1,4 @@
 
-
 const Eventos = () => {
     return (
         <div className="container mx-auto px-6 py-24 bg-[#1a3b2b] text-white">
