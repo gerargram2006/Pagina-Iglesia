@@ -62,6 +62,7 @@ export default {
         'tw-2xl': '40px',
       },
       fontFamily: {
+        cormorant: ['"Cormorant Garamond"', 'serif'],
         playfair: ['"Playfair Display"', 'serif'],
         inter: ['Inter', 'sans-serif'],
       },
