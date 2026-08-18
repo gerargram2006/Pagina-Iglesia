@@ -136,9 +136,17 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.7;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Tipografía elegante para todos los encabezados: Playfair Display serif
+   le da al sitio entero un look editorial y sofisticado */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.02em;
 }
 
 /* Contenedor raíz de React: ocupa el 100% del ancho, al menos toda la
