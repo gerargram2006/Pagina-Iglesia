@@ -12,7 +12,6 @@ const navLinks: NavLinkItem[] = [
     { to: '/quienes-somos', label: 'Nosotros' },
     { to: '/eventos', label: 'Eventos' },
     { to: '/contacto', label: 'Contacto' },
-    { to: '/donaciones', label: 'Donaciones' },
 ];
 
 const NavBar = () => {
