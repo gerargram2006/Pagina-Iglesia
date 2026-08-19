@@ -9,7 +9,6 @@ import Eventos from './pages/Eventos';
 import Contacto from './pages/Contacto';
 import Anexos from './pages/Anexos';
 import RedesSociales from './pages/RedesSociales';
-import Donaciones from './pages/Donaciones';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
@@ -62,8 +61,6 @@ export default function App() {
                         <Route path="redes" element={<RedesSociales />} />
                         {/* Define la ruta de contacto */}
                         <Route path="contacto" element={<Contacto />} />
-                        {/* Define la ruta de donaciones */}
-                        <Route path="donaciones" element={<Donaciones />} />
                     </Route>
 
                     {/* Define la ruta de inicio de sesión */}
