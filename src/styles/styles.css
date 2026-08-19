@@ -31,8 +31,7 @@
    16. Panel admin (sidebar, topbar, dashboard, CRUD, modales, mensajes)
    17. Animaciones al hacer scroll (data-animate)
    18. Responsive (media queries tablet / móvil / móvil pequeño)
-   19. Donaciones (Yape QR)
-   20. Scroll-to-top, mapa de contacto y página 404
+   19. Scroll-to-top, mapa de contacto y página 404
    -------------------------------------------------------------------------- */
 
 /* === RESET & VARIABLES === */
@@ -5328,113 +5327,6 @@ a {
   }
 }
 
-/* ==========================================================================
-   DONACIONES — YAPE QR
-   ========================================================================== */
-
-@layer components {
-  /* Bloque introductorio de donaciones: tarjeta verde degradada */
-  .donation-intro {
-    @apply max-w-[800px] mx-auto text-center mb-12;
-    padding: 40px;
-    background: linear-gradient(135deg, var(--primary-800), var(--primary-700));
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-green);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Orbes de luz en el fondo del bloque de donaciones */
-  .donation-intro::before {
-    content: '';
-    @apply absolute inset-0;
-    background:
-      radial-gradient(ellipse 400px 300px at 20% 80%, rgba(201, 168, 76, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 300px 200px at 80% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  /* Texto introductorio de donaciones: blanco y con interlineado amplio */
-  .donation-intro-text {
-    @apply relative z-[1] text-[1.15rem] leading-[1.8];
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 300;
-    margin: 0;
-  }
-
-  /* Sección Yape: centrada */
-  .yape-section {
-    @apply flex justify-center;
-  }
-
-  /* Tarjeta Yape: blanca, centrada y con ancho máximo */
-  .yape-card {
-    @apply text-center p-10;
-    background: var(--white);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--gray-200);
-    max-width: 380px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Barra superior morada animada de la tarjeta Yape */
-  .yape-card::before {
-    content: '';
-    @apply absolute top-0 left-0 right-0 h-[5px];
-    background: linear-gradient(90deg, #7B2FBE, #9B59B6, #7B2FBE);
-    background-size: 200% 100%;
-    animation: shimmerBorder 3s linear infinite;
-  }
-
-  /* Icono de Yape: círculo morado translúcido */
-  .yape-icon {
-    @apply w-[80px] h-[80px] mx-auto mb-6 flex items-center justify-center rounded-full;
-    background: linear-gradient(135deg, rgba(123, 47, 190, 0.1), rgba(123, 47, 190, 0.05));
-    border: 2px solid rgba(123, 47, 190, 0.2);
-  }
-
-  /* Glifo del icono de Yape: morado */
-  .yape-icon i {
-    @apply text-[2rem];
-    color: #7B2FBE;
-  }
-
-  /* Título de la tarjeta Yape: serif y verde */
-  .yape-title {
-    @apply font-bold text-[1.4rem] mb-2;
-    font-family: 'Playfair Display', serif;
-    color: var(--primary-800);
-  }
-
-  /* Descripción de Yape: gris */
-  .yape-description {
-    @apply text-[0.95rem] mb-6;
-    color: var(--text-light);
-    margin: 0;
-  }
-
-  /* Contenedor del código QR: caja blanca con borde gris */
-  .yape-qr {
-    @apply mx-auto mb-6 p-4 bg-white rounded-xl;
-    border: 2px solid var(--gray-100);
-    display: inline-block;
-  }
-
-  /* Imagen del QR: tamaño fijo */
-  .yape-qr img {
-    @apply w-[200px] h-[200px] object-contain;
-  }
-
-  /* Nombre del titular de la cuenta Yape */
-  .yape-name {
-    @apply font-semibold text-[1rem];
-    color: var(--primary-700);
-    margin: 0;
-  }
-}
 
 /* ==========================================================================
    SCROLL ANIMATIONS — data-animate system
