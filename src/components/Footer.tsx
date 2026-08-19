@@ -46,8 +46,6 @@ export default function Footer() {
                                 <li><Link to="/eventos">Eventos</Link></li>
                                 {/* Enlace a la página de anexos y recursos */}
                                 <li><Link to="/anexos">Anexos y Recursos</Link></li>
-                                {/* Enlace a la página de donaciones */}
-                                <li><Link to="/donaciones">Donaciones</Link></li>
                                 {/* Enlace a la página de contacto */}
                                 <li><Link to="/contacto">Contacto</Link></li>
                             </ul>
