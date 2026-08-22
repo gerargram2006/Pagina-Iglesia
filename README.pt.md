@@ -75,6 +75,8 @@ O design visual, a estrutura e a experiência do usuário (UX/UI) foram planejad
 - **Melhorias de Tema e Estilo**: Aplicada uma paleta de cores verde moderna e abrangente em todo o site público e painel de administração.
 - **Melhorias UI/UX**: Redesign da página de Doações com cartões de impacto, links de Redes Sociais atualizados e um novo botão flutuante de "Voltar ao Topo".
 - **Utilitários de Banco de Dados**: Adicionados scripts robustos (`fix_db_all.ts`) para sanitizar e corrigir problemas de codificação de texto no banco de dados.
+- **Correção de Sintaxe JSX**: Foram removidos sistematicamente os comentários JavaScript (`//`) dentro da estrutura JSX que estavam quebrando a renderização em mais de 40 componentes frontend.
+- **Correção da Inicialização do Docker**: Foi integrada manualmente a migração `migrate_crud.sql` para recriar as tabelas ausentes (`galeria` e `slides`), resolvendo os erros de carregamento de imagens no frontend após a recriação do banco de dados.
 
 ---
 
