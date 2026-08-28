@@ -175,6 +175,13 @@ a {
   color: inherit;
 }
 
+/* Ocultar las flechas de navegación por defecto de Swiper cuando
+   se usan botones personalizados (como en el HeroSlider) */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
 /* ==========================================================================
    NAVBAR (Glassmorphism) - Solo estilos residual para hero/page-header
    ========================================================================== */
