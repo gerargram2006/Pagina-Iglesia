@@ -20,7 +20,7 @@ const LOCAL_VIDEO_SLIDE = {
     id: -1,
     titulo: '14 EBO - Escuela Bíblica',
     subtitulo: 'Revive los mejores momentos de nuestra congregación en Puerto Maldonado',
-    imagen_url: '/vid/Video de 14 ebo en puerto maldonado.MOV',
+    imagen_url: '/vid/Video de 14 ebo en puerto maldonado.mp4',
     btn_principal: '',
     btn_secundario: '',
     orden: 0,
