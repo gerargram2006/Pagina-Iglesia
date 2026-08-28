@@ -144,8 +144,12 @@ export default function AdminSlides() {
                         {slides.map((slide) => (
                             <tr key={slide.id} style={{ opacity: slide.activo ? 1 : 0.5 }}>
                                 <td><span className="badge-cargo">{slide.orden}</span></td>
-                                {/* Muestra la miniatura de la imagen o un marcador de posición si no hay URL */}
-                                <td>{slide.imagen_url ? <img src={slide.imagen_url.startsWith('http') ? slide.imagen_url : `http://localhost:3307${slide.imagen_url}`} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
+                                {/* Muestra la miniatura de la imagen, un icono de video, o un marcador de posición si no hay URL */}
+                                <td>{slide.imagen_url ? (
+                                    /\.(mp4|webm|mov|ogg)$/i.test(slide.imagen_url)
+                                        ? <div className="admin-table-img-placeholder" style={{ background: '#606C5922', color: '#606C59' }}><i className="bi bi-camera-video"></i></div>
+                                        : <img src={slide.imagen_url.startsWith('http') ? slide.imagen_url : `http://localhost:3307${slide.imagen_url}`} alt="" className="admin-table-img" />
+                                ) : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 {/* Muestra el título sin saltos de línea y un fragmento del subtítulo */}
                                 <td><strong>{slide.titulo.replace(/\n/g, ' ')}</strong><br /><small style={{ color: '#888' }}>{(slide.subtitulo ?? '').slice(0, 60)}...</small></td>
                                 {/* Muestra el texto de ambos botones del slide */}
@@ -182,11 +186,11 @@ export default function AdminSlides() {
                             {/* Área de texto para el subtítulo del slide */}
                             <div className="form-group"><label htmlFor="slide-subtitle">Subtítulo / Descripción</label><textarea id="slide-subtitle" rows={2} maxLength={5000} value={formData.subtitulo} onChange={(e) => setFormData({ ...formData, subtitulo: e.target.value })}></textarea></div>
                             <div className="form-group">
-                                <label htmlFor="slide-image">Imagen de fondo</label>
-                                {/* Selector de archivo de imagen que guarda la foto elegida en el formulario */}
-                                <input id="slide-image" type="file" accept="image/*" onChange={(e) => setFormData({ ...formData, imagen: e.target.files ? (e.target.files[0] ?? null) : null })} />
-                                {/* Avisa que la imagen actual se reemplazará si se sube una nueva */}
-                                {formData.imagen_url && !formData.imagen && <small className="text-muted d-block mt-1">Imagen actual guardada. Si subes una nueva, la reemplazará.</small>}
+                                <label htmlFor="slide-image">Imagen o Video de fondo</label>
+                                {/* Selector de archivo de imagen/video que guarda el archivo elegido en el formulario */}
+                                <input id="slide-image" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" onChange={(e) => setFormData({ ...formData, imagen: e.target.files ? (e.target.files[0] ?? null) : null })} />
+                                {/* Avisa que el archivo actual se reemplazará si se sube uno nuevo */}
+                                {formData.imagen_url && !formData.imagen && <small className="text-muted d-block mt-1">Archivo actual guardado. Si subes uno nuevo, lo reemplazará.</small>}
                             </div>
                             {/* Contenedor con dos columnas para los textos de los botones */}
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
