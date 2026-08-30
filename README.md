@@ -73,8 +73,11 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 - **Self-Sufficient CRUD System**: Full administration capabilities for Hero Slides, Worship Schedules, and Gallery content.
 - **Dynamic Frontend Integration**: The Hero Slider, Schedule, and Gallery sections now consume data directly from the API.
 - **Enhanced Theme & Styling**: Applied a comprehensive, modern green color palette across the public site and admin panel.
+- **Hero Slider Video Support**: The Hero Slider now renders both images and video (`.mp4`, `.webm`, `.mov`, `.ogg`) as full-screen slide backgrounds with autoplay, loop, and mute. The first slide is a local promotional video ("14 EBO – Escuela Bíblica") and the rest are fetched dynamically from the API.
+- **Admin Slide Manager**: `AdminSlides` provides full CRUD for Hero slides with support for uploading an image or a video file as the background.
+- **Dynamic Hero Integration**: The Hero Slider is reconnected to the `/api/slides` endpoint, automatically filtering only active slides (`activo === 1`).
 - **UI/UX Improvements**: Redesigned Donations page with impact cards, updated Social Media links, and added a floating "Scroll to Top" button.
-- **Database Utilities**: Added robust scripts (`fix_db_all.ts`) to sanitize and correct text encoding issues in the database.
+- **Database Utilities**: Added robust scripts (`fix_db_all.ts` and `fix_db.ts`) to sanitize and correct text encoding issues in the database.
 - **JSX Syntax Fixes**: Systematically removed inline JavaScript comments (`//`) from JSX structures that were breaking the UI rendering across more than 40 frontend components.
 - **Docker Initialization Fix**: Manually integrated the `migrate_crud.sql` migration to recreate missing tables (`galeria` and `slides`), resolving image loading errors in the frontend after a database reset.
 
@@ -124,6 +127,10 @@ details. It includes a complete admin panel with secure JWT authentication.
 | **Announcements Manager** | Full CRUD: publish announcements for the congregation with image upload |
 | **Pastoral Team** | Full CRUD: manage leaders (names, roles, bios) with photo upload |
 | **Resources Manager** | Full CRUD: downloadable materials (PDFs) with file upload |
+| **Hero Slides Manager** | Full CRUD: manage the main Hero slider slides with image **or video** upload |
+| **Schedule Manager** | Full CRUD: manage worship schedule entries (day, time, activity) |
+| **Gallery Manager** | Full CRUD: manage community photos with upload and featured flag |
+| **Members Manager** | Dynamic directory of congregation members |
 | **Inbox** | Read and delete messages received from the public form |
 | **Logout** | Session cleanup with complete JWT token removal |
 
@@ -210,6 +217,9 @@ details. It includes a complete admin panel with secure JWT authentication.
 │  │  CRUD /api/pastores  (photo upload)      │   │
 │  │  CRUD /api/anuncios  (image upload)      │   │
 │  │  CRUD /api/recursos  (PDF upload)        │   │
+│  │  CRUD /api/slides    (image/video)       │   │
+│  │  CRUD /api/horarios                      │   │
+│  │  CRUD /api/galeria   (image upload)      │   │
 │  │  GET,DELETE /api/mensajes                │   │
 │  │  GET /api/health · /uploads (static)     │   │
 │  └──────────────────────────────────────────┘   │
@@ -226,7 +236,8 @@ details. It includes a complete admin panel with secure JWT authentication.
 │  │ usuarios │ │eventos │ │ pastores │          │
 │  ├──────────┤ ├────────┤ ├──────────┤          │
 │  │ anuncios │ │recursos│ │ mensajes │          │
-│  │ horarios │ └────────┘ └──────────┘          │
+│  │ horarios │ │ slides │ │ galeria  │          │
+│  └──────────┘ └────────┘ └──────────┘          │
 │  └──────────┘                                  │
 └─────────────────────────────────────────────────┘
 ```
@@ -239,6 +250,7 @@ details. It includes a complete admin panel with secure JWT authentication.
 Pagina-Iglesia/
 ├── public/                    # Static files served by Vite
 │   └── img/                   # Public images (logo, gallery, pastors, hero)
+│   └── vid/                   # Local promotional videos (e.g. Puerto Maldonado) — gitignored
 ├── src/                       # React frontend source code
 │   ├── api/                   # Centralized HTTP client
 │   │   └── index.ts           # fetchAPI function with auto JWT injection + FormData support
@@ -267,7 +279,10 @@ Pagina-Iglesia/
 │   │   │   ├── AdminPastores.tsx
 │   │   │   ├── AdminMensajes.tsx
 │   │   │   ├── AdminAnuncios.tsx
-│   │   │   └── AdminRecursos.tsx
+│   │   │   ├── AdminRecursos.tsx
+│   │   │   ├── AdminSlides.tsx # Hero slider CRUD (image or video background)
+│   │   │   ├── AdminHorarios.tsx
+│   │   │   └── AdminGaleria.tsx
 │   │   ├── Home.tsx           # Home page (hero slider + sections)
 │   │   ├── Horarios.tsx       # Schedule page
 │   │   ├── QuienesSomos.tsx   # About page
@@ -277,7 +292,7 @@ Pagina-Iglesia/
 │   │   ├── RedesSociales.tsx  # Social media links page
 │   │   ├── Contacto.tsx       # Contact page
 │   │   ├── Login.tsx          # Login form
-│   │   └── Admin.tsx          # Protected admin panel (sidebar + 5 modules)
+│   │   └── Admin.tsx          # Protected admin panel (sidebar + 9 modules)
 │   ├── styles/
 │   │   └── styles.css         # Global styles (Bootstrap + Tailwind directives, ~4600 lines)
 │   ├── App.tsx                # Route definitions (Router + Auth + ProtectedRoute)
@@ -287,6 +302,8 @@ Pagina-Iglesia/
 │   ├── config.ts              # Env-based configuration (port, JWT, DB, CORS)
 │   ├── generarClave.ts        # Utility to generate bcrypt hashes
 │   ├── reseteo.ts             # Utility to reset admin password
+│   ├── check_db.ts            # Utility to inspect database tables/rows
+│   ├── fix_db.ts              # Utility to fix text encoding issues
 │   ├── middleware/
 │   │   ├── auth.ts            # JWT verification middleware
 │   │   └── upload.ts          # Multer config (images + PDFs, 5MB limit)
@@ -299,6 +316,7 @@ Pagina-Iglesia/
 ├── tailwind.config.js         # Tailwind custom theme (palette, fonts, shadows)
 ├── docker-compose.yml         # MySQL Docker configuration (port 33007)
 ├── init.sql                   # Database schema + seed data (auto-runs on first container start)
+├── migrate_crud.sql           # Manual migration for `slides` and `galeria` tables
 ├── .env                       # Environment variables (DO NOT commit)
 ├── example.env                # Template with placeholders + CORS_ORIGIN
 ├── .gitignore                 # Git ignored files
@@ -509,7 +527,19 @@ http://localhost:3307
 | `POST` | `/api/recursos` | JWT | Creates a resource (required file upload) |
 | `PUT` | `/api/recursos/:id` | JWT | Updates a resource (optional file upload) |
 | `DELETE` | `/api/recursos/:id` | JWT | Deletes a resource |
-| `GET` | `/uploads/*` | No | Serves uploaded files (images/PDFs) |
+| `GET` | `/api/slides` | No | Lists active Hero slider slides |
+| `POST` | `/api/slides` | JWT | Creates a slide (optional image/video upload) |
+| `PUT` | `/api/slides/:id` | JWT | Updates a slide (optional image/video upload) |
+| `DELETE` | `/api/slides/:id` | JWT | Deletes a slide |
+| `GET` | `/api/horarios` | No | Lists worship schedules |
+| `POST` | `/api/horarios` | JWT | Creates a schedule entry |
+| `PUT` | `/api/horarios/:id` | JWT | Updates a schedule entry |
+| `DELETE` | `/api/horarios/:id` | JWT | Deletes a schedule entry |
+| `GET` | `/api/galeria` | No | Lists gallery images |
+| `POST` | `/api/galeria` | JWT | Creates a gallery image (optional upload) |
+| `PUT` | `/api/galeria/:id` | JWT | Updates a gallery image (optional upload) |
+| `DELETE` | `/api/galeria/:id` | JWT | Deletes a gallery image |
+| `GET` | `/uploads/*` | No | Serves uploaded files (images/PDFs/videos) |
 
 #### `GET /api/health`
 
@@ -752,8 +782,10 @@ Deletes a resource. Requires a valid JWT token.
 | `mensajes_contacto` | Contact form messages | id, nombre, email, mensaje, fecha_envio |
 | `anuncios` | Announcements | id, titulo, descripcion, imagen_url, fecha_creacion |
 | `recursos` | Downloadable resources | id, titulo, descripcion, tipo, archivo_url, fecha_creacion |
+| `slides` | Hero slider content | id, titulo, subtitulo, imagen_url, btn_principal, btn_secundario, orden, activo |
+| `galeria` | Community gallery | id, titulo, imagen_url, destacada, orden |
 
-> **Note:** `init.sql` currently seeds the first five tables. The `anuncios` and `recursos` tables (used by the announcements and resources modules) need to be added to `init.sql` so they are created automatically with Docker. See [Contributing](#contributing) if you'd like to help keep this in sync.
+> **Note:** `init.sql` currently seeds the first five tables. The `anuncios`, `recursos`, `slides`, and `galeria` tables (used by the announcements, resources, slides, and gallery modules) are defined in `migrate_crud.sql` and need to be merged into `init.sql` so they are created automatically with Docker. See [Contributing](#contributing) if you'd like to help keep this in sync.
 
 ### Test User
 
@@ -911,6 +943,10 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 - [x] Responsive design with 3 breakpoints
 - [x] Smart navbar and dynamic footer
 - [x] Interactive events carousel with Swiper (responsive breakpoints, autoplay, pagination, navigation arrows)
+- [x] Hero slide manager with image **and video** support (`.mp4`, `.webm`, `.mov`, `.ogg`)
+- [x] Hero Slider reconnected to the `/api/slides` endpoint (active slides only)
+- [x] Schedule management from the admin panel
+- [x] Gallery management from the admin panel
 - [x] Docker Compose for quick MySQL deployment
 - [x] Detailed comments throughout the project
 - [x] Full TypeScript migration: all 25 frontend files (components, pages, context, entry points) converted from `.jsx` to `.tsx` with interfaces, typed props, and typed state
@@ -919,8 +955,7 @@ Unified editor configuration: space indentation, UTF-8 charset, and whitespace t
 
 ### Upcoming
 
-- [ ] Add `anuncios` and `recursos` tables to `init.sql` so they are auto-created with Docker
-- [ ] Schedule management from the admin panel
+- [ ] Merge the `anuncios`, `recursos`, `slides`, and `galeria` tables into `init.sql` so they are auto-created with Docker
 - [ ] Image upload to CDN
 - [ ] Pagination and dynamic search in admin event lists
 - [ ] Public gallery section with lightbox
