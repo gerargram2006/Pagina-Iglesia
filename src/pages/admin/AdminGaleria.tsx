@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiGaleria } from '../../api';
+import { api, getUploadUrl, type ApiGaleria } from '../../api';
 
 interface GaleriaFormData {
     id: number | null;
@@ -37,6 +37,17 @@ export default function AdminGaleria() {
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [search, setSearch] = useState('');
+    const [toast, setToast] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({ show: false, text: '', type: 'success' });
+
+    const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, text, type });
+        setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
+    };
+
+    const filteredGaleria = galeria.filter(g =>
+        g.titulo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const cargarGaleria = async () => {
         try {
@@ -85,6 +96,7 @@ export default function AdminGaleria() {
             setModalOpen(false);
             setFormData(emptyGaleria);
             await cargarGaleria();
+            showToast(formData.id ? 'Imagen actualizada correctamente' : 'Imagen agregada correctamente');
         } catch (requestError) {
             setFormError(errorMessage(requestError, 'No se pudo guardar la imagen.'));
         } finally {
@@ -100,6 +112,7 @@ export default function AdminGaleria() {
             setError('');
             await api.galeria.delete(id);
             setGaleria((items) => items.filter((item) => item.id !== id));
+            showToast('Imagen eliminada correctamente');
         } catch (requestError) {
             setError(errorMessage(requestError, 'No se pudo borrar la imagen.'));
         } finally {
@@ -112,14 +125,18 @@ export default function AdminGaleria() {
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
-                <h2>Galería de Fotos</h2>
-                {/* Contenedor de los botones de acciones de la lista */}
+                <h2><i className="bi bi-camera" style={{ marginRight: '10px', color: 'var(--gold-500)' }}></i>Galería de Fotos</h2>
                 <div className="admin-crud-actions">
-                    {/* Botón que recarga la lista de imágenes manualmente */}
+                    <span className="badge-count"><i className="bi bi-collection"></i> {galeria.length} registros</span>
                     <button className="btn-secondary" onClick={cargarGaleria}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
-                    {/* Botón que abre el modal para crear una imagen nueva */}
                     <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-image"></i> Nueva Foto</button>
                 </div>
+            </div>
+
+            <div className="admin-crud-search">
+                <i className="bi bi-search"></i>
+                <input type="text" placeholder="Buscar por título..." value={search} onChange={e => setSearch(e.target.value)} />
+                {search && <button className="admin-crud-search-clear" onClick={() => setSearch('')}><i className="bi bi-x-circle"></i></button>}
             </div>
 
             {/* Muestra el mensaje de error de la lista si existe */}
@@ -131,12 +148,10 @@ export default function AdminGaleria() {
                     {/* Encabezado de la tabla con las columnas de datos y acciones */}
                     <thead><tr><th>Orden</th><th>Imagen</th><th>Título</th><th>Destacada</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {/* Recorre la lista de imágenes para mostrar una fila por cada una */}
-                        {galeria.map((item) => (
+                        {filteredGaleria.map((item) => (
                             <tr key={item.id}>
                                 <td><span className="badge-cargo">{item.orden}</span></td>
-                                {/* Muestra la miniatura de la imagen o un marcador de posición si no hay URL */}
-                                <td>{item.imagen_url ? <img src={item.imagen_url.startsWith('http') ? item.imagen_url : `http://localhost:3307${item.imagen_url}`} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
+                                <td>{item.imagen_url ? <img src={getUploadUrl(item.imagen_url)} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 <td><strong>{item.titulo}</strong></td>
                                 {/* Muestra una insignia según si la imagen es destacada o normal */}
                                 <td><span className="badge-cargo" style={{ background: item.destacada ? '#b8942e22' : '#6c757d22', color: item.destacada ? '#b8942e' : '#6c757d' }}>{item.destacada ? '⭐ Destacada' : 'Normal'}</span></td>
@@ -150,7 +165,7 @@ export default function AdminGaleria() {
                             </tr>
                         ))}
                         {/* Muestra un mensaje en la tabla si no hay imágenes registradas */}
-                        {galeria.length === 0 && <tr><td colSpan={5} className="admin-table-empty">No hay imágenes en la galería.</td></tr>}
+                        {filteredGaleria.length === 0 && <tr><td colSpan={5} className="admin-table-empty">{search ? 'No se encontraron imágenes.' : 'No hay imágenes en la galería.'}</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -188,6 +203,12 @@ export default function AdminGaleria() {
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar imagen</>}</button></div>
                         </form>
                     </div>
+                </div>
+            )}
+            {toast.show && (
+                <div className={`admin-toast admin-toast--${toast.type}`}>
+                    <i className={`bi ${toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}`}></i>
+                    {toast.text}
                 </div>
             )}
         </div>
