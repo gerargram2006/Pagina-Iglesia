@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiPastor } from '../../api';
+import { api, getUploadUrl, type ApiPastor } from '../../api';
 
 interface PastorFormData {
     id: number | null;
@@ -37,6 +37,18 @@ export default function AdminPastores() {
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [search, setSearch] = useState('');
+    const [toast, setToast] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({ show: false, text: '', type: 'success' });
+
+    const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, text, type });
+        setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
+    };
+
+    const filteredPastores = pastores.filter(p =>
+        p.nombre.toLowerCase().includes(search.toLowerCase()) ||
+        p.cargo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const cargarPastores = async () => {
         try {
@@ -85,6 +97,7 @@ export default function AdminPastores() {
             setModalOpen(false);
             setFormData(emptyPastor);
             await cargarPastores();
+            showToast(formData.id ? 'Miembro actualizado correctamente' : 'Miembro agregado correctamente');
         } catch (requestError) {
             setFormError(errorMessage(requestError, 'No se pudo guardar el registro.'));
         } finally {
@@ -100,6 +113,7 @@ export default function AdminPastores() {
             setError('');
             await api.pastores.delete(id);
             setPastores((items) => items.filter((pastor) => pastor.id !== id));
+            showToast('Miembro eliminado correctamente');
         } catch (requestError) {
             setError(errorMessage(requestError, 'No se pudo borrar el registro.'));
         } finally {
@@ -112,14 +126,18 @@ export default function AdminPastores() {
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
-                <h2>Equipo Pastoral</h2>
-                {/* Contenedor de los botones de acciones de la lista */}
+                <h2><i className="bi bi-people" style={{ marginRight: '10px', color: 'var(--gold-500)' }}></i>Equipo Pastoral</h2>
                 <div className="admin-crud-actions">
-                    {/* Botón que recarga la lista de miembros manualmente */}
+                    <span className="badge-count"><i className="bi bi-collection"></i> {pastores.length} registros</span>
                     <button className="btn-secondary" onClick={cargarPastores}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
-                    {/* Botón que abre el modal para crear un miembro nuevo */}
                     <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-person-plus"></i> Añadir miembro</button>
                 </div>
+            </div>
+
+            <div className="admin-crud-search">
+                <i className="bi bi-search"></i>
+                <input type="text" placeholder="Buscar por nombre o cargo..." value={search} onChange={e => setSearch(e.target.value)} />
+                {search && <button className="admin-crud-search-clear" onClick={() => setSearch('')}><i className="bi bi-x-circle"></i></button>}
             </div>
 
             {/* Muestra el mensaje de error de la lista si existe */}
@@ -131,12 +149,10 @@ export default function AdminPastores() {
                     {/* Encabezado de la tabla con las columnas de datos y acciones */}
                     <thead><tr><th>ID</th><th>Foto</th><th>Nombre</th><th>Cargo</th><th>Biografía</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {/* Recorre la lista de miembros para mostrar una fila por cada uno */}
-                        {pastores.map((pastor) => (
+                        {filteredPastores.map((pastor) => (
                             <tr key={pastor.id}>
                                 <td>{pastor.id}</td>
-                                {/* Muestra el avatar de la foto o un marcador de posición si no hay URL */}
-                                <td>{pastor.foto_url ? <img src={pastor.foto_url.startsWith('http') ? pastor.foto_url : `http://localhost:3307${pastor.foto_url}`} alt="" className="admin-table-avatar" /> : <div className="admin-table-avatar-placeholder"><i className="bi bi-person"></i></div>}</td>
+                                <td>{pastor.foto_url ? <img src={getUploadUrl(pastor.foto_url)} alt="" className="admin-table-avatar" /> : <div className="admin-table-avatar-placeholder"><i className="bi bi-person"></i></div>}</td>
                                 <td><strong>{pastor.nombre}</strong></td>
                                 <td><span className="badge-cargo">{pastor.cargo}</span></td>
                                 {/* Muestra la biografía recortada con un ancho máximo en la tabla */}
@@ -151,7 +167,7 @@ export default function AdminPastores() {
                             </tr>
                         ))}
                         {/* Muestra un mensaje en la tabla si no hay miembros registrados */}
-                        {pastores.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay miembros registrados.</td></tr>}
+                        {filteredPastores.length === 0 && <tr><td colSpan={6} className="admin-table-empty">{search ? 'No se encontraron miembros con esa búsqueda.' : 'No hay miembros registrados.'}</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -183,6 +199,12 @@ export default function AdminPastores() {
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar cambios</>}</button></div>
                         </form>
                     </div>
+                </div>
+            )}
+            {toast.show && (
+                <div className={`admin-toast admin-toast--${toast.type}`}>
+                    <i className={`bi ${toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}`}></i>
+                    {toast.text}
                 </div>
             )}
         </div>
