@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiRecurso } from '../../api';
+import { api, getUploadUrl, type ApiRecurso } from '../../api';
 
 interface RecursoFormData {
     id: number | null;
@@ -37,6 +37,18 @@ export default function AdminRecursos() {
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [search, setSearch] = useState('');
+    const [toast, setToast] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({ show: false, text: '', type: 'success' });
+
+    const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, text, type });
+        setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
+    };
+
+    const filteredRecursos = recursos.filter(r =>
+        r.titulo.toLowerCase().includes(search.toLowerCase()) ||
+        r.tipo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const cargarRecursos = async () => {
         try {
@@ -89,6 +101,7 @@ export default function AdminRecursos() {
             setModalOpen(false);
             setFormData(emptyRecurso);
             await cargarRecursos();
+            showToast(formData.id ? 'Recurso actualizado correctamente' : 'Recurso creado correctamente');
         } catch (requestError) {
             setFormError(errorMessage(requestError, 'No se pudo guardar el recurso.'));
         } finally {
@@ -104,6 +117,7 @@ export default function AdminRecursos() {
             setError('');
             await api.recursos.delete(id);
             setRecursos((items) => items.filter((recurso) => recurso.id !== id));
+            showToast('Recurso eliminado correctamente');
         } catch (requestError) {
             setError(errorMessage(requestError, 'No se pudo borrar el recurso.'));
         } finally {
@@ -116,14 +130,18 @@ export default function AdminRecursos() {
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
-                <h2>Gestión de Recursos Descargables</h2>
-                {/* Contenedor de los botones de acciones de la lista */}
+                <h2><i className="bi bi-folder2-open" style={{ marginRight: '10px', color: 'var(--gold-500)' }}></i>Gestión de Recursos Descargables</h2>
                 <div className="admin-crud-actions">
-                    {/* Botón que recarga la lista de recursos manualmente */}
+                    <span className="badge-count"><i className="bi bi-collection"></i> {recursos.length} registros</span>
                     <button className="btn-secondary" onClick={cargarRecursos}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
-                    {/* Botón que abre el modal para crear un recurso nuevo */}
                     <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-cloud-arrow-up"></i> Nuevo Recurso</button>
                 </div>
+            </div>
+
+            <div className="admin-crud-search">
+                <i className="bi bi-search"></i>
+                <input type="text" placeholder="Buscar por título o tipo..." value={search} onChange={e => setSearch(e.target.value)} />
+                {search && <button className="admin-crud-search-clear" onClick={() => setSearch('')}><i className="bi bi-x-circle"></i></button>}
             </div>
 
             {/* Muestra el mensaje de error de la lista si existe */}
@@ -135,18 +153,15 @@ export default function AdminRecursos() {
                     {/* Encabezado de la tabla con las columnas de datos y acciones */}
                     <thead><tr><th>ID</th><th>Tipo</th><th>Título</th><th>Descripción</th><th>Archivo</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {/* Recorre la lista de recursos para mostrar una fila por cada uno */}
-                        {recursos.map((recurso) => (
+                        {filteredRecursos.map((recurso) => (
                             <tr key={recurso.id}>
                                 <td>{recurso.id}</td>
                                 <td><span className="badge-cargo">{recurso.tipo}</span></td>
                                 <td><strong>{recurso.titulo}</strong></td>
-                                {/* Muestra la descripción recortada con un ancho máximo en la tabla */}
                                 <td className="text-truncate" style={{ maxWidth: '250px' }}>{recurso.descripcion}</td>
                                 <td>
-                                    {/* Si el recurso tiene un archivo real muestra un enlace para verlo */}
                                     {recurso.archivo_url && recurso.archivo_url !== '#' ? (
-                                        <a href={recurso.archivo_url.startsWith('http') ? recurso.archivo_url : `http://localhost:3307${recurso.archivo_url}`} target="_blank" rel="noreferrer" className="btn-icon" title="Ver archivo">
+                                        <a href={getUploadUrl(recurso.archivo_url)} target="_blank" rel="noreferrer" className="btn-icon" title="Ver archivo">
                                             <i className="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     ) : (
@@ -163,7 +178,7 @@ export default function AdminRecursos() {
                             </tr>
                         ))}
                         {/* Muestra un mensaje en la tabla si no hay recursos registrados */}
-                        {recursos.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay recursos registrados.</td></tr>}
+                        {filteredRecursos.length === 0 && <tr><td colSpan={6} className="admin-table-empty">{search ? 'No se encontraron recursos.' : 'No hay recursos registrados.'}</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -195,6 +210,12 @@ export default function AdminRecursos() {
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar recurso</>}</button></div>
                         </form>
                     </div>
+                </div>
+            )}
+            {toast.show && (
+                <div className={`admin-toast admin-toast--${toast.type}`}>
+                    <i className={`bi ${toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}`}></i>
+                    {toast.text}
                 </div>
             )}
         </div>
