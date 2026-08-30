@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiAnuncio } from '../../api';
+import { api, getUploadUrl, type ApiAnuncio } from '../../api';
 
 interface AnuncioFormData {
     id: number | null;
@@ -35,6 +35,17 @@ export default function AdminAnuncios() {
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [search, setSearch] = useState('');
+    const [toast, setToast] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({ show: false, text: '', type: 'success' });
+
+    const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, text, type });
+        setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
+    };
+
+    const filteredAnuncios = anuncios.filter(a =>
+        a.titulo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const cargarAnuncios = async () => {
         try {
@@ -82,6 +93,7 @@ export default function AdminAnuncios() {
             setModalOpen(false);
             setFormData(emptyAnuncio);
             await cargarAnuncios();
+            showToast(formData.id ? 'Anuncio actualizado correctamente' : 'Anuncio creado correctamente');
         } catch (requestError) {
             setFormError(errorMessage(requestError, 'No se pudo guardar el anuncio.'));
         } finally {
@@ -97,6 +109,7 @@ export default function AdminAnuncios() {
             setError('');
             await api.anuncios.delete(id);
             setAnuncios((items) => items.filter((anuncio) => anuncio.id !== id));
+            showToast('Anuncio eliminado correctamente');
         } catch (requestError) {
             setError(errorMessage(requestError, 'No se pudo borrar el anuncio.'));
         } finally {
@@ -109,14 +122,18 @@ export default function AdminAnuncios() {
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
-                <h2>Gestión de Anuncios</h2>
-                {/* Contenedor de los botones de acciones de la lista */}
+                <h2><i className="bi bi-megaphone" style={{ marginRight: '10px', color: 'var(--gold-500)' }}></i>Gestión de Anuncios</h2>
                 <div className="admin-crud-actions">
-                    {/* Botón que recarga la lista de anuncios manualmente */}
+                    <span className="badge-count"><i className="bi bi-collection"></i> {anuncios.length} registros</span>
                     <button className="btn-secondary" onClick={cargarAnuncios}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
-                    {/* Botón que abre el modal para crear un anuncio nuevo */}
                     <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-megaphone"></i> Nuevo Anuncio</button>
                 </div>
+            </div>
+
+            <div className="admin-crud-search">
+                <i className="bi bi-search"></i>
+                <input type="text" placeholder="Buscar por título..." value={search} onChange={e => setSearch(e.target.value)} />
+                {search && <button className="admin-crud-search-clear" onClick={() => setSearch('')}><i className="bi bi-x-circle"></i></button>}
             </div>
 
             {/* Muestra el mensaje de error de la lista si existe */}
@@ -128,12 +145,10 @@ export default function AdminAnuncios() {
                     {/* Encabezado de la tabla con las columnas de datos y acciones */}
                     <thead><tr><th>ID</th><th>Imagen</th><th>Título</th><th>Descripción</th><th>Fecha</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {/* Recorre la lista de anuncios para mostrar una fila por cada uno */}
-                        {anuncios.map((anuncio) => (
+                        {filteredAnuncios.map((anuncio) => (
                             <tr key={anuncio.id}>
                                 <td>{anuncio.id}</td>
-                                {/* Muestra la miniatura de la imagen o un marcador de posición si no hay URL */}
-                                <td>{anuncio.imagen_url ? <img src={anuncio.imagen_url.startsWith('http') ? anuncio.imagen_url : `http://localhost:3307${anuncio.imagen_url}`} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
+                                <td>{anuncio.imagen_url ? <img src={getUploadUrl(anuncio.imagen_url)} alt="" className="admin-table-img" /> : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 <td><strong>{anuncio.titulo}</strong></td>
                                 {/* Muestra la descripción recortada con un ancho máximo en la tabla */}
                                 <td className="text-truncate" style={{ maxWidth: '250px' }}>{anuncio.descripcion}</td>
@@ -149,7 +164,7 @@ export default function AdminAnuncios() {
                             </tr>
                         ))}
                         {/* Muestra un mensaje en la tabla si no hay anuncios registrados */}
-                        {anuncios.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay anuncios registrados.</td></tr>}
+                        {filteredAnuncios.length === 0 && <tr><td colSpan={6} className="admin-table-empty">{search ? 'No se encontraron anuncios.' : 'No hay anuncios registrados.'}</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -179,6 +194,12 @@ export default function AdminAnuncios() {
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar anuncio</>}</button></div>
                         </form>
                     </div>
+                </div>
+            )}
+            {toast.show && (
+                <div className={`admin-toast admin-toast--${toast.type}`}>
+                    <i className={`bi ${toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}`}></i>
+                    {toast.text}
                 </div>
             )}
         </div>
