@@ -5,15 +5,15 @@ export default function Footer() {
         <footer className="footer">
             {/* Contenedor central con ancho máximo y márgenes horizontales */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Cuadrícula que distribuye el contenido en columnas */}
-                <div className="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Cuadrícula que distribuye el contenido en columnas con mayor espaciado */}
+                <div className="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16">
 
                     {/* Primera columna: información de la iglesia */}
-                    <div>
+                    <div className="flex flex-col">
                         {/* Contenedor de la marca de la iglesia */}
                         <div className="footer-brand">
                             {/* Logotipo de la iglesia */}
-                            <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo mb-4" />
+                            <img src="/img/logo-oficial.png" alt="Asamblea de Dios" className="navbar-logo mb-6" style={{ maxHeight: '60px' }} />
                             {/* Descripción breve de la iglesia */}
                             <p>Asamblea de Dios — Una iglesia con propósito y visión.</p>
                             {/* Cita bíblica de la iglesia */}
@@ -27,7 +27,7 @@ export default function Footer() {
                     </div>
 
                     {/* Segunda columna: enlaces rápidos */}
-                    <div>
+                    <div className="lg:flex lg:justify-center">
                         {/* Contenedor de los enlaces del pie de página */}
                         <div className="footer-links">
                             {/* Título de la sección de enlaces */}
@@ -53,7 +53,7 @@ export default function Footer() {
                     </div>
 
                     {/* Tercera columna: redes sociales y horario */}
-                    <div>
+                    <div className="lg:flex lg:justify-end">
                         {/* Contenedor de redes sociales */}
                         <div className="footer-social">
                             {/* Título de la sección de redes sociales */}
