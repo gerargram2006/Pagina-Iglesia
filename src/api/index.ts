@@ -1,6 +1,18 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
 const API_URL = (configuredApiUrl || '/api').replace(/\/$/, '');
 
+// Construye la URL completa de un recurso subido (uploads) usando el origen del backend
+const UPLOAD_ORIGIN = configuredApiUrl
+  ? new URL(configuredApiUrl).origin
+  : window.location.origin;
+
+/** Devuelve la URL completa para mostrar un archivo local o externo */
+export function getUploadUrl(path: string | null | undefined): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  return `${UPLOAD_ORIGIN}${path}`;
+}
+
 export interface ApiEvento {
   id: number;
   titulo: string;
