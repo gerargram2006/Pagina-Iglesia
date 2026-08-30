@@ -43,3 +43,8 @@ dist-ssr/
 
 # --- Build del backend ---
 # Los node_modules del backend se ignoran por separado
+
+# --- Vídeos locales (Promocionales) ---
+# Carpeta de vídeos locales (ej: video promocional de Puerto Maldonado).
+# No se suben a Git por su tamaño/peso. Deben existir localmente en el servidor.
+public/vid/
