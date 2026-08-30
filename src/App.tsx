@@ -66,9 +66,6 @@ export default function App() {
                     {/* Define la ruta de inicio de sesión */}
                     <Route path="/login" element={<Login />} />
 
-                    {/* Define la ruta comodín para páginas no encontradas */}
-                    <Route path="*" element={<NotFound />} />
-
                     {/* Define la ruta del panel de administración protegida */}
                     <Route
                         path="/admin"
@@ -79,6 +76,9 @@ export default function App() {
                             </ProtectedRoute>
                         }
                     />
+
+                    {/* Define la ruta comodín para páginas no encontradas */}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
