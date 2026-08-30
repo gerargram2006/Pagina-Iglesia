@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type ApiSlide } from '../../api';
+import { api, getUploadUrl, type ApiSlide } from '../../api';
 
 interface SlideFormData {
     id: number | null;
@@ -43,6 +43,17 @@ export default function AdminSlides() {
     const [formError, setFormError] = useState('');
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [search, setSearch] = useState('');
+    const [toast, setToast] = useState<{ show: boolean; text: string; type: 'success' | 'error' }>({ show: false, text: '', type: 'success' });
+
+    const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, text, type });
+        setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
+    };
+
+    const filteredSlides = slides.filter(s =>
+        s.titulo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const cargarSlides = async () => {
         try {
@@ -94,6 +105,7 @@ export default function AdminSlides() {
             setModalOpen(false);
             setFormData(emptySlide);
             await cargarSlides();
+            showToast(formData.id ? 'Slide actualizado' : 'Slide creado correctamente');
         } catch (requestError) {
             setFormError(errorMessage(requestError, 'No se pudo guardar el slide.'));
         } finally {
@@ -109,6 +121,7 @@ export default function AdminSlides() {
             setError('');
             await api.slides.delete(id);
             setSlides((items) => items.filter((slide) => slide.id !== id));
+            showToast('Slide eliminado correctamente');
         } catch (requestError) {
             setError(errorMessage(requestError, 'No se pudo borrar el slide.'));
         } finally {
@@ -121,14 +134,18 @@ export default function AdminSlides() {
     return (
         <div className="admin-crud-section">
             <div className="admin-crud-header">
-                <h2>Slides del Hero Principal</h2>
-                {/* Contenedor de los botones de acciones de la lista */}
+                <h2><i className="bi bi-images" style={{ marginRight: '10px', color: 'var(--gold-500)' }}></i>Slides del Hero Principal</h2>
                 <div className="admin-crud-actions">
-                    {/* Botón que recarga la lista de slides manualmente */}
+                    <span className="badge-count"><i className="bi bi-collection"></i> {slides.length} registros</span>
                     <button className="btn-secondary" onClick={cargarSlides}><i className="bi bi-arrow-clockwise"></i> Actualizar</button>
-                    {/* Botón que abre el modal para crear un slide nuevo */}
                     <button className="btn-primary" onClick={() => handleOpenModal()}><i className="bi bi-plus-circle"></i> Nuevo Slide</button>
                 </div>
+            </div>
+
+            <div className="admin-crud-search">
+                <i className="bi bi-search"></i>
+                <input type="text" placeholder="Buscar por título..." value={search} onChange={e => setSearch(e.target.value)} />
+                {search && <button className="admin-crud-search-clear" onClick={() => setSearch('')}><i className="bi bi-x-circle"></i></button>}
             </div>
 
             {/* Muestra el mensaje de error de la lista si existe */}
@@ -140,15 +157,13 @@ export default function AdminSlides() {
                     {/* Encabezado de la tabla con las columnas de datos y acciones */}
                     <thead><tr><th>Orden</th><th>Imagen</th><th>Título</th><th>Botones</th><th>Estado</th><th>Acciones</th></tr></thead>
                     <tbody>
-                        {/* Recorre la lista de slides para mostrar una fila por cada uno */}
-                        {slides.map((slide) => (
+                        {filteredSlides.map((slide) => (
                             <tr key={slide.id} style={{ opacity: slide.activo ? 1 : 0.5 }}>
                                 <td><span className="badge-cargo">{slide.orden}</span></td>
-                                {/* Muestra la miniatura de la imagen, un icono de video, o un marcador de posición si no hay URL */}
                                 <td>{slide.imagen_url ? (
                                     /\.(mp4|webm|mov|ogg)$/i.test(slide.imagen_url)
                                         ? <div className="admin-table-img-placeholder" style={{ background: '#606C5922', color: '#606C59' }}><i className="bi bi-camera-video"></i></div>
-                                        : <img src={slide.imagen_url.startsWith('http') ? slide.imagen_url : `http://localhost:3307${slide.imagen_url}`} alt="" className="admin-table-img" />
+                                        : <img src={getUploadUrl(slide.imagen_url)} alt="" className="admin-table-img" />
                                 ) : <div className="admin-table-img-placeholder"><i className="bi bi-image"></i></div>}</td>
                                 {/* Muestra el título sin saltos de línea y un fragmento del subtítulo */}
                                 <td><strong>{slide.titulo.replace(/\n/g, ' ')}</strong><br /><small style={{ color: '#888' }}>{(slide.subtitulo ?? '').slice(0, 60)}...</small></td>
@@ -166,7 +181,7 @@ export default function AdminSlides() {
                             </tr>
                         ))}
                         {/* Muestra un mensaje en la tabla si no hay slides registrados */}
-                        {slides.length === 0 && <tr><td colSpan={6} className="admin-table-empty">No hay slides registrados.</td></tr>}
+                        {filteredSlides.length === 0 && <tr><td colSpan={6} className="admin-table-empty">{search ? 'No se encontraron slides.' : 'No hay slides registrados.'}</td></tr>}
                     </tbody>
                 </table>
             </div>
@@ -213,6 +228,12 @@ export default function AdminSlides() {
                             <div className="admin-modal-footer"><button type="button" className="btn-secondary" onClick={handleCloseModal} disabled={saving}>Cancelar</button><button type="submit" className="btn-primary" disabled={saving}>{saving ? <><i className="bi bi-arrow-repeat spin"></i> Guardando...</> : <><i className="bi bi-save"></i> Guardar slide</>}</button></div>
                         </form>
                     </div>
+                </div>
+            )}
+            {toast.show && (
+                <div className={`admin-toast admin-toast--${toast.type}`}>
+                    <i className={`bi ${toast.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}`}></i>
+                    {toast.text}
                 </div>
             )}
         </div>
