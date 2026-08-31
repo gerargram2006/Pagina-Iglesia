@@ -38,14 +38,10 @@ export default function Footer() {
                                 <li><Link to="/">Inicio</Link></li>
                                 {/* Enlace a la página de horarios */}
                                 <li><Link to="/horarios">Horarios</Link></li>
-                                {/* Enlace a la página de Quiénes Somos */}
-                                <li><Link to="/quienes-somos">Quiénes Somos</Link></li>
-                                {/* Enlace a la página de pastores */}
-                                <li><Link to="/pastores">Pastores</Link></li>
+                                {/* Enlace a la página de Nosotros */}
+                                <li><Link to="/quienes-somos">Nosotros</Link></li>
                                 {/* Enlace a la página de eventos */}
                                 <li><Link to="/eventos">Eventos</Link></li>
-                                {/* Enlace a la página de anexos y recursos */}
-                                <li><Link to="/anexos">Anexos y Recursos</Link></li>
                                 {/* Enlace a la página de contacto */}
                                 <li><Link to="/contacto">Contacto</Link></li>
                             </ul>
