@@ -1,7 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
+﻿import { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
-import { api, type ApiSlide } from '../api';
+import { api, type ApiSlide } from '../../api';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,8 +18,8 @@ function isVideoUrl(url: string): boolean {
 /* Slide local de video que siempre se muestra primero (no viene de la API) */
 const LOCAL_VIDEO_SLIDE = {
     id: -1,
-    titulo: '14 EBO - Escuela Bíblica',
-    subtitulo: 'Revive los mejores momentos de nuestra congregación en Puerto Maldonado',
+    titulo: '14 EBO - Escuela BÃ­blica',
+    subtitulo: 'Revive los mejores momentos de nuestra congregaciÃ³n en Puerto Maldonado',
     imagen_url: '/vid/Video de 14 ebo en puerto maldonado.mp4',
     btn_principal: '',
     btn_secundario: '',
@@ -89,7 +89,7 @@ const HeroSlider = () => {
                     return (
                         <SwiperSlide key={slide.id} className="relative w-full h-full">
 
-                            {/* ── FONDO: VIDEO O IMAGEN ── */}
+                            {/* â”€â”€ FONDO: VIDEO O IMAGEN â”€â”€ */}
                             {isVideo ? (
                                 <video
                                     src={slide.imagen_url}
@@ -108,10 +108,10 @@ const HeroSlider = () => {
                                 />
                             )}
 
-                            {/* ── OVERLAY DEGRADADO ── */}
+                            {/* â”€â”€ OVERLAY DEGRADADO â”€â”€ */}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20"></div>
 
-                            {/* ── CONTENIDO ── */}
+                            {/* â”€â”€ CONTENIDO â”€â”€ */}
                             <div className="absolute bottom-0 w-full px-6 pb-20 sm:px-16 sm:pb-28 flex flex-col sm:flex-row justify-between items-end gap-8 z-10">
 
                                 <div className="text-white max-w-3xl">
@@ -144,7 +144,7 @@ const HeroSlider = () => {
                     );
                 })}
 
-                {/* ── FLECHAS PERSONALIZADAS ── */}
+                {/* â”€â”€ FLECHAS PERSONALIZADAS â”€â”€ */}
                 <div
                     ref={prevRef}
                     className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-black/50 transition-all duration-300"

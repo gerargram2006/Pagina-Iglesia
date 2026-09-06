@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 
 export default function ScrollToTop() {
     const [visible, setVisible] = useState(false);
@@ -24,7 +24,7 @@ export default function ScrollToTop() {
             aria-label="Volver al inicio"
             title="Volver al inicio"
         >
-            {/* Ícono de flecha hacia arriba */}
+            {/* Ãcono de flecha hacia arriba */}
             <i className="bi bi-chevron-up" aria-hidden="true"></i>
         </button>
     );

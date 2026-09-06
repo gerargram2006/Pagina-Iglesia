@@ -1,13 +1,13 @@
-import React from 'react';
+﻿import React from 'react';
 
 const Hero: React.FC = () => {
     return (
         <section className="relative w-full h-screen overflow-hidden">
-            {/* Imagen de Fondo (Reemplazable por tu propia imagen después) */}
-            {/* Inserta la imagen de fondo que cubre toda la sección */}
+            {/* Imagen de Fondo (Reemplazable por tu propia imagen despuÃ©s) */}
+            {/* Inserta la imagen de fondo que cubre toda la secciÃ³n */}
             <img
                 src="/img/galeria-congregacion.webp"
-                alt="Congregación de la iglesia"
+                alt="CongregaciÃ³n de la iglesia"
                 className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -22,27 +22,27 @@ const Hero: React.FC = () => {
                 {/* Textos (Alineados a la izquierda en PC) */}
                 {/* Bloque de textos en color blanco */}
                 <div className="text-white max-w-2xl">
-                    {/* Título principal de bienvenida de la iglesia */}
+                    {/* TÃ­tulo principal de bienvenida de la iglesia */}
                     <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-4 leading-tight">
                         Bienvenido a <br /> Asamblea de Dios
                     </h1>
-                    {/* Párrafo de bienvenida con el propósito de la iglesia */}
+                    {/* PÃ¡rrafo de bienvenida con el propÃ³sito de la iglesia */}
                     <p className="text-lg sm:text-xl text-gray-300 font-medium">
-                        Descubre el propósito que Dios tiene para tu vida.
+                        Descubre el propÃ³sito que Dios tiene para tu vida.
                         Un lugar para crecer, servir y amar en comunidad.
                     </p>
                 </div>
 
                 {/* Botones (Alineados a la derecha en PC, apilados en celulares) */}
-                {/* Contenedor flexible para los dos botones de acción */}
+                {/* Contenedor flexible para los dos botones de acciÃ³n */}
                 <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4">
-                    {/* Botón principal que dirige al usuario a conectarse */}
+                    {/* BotÃ³n principal que dirige al usuario a conectarse */}
                     <button className="px-8 py-3.5 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 w-full sm:w-auto">
-                        Conéctate
+                        ConÃ©ctate
                     </button>
-                    {/* Botón secundario con fondo translúcido para obtener más información */}
+                    {/* BotÃ³n secundario con fondo translÃºcido para obtener mÃ¡s informaciÃ³n */}
                     <button className="px-8 py-3.5 bg-black/20 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/40 transition-all duration-300 w-full sm:w-auto">
-                        Saber más
+                        Saber mÃ¡s
                     </button>
                 </div>
 
