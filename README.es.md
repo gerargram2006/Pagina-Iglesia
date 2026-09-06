@@ -997,3 +997,14 @@ Este proyecto es para uso institucional de la Iglesia Asamblea de Dios.
   <img src="public/img/logo-oficial.png" alt="Logo Asamblea de Dios" width="250" />
 
 </div>
+
+---
+
+**Copyright (c) 2026 Gerar Rodrigo Camma Baldeon**
+
+Todos los derechos reservados.
+
+Este código fuente es propiedad intelectual exclusiva de Gerar Rodrigo Camma Baldeon. 
+Queda estrictamente prohibida la reproducción, distribución, modificación, uso comercial o publicación de cualquier parte de este software, ya sea en su forma original o compilada, sin el permiso previo, expreso y por escrito del autor.
+
+Desarrollado para: Asamblea de Dios - Arequipa
