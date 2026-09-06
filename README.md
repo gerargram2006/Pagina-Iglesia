@@ -76,6 +76,7 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 - **Hero Slider Video Support**: The Hero Slider now renders both images and video (`.mp4`, `.webm`, `.mov`, `.ogg`) as full-screen slide backgrounds with autoplay, loop, and mute. The first slide is a local promotional video ("14 EBO – Escuela Bíblica") and the rest are fetched dynamically from the API.
 - **Admin Slide Manager**: `AdminSlides` provides full CRUD for Hero slides with support for uploading an image or a video file as the background.
 - **Dynamic Hero Integration**: The Hero Slider is reconnected to the `/api/slides` endpoint, automatically filtering only active slides (`activo === 1`).
+- **Architecture Reorganization**: Restructured the frontend `src/components` folder into logical subdirectories (`layout`, `sections`, and `ui`) for improved scalability, and cleaned up the backend by moving auxiliary files to a dedicated `scripts` folder.
 - **UI/UX Improvements**: Redesigned Donations page with impact cards, updated Social Media links, and added a floating "Scroll to Top" button.
 - **Database Utilities**: Added robust scripts (`fix_db_all.ts` and `fix_db.ts`) to sanitize and correct text encoding issues in the database.
 - **JSX Syntax Fixes**: Systematically removed inline JavaScript comments (`//`) from JSX structures that were breaking the UI rendering across more than 40 frontend components.
@@ -254,21 +255,10 @@ Pagina-Iglesia/
 ├── src/                       # React frontend source code
 │   ├── api/                   # Centralized HTTP client
 │   │   └── index.ts           # fetchAPI function with auto JWT injection + FormData support
-│   ├── components/            # 14 reusable components
-│   │   ├── Layout.tsx         # Main layout with Outlet and Footer
-│   │   ├── NavBar.tsx         # Responsive navbar with Glassmorphism
-│   │   ├── Footer.tsx         # Footer with links, verse, and social media
-│   │   ├── PageHeader.tsx     # Internal page header (hero style)
-│   │   ├── HeroSlider.tsx     # Full-screen hero carousel (Swiper, 3 slides)
-│   │   ├── Hero.tsx           # Single-slide hero (fallback)
-│   │   ├── ScheduleSection.tsx# Worship schedule cards with icons
-│   │   ├── AboutSection.tsx   # About section (2 columns + metrics)
-│   │   ├── GallerySection.tsx # Photo gallery (6-slot Bento grid)
-│   │   ├── PastorsSection.tsx # Pastor/leader cards (real photos)
-│   │   ├── EventsSection.tsx  # Upcoming events list (with thumbnails)
-│   │   ├── EventosSlider.tsx  # Events interactive carousel (Swiper, responsive, autoplay)
-│   │   ├── CTASection.tsx     # Call-to-action section with particles
-│   │   └── ContactSection.tsx # Contact info + form
+│   ├── components/            # Reusable UI architecture
+│   │   ├── layout/            # Core structure (NavBar, Footer, Layout, PageHeader)
+│   │   ├── sections/          # Page content blocks (Schedule, About, Gallery, etc.)
+│   │   └── ui/                # Independent UI elements (HeroSlider, EventosSlider, etc.)
 │   ├── context/
 │   │   └── AuthContext.tsx    # Auth provider (login/logout/JWT)
 │   ├── hooks/
@@ -300,10 +290,7 @@ Pagina-Iglesia/
 ├── backend/                   # Express server source code
 │   ├── server.ts              # Express server with all API endpoints
 │   ├── config.ts              # Env-based configuration (port, JWT, DB, CORS)
-│   ├── generarClave.ts        # Utility to generate bcrypt hashes
-│   ├── reseteo.ts             # Utility to reset admin password
-│   ├── check_db.ts            # Utility to inspect database tables/rows
-│   ├── fix_db.ts              # Utility to fix text encoding issues
+│   ├── scripts/               # Maintenance utilities (check_db, fix_db, reseteo, etc.)
 │   ├── middleware/
 │   │   ├── auth.ts            # JWT verification middleware
 │   │   └── upload.ts          # Multer config (images + PDFs, 5MB limit)

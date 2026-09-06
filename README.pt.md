@@ -77,6 +77,7 @@ O design visual, a estrutura e a experiência do usuário (UX/UI) foram planejad
 - **Suporte a Vídeo no Hero Slider**: O Hero Slider agora renderiza tanto imagens quanto vídeos (`.mp4`, `.webm`, `.mov`, `.ogg`) como fundos em tela cheia com autoplay, loop e mudo. O primeiro slide é um vídeo promocional local ("14 EBO – Escola Bíblica") e o restante é obtido dinamicamente da API.
 - **Gerenciador de Slides do Hero**: `AdminSlides` fornece CRUD completo para os slides do Hero com suporte para enviar uma imagem ou um vídeo como fundo.
 - **Integração Dinâmica do Hero**: O Hero Slider está reconectado ao endpoint `/api/slides`, filtrando automaticamente apenas os slides ativos (`atividade === 1`).
+- **Reorganização de Arquitetura**: A pasta `src/components` do frontend foi reestruturada em subdiretórios lógicos (`layout`, `sections` e `ui`) para melhor escalabilidade, e o backend foi limpo movendo os arquivos auxiliares para uma pasta dedicada `scripts`.
 - **Utilitários de Banco de Dados**: Adicionados scripts robustos (`fix_db_all.ts` e `fix_db.ts`) para sanitizar e corrigir problemas de codificação de texto no banco de dados.
 - **Correção de Sintaxe JSX**: Foram removidos sistematicamente os comentários JavaScript (`//`) dentro da estrutura JSX que estavam quebrando a renderização em mais de 40 componentes frontend.
 - **Correção da Inicialização do Docker**: Foi integrada manualmente a migração `migrate_crud.sql` para recriar as tabelas ausentes (`galeria` e `slides`), resolvendo os erros de carregamento de imagens no frontend após a recriação do banco de dados.
@@ -255,21 +256,10 @@ Pagina-Iglesia/
 ├── src/                       # Código-fonte do frontend React
 │   ├── api/                   # Cliente HTTP centralizado
 │   │   └── index.ts           # Função fetchAPI com injeção automática de JWT + suporte FormData
-│   ├── components/            # 14 componentes reutilizáveis
-│   │   ├── Layout.tsx         # Layout principal com Outlet e Footer
-│   │   ├── NavBar.tsx         # Barra de navegação responsiva com Glassmorphism
-│   │   ├── Footer.tsx         # Rodapé com links, versículo e redes sociais
-│   │   ├── PageHeader.tsx     # Cabeçalho de páginas internas (estilo hero)
-│   │   ├── HeroSlider.tsx     # Hero carrossel em tela cheia (Swiper, 3 slides)
-│   │   ├── Hero.tsx           # Hero de slide único (fallback)
-│   │   ├── ScheduleSection.tsx# Cards de horários de culto com ícones
-│   │   ├── AboutSection.tsx   # Seção "Quem Somos" (2 colunas + métricas)
-│   │   ├── GallerySection.tsx # Galeria de fotos (Bento grid de 6 espaços)
-│   │   ├── PastorsSection.tsx # Cards de pastores/líderes (foto real)
-│   │   ├── EventsSection.tsx  # Lista de próximos eventos (com thumbnails)
-│   │   ├── EventosSlider.tsx  # Carrossel interativo de eventos (Swiper, responsivo, autoplay)
-│   │   ├── CTASection.tsx     # Seção "Chamada à ação" com partículas
-│   │   └── ContactSection.tsx # Info de contato + formulário
+│   ├── components/            # Arquitetura UI reutilizável
+│   │   ├── layout/            # Estrutura principal (NavBar, Footer, Layout, PageHeader)
+│   │   ├── sections/          # Blocos de conteúdo de página (Schedule, About, Gallery, etc.)
+│   │   └── ui/                # Elementos UI independentes (HeroSlider, EventosSlider, etc.)
 │   ├── context/
 │   │   └── AuthContext.tsx    # Provedor de autenticação (login/logout/JWT)
 │   ├── hooks/
@@ -301,10 +291,7 @@ Pagina-Iglesia/
 ├── backend/                   # Código-fonte do servidor Express
 │   ├── server.ts              # Servidor Express com todos os endpoints API
 │   ├── config.ts              # Configuração baseada em env (porta, JWT, BD, CORS)
-│   ├── generarClave.ts        # Utilidade para gerar hashes bcrypt
-│   ├── reseteo.ts             # Utilidade para redefinir senha do admin
-│   ├── check_db.ts            # Utilidade para inspecionar tabelas/registros do BD
-│   ├── fix_db.ts              # Utilidade para corrigir problemas de codificação
+│   ├── scripts/               # Utilitários de manutenção (check_db, fix_db, reseteo, etc.)
 │   ├── middleware/
 │   │   ├── auth.ts            # Middleware de verificação JWT
 │   │   └── upload.ts          # Configuração do Multer (imagens + PDFs, limite 5MB)

@@ -74,12 +74,13 @@ El diseño visual, la estructura y la experiencia de usuario (UX/UI) fueron plan
 - **Integración Dinámica del Frontend**: Las secciones Hero Slider, Horarios y Galería ahora consumen los datos directamente desde la API.
 - **Mejoras de Tema y Estilos**: Se aplicó una paleta de colores verdes moderna e integral en todo el sitio público y el panel de administración.
 - **Mejoras UI/UX**: Rediseño de la página de Donaciones con tarjetas de impacto, enlaces de Redes Sociales actualizados y nuevo botón flotante de "Volver Arriba".
-- **Soporte de Video en el Hero Slider**: El Hero Slider ahora renderiza tanto imágenes como videos (`.mp4`, `.webm`, `.mov`, `.ogg`) como fondos a pantalla completa con autoplay, loop y mute. El primer slide es un video promocional local ("14 EBO – Escuela Bíblica") y el resto se obtiene dinámicamente de la API.
+- **Soporte de Video en el Hero Slider**: El Hero Slider ahora renderiza tanto imágenes como videos (`.mp4`, `.webm`, `.mov`, `.ogg`) como fondos a pantalla completa con autoplay, loop y mute.
 - **Gestor de Slides del Hero**: `AdminSlides` provee CRUD completo para los slides del Hero con soporte para subir una imagen o un video como fondo.
 - **Integración Dinámica del Hero**: El Hero Slider está reconectado al endpoint `/api/slides`, filtrando automáticamente solo los slides activos (`activo === 1`).
+- **Reorganización de Arquitectura**: Se reestructuró la carpeta `src/components` del frontend en subdirectorios lógicos (`layout`, `sections` y `ui`) para mejorar la escalabilidad, y se limpió el backend moviendo los archivos auxiliares a una carpeta `scripts` dedicada.
 - **Utilidades de Base de Datos**: Se añadieron scripts robustos (`fix_db_all.ts` y `fix_db.ts`) para sanear y corregir problemas de codificación de texto en la base de datos.
 - **Corrección de Sintaxis JSX**: Se eliminaron sistemáticamente los comentarios de JavaScript (`//`) dentro de la estructura JSX que rompían el renderizado en más de 40 componentes frontend.
-- **Inicialización de Docker Corregida**: Se integró manualmente la migración de `migrate_crud.sql` para recrear las tablas faltantes (`galeria` y `slides`), solucionando los errores de carga de imágenes en el frontend tras el reseteo de la base de datos.
+- **Corrección de Inicialización Docker**: Se integró manualmente la migración `migrate_crud.sql` para recrear las tablas faltantes (`galeria` y `slides`), resolviendo los errores de carga de imágenes en el frontend tras un reinicio de la base de datos.
 
 ---
 
@@ -255,21 +256,10 @@ Pagina-Iglesia/
 ├── src/                       # Código fuente del frontend React
 │   ├── api/                   # Cliente HTTP centralizado
 │   │   └── index.ts           # Función fetchAPI con inyección automática de JWT + soporte FormData
-│   ├── components/            # 14 componentes reutilizables
-│   │   ├── Layout.tsx         # Layout principal con Outlet y Footer
-│   │   ├── NavBar.tsx         # Barra de navegación responsiva con Glassmorphism
-│   │   ├── Footer.tsx         # Pie de página con enlaces, versículo y redes sociales
-│   │   ├── PageHeader.tsx     # Encabezado de páginas internas (estilo hero)
-│   │   ├── HeroSlider.tsx     # Hero carrusel a pantalla completa (Swiper, 3 diapositivas)
-│   │   ├── Hero.tsx           # Hero de una sola diapositiva (respaldo)
-│   │   ├── ScheduleSection.tsx# Tarjetas de horarios de culto con iconos
-│   │   ├── AboutSection.tsx   # Sección "Quiénes Somos" (2 columnas + métricas)
-│   │   ├── GallerySection.tsx # Galería de fotos (Bento grid de 6 espacios)
-│   │   ├── PastorsSection.tsx # Tarjetas de pastores/líderes (foto real)
-│   │   ├── EventsSection.tsx  # Lista de próximos eventos (con thumbnails)
-│   │   ├── EventosSlider.tsx  # Carrusel interactivo de eventos (Swiper, responsive, autoplay)
-│   │   ├── CTASection.tsx     # Sección "Llamado a la acción" con partículas
-│   │   └── ContactSection.tsx # Info de contacto + formulario
+│   ├── components/            # Arquitectura UI reutilizable
+│   │   ├── layout/            # Estructura principal (NavBar, Footer, Layout, PageHeader)
+│   │   ├── sections/          # Bloques de contenido de página (Schedule, About, Gallery, etc.)
+│   │   └── ui/                # Elementos UI independientes (HeroSlider, EventosSlider, etc.)
 │   ├── context/
 │   │   └── AuthContext.tsx    # Proveedor de autenticación (login/logout/JWT)
 │   ├── hooks/
@@ -301,10 +291,7 @@ Pagina-Iglesia/
 ├── backend/                   # Código fuente del servidor Express
 │   ├── server.ts              # Servidor Express con todos los endpoints API
 │   ├── config.ts              # Configuración basada en env (puerto, JWT, BD, CORS)
-│   ├── generarClave.ts        # Utilidad para generar hashes bcrypt
-│   ├── reseteo.ts             # Utilidad para resetear contraseña del admin
-│   ├── check_db.ts            # Utilidad para inspeccionar tablas/registros de la BD
-│   ├── fix_db.ts              # Utilidad para corregir problemas de codificación
+│   ├── scripts/               # Utilidades de mantenimiento (check_db, fix_db, reseteo, etc.)
 │   ├── middleware/
 │   │   ├── auth.ts            # Middleware de verificación JWT
 │   │   └── upload.ts          # Configuración de Multer (imágenes + PDFs, límite 5MB)
