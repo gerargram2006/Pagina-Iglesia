@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+﻿import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Horarios from './pages/Horarios';
 import QuienesSomos from './pages/QuienesSomos';
@@ -26,10 +26,10 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
             background: '#f3f5f1',
             gap: '16px'
         }}>
-            {/* Icono animado de carga mientras se verifica la sesión */}
+            {/* Icono animado de carga mientras se verifica la sesiÃ³n */}
             <i className="bi bi-arrow-repeat spin" style={{ fontSize: '2.5rem', color: '#606C59' }}></i>
-            {/* Texto que indica que se está verificando la sesión */}
-            <span style={{ color: '#5a635e', fontWeight: 500, fontSize: '0.95rem' }}>Verificando sesión...</span>
+            {/* Texto que indica que se estÃ¡ verificando la sesiÃ³n */}
+            <span style={{ color: '#5a635e', fontWeight: 500, fontSize: '0.95rem' }}>Verificando sesiÃ³n...</span>
         </div>
     );
     if (!user) return <Navigate to="/login" replace />;
@@ -39,9 +39,9 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
 export default function App() {
     return (
         <BrowserRouter>
-            {/* Provee el contexto de autenticación a toda la aplicación */}
+            {/* Provee el contexto de autenticaciÃ³n a toda la aplicaciÃ³n */}
             <AuthProvider>
-                {/* Define las rutas de la aplicación */}
+                {/* Define las rutas de la aplicaciÃ³n */}
                 <Routes>
                     {/* Define la ruta principal que usa el Layout */}
                     <Route path="/" element={<Layout />}>
@@ -49,7 +49,7 @@ export default function App() {
                         <Route index element={<Home />} />
                         {/* Define la ruta de horarios */}
                         <Route path="horarios" element={<Horarios />} />
-                        {/* Define la ruta de Quiénes Somos */}
+                        {/* Define la ruta de QuiÃ©nes Somos */}
                         <Route path="quienes-somos" element={<QuienesSomos />} />
                         {/* Define la ruta de pastores */}
                         <Route path="pastores" element={<Pastores />} />
@@ -63,21 +63,21 @@ export default function App() {
                         <Route path="contacto" element={<Contacto />} />
                     </Route>
 
-                    {/* Define la ruta de inicio de sesión */}
+                    {/* Define la ruta de inicio de sesiÃ³n */}
                     <Route path="/login" element={<Login />} />
 
-                    {/* Define la ruta del panel de administración protegida */}
+                    {/* Define la ruta del panel de administraciÃ³n protegida */}
                     <Route
                         path="/admin"
                         element={
                             <ProtectedRoute>
-                                {/* Renderiza el panel de administración */}
+                                {/* Renderiza el panel de administraciÃ³n */}
                                 <Admin />
                             </ProtectedRoute>
                         }
                     />
 
-                    {/* Define la ruta comodín para páginas no encontradas */}
+                    {/* Define la ruta comodÃ­n para pÃ¡ginas no encontradas */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>

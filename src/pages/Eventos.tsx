@@ -1,5 +1,5 @@
-import PageHeader from '../components/PageHeader';
-import EventsSection from '../components/EventsSection';
+﻿import PageHeader from '../components/layout/PageHeader';
+import EventsSection from '../components/sections/EventsSection';
 
 export default function Eventos() {
     return (

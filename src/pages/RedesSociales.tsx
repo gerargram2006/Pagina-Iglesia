@@ -1,4 +1,4 @@
-import PageHeader from '../components/PageHeader';
+﻿import PageHeader from '../components/layout/PageHeader';
 
 export default function RedesSociales() {
     const redes = [
@@ -30,7 +30,7 @@ export default function RedesSociales() {
 
     return (
         <>
-            <PageHeader title="Conéctate con Nosotros" subtitle="Síguenos en nuestras redes sociales para estar al tanto de todo" />
+            <PageHeader title="ConÃ©ctate con Nosotros" subtitle="SÃ­guenos en nuestras redes sociales para estar al tanto de todo" />
             <main>
                 <section className="section">
                     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -55,7 +55,7 @@ export default function RedesSociales() {
                                         <h3 className="font-playfair text-lg font-bold text-[#606C59] mb-2">{red.nombre}</h3>
                                         <p className="text-sm text-text-light leading-relaxed mb-4">{red.descripcion}</p>
                                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-600 group-hover:text-gold-500 transition-colors">
-                                            Síguenos
+                                            SÃ­guenos
                                             <i className="bi bi-arrow-right group-hover:translate-x-1 transition-transform"></i>
                                         </span>
                                     </div>
