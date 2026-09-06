@@ -1,4 +1,4 @@
-interface ScheduleSectionProps {
+﻿interface ScheduleSectionProps {
     title?: string | null;
     subtitle?: string | null;
     id?: string;
@@ -25,43 +25,43 @@ export default function ScheduleSection({
                         {/* Domingo */}
                         <div className="schedule-card delay-1" data-animate="fade-in-up">
                             <span className="schedule-step-number" aria-hidden="true">01</span>
-                            <span className="schedule-icon">⛪</span>
+                            <span className="schedule-icon">â›ª</span>
                             <div className="schedule-divider" aria-hidden="true"></div>
                             <div className="schedule-day">Domingo</div>
                             <div className="schedule-time">10:30 AM</div>
                             <div className="schedule-name">Culto Dominical</div>
                         </div>
-                        {/* Miércoles */}
+                        {/* MiÃ©rcoles */}
                         <div className="schedule-card delay-2" data-animate="fade-in-up">
                             <span className="schedule-step-number" aria-hidden="true">02</span>
-                            <span className="schedule-icon">📖</span>
+                            <span className="schedule-icon">ðŸ“–</span>
                             <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Miércoles</div>
+                            <div className="schedule-day">MiÃ©rcoles</div>
                             <div className="schedule-time">6:00 PM - 8:00 PM</div>
-                            <div className="schedule-name">Culto de Enseñanza</div>
+                            <div className="schedule-name">Culto de EnseÃ±anza</div>
                         </div>
                         {/* Viernes */}
                         <div className="schedule-card delay-3" data-animate="fade-in-up">
                             <span className="schedule-step-number" aria-hidden="true">03</span>
-                            <span className="schedule-icon">✝️</span>
+                            <span className="schedule-icon">âœï¸</span>
                             <div className="schedule-divider" aria-hidden="true"></div>
                             <div className="schedule-day">Viernes</div>
                             <div className="schedule-time">6:00 PM - 8:00 PM</div>
                             <div className="schedule-name">Culto de Doctrina</div>
                         </div>
-                        {/* Sábado */}
+                        {/* SÃ¡bado */}
                         <div className="schedule-card delay-4" data-animate="fade-in-up">
                             <span className="schedule-step-number" aria-hidden="true">04</span>
-                            <span className="schedule-icon">⭐</span>
+                            <span className="schedule-icon">â­</span>
                             <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Sábado</div>
+                            <div className="schedule-day">SÃ¡bado</div>
                             <div className="schedule-time">5:00 PM - 7:00 PM</div>
-                            <div className="schedule-name">Culto de Jóvenes</div>
+                            <div className="schedule-name">Culto de JÃ³venes</div>
                         </div>
                     </div>
                 )}
 
-                {/* Sección de Anexos */}
+                {/* SecciÃ³n de Anexos */}
                 {showAnexos && (
                     <div className="mt-20" data-animate="fade-in-up">
                         <h3 className="text-2xl font-playfair font-bold text-center text-[#606C59] mb-10 relative pb-4">
@@ -75,11 +75,11 @@ export default function ScheduleSection({
                                 <div className="space-y-4 mb-8">
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Jueves 6:30 PM</span>
-                                        <span className="text-text-light text-sm">Escuela Bíblica</span>
+                                        <span className="text-text-light text-sm">Escuela BÃ­blica</span>
                                     </div>
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Domingo 10:00 AM</span>
-                                        <span className="text-text-light text-sm">Culto de Adoración</span>
+                                        <span className="text-text-light text-sm">Culto de AdoraciÃ³n</span>
                                     </div>
                                 </div>
                                 <div className="text-sm text-text-muted mt-auto pt-5 border-t border-gray-100 flex items-center justify-center gap-2">
@@ -94,16 +94,16 @@ export default function ScheduleSection({
                                 <div className="space-y-4 mb-8">
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Jueves 6:30 PM</span>
-                                        <span className="text-text-light text-sm">Escuela Bíblica</span>
+                                        <span className="text-text-light text-sm">Escuela BÃ­blica</span>
                                     </div>
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Domingo 6:00 PM</span>
-                                        <span className="text-text-light text-sm">Culto de Adoración</span>
+                                        <span className="text-text-light text-sm">Culto de AdoraciÃ³n</span>
                                     </div>
                                 </div>
                                 <div className="text-sm text-text-muted mt-auto pt-5 border-t border-gray-100 flex items-center justify-center gap-2">
                                     <i className="bi bi-geo-alt-fill text-gold-500 text-lg"></i>
-                                    <span>C. Andrés Avelino Cáceres <br className="hidden lg:block"/> con La Mar, Socabaya</span>
+                                    <span>C. AndrÃ©s Avelino CÃ¡ceres <br className="hidden lg:block"/> con La Mar, Socabaya</span>
                                 </div>
                             </div>
 
@@ -113,16 +113,16 @@ export default function ScheduleSection({
                                 <div className="space-y-4 mb-8">
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Martes 6:00 PM</span>
-                                        <span className="text-text-light text-sm">Escuela Bíblica</span>
+                                        <span className="text-text-light text-sm">Escuela BÃ­blica</span>
                                     </div>
                                     <div className="bg-gray-50/50 rounded-xl p-3">
                                         <span className="font-semibold text-gold-600 block text-lg">Domingo 6:00 PM</span>
-                                        <span className="text-text-light text-sm">Culto de Adoración</span>
+                                        <span className="text-text-light text-sm">Culto de AdoraciÃ³n</span>
                                     </div>
                                 </div>
                                 <div className="text-sm text-text-muted mt-auto pt-5 border-t border-gray-100 flex items-center justify-center gap-2">
                                     <i className="bi bi-geo-alt-fill text-gold-500 text-lg"></i>
-                                    Av. Huascar N° 203, Selva Alegre 04004
+                                    Av. Huascar NÂ° 203, Selva Alegre 04004
                                 </div>
                             </div>
                         </div>

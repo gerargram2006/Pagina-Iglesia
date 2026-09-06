@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { api, type ApiGaleria } from '../api';
+﻿import { useState, useEffect } from 'react';
+import { api, type ApiGaleria } from '../../api';
 
 interface GallerySectionProps {
     title?: string | null;
@@ -28,11 +28,11 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
 
     return (
         <section id={id} className="section">
-            {/* Contenedor central con ancho máximo y márgenes responsivos */}
+            {/* Contenedor central con ancho mÃ¡ximo y mÃ¡rgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Muestra el título solo si existe */}
+                {/* Muestra el tÃ­tulo solo si existe */}
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
-                {/* Muestra el subtítulo solo si existe */}
+                {/* Muestra el subtÃ­tulo solo si existe */}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
 
                 {/* Muestra el indicador de carga mientras se obtienen las fotos */}
@@ -40,12 +40,12 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono animado de carga */}
                         <i className="bi bi-arrow-repeat spin text-2xl block mb-3"></i>
-                        {/* Texto de "cargando galería" */}
-                        <p>Cargando galería...</p>
+                        {/* Texto de "cargando galerÃ­a" */}
+                        <p>Cargando galerÃ­a...</p>
                     </div>
                 )}
 
-                {/* Muestra el mensaje de error si ocurrió uno */}
+                {/* Muestra el mensaje de error si ocurriÃ³ uno */}
                 {error && !loading && (
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de advertencia */}
@@ -58,34 +58,34 @@ export default function GallerySection({ title = "Nuestra Comunidad", subtitle =
                 {/* Muestra un aviso si no hay fotos publicadas */}
                 {!loading && !error && galleryItems.length === 0 && (
                     <div className="text-center py-16 text-text-muted">
-                        {/* Icono de cámara */}
+                        {/* Icono de cÃ¡mara */}
                         <i className="bi bi-camera text-2xl block mb-3"></i>
-                        {/* Texto indicando que la galería se publicará próximamente */}
-                        <p>La galería será publicada próximamente.</p>
+                        {/* Texto indicando que la galerÃ­a se publicarÃ¡ prÃ³ximamente */}
+                        <p>La galerÃ­a serÃ¡ publicada prÃ³ximamente.</p>
                     </div>
                 )}
 
-                {/* Muestra la cuadrícula de fotos solo si hay datos disponibles */}
+                {/* Muestra la cuadrÃ­cula de fotos solo si hay datos disponibles */}
                 {!loading && !error && galleryItems.length > 0 && (
                     <div className="gallery-grid">
-                        {/* Recorre la lista de fotos para generar cada elemento de la galería */}
+                        {/* Recorre la lista de fotos para generar cada elemento de la galerÃ­a */}
                         {galleryItems.map((item) => (
                             <div key={item.id} className={`gallery-item ${item.destacada ? 'gallery-item-wide' : ''}`} data-animate="scale-in">
-                                {/* Imagen de la galería con carga diferida */}
+                                {/* Imagen de la galerÃ­a con carga diferida */}
                                 <img src={item.imagen_url} alt={item.titulo} className="gallery-img" loading="lazy" />
                                 {/* Capa superpuesta que aparece al pasar el cursor */}
                                 <div className="gallery-overlay">
-                                    {/* Contenido del superpuesto con el ícono y la etiqueta */}
+                                    {/* Contenido del superpuesto con el Ã­cono y la etiqueta */}
                                     <div className="gallery-overlay-content">
-                                        {/* Ícono de zoom para ampliar la foto */}
+                                        {/* Ãcono de zoom para ampliar la foto */}
                                         <i className="bi bi-zoom-in gallery-zoom-icon" aria-hidden="true"></i>
-                                        {/* Etiqueta con el título de la foto */}
+                                        {/* Etiqueta con el tÃ­tulo de la foto */}
                                         <span className="gallery-label">{item.titulo}</span>
                                     </div>
                                 </div>
                                 {/* Barra inferior con la etiqueta de la foto */}
                                 <div className="gallery-label-bar">
-                                    {/* Muestra el título de la foto */}
+                                    {/* Muestra el tÃ­tulo de la foto */}
                                     <span>{item.titulo}</span>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { api, type ApiPastor } from '../api';
+﻿import { useEffect, useState } from 'react';
+import { api, type ApiPastor } from '../../api';
 
 function initials(name: string): string {
     return name
@@ -42,11 +42,11 @@ export default function PastorsSection({ title = 'Nuestros Pastores', subtitle =
 
     return (
         <section id={id} className="section section-alt">
-            {/* Contenedor central con ancho máximo y márgenes responsivos */}
+            {/* Contenedor central con ancho mÃ¡ximo y mÃ¡rgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Muestra el título solo si existe */}
+                {/* Muestra el tÃ­tulo solo si existe */}
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
-                {/* Muestra el subtítulo solo si existe */}
+                {/* Muestra el subtÃ­tulo solo si existe */}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
 
                 {/* Muestra el indicador de carga mientras se obtienen los pastores */}
@@ -59,7 +59,7 @@ export default function PastorsSection({ title = 'Nuestros Pastores', subtitle =
                     </div>
                 )}
 
-                {/* Muestra el mensaje de error si ocurrió uno */}
+                {/* Muestra el mensaje de error si ocurriÃ³ uno */}
                 {error && !loading && (
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de advertencia */}
@@ -74,12 +74,12 @@ export default function PastorsSection({ title = 'Nuestros Pastores', subtitle =
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de personas */}
                         <i className="bi bi-people text-2xl block mb-3"></i>
-                        {/* Texto indicando que el equipo pastoral se publicará próximamente */}
-                        <p>El equipo pastoral será publicado próximamente.</p>
+                        {/* Texto indicando que el equipo pastoral se publicarÃ¡ prÃ³ximamente */}
+                        <p>El equipo pastoral serÃ¡ publicado prÃ³ximamente.</p>
                     </div>
                 )}
 
-                {/* Muestra la cuadrícula de pastores solo si hay datos disponibles */}
+                {/* Muestra la cuadrÃ­cula de pastores solo si hay datos disponibles */}
                 {!loading && !error && pastors.length > 0 && (
                     <div className="pastors-grid">
                         {/* Recorre la lista de pastores para generar cada tarjeta */}
@@ -105,18 +105,18 @@ export default function PastorsSection({ title = 'Nuestros Pastores', subtitle =
                                         {/* Segundo anillo decorativo alrededor de la foto */}
                                         <div className="pastor-img-ring pastor-img-ring-2" aria-hidden="true"></div>
                                     </div>
-                                    {/* Contenedor con la información del pastor */}
+                                    {/* Contenedor con la informaciÃ³n del pastor */}
                                     <div className="pastor-info">
                                         {/* Insignia con el cargo del pastor */}
                                         <span className="pastor-role-badge">
-                                            {/* Ícono de estrella junto al cargo */}
+                                            {/* Ãcono de estrella junto al cargo */}
                                             <i className="bi bi-star-fill" aria-hidden="true"></i>
                                             {/* Texto con el cargo del pastor */}
                                             {pastor.cargo}
                                         </span>
                                         {/* Nombre del pastor */}
                                         <h3 className="pastor-name">{pastor.nombre}</h3>
-                                        {/* Muestra la biografía solo si existe */}
+                                        {/* Muestra la biografÃ­a solo si existe */}
                                         {pastor.biografia && <p className="pastor-desc">{pastor.biografia}</p>}
                                     </div>
                                 </div>
