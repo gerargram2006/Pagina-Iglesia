@@ -17,9 +17,9 @@ export default function Layout() {
         <>
             {/* Renderiza el contenido de la ruta hija actual */}
             <Outlet />
-            {/* Muestra el pie de pÃ¡gina en todas las pÃ¡ginas */}
+            {/* Muestra el pie de página en todas las páginas */}
             <Footer />
-            {/* Incluye el botÃ³n de volver al inicio */}
+            {/* Incluye el botón de volver al inicio */}
             <ScrollToTop />
         </>
     );
