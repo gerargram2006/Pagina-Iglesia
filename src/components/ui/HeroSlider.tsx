@@ -18,8 +18,8 @@ function isVideoUrl(url: string): boolean {
 /* Slide local de video que siempre se muestra primero (no viene de la API) */
 const LOCAL_VIDEO_SLIDE = {
     id: -1,
-    titulo: '14 EBO - Escuela BÃ­blica',
-    subtitulo: 'Revive los mejores momentos de nuestra congregaciÃ³n en Puerto Maldonado',
+    titulo: '14 EBO - Escuela Bíblica',
+    subtitulo: 'Revive los mejores momentos de nuestra congregación en Puerto Maldonado',
     imagen_url: '/vid/Video de 14 ebo en puerto maldonado.mp4',
     btn_principal: '',
     btn_secundario: '',
