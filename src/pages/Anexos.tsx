@@ -37,7 +37,7 @@ const sedes: Sede[] = [
     {
         id: 3,
         nombre: "Anexo Sur",
-        pastor: "Pastor Luis RamÃ­rez",
+        pastor: "Pastor Luis Ramírez",
         direccion: "Av. El Sol 789, Cono Sur",
         horario: "Domingos 4:00 PM",
         contacto: "+51 987 654 323",
@@ -66,13 +66,13 @@ export default function Anexos() {
 
     return (
         <>
-            <PageHeader title="Nuestros Anexos y Recursos" subtitle="Encuentra una iglesia cerca de ti y accede a material Ãºtil" />
+            <PageHeader title="Nuestros Anexos y Recursos" subtitle="Encuentra una iglesia cerca de ti y accede a material útil" />
             <main>
                 <section className="section">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <h2 className="section-title" data-animate="fade-in-down">Conoce Nuestras Sedes</h2>
                         <p className="section-subtitle" data-animate="fade-in-up">
-                            Encuentra una iglesia cerca de tu casa y Ãºnete a nuestra familia.
+                            Encuentra una iglesia cerca de tu casa y únete a nuestra familia.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -120,7 +120,7 @@ export default function Anexos() {
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <h2 className="section-title" data-animate="fade-in-down">Recursos Descargables</h2>
                         <p className="section-subtitle" data-animate="fade-in-up">
-                            Material de estudio y guÃ­as para tu crecimiento espiritual.
+                            Material de estudio y guías para tu crecimiento espiritual.
                         </p>
                         {loadingRecursos ? (
                             <div className="text-center w-full py-8 text-muted">
