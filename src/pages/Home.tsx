@@ -12,26 +12,26 @@ import HeroSlider from '../components/ui/HeroSlider';
 export default function Home() {
     return (
         <div className="bg-gray-50 min-h-screen">
-            {/* Renderiza la barra de navegaciÃ³n */}
+            {/* Renderiza la barra de navegación */}
             <NavBar />
-            {/* Renderiza el carrusel de imÃ¡genes de la portada */}
+            {/* Renderiza el carrusel de imágenes de la portada */}
             <HeroSlider />
 
-            {/* Etiqueta semÃ¡ntica de contenido principal */}
+            {/* Etiqueta semántica de contenido principal */}
             <main>
-                {/* Muestra la secciÃ³n de horarios de reuniones */}
+                {/* Muestra la sección de horarios de reuniones */}
                 <ScheduleSection />
-                {/* Muestra la secciÃ³n de informaciÃ³n sobre la iglesia */}
+                {/* Muestra la sección de información sobre la iglesia */}
                 <AboutSection />
-                {/* Muestra la galerÃ­a de fotos de la comunidad */}
+                {/* Muestra la galería de fotos de la comunidad */}
                 <GallerySection />
-                {/* Muestra la secciÃ³n de presentaciÃ³n de pastores */}
+                {/* Muestra la sección de presentación de pastores */}
                 <PastorsSection />
                 {/* Muestra el carrusel de eventos destacados */}
                 <EventosSlider />
-                {/* Muestra la secciÃ³n de llamado a la acciÃ³n */}
+                {/* Muestra la sección de llamado a la acción */}
                 <CTASection />
-                {/* Muestra la secciÃ³n de contacto */}
+                {/* Muestra la sección de contacto */}
                 <ContactSection />
             </main>
         </div>
