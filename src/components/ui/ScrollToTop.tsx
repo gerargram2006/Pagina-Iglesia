@@ -24,7 +24,7 @@ export default function ScrollToTop() {
             aria-label="Volver al inicio"
             title="Volver al inicio"
         >
-            {/* Ãcono de flecha hacia arriba */}
+            {/* Ícono de flecha hacia arriba */}
             <i className="bi bi-chevron-up" aria-hidden="true"></i>
         </button>
     );
