@@ -32,7 +32,7 @@ interface EventsSectionProps {
     id?: string;
 }
 
-export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }: EventsSectionProps) {
+export default function EventsSection({ title = "Próximos Eventos", subtitle = "No te pierdas nuestras actividades especiales", id = "eventos" }: EventsSectionProps) {
     const [events, setEvents] = useState<ParsedEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -54,11 +54,11 @@ export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle 
 
     return (
         <section id={id} className="section section-alt">
-            {/* Contenedor central con ancho mÃ¡ximo y mÃ¡rgenes responsivos */}
+            {/* Contenedor central con ancho máximo y márgenes responsivos */}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Muestra el tÃ­tulo solo si existe */}
+                {/* Muestra el título solo si existe */}
                 {title && <h2 className="section-title" data-animate="fade-in-down">{title}</h2>}
-                {/* Muestra el subtÃ­tulo solo si existe */}
+                {/* Muestra el subtítulo solo si existe */}
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
 
                 {/* Muestra el indicador de carga mientras se obtienen los eventos */}
@@ -71,7 +71,7 @@ export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle 
                     </div>
                 )}
 
-                {/* Muestra el mensaje de error si ocurriÃ³ uno */}
+                {/* Muestra el mensaje de error si ocurrió uno */}
                 {error && !loading && (
                     <div className="text-center py-16 text-text-muted">
                         {/* Icono de advertencia */}
@@ -84,7 +84,7 @@ export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle 
                 {/* Muestra un aviso si no hay eventos programados */}
                 {!loading && !error && events.length === 0 && (
                     <div className="text-center py-16 text-text-muted">
-                        {/* Icono de calendario vacÃ­o */}
+                        {/* Icono de calendario vacío */}
                         <i className="bi bi-calendar-x text-2xl block mb-3"></i>
                         {/* Texto indicando que no hay eventos */}
                         <p>No hay eventos programados por el momento.</p>
@@ -104,11 +104,11 @@ export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle 
                                         <img src={event.imageSrc} alt={event.name} />
                                     ) : (
                                         <div className="event-thumb-placeholder">
-                                            {/* Ãcono SVG de calendario como marcador de posiciÃ³n */}
+                                            {/* Ícono SVG de calendario como marcador de posición */}
                                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                                {/* Dibuja la parte superior del Ã­cono del calendario */}
+                                                {/* Dibuja la parte superior del ícono del calendario */}
                                                 <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                                {/* Dibuja el cuerpo del Ã­cono del calendario */}
+                                                {/* Dibuja el cuerpo del ícono del calendario */}
                                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                                             </svg>
                                         </div>
@@ -116,22 +116,22 @@ export default function EventsSection({ title = "PrÃ³ximos Eventos", subtitle 
                                 </div>
                                 {/* Contenedor con la fecha del evento */}
                                 <div className="event-date">
-                                    {/* Muestra el dÃ­a del evento */}
+                                    {/* Muestra el día del evento */}
                                     <span className="event-day">{event.day}</span>
                                     {/* Muestra el mes abreviado */}
                                     <span className="event-month">{event.month}</span>
                                 </div>
-                                {/* Contenedor con la informaciÃ³n del evento */}
+                                {/* Contenedor con la información del evento */}
                                 <div className="event-info">
                                     {/* Muestra la insignia del lugar solo si existe */}
                                     {event.lugar && <span className="event-badge badge-prayer">{event.lugar}</span>}
-                                    {/* TÃ­tulo del evento */}
+                                    {/* Título del evento */}
                                     <h3>{event.name}</h3>
-                                    {/* Muestra la descripciÃ³n solo si existe */}
+                                    {/* Muestra la descripción solo si existe */}
                                     {event.description && <p>{event.description}</p>}
-                                    {/* Enlace para obtener mÃ¡s informaciÃ³n del evento */}
+                                    {/* Enlace para obtener más información del evento */}
                                     <a href="#contacto" className="event-link">
-                                        MÃ¡s informaciÃ³n <i className="bi bi-arrow-right" aria-hidden="true"></i>
+                                        Más información <i className="bi bi-arrow-right" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
