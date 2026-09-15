@@ -80,6 +80,7 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 - **UI/UX Improvements**: Redesigned Donations page with impact cards, updated Social Media links, and added a floating "Scroll to Top" button.
 - **Database Utilities**: Added robust scripts (`fix_db_all.ts` and `fix_db.ts`) to sanitize and correct text encoding issues in the database.
 - **JSX Syntax Fixes**: Systematically removed inline JavaScript comments (`//`) from JSX structures that were breaking the UI rendering across more than 40 frontend components.
+- **UTF-8 Encoding Fixes**: Systematically corrected character encoding issues (accents and special characters) across all frontend components and pages to ensure proper text rendering.
 - **Docker Initialization Fix**: Manually integrated the `migrate_crud.sql` migration to recreate missing tables (`galeria` and `slides`), resolving image loading errors in the frontend after a database reset.
 
 ---

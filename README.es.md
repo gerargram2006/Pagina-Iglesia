@@ -80,6 +80,7 @@ El diseño visual, la estructura y la experiencia de usuario (UX/UI) fueron plan
 - **Reorganización de Arquitectura**: Se reestructuró la carpeta `src/components` del frontend en subdirectorios lógicos (`layout`, `sections` y `ui`) para mejorar la escalabilidad, y se limpió el backend moviendo los archivos auxiliares a una carpeta `scripts` dedicada.
 - **Utilidades de Base de Datos**: Se añadieron scripts robustos (`fix_db_all.ts` y `fix_db.ts`) para sanear y corregir problemas de codificación de texto en la base de datos.
 - **Corrección de Sintaxis JSX**: Se eliminaron sistemáticamente los comentarios de JavaScript (`//`) dentro de la estructura JSX que rompían el renderizado en más de 40 componentes frontend.
+- **Corrección de Codificación UTF-8**: Se corrigieron sistemáticamente los problemas de codificación de caracteres (acentos y caracteres especiales) en todos los componentes y páginas del frontend para garantizar una renderización de texto adecuada.
 - **Corrección de Inicialización Docker**: Se integró manualmente la migración `migrate_crud.sql` para recrear las tablas faltantes (`galeria` y `slides`), resolviendo los errores de carga de imágenes en el frontend tras un reinicio de la base de datos.
 
 ---
