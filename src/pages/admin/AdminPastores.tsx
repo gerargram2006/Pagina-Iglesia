@@ -1,3 +1,4 @@
+// AdminPastores.tsx: CRUD para gestionar el equipo pastoral.
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiPastor } from '../../api';
 

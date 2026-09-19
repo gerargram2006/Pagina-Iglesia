@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// RedesSociales.tsx: Página con enlaces a las redes sociales de la iglesia.
+import PageHeader from '../components/layout/PageHeader';
 
 export default function RedesSociales() {
     const redes = [

@@ -1,3 +1,4 @@
+// AuthContext.tsx: Provee autenticación (login, logout y sesión) a toda la app.
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { api, type AuthResponse } from '../api';
 

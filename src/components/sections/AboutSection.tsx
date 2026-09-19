@@ -1,4 +1,5 @@
-﻿interface AboutSectionProps {
+﻿// AboutSection.tsx: Sección "Quiénes Somos" con misión, estadísticas y valores.
+interface AboutSectionProps {
     title?: string | null;
     subtitle?: string | null;
     id?: string;

@@ -1,3 +1,4 @@
+// AdminGaleria.tsx: CRUD para gestionar las fotos de la galería.
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiGaleria } from '../../api';
 

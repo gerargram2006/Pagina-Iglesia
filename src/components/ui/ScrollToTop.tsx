@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from 'react';
+﻿// ScrollToTop.tsx: Botón flotante para volver arriba de la página.
+import { useState, useEffect } from 'react';
 
 export default function ScrollToTop() {
     const [visible, setVisible] = useState(false);

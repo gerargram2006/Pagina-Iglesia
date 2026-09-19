@@ -1,3 +1,4 @@
+// AdminEventos.tsx: CRUD para gestionar los eventos de la iglesia.
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiEvento } from '../../api';
 

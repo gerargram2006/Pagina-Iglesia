@@ -1,3 +1,4 @@
+// AdminAnuncios.tsx: CRUD para gestionar anuncios de la congregación.
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiAnuncio } from '../../api';
 

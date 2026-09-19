@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// Horarios.tsx: Página de horarios y agenda de cultos.
+import PageHeader from '../components/layout/PageHeader';
 import Events from '../components/sections/Events';
 import ScheduleSection from '../components/sections/ScheduleSection';
 

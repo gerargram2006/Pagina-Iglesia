@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react';
+﻿// PastorsSection.tsx: Sección que muestra las tarjetas del equipo pastoral.
+import { useEffect, useState } from 'react';
 import { api, type ApiPastor } from '../../api';
 
 function initials(name: string): string {

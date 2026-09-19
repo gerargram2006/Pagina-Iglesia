@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿// Hero.tsx: Portada estática de bienvenida con botones.
+import React from 'react';
 
 const Hero: React.FC = () => {
     return (

@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from 'react';
+﻿// GallerySection.tsx: Sección que muestra la galería de fotos de la comunidad.
+import { useState, useEffect } from 'react';
 import { api, type ApiGaleria } from '../../api';
 
 interface GallerySectionProps {

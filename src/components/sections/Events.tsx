@@ -1,4 +1,5 @@
-﻿// Importa los hooks de React para manejar estado, efectos y memoización
+﻿// Events.tsx: Embebe el calendario de Google y muestra los cultos semanales.
+// Importa los hooks de React para manejar estado, efectos y memoización
 import { useState, useEffect, useMemo } from 'react';
 
 // Tipos de vista soportados por el calendario embebido de Google

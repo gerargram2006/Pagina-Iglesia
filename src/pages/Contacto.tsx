@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// Contacto.tsx: Página de contacto con formulario e información.
+import PageHeader from '../components/layout/PageHeader';
 import ContactSection from '../components/sections/ContactSection';
 
 export default function Contacto() {

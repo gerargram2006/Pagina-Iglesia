@@ -1,3 +1,11 @@
+/* styles.css: Hoja de estilos global de la iglesia.
+   Contiene todo el diseño del sitio: variables de color (verde bosque y
+   dorado eclesiástico), tipografías, la navbar con efecto glassmorphism,
+   las secciones de la web (horarios, pastores, galería, eventos, contacto,
+   anexos, footer), la página de login y el panel de administración con sus
+   tablas, modales y bandeja de mensajes. Incluye animaciones al hacer
+   scroll y estilos responsivos para tablet y móvil. */
+
 /* ==========================================================================
    ASAMBLEA DE DIOS - ESTILOS GLOBALES (PREMIUM REDESIGN)
    ==========================================================================

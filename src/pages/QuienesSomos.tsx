@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// QuienesSomos.tsx: Página con la historia y misión de la iglesia.
+import PageHeader from '../components/layout/PageHeader';
 import AboutSection from '../components/sections/AboutSection';
 
 export default function QuienesSomos() {

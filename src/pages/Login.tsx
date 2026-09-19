@@ -1,3 +1,4 @@
+// Login.tsx: Formulario de inicio de sesión del panel de administración.
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

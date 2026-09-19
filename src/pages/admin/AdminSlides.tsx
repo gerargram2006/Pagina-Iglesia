@@ -1,3 +1,4 @@
+// AdminSlides.tsx: CRUD para gestionar los slides del Hero principal.
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiSlide } from '../../api';
 

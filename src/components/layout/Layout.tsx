@@ -1,4 +1,5 @@
-﻿import { Outlet, useLocation } from 'react-router-dom';
+﻿// Layout.tsx: Envuelve las páginas con el footer y el botón de volver arriba.
+import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Footer from './Footer';
 import ScrollToTop from '../ui/ScrollToTop';

@@ -1,4 +1,5 @@
-﻿import { useRef, useState, useEffect } from 'react';
+﻿// HeroSlider.tsx: Slider principal con imágenes/videos de la portada.
+import { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import { api, type ApiSlide } from '../../api';

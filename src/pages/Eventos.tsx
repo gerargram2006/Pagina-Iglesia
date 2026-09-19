@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// Eventos.tsx: Página que muestra la lista de eventos de la iglesia.
+import PageHeader from '../components/layout/PageHeader';
 import EventsSection from '../components/sections/EventsSection';
 
 export default function Eventos() {

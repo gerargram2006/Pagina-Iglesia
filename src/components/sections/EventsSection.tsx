@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from 'react';
+﻿// EventsSection.tsx: Sección que lista los próximos eventos de la iglesia.
+import { useState, useEffect } from 'react';
 import { api, type ApiEvento } from '../../api';
 
 const MONTHS_ES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];

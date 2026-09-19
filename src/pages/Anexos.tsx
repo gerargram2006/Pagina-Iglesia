@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react';
+﻿// Anexos.tsx: Muestra las sedes/anexos de la iglesia y los recursos descargables.
+import { useEffect, useState } from 'react';
 import PageHeader from '../components/layout/PageHeader';
 import { api, type ApiRecurso } from '../api';
 

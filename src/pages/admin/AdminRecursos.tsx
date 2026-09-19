@@ -1,3 +1,4 @@
+// AdminRecursos.tsx: CRUD para gestionar recursos descargables (PDFs).
 import { useEffect, useState } from 'react';
 import { api, getUploadUrl, type ApiRecurso } from '../../api';
 

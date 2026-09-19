@@ -1,4 +1,5 @@
-﻿interface CTASectionProps {
+﻿// CTASection.tsx: Sección de llamado a la acción para unirse a la iglesia.
+interface CTASectionProps {
     id?: string;
 }
 

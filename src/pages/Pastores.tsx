@@ -1,4 +1,5 @@
-﻿import PageHeader from '../components/layout/PageHeader';
+﻿// Pastores.tsx: Página que presenta al equipo pastoral.
+import PageHeader from '../components/layout/PageHeader';
 import PastorsSection from '../components/sections/PastorsSection';
 
 export default function Pastores() {

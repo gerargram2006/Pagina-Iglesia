@@ -1,4 +1,5 @@
-﻿import { useState } from 'react';
+﻿// ContactSection.tsx: Sección de contacto con formulario, datos y mapa.
+import { useState } from 'react';
 import { api, type MensajeInput } from '../../api';
 
 interface ContactSectionProps {

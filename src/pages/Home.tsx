@@ -1,4 +1,5 @@
-﻿import NavBar from '../components/layout/NavBar';
+﻿// Home.tsx: Página principal que une todas las secciones del sitio.
+import NavBar from '../components/layout/NavBar';
 import ScheduleSection from '../components/sections/ScheduleSection';
 import AboutSection from '../components/sections/AboutSection';
 import GallerySection from '../components/sections/GallerySection';

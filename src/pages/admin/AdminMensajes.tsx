@@ -1,3 +1,4 @@
+// AdminMensajes.tsx: Bandeja de entrada con los mensajes de contacto recibidos.
 import { useEffect, useState } from 'react';
 import { api, type ApiMensaje } from '../../api';
 

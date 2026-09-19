@@ -1,4 +1,5 @@
-﻿interface ScheduleSectionProps {
+﻿// ScheduleSection.tsx: Sección con los horarios de culto y anexos.
+interface ScheduleSectionProps {
     title?: string | null;
     subtitle?: string | null;
     id?: string;

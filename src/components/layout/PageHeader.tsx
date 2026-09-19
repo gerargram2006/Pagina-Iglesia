@@ -1,3 +1,4 @@
+// PageHeader.tsx: Encabezado con imagen de fondo, título y subtítulo.
 import NavBar from './NavBar';
 
 interface PageHeaderProps {

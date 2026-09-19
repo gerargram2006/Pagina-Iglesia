@@ -1,3 +1,4 @@
+// AdminHorarios.tsx: CRUD para gestionar los horarios de reuniones.
 import { useEffect, useState } from 'react';
 import { api, type ApiHorario } from '../../api';
 

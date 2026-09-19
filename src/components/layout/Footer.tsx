@@ -1,3 +1,4 @@
+// Footer.tsx: Pie de página con enlaces, redes sociales y horario.
 import { Link } from 'react-router-dom';
 
 export default function Footer() {

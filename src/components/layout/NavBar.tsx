@@ -1,3 +1,4 @@
+// NavBar.tsx: Barra de navegación fija con menú móvil e inicio de sesión.
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
