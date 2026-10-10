@@ -1,4 +1,4 @@
-﻿// Horarios.tsx: Página de horarios y agenda de cultos.
+// Horarios.tsx: Página de horarios y agenda de cultos.
 import PageHeader from '../components/layout/PageHeader';
 import Events from '../components/sections/Events';
 import ScheduleSection from '../components/sections/ScheduleSection';
@@ -9,7 +9,7 @@ export default function Horarios() {
             <PageHeader title="Horarios" subtitle="Conoce nuestros horarios de reunión" />
             <main>
                 <Events />
-                <ScheduleSection title={null} subtitle={null} id="anexos-horarios" showCentral={false} />
+                <ScheduleSection title={null} subtitle={null} id="anexos-horarios" showCentral={true} />
             </main>
         </>
     );
