@@ -16,6 +16,8 @@ import { config } from './config';
 import { verificarToken } from './middleware/auth';
 // Importa el middleware de subida de archivos (multer)
 import { upload } from './middleware/upload';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
 // Define la estructura de un registro de la tabla "usuarios"
 interface UsuarioRow extends RowDataPacket {
@@ -598,6 +600,10 @@ function requireAffected(result: ResultSetHeader, resource: string): void {
 
 // Oculta el encabezado que revela que el servidor usa Express
 app.disable('x-powered-by');
+// Habilita Headers de seguridad con Helmet
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" } // Permite cargar imágenes desde /uploads
+}));
 // Habilita CORS con las opciones configuradas
 app.use(cors(corsOptions));
 // Permite leer cuerpos de petición en formato JSON (máximo 100kb)
@@ -606,6 +612,24 @@ app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true }));
 // Sirve los archivos subidos desde la carpeta "uploads"
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Limita intentos de login
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  limit: 10,
+  message: { error: 'Demasiados intentos de inicio de sesión. Intente más tarde.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Limita envío de mensajes de contacto
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hora
+  limit: 5,
+  message: { error: 'Demasiados mensajes enviados. Intente más tarde.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Ruta de salud: comprueba que el servidor y la base de datos respondan
 app.get('/api/health', asyncHandler(async (_req, res) => {
@@ -626,7 +650,7 @@ app.get('/api/eventos', asyncHandler(async (_req, res) => {
 }));
 
 // Ruta de inicio de sesión: autentica al usuario y devuelve un token JWT
-app.post('/api/auth/login', asyncHandler(async (req, res) => {
+app.post('/api/auth/login', loginLimiter, asyncHandler(async (req, res) => {
   // Obtiene el cuerpo de la petición validado como objeto
   const data = requireBody(req.body);
   // Valida el correo electrónico
@@ -772,7 +796,7 @@ app.delete('/api/pastores/:id', verificarToken, asyncHandler(async (req, res) =>
 }));
 
 // Ruta pública: registra un mensaje de contacto del formulario
-app.post('/api/mensajes', asyncHandler(async (req, res) => {
+app.post('/api/mensajes', contactLimiter, asyncHandler(async (req, res) => {
   // Valida los datos del mensaje
   const mensaje = validateMensaje(req.body);
   // Combina el asunto con el mensaje si existe asunto
