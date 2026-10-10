@@ -38,15 +38,23 @@ export const upload = multer({
   limits: {
     fileSize: 5 * 1024 * 1024 // 5MB limit
   },
-  // Filtro para aceptar solo ciertos tipos de archivos
+  // Filtro para aceptar solo ciertos tipos de archivos y extensiones
   fileFilter: (_req, file, cb) => {
-    // Si el archivo es una imagen o un PDF
-    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') {
+    // Definir extensiones y mimetypes permitidos
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.pdf'];
+    
+    const ext = path.extname(file.originalname).toLowerCase();
+    const isMimeTypeAllowed = allowedMimeTypes.includes(file.mimetype);
+    const isExtensionAllowed = allowedExtensions.includes(ext);
+
+    // Si el archivo es una imagen permitida o un PDF, y su extensión coincide
+    if (isMimeTypeAllowed && isExtensionAllowed) {
       // Acepta el archivo
       cb(null, true);
     } else {
       // Rechaza el archivo con un error
-      cb(new Error('Solo se permiten imágenes o archivos PDF.'));
+      cb(new Error('Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP) o PDF.'));
     }
   }
 });
