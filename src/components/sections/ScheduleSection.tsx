@@ -1,4 +1,6 @@
-﻿// ScheduleSection.tsx: Sección con los horarios de culto y anexos.
+// ScheduleSection.tsx: Sección con los horarios de culto y anexos.
+import { Sun, BookOpen, Cross, Music } from 'lucide-react';
+
 interface ScheduleSectionProps {
     title?: string | null;
     subtitle?: string | null;
