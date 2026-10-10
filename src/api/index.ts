@@ -148,6 +148,9 @@ async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): Promise
   const data: unknown = response.status === 204 ? null : await response.json().catch(() => null);
 
   if (!response.ok) {
+    if (response.status === 401) {
+      window.dispatchEvent(new Event('auth:logout'));
+    }
     const errorData = data as ApiErrorResponse | null;
     throw new Error(errorData?.error || errorData?.message || `Error HTTP ${response.status}`);
   }

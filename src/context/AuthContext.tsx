@@ -52,6 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } finally {
             setLoading(false);
         }
+
+        const handleLogoutEvent = () => logout();
+        window.addEventListener('auth:logout', handleLogoutEvent);
+        return () => window.removeEventListener('auth:logout', handleLogoutEvent);
     }, []);
 
     const login = async (email: string, password: string): Promise<AuthUser> => {
