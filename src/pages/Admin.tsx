@@ -103,7 +103,7 @@ export default function Admin() {
                         miembros: pastoresRes.length,
                         eventos: eventosRes.length,
                         mensajes: mensajesRes.length,
-                        visitas: '124'
+                        visitas: '--'
                     });
                 } catch (e) {
                     console.error("Error al cargar estadísticas", e);
