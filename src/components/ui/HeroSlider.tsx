@@ -1,4 +1,4 @@
-﻿// HeroSlider.tsx: Slider principal con imágenes/videos de la portada.
+// HeroSlider.tsx: Slider principal con imágenes/videos de la portada.
 import { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
@@ -31,6 +31,7 @@ const LOCAL_VIDEO_SLIDE = {
 const HeroSlider = () => {
     const prevRef = useRef<HTMLDivElement>(null);
     const nextRef = useRef<HTMLDivElement>(null);
+    const swiperRef = useRef<any>(null);
     const [slides, setSlides] = useState<ApiSlide[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -64,6 +65,7 @@ const HeroSlider = () => {
     return (
         <div className="relative w-full h-[60vh] md:h-screen">
             <Swiper
+                ref={swiperRef}
                 modules={[Navigation, Pagination, Autoplay, EffectFade]}
                 effect="fade"
                 navigation={{
@@ -90,57 +92,60 @@ const HeroSlider = () => {
                     return (
                         <SwiperSlide key={slide.id} className="relative w-full h-full">
 
-                            {/* â”€â”€ FONDO: VIDEO O IMAGEN â”€â”€ */}
                             {isVideo ? (
-                                <video
-                                    src={slide.imagen_url}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    style={{ objectPosition: 'center 30%' }}
-                                />
-                            ) : (
-                                <img
-                                    src={slide.imagen_url}
-                                    alt={slide.titulo}
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                />
-                            )}
-
-                            {/* â”€â”€ OVERLAY DEGRADADO â”€â”€ */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20"></div>
-
-                            {/* â”€â”€ CONTENIDO â”€â”€ */}
-                            <div className="absolute bottom-0 w-full px-6 pb-20 sm:px-16 sm:pb-28 flex flex-col sm:flex-row justify-between items-end gap-8 z-10">
-
-                                <div className="text-white max-w-3xl">
-                                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 leading-[1.1] whitespace-pre-line drop-shadow-lg font-playfair">
-                                        {slide.titulo}
-                                    </h1>
-                                    {slide.subtitulo && (
-                                        <p className="text-base sm:text-lg md:text-xl text-gray-200 font-medium max-w-2xl drop-shadow-md font-inter">
-                                            {slide.subtitulo}
-                                        </p>
-                                    )}
+                                /* MODO REPRODUCTOR DE VIDEO REAL */
+                                <div className="w-full h-full bg-black flex justify-center items-center">
+                                    <video
+                                        src={slide.imagen_url}
+                                        controls
+                                        muted
+                                        playsInline
+                                        onPlay={() => swiperRef.current?.swiper.autoplay.stop()}
+                                        onPause={() => swiperRef.current?.swiper.autoplay.start()}
+                                        onEnded={() => swiperRef.current?.swiper.autoplay.start()}
+                                        className="w-full h-full object-contain z-30 relative"
+                                    ></video>
                                 </div>
+                            ) : (
+                                /* MODO IMAGEN DE FONDO */
+                                <>
+                                    <img
+                                        src={slide.imagen_url}
+                                        alt={slide.titulo}
+                                        className="absolute inset-0 w-full h-full object-cover z-0"
+                                    />
+                                    
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/40 to-black/20 z-10"></div>
 
-                                {(slide.btn_principal || slide.btn_secundario) && (
-                                    <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
-                                        {slide.btn_principal && (
-                                            <button className="px-7 py-3.5 bg-white text-black font-bold rounded-full hover:bg-gray-200 hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto shadow-xl text-sm tracking-wide">
-                                                {slide.btn_principal}
-                                            </button>
-                                        )}
-                                        {slide.btn_secundario && (
-                                            <button className="px-7 py-3.5 bg-black/30 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/50 hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto shadow-xl text-sm tracking-wide">
-                                                {slide.btn_secundario}
-                                            </button>
+                                    <div className="absolute bottom-0 w-full px-6 pb-20 sm:px-16 sm:pb-28 flex flex-col sm:flex-row justify-between items-end gap-8 z-20 pointer-events-none">
+                                        <div className="text-white max-w-3xl pointer-events-auto">
+                                            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 leading-[1.1] whitespace-pre-line drop-shadow-lg font-playfair">
+                                                {slide.titulo}
+                                            </h1>
+                                            {slide.subtitulo && (
+                                                <p className="text-base sm:text-lg md:text-xl text-gray-200 font-medium max-w-2xl drop-shadow-md font-inter">
+                                                    {slide.subtitulo}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        {(slide.btn_principal || slide.btn_secundario) && (
+                                            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3 pointer-events-auto">
+                                                {slide.btn_principal && (
+                                                    <button className="px-7 py-3.5 bg-white text-black font-bold rounded-full hover:bg-gray-200 hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto shadow-xl text-sm tracking-wide">
+                                                        {slide.btn_principal}
+                                                    </button>
+                                                )}
+                                                {slide.btn_secundario && (
+                                                    <button className="px-7 py-3.5 bg-black/30 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-black/50 hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto shadow-xl text-sm tracking-wide">
+                                                        {slide.btn_secundario}
+                                                    </button>
+                                                )}
+                                            </div>
                                         )}
                                     </div>
-                                )}
-                            </div>
+                                </>
+                            )}
                         </SwiperSlide>
                     );
                 })}
