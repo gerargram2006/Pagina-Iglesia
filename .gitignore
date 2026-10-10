@@ -48,3 +48,7 @@ dist-ssr/
 # Carpeta de vídeos locales (ej: video promocional de Puerto Maldonado).
 # No se suben a Git por su tamaño/peso. Deben existir localmente en el servidor.
 public/vid/
+
+# --- Configuraciones de Agentes AI ---
+.agents/
+
