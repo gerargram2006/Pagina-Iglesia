@@ -23,43 +23,58 @@ export default function ScheduleSection({
                 {subtitle && <p className="section-subtitle" data-animate="fade-in-up">{subtitle}</p>}
 
                 {/* Horarios Iglesia Central */}
-                {showCentral && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {/* Domingo */}
-                        <div className="schedule-card delay-1" data-animate="fade-in-up">
-                            <span className="schedule-step-number" aria-hidden="true">01</span>
-                            <span className="schedule-icon">â›ª</span>
-                            <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Domingo</div>
-                            <div className="schedule-time">10:30 AM</div>
-                            <div className="schedule-name">Culto Dominical</div>
+{showCentral && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {/* Tarjeta 1: Domingo */}
+                        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center shadow-lg hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                            <span className="absolute top-4 right-4 text-5xl font-bold text-gray-50 opacity-50 transition-opacity group-hover:opacity-100">01</span>
+                            
+                            <div className="w-16 h-16 mx-auto bg-[#fdfaf2] rounded-full flex justify-center items-center mb-6 relative z-10">
+                                <Sun className="w-8 h-8 text-[#d4af37]" />
+                            </div>
+                            <div className="w-12 h-[2px] bg-[#d4af37] mx-auto mb-4 opacity-50"></div>
+                            <h3 className="text-xl font-bold text-[#4a5d4e] mb-2 relative z-10">Domingo</h3>
+                            <p className="text-[#d4af37] font-bold mb-1 relative z-10">10:30 AM</p>
+                            <p className="text-gray-500 text-sm relative z-10">Culto Dominical</p>
                         </div>
-                        {/* Miércoles */}
-                        <div className="schedule-card delay-2" data-animate="fade-in-up">
-                            <span className="schedule-step-number" aria-hidden="true">02</span>
-                            <span className="schedule-icon">ðŸ“–</span>
-                            <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Miércoles</div>
-                            <div className="schedule-time">6:00 PM - 8:00 PM</div>
-                            <div className="schedule-name">Culto de Enseñanza</div>
+
+                        {/* Tarjeta 2: Miércoles */}
+                        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center shadow-lg hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                            <span className="absolute top-4 right-4 text-5xl font-bold text-gray-50 opacity-50 transition-opacity group-hover:opacity-100">02</span>
+                            
+                            <div className="w-16 h-16 mx-auto bg-[#fdfaf2] rounded-full flex justify-center items-center mb-6 relative z-10">
+                                <BookOpen className="w-8 h-8 text-[#d4af37]" />
+                            </div>
+                            <div className="w-12 h-[2px] bg-[#d4af37] mx-auto mb-4 opacity-50"></div>
+                            <h3 className="text-xl font-bold text-[#4a5d4e] mb-2 relative z-10">Miércoles</h3>
+                            <p className="text-[#d4af37] font-bold mb-1 relative z-10">6:00 PM - 8:00 PM</p>
+                            <p className="text-gray-500 text-sm relative z-10">Culto de Enseñanza</p>
                         </div>
-                        {/* Viernes */}
-                        <div className="schedule-card delay-3" data-animate="fade-in-up">
-                            <span className="schedule-step-number" aria-hidden="true">03</span>
-                            <span className="schedule-icon">âœï¸</span>
-                            <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Viernes</div>
-                            <div className="schedule-time">6:00 PM - 8:00 PM</div>
-                            <div className="schedule-name">Culto de Doctrina</div>
+
+                        {/* Tarjeta 3: Viernes */}
+                        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center shadow-lg hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                            <span className="absolute top-4 right-4 text-5xl font-bold text-gray-50 opacity-50 transition-opacity group-hover:opacity-100">03</span>
+                            
+                            <div className="w-16 h-16 mx-auto bg-[#fdfaf2] rounded-full flex justify-center items-center mb-6 relative z-10">
+                                <Cross className="w-8 h-8 text-[#d4af37]" />
+                            </div>
+                            <div className="w-12 h-[2px] bg-[#d4af37] mx-auto mb-4 opacity-50"></div>
+                            <h3 className="text-xl font-bold text-[#4a5d4e] mb-2 relative z-10">Viernes</h3>
+                            <p className="text-[#d4af37] font-bold mb-1 relative z-10">6:00 PM - 8:00 PM</p>
+                            <p className="text-gray-500 text-sm relative z-10">Culto de Doctrina</p>
                         </div>
-                        {/* Sábado */}
-                        <div className="schedule-card delay-4" data-animate="fade-in-up">
-                            <span className="schedule-step-number" aria-hidden="true">04</span>
-                            <span className="schedule-icon">â­</span>
-                            <div className="schedule-divider" aria-hidden="true"></div>
-                            <div className="schedule-day">Sábado</div>
-                            <div className="schedule-time">5:00 PM - 7:00 PM</div>
-                            <div className="schedule-name">Culto de Jóvenes</div>
+
+                        {/* Tarjeta 4: Sábado */}
+                        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center shadow-lg hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+                            <span className="absolute top-4 right-4 text-5xl font-bold text-gray-50 opacity-50 transition-opacity group-hover:opacity-100">04</span>
+                            
+                            <div className="w-16 h-16 mx-auto bg-[#fdfaf2] rounded-full flex justify-center items-center mb-6 relative z-10">
+                                <Music className="w-8 h-8 text-[#d4af37]" />
+                            </div>
+                            <div className="w-12 h-[2px] bg-[#d4af37] mx-auto mb-4 opacity-50"></div>
+                            <h3 className="text-xl font-bold text-[#4a5d4e] mb-2 relative z-10">Sábado</h3>
+                            <p className="text-[#d4af37] font-bold mb-1 relative z-10">5:00 PM - 7:00 PM</p>
+                            <p className="text-gray-500 text-sm relative z-10">Culto de Jóvenes</p>
                         </div>
                     </div>
                 )}
