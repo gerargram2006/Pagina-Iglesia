@@ -1,4 +1,4 @@
-﻿// ContactSection.tsx: Sección de contacto con formulario, datos y mapa.
+// ContactSection.tsx: Sección de contacto con formulario, datos y mapa.
 import { useState } from 'react';
 import { api, type MensajeInput } from '../../api';
 
@@ -65,7 +65,7 @@ export default function ContactSection({ title = "Contacto", subtitle = "Estamos
                                     {/* Título del elemento */}
                                     <h4>Dirección</h4>
                                     {/* Dirección completa de la iglesia */}
-                                    <p>Comandante Canga NÂ° 416, Mariano Melgar 04006, Arequipa</p>
+                                    <p>Comandante Canga N° 416, Mariano Melgar 04006, Arequipa</p>
                                 </div>
                             </div>
                             {/* Segundo elemento con el horario principal */}

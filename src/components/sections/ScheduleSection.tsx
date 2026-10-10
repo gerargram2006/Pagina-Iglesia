@@ -140,7 +140,7 @@ export default function ScheduleSection({
                                 </div>
                                 <div className="text-sm text-text-muted mt-auto pt-5 border-t border-gray-100 flex items-center justify-center gap-2">
                                     <i className="bi bi-geo-alt-fill text-gold-500 text-lg"></i>
-                                    Av. Huascar NÂ° 203, Selva Alegre 04004
+                                    Av. Huascar N° 203, Selva Alegre 04004
                                 </div>
                             </div>
                         </div>
