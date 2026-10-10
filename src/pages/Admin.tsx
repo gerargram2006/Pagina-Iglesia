@@ -88,7 +88,7 @@ export default function Admin() {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('Dashboard');
-    const [stats, setStats] = useState<AdminStats>({ miembros: '--', eventos: '--', mensajes: '--', visitas: '124' });
+    const [stats, setStats] = useState<AdminStats>({ miembros: '--', eventos: '--', mensajes: '--', visitas: '--' });
 
     useEffect(() => {
         if (activeTab === 'Dashboard') {
