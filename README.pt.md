@@ -81,6 +81,7 @@ O design visual, a estrutura e a experiência do usuário (UX/UI) foram planejad
 - **Utilitários de Banco de Dados**: Adicionados scripts robustos (`fix_db_all.ts` e `fix_db.ts`) para sanitizar e corrigir problemas de codificação de texto no banco de dados.
 - **Correção de Sintaxe JSX**: Foram removidos sistematicamente os comentários JavaScript (`//`) dentro da estrutura JSX que estavam quebrando a renderização em mais de 40 componentes frontend.
 - **Correção de Codificação UTF-8**: Foram corrigidos sistematicamente os problemas de codificação de caracteres (acentos e caracteres especiais) em todos os componentes e páginas do frontend para garantir a renderização correta do texto.
+- **Documentação no Código**: Foram adicionados comentários descritivos no cabeçalho de todos os componentes e páginas React para explicar seu propósito arquitetônico e uso.
 - **Correção da Inicialização do Docker**: Foi integrada manualmente a migração `migrate_crud.sql` para recriar as tabelas ausentes (`galeria` e `slides`), resolvendo os erros de carregamento de imagens no frontend após a recriação do banco de dados.
 
 ---

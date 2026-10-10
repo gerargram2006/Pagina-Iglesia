@@ -81,6 +81,7 @@ The visual design, structure, and user experience (UX/UI) were planned and appro
 - **Database Utilities**: Added robust scripts (`fix_db_all.ts` and `fix_db.ts`) to sanitize and correct text encoding issues in the database.
 - **JSX Syntax Fixes**: Systematically removed inline JavaScript comments (`//`) from JSX structures that were breaking the UI rendering across more than 40 frontend components.
 - **UTF-8 Encoding Fixes**: Systematically corrected character encoding issues (accents and special characters) across all frontend components and pages to ensure proper text rendering.
+- **In-code Documentation**: Added descriptive header comments to all React components and pages to explain their architectural purpose and usage.
 - **Docker Initialization Fix**: Manually integrated the `migrate_crud.sql` migration to recreate missing tables (`galeria` and `slides`), resolving image loading errors in the frontend after a database reset.
 
 ---
